@@ -16,6 +16,8 @@
 
 */
 import React from "react";
+import axios from "axios";
+import { DEFAULT_URL } from "../config";
 
 // reactstrap components
 import {
@@ -32,6 +34,8 @@ import {
   Row,
   Col
 } from "reactstrap";
+
+const path = require("path");
 
 class Register extends React.Component {
   render() {
@@ -129,7 +133,12 @@ class Register extends React.Component {
                       >
                         <span className="text-muted">
                           I agree with the{" "}
-                          <a href="#pablo" onClick={e => e.preventDefault()}>
+                          <a
+                            href="#pablo"
+                            onClick={e => {
+                              e.preventDefault();
+                            }}
+                          >
                             Privacy Policy
                           </a>
                         </span>

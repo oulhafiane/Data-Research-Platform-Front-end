@@ -1,0 +1,1 @@
+export const DEFAULT_URL = 'http://27.0.0.1:8000'
