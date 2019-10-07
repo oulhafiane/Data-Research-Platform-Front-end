@@ -17,6 +17,7 @@
 */
 import React from "react";
 import axios from "axios";
+import InputText from "../components/Inputs/Input";
 import { DEFAULT_URL } from "../config";
 
 // reactstrap components
@@ -25,19 +26,71 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
   Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Row,
-  Col
+  Col,
+  Alert
 } from "reactstrap";
 
-const path = require("path");
-
 class Register extends React.Component {
+  state = {
+    person: {
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      phone: "",
+      type: "customer"
+    },
+    showSuccess: false,
+    showWarning: false,
+    showGlobalWarning: false,
+    extras: {},
+    seconds: 5,
+    accepted: false
+  };
+
+  submitData = () => {
+    this.setState({ showWarning: false });
+    if (this.state.accepted === false) {
+      this.setState({ showWarning: true });
+      return;
+    }
+    axios
+      .post(`${DEFAULT_URL}api/register`, this.state.person)
+      .then(res => {
+        this.setState({ extras: {} });
+        this.setState({ showSuccess: true });
+        const intervalID = setInterval(() => {
+          this.setState({ seconds: this.state.seconds - 1 });
+          if (this.state.seconds === 0) {
+            window.clearInterval(intervalID);
+          }
+        }, 1000);
+        setTimeout(() => {
+          this.props.history.push("/auth/login");
+        }, 5000);
+      })
+      .catch(error => {
+        if (error.response.data && error.response.data.extras) {
+          this.setState({ extras: error.response.data.extras });
+        } else {
+          this.setState({ showGlobalWarning: true });
+        }
+      });
+  };
+
+  onChange = e =>
+    this.setState({
+      person: { ...this.state.person, [e.target.name]: e.target.value }
+    });
+
+  onCheck = e => {
+    this.setState({
+      accepted: e.target.checked
+    });
+  };
+
   render() {
     return (
       <>
@@ -48,20 +101,6 @@ class Register extends React.Component {
                 <small>Sign up with</small>
               </div>
               <div className="text-center">
-                <Button
-                  className="btn-neutral btn-icon mr-4"
-                  color="default"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
-                  <span className="btn-inner--icon">
-                    <img
-                      alt="..."
-                      src={require("assets/img/icons/common/github.svg")}
-                    />
-                  </span>
-                  <span className="btn-inner--text">Github</span>
-                </Button>
                 <Button
                   className="btn-neutral btn-icon"
                   color="default"
@@ -83,36 +122,73 @@ class Register extends React.Component {
                 <small>Or sign up with credentials</small>
               </div>
               <Form role="form">
-                <FormGroup>
-                  <InputGroup className="input-group-alternative mb-3">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="ni ni-hat-3" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input placeholder="Name" type="text" />
-                  </InputGroup>
-                </FormGroup>
-                <FormGroup>
-                  <InputGroup className="input-group-alternative mb-3">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="ni ni-email-83" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input placeholder="Email" type="email" />
-                  </InputGroup>
-                </FormGroup>
-                <FormGroup>
-                  <InputGroup className="input-group-alternative">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="ni ni-lock-circle-open" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input placeholder="Password" type="password" />
-                  </InputGroup>
-                </FormGroup>
+                <InputText
+                  icon="ni ni-hat-3"
+                  placeholder="First Name"
+                  type="Text"
+                  name="firstName"
+                  onChange={this.onChange}
+                  stateError={this.state.extras.firstName !== undefined}
+                  errorMessage={this.state.extras.firstName}
+                />
+
+                <InputText
+                  icon="ni ni-hat-3"
+                  placeholder="Last Name"
+                  type="Text"
+                  name="lastName"
+                  onChange={this.onChange}
+                  stateError={this.state.extras.lastName !== undefined}
+                  errorMessage={this.state.extras.lastName}
+                />
+                <InputText
+                  icon="ni ni-email-83"
+                  placeholder="Email"
+                  type="Email"
+                  name="email"
+                  onChange={this.onChange}
+                  stateError={this.state.extras.email !== undefined}
+                  errorMessage={this.state.extras.email}
+                />
+                <InputText
+                  icon="ni ni-lock-circle-open"
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  onChange={this.onChange}
+                  stateError={this.state.extras.plainPassword !== undefined}
+                  errorMessage={this.state.extras.plainPassword}
+                />
+                <InputText
+                  icon="ni ni-mobile-button"
+                  placeholder="Phone"
+                  type="Phone"
+                  name="phone"
+                  onChange={this.onChange}
+                  stateError={this.state.extras.phone !== undefined}
+                  errorMessage={this.state.extras.phone}
+                />
+
+                {this.state.showSuccess ? (
+                  <Alert color="success">
+                    <strong>Success!</strong> You will be redirected to the
+                    login page after {this.state.seconds} seconds!
+                  </Alert>
+                ) : null}
+
+                {this.state.showWarning ? (
+                  <Alert color="warning">
+                    <strong>Warning!</strong> You must agree to the terms and
+                    conditions to continue!
+                  </Alert>
+                ) : null}
+
+                {this.state.showGlobalWarning ? (
+                  <Alert color="danger">
+                    <strong>Error!</strong> An error occured!
+                  </Alert>
+                ) : null}
+
                 <div className="text-muted font-italic">
                   <small>
                     password strength:{" "}
@@ -126,6 +202,8 @@ class Register extends React.Component {
                         className="custom-control-input"
                         id="customCheckRegister"
                         type="checkbox"
+                        checked={this.state.accepted}
+                        onChange={this.onCheck}
                       />
                       <label
                         className="custom-control-label"
@@ -147,7 +225,12 @@ class Register extends React.Component {
                   </Col>
                 </Row>
                 <div className="text-center">
-                  <Button className="mt-4" color="primary" type="button">
+                  <Button
+                    className="mt-4"
+                    color="primary"
+                    type="button"
+                    onClick={this.submitData}
+                  >
                     Create account
                   </Button>
                 </div>
