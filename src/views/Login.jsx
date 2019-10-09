@@ -1,21 +1,70 @@
+/*!
+
+=========================================================
+* Argon Dashboard React - v1.0.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+
 import React from "react";
+import axios from "axios";
+import InputText from "../components/Inputs/Input";
+import { DEFAULT_URL } from "../config";
 
 import {
   Button,
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
   Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Row,
-  Col
+  Col,
+  Alert
 } from "reactstrap";
 
 class Login extends React.Component {
+  state = {
+    credentials: {
+      username: "",
+      password: ""
+    },
+    showError: false,
+    errors: {}
+  };
+
+  onChange = e =>
+    this.setState({
+      credentials: {
+        ...this.state.credentials,
+        [e.target.name]: e.target.value
+      }
+    });
+  showError;
+  submitData = () => {
+    this.setState({ showError: false });
+    axios
+      .post(`${DEFAULT_URL}api/auth`, this.state.credentials)
+      .then(res => {
+        if (res.data.token !== undefined) {
+          localStorage.setItem("token", res.data.token);
+          this.props.history.push("/default/posts");
+        }
+      })
+      .catch(error => {
+        this.setState({ showError: true });
+      });
+  };
+
   render() {
     return (
       <>
@@ -47,41 +96,40 @@ class Login extends React.Component {
                 <small>Or sign in with credentials</small>
               </div>
               <Form role="form">
-                <FormGroup className="mb-3">
-                  <InputGroup className="input-group-alternative">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="ni ni-email-83" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input placeholder="Email" type="email" />
-                  </InputGroup>
-                </FormGroup>
-                <FormGroup>
-                  <InputGroup className="input-group-alternative">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="ni ni-lock-circle-open" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input placeholder="Password" type="password" />
-                  </InputGroup>
-                </FormGroup>
-                <div className="custom-control custom-control-alternative custom-checkbox">
-                  <input
-                    className="custom-control-input"
-                    id=" customCheckLogin"
-                    type="checkbox"
-                  />
-                  <label
-                    className="custom-control-label"
-                    htmlFor=" customCheckLogin"
-                  >
-                    <span className="text-muted">Remember me</span>
-                  </label>
-                </div>
+                <InputText
+                  icon="ni ni-email-83"
+                  placeholder="Email"
+                  type="email"
+                  name="username"
+                  val={this.state.credentials.username}
+                  onChange={this.onChange}
+                  stateError={this.state.showUsernameError !== undefined}
+                  errorMessage={this.state.errors.username}
+                />
+                <InputText
+                  icon="ni ni-lock-circle-open"
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  val={this.state.credentials.password}
+                  onChange={this.onChange}
+                  stateError={this.state.showPasswordError !== undefined}
+                  errorMessage={this.state.errors.password}
+                />
+
+                {this.state.showError ? (
+                  <Alert color="danger">
+                    <strong>Error!</strong> Bad credentials!
+                  </Alert>
+                ) : null}
+
                 <div className="text-center">
-                  <Button className="my-4" color="primary" type="button">
+                  <Button
+                    className="my-4"
+                    color="primary"
+                    type="button"
+                    onClick={this.submitData}
+                  >
                     Sign in
                   </Button>
                 </div>

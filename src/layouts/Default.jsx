@@ -8,7 +8,7 @@
 * Copyright 2019 Creative Tim (https://www.creative-tim.com)
 * Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
 
-* Codedata_research_front_endd by Creative Tim
+* Coded by Creative Tim
 
 =========================================================
 
@@ -19,23 +19,23 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 // reactstrap components
 import { Container, Row } from "reactstrap";
-
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.jsx";
-import AuthFooter from "components/Footers/AuthFooter.jsx";
+import DefaultNavbar from "components/Navbars/DefaultNavbar.jsx";
+import DefaultFooter from "components/Footers/DefaultFooter.jsx";
+import Header from "components/Headers/Header.jsx";
 
 import routes from "routes.js";
 
-class Auth extends React.Component {
-  componentDidMount() {
-    document.body.classList.add("bg-default");
-  }
-  componentWillUnmount() {
-    document.body.classList.remove("bg-default");
+class Default extends React.Component {
+  componentDidUpdate(e) {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    this.refs.mainContent.scrollTop = 0;
   }
   getRoutes = routes => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/auth") {
+      if (prop.layout === "/default") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -48,39 +48,45 @@ class Auth extends React.Component {
       }
     });
   };
+  getBrandText = path => {
+    for (let i = 0; i < routes.length; i++) {
+      if (
+        this.props.location.pathname.indexOf(
+          routes[i].layout + routes[i].path
+        ) !== -1
+      ) {
+        return routes[i].name;
+      }
+    }
+    return "Brand";
+  };
   render() {
     return (
       <>
-        <div className="main-content">
-          <AuthNavbar />
-          <div className="header bg-gradient-info py-7 py-lg-8">
-            <div className="separator separator-bottom separator-skew zindex-100">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-                version="1.1"
-                viewBox="0 0 2560 100"
-                x="0"
-                y="0"
-              >
-                <polygon
-                  className="fill-default"
-                  points="2560 0 2560 100 0 100"
-                />
-              </svg>
-            </div>
-          </div>
+        <div className="main-content" ref="mainContent">
+          {localStorage.getItem("token") ? (
+            <DefaultNavbar
+              {...this.props}
+              brandText={this.getBrandText(this.props.location.pathname)}
+            />
+          ) : (
+            <AuthNavbar />
+          )}
+
+          <Header />
           {/* Page content */}
-          <Container className="mt--8 pb-4">
-            <Row className="justify-content-center">
+          <Container className="mt--7" fluid>
+            <Row>
               <Switch>{this.getRoutes(routes)}</Switch>
             </Row>
           </Container>
+          <Container fluid>
+            <DefaultFooter />
+          </Container>
         </div>
-        <AuthFooter />
       </>
     );
   }
 }
 
-export default Auth;
+export default Default;

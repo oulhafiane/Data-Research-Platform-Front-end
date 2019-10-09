@@ -14,6 +14,7 @@ const InputText = ({
   placeholder,
   type,
   name,
+  val,
   onChange,
   stateError,
   errorMessage
@@ -32,6 +33,7 @@ const InputText = ({
             type={type}
             onChange={onChange}
             name={name}
+            value={val}
           />
         </InputGroup>
         {stateError ? (
