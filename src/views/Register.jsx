@@ -72,7 +72,11 @@ class Register extends React.Component {
         }, 5000);
       })
       .catch(error => {
-        if (error.response.data && error.response.data.extras) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.extras
+        ) {
           this.setState({ extras: error.response.data.extras });
         } else {
           this.setState({ showGlobalWarning: true });

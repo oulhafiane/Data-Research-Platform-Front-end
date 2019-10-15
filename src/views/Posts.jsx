@@ -27,7 +27,7 @@ class Profile extends React.Component {
       {
         backgroundImage: require("../images/content-management/1.jpeg"),
         category: "Business",
-        categoryTheme: "dark",
+        categoryTheme: "info",
         author: "Anna Kunis",
         authorAvatar: require("../images/avatars/1.jpg"),
         title: "Conduct at an replied removal an amongst",
@@ -83,7 +83,7 @@ class Profile extends React.Component {
       {
         backgroundImage: require("../images/content-management/6.jpeg"),
         category: "Business",
-        categoryTheme: "dark",
+        categoryTheme: "info",
         author: "John James",
         authorAvatar: require("../images/avatars/1.jpg"),
         title:
@@ -202,7 +202,7 @@ class Profile extends React.Component {
                     </Badge>
                     <div className="card-post__author d-flex">
                       <a
-                        href="#"
+                        href="#pablo"
                         className="card-post__author-avatar card-post__author-avatar--small"
                         style={{
                           backgroundImage: `url('${post.authorAvatar}')`

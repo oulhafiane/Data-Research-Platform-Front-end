@@ -2,6 +2,7 @@ import Register from "views/Register.jsx";
 import Login from "views/Login.jsx";
 import Posts from "views/Posts";
 import Profile from "views/Profile.jsx";
+import Index from "views/Index";
 
 var routes = [
   {
@@ -31,6 +32,13 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Posts,
     layout: "/default"
+  },
+  {
+    path: "/index",
+    name: "Index",
+    icon: "ni ni-circle-08 text-pink",
+    component: Index,
+    layout: "/landing"
   }
 ];
 

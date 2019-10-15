@@ -16,6 +16,9 @@
 
 */
 import React from "react";
+import Axios from "axios";
+import InputTextLabel from "../components/Inputs/InputLabel";
+import { DEFAULT_URL } from "../config";
 
 // reactstrap components
 import {
@@ -23,15 +26,77 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
   Form,
-  Input,
   Container,
   Row,
   Col
 } from "reactstrap";
 
 class Profile extends React.Component {
+  state = {
+    token: localStorage.getItem("token"),
+    user: {},
+    disabled: true,
+    photo_user: require("assets/img/theme/user-profile.png")
+  };
+
+  onChange = e =>
+    this.setState({
+      user: { ...this.state.user, [e.target.name]: e.target.value },
+      disabled: false
+    });
+
+  updateProfile = () => {
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    Axios.post(`${DEFAULT_URL}api/current/update`, this.state.user, config)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message === "Expired JWT Token"
+        ) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          this.props.history.push("/auth/login");
+        } else {
+          console.log(error.response.data);
+        }
+      });
+  };
+
+  checkUser = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    if (user === null && this.state.token !== undefined) {
+      Axios.get(`${DEFAULT_URL}api/current/infos`, config)
+        .then(res => {
+          if (res.data !== undefined) {
+            localStorage.setItem("user", JSON.stringify(res.data));
+            this.setState({ user: res.data });
+          }
+        })
+        .catch(error => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          this.props.history.push("/auth/login");
+        });
+    } else {
+      this.setState({ user: user });
+      if (user._photo) this.setState({ photo_user: user._photo.original });
+    }
+  };
+
+  componentDidMount() {
+    this.checkUser();
+  }
+
   render() {
     return (
       <>
@@ -47,33 +112,14 @@ class Profile extends React.Component {
                         <img
                           alt="..."
                           className="rounded-circle"
-                          src={require("assets/img/theme/team-4-800x800.jpg")}
+                          src={this.state.photo_user}
                         />
                       </a>
                     </div>
                   </Col>
                 </Row>
                 <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                  <div className="d-flex justify-content-between">
-                    <Button
-                      className="mr-4"
-                      color="info"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      Connect
-                    </Button>
-                    <Button
-                      className="float-right"
-                      color="default"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      Message
-                    </Button>
-                  </div>
+                  <div className="d-flex justify-content-between"></div>
                 </CardHeader>
                 <CardBody className="pt-0 pt-md-4">
                   <Row>
@@ -96,30 +142,24 @@ class Profile extends React.Component {
                   </Row>
                   <div className="text-center">
                     <h3>
-                      Jessica Jones
-                      <span className="font-weight-light">, 27</span>
+                      {this.state.user.firstName} {this.state.user.lastName}
                     </h3>
-                    <div className="h5 font-weight-300">
-                      <i className="ni location_pin mr-2" />
-                      Bucharest, Romania
-                    </div>
                     <div className="h5 mt-4">
                       <i className="ni business_briefcase-24 mr-2" />
                       Solution Manager - Creative Tim Officer
                     </div>
+                    <div className="h5 font-weight-300">
+                      <i className="ni location_pin mr-2" />
+                      {this.state.user.city} {this.state.user.country}
+                    </div>
                     <div>
                       <i className="ni education_hat mr-2" />
-                      University of Computer Science
+                      {this.state.user.organization}
                     </div>
                     <hr className="my-4" />
-                    <p>
-                      Ryan — the name taken by Melbourne-raised, Brooklyn-based
-                      Nick Murphy — writes, performs and records all of his own
-                      music.
+                    <p style={{ whiteSpace: "pre-line" }}>
+                      {this.state.user.bio}
                     </p>
-                    <a href="#pablo" onClick={e => e.preventDefault()}>
-                      Show more
-                    </a>
                   </div>
                 </CardBody>
               </Card>
@@ -131,16 +171,6 @@ class Profile extends React.Component {
                     <Col xs="8">
                       <h3 className="mb-0">My account</h3>
                     </Col>
-                    <Col className="text-right" xs="4">
-                      <Button
-                        color="primary"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                        size="sm"
-                      >
-                        Settings
-                      </Button>
-                    </Col>
                   </Row>
                 </CardHeader>
                 <CardBody>
@@ -151,73 +181,42 @@ class Profile extends React.Component {
                     <div className="pl-lg-4">
                       <Row>
                         <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-username"
-                            >
-                              Username
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="lucky.jesse"
-                              id="input-username"
-                              placeholder="Username"
-                              type="text"
-                            />
-                          </FormGroup>
+                          <InputTextLabel
+                            id="organization"
+                            placeholder="Organization"
+                            type="text"
+                            val={this.state.user.organization}
+                            onChange={this.onChange}
+                          />
                         </Col>
                         <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-email"
-                            >
-                              Email address
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              id="input-email"
-                              placeholder="jesse@example.com"
-                              type="email"
-                            />
-                          </FormGroup>
+                          <InputTextLabel
+                            id="email"
+                            placeholder="Email"
+                            type="text"
+                            val={this.state.user.email}
+                            onChange={this.onChange}
+                          />
                         </Col>
                       </Row>
                       <Row>
                         <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-first-name"
-                            >
-                              First name
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="Lucky"
-                              id="input-first-name"
-                              placeholder="First name"
-                              type="text"
-                            />
-                          </FormGroup>
+                          <InputTextLabel
+                            id="firstName"
+                            placeholder="First name"
+                            type="text"
+                            val={this.state.user.firstName}
+                            onChange={this.onChange}
+                          />
                         </Col>
                         <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-last-name"
-                            >
-                              Last name
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="Jesse"
-                              id="input-last-name"
-                              placeholder="Last name"
-                              type="text"
-                            />
-                          </FormGroup>
+                          <InputTextLabel
+                            id="lastName"
+                            placeholder="Last name"
+                            type="text"
+                            val={this.state.user.lastName}
+                            onChange={this.onChange}
+                          />
                         </Col>
                       </Row>
                     </div>
@@ -229,73 +228,42 @@ class Profile extends React.Component {
                     <div className="pl-lg-4">
                       <Row>
                         <Col md="12">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-address"
-                            >
-                              Address
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                              id="input-address"
-                              placeholder="Home Address"
-                              type="text"
-                            />
-                          </FormGroup>
+                          <InputTextLabel
+                            id="address"
+                            placeholder="Address"
+                            type="text"
+                            val={this.state.user.address}
+                            onChange={this.onChange}
+                          />
                         </Col>
                       </Row>
                       <Row>
                         <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-city"
-                            >
-                              City
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="New York"
-                              id="input-city"
-                              placeholder="City"
-                              type="text"
-                            />
-                          </FormGroup>
+                          <InputTextLabel
+                            id="city"
+                            placeholder="City"
+                            type="text"
+                            val={this.state.user.city}
+                            onChange={this.onChange}
+                          />
                         </Col>
                         <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-country"
-                            >
-                              Country
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="United States"
-                              id="input-country"
-                              placeholder="Country"
-                              type="text"
-                            />
-                          </FormGroup>
+                          <InputTextLabel
+                            id="country"
+                            placeholder="Country"
+                            type="text"
+                            val={this.state.user.country}
+                            onChange={this.onChange}
+                          />
                         </Col>
                         <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-country"
-                            >
-                              Postal code
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              id="input-postal-code"
-                              placeholder="Postal code"
-                              type="number"
-                            />
-                          </FormGroup>
+                          <InputTextLabel
+                            id="postalCode"
+                            placeholder="Postal code"
+                            type="text"
+                            val={this.state.user.postalCode}
+                            onChange={this.onChange}
+                          />
                         </Col>
                       </Row>
                     </div>
@@ -303,18 +271,24 @@ class Profile extends React.Component {
                     {/* Description */}
                     <h6 className="heading-small text-muted mb-4">About me</h6>
                     <div className="pl-lg-4">
-                      <FormGroup>
-                        <label>About Me</label>
-                        <Input
-                          className="form-control-alternative"
-                          placeholder="A few words about you ..."
-                          rows="4"
-                          defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
-                          Open Source."
-                          type="textarea"
-                        />
-                      </FormGroup>
+                      <InputTextLabel
+                        id="bio"
+                        placeholder="About me"
+                        type="textarea"
+                        val={this.state.user.bio}
+                        onChange={this.onChange}
+                      />
                     </div>
+                    <Button
+                      color="primary"
+                      href="#pablo"
+                      onClick={this.updateProfile}
+                      size="sm"
+                      disabled={this.state.disabled}
+                      style={{ padding: "9px 34px 9px 34px", float: "right" }}
+                    >
+                      Update profile
+                    </Button>
                   </Form>
                 </CardBody>
               </Card>

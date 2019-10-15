@@ -21,7 +21,7 @@ const InputText = ({
 }) => {
   return (
     <div>
-      <FormGroup>
+      <FormGroup className={stateError ? "has-danger" : null}>
         <InputGroup className="input-group-alternative mb-3">
           <InputGroupAddon addonType="prepend">
             <InputGroupText>

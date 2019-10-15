@@ -1,12 +1,12 @@
 /*!
 
 =========================================================
-* Argon Dashboard React - v1.0.0
+* Argon Design System React - v1.0.0
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
+* Product Page: https://www.creative-tim.com/product/argon-design-system-react
 * Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
 
 * Coded by Creative Tim
 
@@ -17,34 +17,107 @@
 */
 /*eslint-disable*/
 import React from "react";
-
 // reactstrap components
-import { NavItem, NavLink, Nav, Container, Row, Col } from "reactstrap";
+import {
+  Button,
+  NavItem,
+  NavLink,
+  Nav,
+  Container,
+  Row,
+  Col,
+  UncontrolledTooltip
+} from "reactstrap";
 
-class Login extends React.Component {
+class AuthFooter extends React.Component {
   render() {
     return (
       <>
-        <footer className="py-5">
+        <footer className=" footer">
           <Container>
-            <Row className="align-items-center justify-content-xl-between">
-              <Col xl="6">
-                <div className="copyright text-center text-xl-left text-muted">
-                  © 2018{" "}
+            <Row className=" row-grid align-items-center mb-5">
+              <Col lg="6">
+                <h3 className=" text-primary font-weight-light mb-2">
+                  Thank you for supporting us!
+                </h3>
+                <h4 className=" mb-0 font-weight-light">
+                  Let's get in touch on any of these platforms.
+                </h4>
+              </Col>
+              <Col className=" text-lg-center btn-wrapper" lg="6">
+                <Button
+                  className=" btn-neutral btn-icon-only btn-round"
+                  color="twitter"
+                  href="https://twitter.com/creativetim"
+                  id="tooltip126536702"
+                  size="lg"
+                  target="_blank"
+                >
+                  <i className=" fa fa-twitter" />
+                </Button>
+                <UncontrolledTooltip delay={0} target="tooltip126536702">
+                  Follow us
+                </UncontrolledTooltip>
+                <Button
+                  className=" btn-neutral btn-icon-only btn-round ml-1"
+                  color="facebook"
+                  href="https://www.facebook.com/creativetim"
+                  id="tooltip383967593"
+                  size="lg"
+                  target="_blank"
+                >
+                  <i className=" fa fa-facebook-square" />
+                </Button>
+                <UncontrolledTooltip delay={0} target="tooltip383967593">
+                  Like us
+                </UncontrolledTooltip>
+                <Button
+                  className=" btn-neutral btn-icon-only btn-round ml-1"
+                  color="dribbble"
+                  href="https://dribbble.com/creativetim"
+                  id="tooltip568564532"
+                  size="lg"
+                  target="_blank"
+                >
+                  <i className=" fa fa-dribbble" />
+                </Button>
+                <UncontrolledTooltip delay={0} target="tooltip568564532">
+                  Follow us
+                </UncontrolledTooltip>
+                <Button
+                  className=" btn-neutral btn-icon-only btn-round ml-1"
+                  color="github"
+                  href="https://github.com/creativetimofficial"
+                  id="tooltip626177562"
+                  size="lg"
+                  target="_blank"
+                >
+                  <i className=" fa fa-github" />
+                </Button>
+                <UncontrolledTooltip delay={0} target="tooltip626177562">
+                  Star on Github
+                </UncontrolledTooltip>
+              </Col>
+            </Row>
+            <hr />
+            <Row className=" align-items-center justify-content-md-between">
+              <Col md="6">
+                <div className=" copyright">
+                  © {new Date().getFullYear()}{" "}
                   <a
-                    className="font-weight-bold ml-1"
-                    href="https://www.creative-tim.com?ref=adr-auth-footer"
+                    href="https://www.creative-tim.com?ref=adsr-footer"
                     target="_blank"
                   >
                     Creative Tim
                   </a>
+                  .
                 </div>
               </Col>
-              <Col xl="6">
-                <Nav className="nav-footer justify-content-center justify-content-xl-end">
+              <Col md="6">
+                <Nav className=" nav-footer justify-content-end">
                   <NavItem>
                     <NavLink
-                      href="https://www.creative-tim.com?ref=adr-auth-footer"
+                      href="https://www.creative-tim.com?ref=adsr-footer"
                       target="_blank"
                     >
                       Creative Tim
@@ -52,7 +125,7 @@ class Login extends React.Component {
                   </NavItem>
                   <NavItem>
                     <NavLink
-                      href="https://www.creative-tim.com/presentation?ref=adr-auth-footer"
+                      href="https://www.creative-tim.com/presentation?ref=adsr-footer"
                       target="_blank"
                     >
                       About Us
@@ -60,7 +133,7 @@ class Login extends React.Component {
                   </NavItem>
                   <NavItem>
                     <NavLink
-                      href="http://blog.creative-tim.com?ref=adr-auth-footer"
+                      href="http://blog.creative-tim.com?ref=adsr-footer"
                       target="_blank"
                     >
                       Blog
@@ -68,7 +141,7 @@ class Login extends React.Component {
                   </NavItem>
                   <NavItem>
                     <NavLink
-                      href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md?ref=adr-auth-footer"
+                      href="https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md"
                       target="_blank"
                     >
                       MIT License
@@ -84,4 +157,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default AuthFooter;
