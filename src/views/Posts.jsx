@@ -18,7 +18,8 @@
 import React from "react";
 
 // reactstrap components
-import { Card, CardBody, Container, Row, Badge, Col } from "reactstrap";
+import { Button, Card, CardBody, Container, Row, Badge, Col } from "reactstrap";
+import Menu from "components/Menus/Menu";
 
 class Profile extends React.Component {
   state = {
@@ -186,6 +187,7 @@ class Profile extends React.Component {
       <>
         <Container fluid className="main-content-container px-4">
           {/* First Row of Posts */}
+          <Menu {...this.props} />
           <Row>
             {PostsListOne.map((post, idx) => (
               <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
@@ -203,7 +205,7 @@ class Profile extends React.Component {
                     <div className="card-post__author d-flex">
                       <a
                         href="#pablo"
-                        className="card-post__author-avatar card-post__author-avatar--small"
+                        className="card-post__author-avatar"
                         style={{
                           backgroundImage: `url('${post.authorAvatar}')`
                         }}

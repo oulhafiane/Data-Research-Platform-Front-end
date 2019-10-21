@@ -277,6 +277,7 @@ class Profile extends React.Component {
                         type="textarea"
                         val={this.state.user.bio}
                         onChange={this.onChange}
+                        rows="10"
                       />
                     </div>
                     <Button

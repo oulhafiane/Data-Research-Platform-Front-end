@@ -1,8 +1,9 @@
 import React from "react";
 // reactstrap components
-import { FormGroup, Input } from "reactstrap";
+import { FormGroup, Input, Button } from "reactstrap";
 
-const InputTextLabel = ({ id, val, placeholder, type, onChange }) => {
+const InputTextLabel = props => {
+  const { id, val, placeholder, type, onChange, rows } = props;
   return (
     <div>
       <FormGroup>
@@ -18,7 +19,7 @@ const InputTextLabel = ({ id, val, placeholder, type, onChange }) => {
           type={type}
           onChange={onChange}
           style={{ color: "#365d8a", fontSize: "1rem" }}
-          rows="10"
+          rows={rows}
         />
       </FormGroup>
     </div>

@@ -17,9 +17,6 @@
 */
 import React from "react";
 
-// reactstrap components
-import { Button, Container, Row, Col } from "reactstrap";
-
 import { Route, Switch } from "react-router-dom";
 
 // core components

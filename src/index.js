@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import AuthLayout from "layouts/Auth.jsx";
 import Default from "layouts/Default";
@@ -15,7 +15,7 @@ import "assets/vendor/font-awesome/css/font-awesome.min.css";
 import ScrollToTop from "components/Scroll/ScrollUp";
 
 ReactDOM.render(
-  <BrowserRouter>
+  <HashRouter>
     <ScrollToTop />
     <Switch>
       <Route path="/auth" render={props => <AuthLayout {...props} />} />
@@ -23,6 +23,6 @@ ReactDOM.render(
       <Route path="/landing" render={props => <Landing {...props} />} />
       <Redirect from="/" to="/landing/index" />
     </Switch>
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById("root")
 );

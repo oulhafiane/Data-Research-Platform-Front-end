@@ -19,7 +19,7 @@ import React from "react";
 
 // reactstrap components
 import { Link } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Button } from "reactstrap";
 
 class Header extends React.Component {
   render() {

@@ -408,7 +408,7 @@ class Index extends React.Component {
               <Col md="6">
                 <div className="pl-md-5">
                   <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
-                    <i className="ni ni-shop" />
+                    <i className="ni ni-briefcase-24" />
                   </div>
                   <h3>About Us</h3>
                   <p className="lead">

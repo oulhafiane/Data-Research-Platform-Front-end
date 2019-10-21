@@ -181,6 +181,24 @@ class SharedNavbar extends React.Component {
               </div>
             </DropdownMenu>
           </UncontrolledDropdown>
+          <NavItem>
+            <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+              <i className="ni ni-briefcase-24" />
+              About Us <span className="sr-only">(current)</span>
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+              <i className="ni ni-satisfied" />
+              Our Partners <span className="sr-only">(current)</span>
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+              <i className="ni ni-email-83" />
+              Contact us <span className="sr-only">(current)</span>
+            </NavLink>
+          </NavItem>
         </Nav>
       </>
     );
