@@ -9,31 +9,40 @@ import {
 } from "reactstrap";
 
 const DropDownLabel = props => {
-  const { id, val, placeholder, type, onChange, rows } = props;
+  const { id, val, placeholder, onChange, name } = props;
   return (
     <div>
       <FormGroup>
         <label className="form-control-label" htmlFor={id}>
-          {placeholder}
+          {name}
         </label>
         <UncontrolledDropdown style={{ display: "block" }} group>
-          <DropdownToggle caret color="info" style={{ width: "100%" }}>
+          <DropdownToggle
+            caret
+            color="primary"
+            style={{
+              width: "100%",
+              textOverflow: "ellipsis",
+              overflow: "hidden"
+            }}
+          >
             {placeholder}
           </DropdownToggle>
-          <DropdownMenu style={{ width: "100%" }}>
-            <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-              Action
-            </DropdownItem>
-            <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-              Another action
-            </DropdownItem>
-            <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-              Something else here
-            </DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-              Separated link
-            </DropdownItem>
+          <DropdownMenu
+            style={{ width: "100%", maxHeight: "300px", overflow: "auto" }}
+          >
+            {Object.keys(val).map(key => {
+              return (
+                <DropdownItem
+                  href="#pablo"
+                  id={key}
+                  key={key}
+                  onClick={onChange}
+                >
+                  {val[key].title}
+                </DropdownItem>
+              );
+            })}
           </DropdownMenu>
         </UncontrolledDropdown>
       </FormGroup>

@@ -3,18 +3,8 @@ import {
   Carousel,
   CarouselItem,
   CarouselControl,
-  CarouselIndicators,
-  CarouselCaption
+  CarouselIndicators
 } from "reactstrap";
-
-const items = [
-  {
-    src: require("assets/img/banner/banner3.png")
-  },
-  {
-    src: require("assets/img/banner/banner1.jpg")
-  }
-];
 
 const CarouselPost = props => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -22,13 +12,15 @@ const CarouselPost = props => {
 
   const next = () => {
     if (animating) return;
-    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+    const nextIndex =
+      activeIndex === Object.keys(props.imgs).length - 1 ? 0 : activeIndex + 1;
     setActiveIndex(nextIndex);
   };
 
   const previous = () => {
     if (animating) return;
-    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+    const nextIndex =
+      activeIndex === 0 ? Object.keys(props.imgs).length - 1 : activeIndex - 1;
     setActiveIndex(nextIndex);
   };
 
@@ -37,18 +29,15 @@ const CarouselPost = props => {
     setActiveIndex(newIndex);
   };
 
-  const slides = items.map(item => {
+  const slides = Object.keys(props.imgs).map(key => {
+    console.log(props.imgs[key]);
     return (
       <CarouselItem
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
-        key={item.src}
+        key={key}
       >
-        <img
-          src={item.src}
-          alt={item.altText}
-          style={{ width: "100%", height: "400px" }}
-        />
+        <img src={props.imgs[key]} style={{ width: "100%", height: "400px" }} />
       </CarouselItem>
     );
   });
@@ -62,7 +51,7 @@ const CarouselPost = props => {
         interval={false}
       >
         <CarouselIndicators
-          items={items}
+          items={Array.from(props.imgs)}
           activeIndex={activeIndex}
           onClickHandler={goToIndex}
         />

@@ -34,19 +34,21 @@ class ShowPost extends React.Component {
   state = {
     photo_user: require("assets/img/theme/user-profile.png")
   };
-  newProblematic = e => {
+
+  newproblematic = e => {
     e.preventDefault();
     this.props.history.push("/default/new");
   };
+
   render() {
-    const { prob, state } = this.props;
+    const { state } = this.props;
     return (
       <>
         <Col className="order-xl-2 mb-5 mb-xl-0" xl="6">
           <Card className="card-profile shadow">
             <Row>
               <Col>
-                <CarouselPost />
+                <CarouselPost imgs={state.imgs} />
               </Col>
             </Row>
             <Row style={{ marginLeft: "10px" }}>
@@ -78,32 +80,37 @@ class ShowPost extends React.Component {
                 </div>
               </Row>
               <div className="text-center">
-                <h3>{prob.title}</h3>
+                <h3>{state.prob.title}</h3>
                 <div className="h5 mt-4">
                   <i className="ni business_briefcase-24 mr-2" />
-                  {prob.domain} - {prob.category}
+                  {state.categories[state.id_domain].title} -{" "}
+                  {
+                    state.categories[state.id_domain].sub_categories[
+                      state.id_category
+                    ].title
+                  }
                 </div>
                 <div className="h5 font-weight-300">
                   <i className="ni location_pin mr-2" />
-                  {prob.type}
+                  {state.prob.type}
                 </div>
                 <div>
                   <i className="ni education_hat mr-2" />
-                  {prob.link}
+                  {state.prob.link}
                 </div>
               </div>
               <hr className="my-4" />
 
               <CardTitle className="form-control-label">Description</CardTitle>
               <p style={{ whiteSpace: "pre-line", marginLeft: "10px" }}>
-                {prob.description}
+                {state.prob.description}
               </p>
               {state.showSolution ? (
                 <>
                   <hr className="my-4" />
                   <CardTitle className="form-control-label">Solution</CardTitle>
                   <p style={{ whiteSpace: "pre-line", marginLeft: "10px" }}>
-                    {prob.solution}
+                    {state.prob.solution}
                   </p>
                 </>
               ) : null}
@@ -115,7 +122,7 @@ class ShowPost extends React.Component {
                   </CardTitle>
 
                   <p style={{ whiteSpace: "pre-line", marginLeft: "10px" }}>
-                    {prob.advantage}
+                    {state.prob.advantage}
                   </p>
                 </>
               ) : null}
@@ -127,7 +134,7 @@ class ShowPost extends React.Component {
                     Possible Applications
                   </CardTitle>
                   <p style={{ whiteSpace: "pre-line", marginLeft: "10px" }}>
-                    {prob.applications}
+                    {state.prob.applications}
                   </p>
                 </>
               ) : null}

@@ -34,11 +34,22 @@ import {
 import InputToogleHidden from "components/Inputs/InputToogleHidden";
 import ShowPost from "components/Shows/ShowPost";
 import DropDownLabel from "components/Inputs/DropDownLabel";
+import Dropzone from "components/Dropzone/Dropzone";
 
 class NewPost extends React.Component {
   state = {
     token: localStorage.getItem("token"),
+    imgs: {},
     prob: {},
+    categories: {
+      0: {
+        id: 1,
+        title: "Domain",
+        sub_categories: { 0: { id: 1, title: "Category" } }
+      }
+    },
+    id_domain: 0,
+    id_category: 0,
     disabled: true,
     photo_user: require("assets/img/theme/user-profile.png"),
     showSolution: false,
@@ -46,11 +57,25 @@ class NewPost extends React.Component {
     showApplications: false
   };
 
+  onFilesAdded = imgs => {
+    this.setState({ imgs: imgs });
+  };
+
   onChange = e =>
     this.setState({
       prob: { ...this.state.prob, [e.target.name]: e.target.value },
       disabled: false
     });
+
+  onChangeDomain = e => {
+    e.preventDefault();
+    this.setState({ id_domain: e.target.id, id_category: 0 });
+  };
+
+  onChangeCategory = e => {
+    e.preventDefault();
+    this.setState({ id_category: e.target.id });
+  };
 
   showSolution = () =>
     this.setState({
@@ -90,7 +115,17 @@ class NewPost extends React.Component {
       });
   };
 
-  componentDidMount() {}
+  getCategories = () => {
+    Axios.get(`${DEFAULT_URL}api/categories`)
+      .then(res => {
+        this.setState({ categories: res.data });
+      })
+      .catch(e => console.log(e.response.data));
+  };
+
+  componentDidMount() {
+    this.getCategories();
+  }
 
   render() {
     return (
@@ -98,7 +133,7 @@ class NewPost extends React.Component {
         {/* Page content */}
         <Container fluid className="main-content-container px-4">
           <Row>
-            <ShowPost prob={this.state.prob} state={this.state} />
+            <ShowPost state={this.state} />
             <Col className="order-xl-1" xl="6">
               <Card className="bg-secondary shadow">
                 <CardHeader className="bg-white border-0">
@@ -138,19 +173,29 @@ class NewPost extends React.Component {
                         <Col lg="6">
                           <DropDownLabel
                             id="domain"
-                            placeholder="Domain"
+                            name="Category"
+                            placeholder={
+                              this.state.categories[this.state.id_domain].title
+                            }
                             type="text"
-                            val={this.state.prob.domain}
-                            onChange={this.onChange}
+                            val={this.state.categories}
+                            onChange={this.onChangeDomain}
                           />
                         </Col>
                         <Col lg="6">
                           <DropDownLabel
                             id="category"
-                            placeholder="Category"
+                            name="Category"
+                            placeholder={
+                              this.state.categories[this.state.id_domain]
+                                .sub_categories[this.state.id_category].title
+                            }
                             type="text"
-                            val={this.state.prob.category}
-                            onChange={this.onChange}
+                            val={
+                              this.state.categories[this.state.id_domain]
+                                .sub_categories
+                            }
+                            onChange={this.onChangeCategory}
                           />
                         </Col>
                       </Row>
@@ -163,6 +208,11 @@ class NewPost extends React.Component {
                             val={this.state.prob.link}
                             onChange={this.onChange}
                           />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md="12">
+                          <Dropzone onFilesAdded={this.onFilesAdded} />
                         </Col>
                       </Row>
                     </div>
