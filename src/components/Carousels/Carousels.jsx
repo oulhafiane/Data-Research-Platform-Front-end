@@ -40,7 +40,7 @@ const Carousels = props => {
   const slides = items.map(item => {
     return (
       <CarouselItem
-        onExiting={() => setAnimating(true)}
+        onExiting={() => setAnimating(false)}
         onExited={() => setAnimating(false)}
         key={item.src}
       >

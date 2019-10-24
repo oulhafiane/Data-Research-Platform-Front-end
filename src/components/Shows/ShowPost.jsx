@@ -16,18 +16,9 @@
 
 */
 import React from "react";
-import { Link } from "react-router-dom";
 
 // reactstrap components
-import {
-  Card,
-  CardTitle,
-  CardText,
-  CardBody,
-  Row,
-  Col,
-  FormGroup
-} from "reactstrap";
+import { Card, CardTitle, CardHeader, CardBody, Row, Col } from "reactstrap";
 import CarouselPost from "components/Carousels/CarouselPost";
 
 class ShowPost extends React.Component {
@@ -46,12 +37,14 @@ class ShowPost extends React.Component {
       <>
         <Col className="order-xl-2 mb-5 mb-xl-0" xl="6">
           <Card className="card-profile shadow">
-            <Row>
-              <Col>
-                <CarouselPost imgs={state.imgs} />
-              </Col>
-            </Row>
-            <Row style={{ marginLeft: "10px" }}>
+            {state.images_available ? (
+              <Row>
+                <Col>
+                  <CarouselPost imgs={state.imgs} />
+                </Col>
+              </Row>
+            ) : null}
+            <Row className="justify-content-center">
               <Col className="order-lg-2" lg="3">
                 <div className="card-profile-image">
                   <a href="#pablo" onClick={e => e.preventDefault()}>
@@ -64,6 +57,9 @@ class ShowPost extends React.Component {
                 </div>
               </Col>
             </Row>
+            <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div className="d-flex justify-content-between"></div>
+            </CardHeader>
             <CardBody className="pt-0 pt-md-4">
               <Row>
                 <div className="col">
@@ -134,7 +130,7 @@ class ShowPost extends React.Component {
                     Possible Applications
                   </CardTitle>
                   <p style={{ whiteSpace: "pre-line", marginLeft: "10px" }}>
-                    {state.prob.applications}
+                    {state.prob.possibleApplication}
                   </p>
                 </>
               ) : null}

@@ -21,7 +21,6 @@ import { Link } from "react-router-dom";
 import Headroom from "headroom.js";
 // reactstrap components
 import {
-  UncontrolledCollapse,
   DropdownMenu,
   DropdownToggle,
   UncontrolledDropdown,

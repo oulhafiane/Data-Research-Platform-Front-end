@@ -48,17 +48,15 @@ class NewPost extends React.Component {
         sub_categories: { 0: { id: 1, title: "Category" } }
       }
     },
+    uploading: false,
     id_domain: 0,
     id_category: 0,
+    images_available: 0,
     disabled: true,
     photo_user: require("assets/img/theme/user-profile.png"),
     showSolution: false,
     showAdvantage: false,
     showApplications: false
-  };
-
-  onFilesAdded = imgs => {
-    this.setState({ imgs: imgs });
   };
 
   onChange = e =>
@@ -92,35 +90,81 @@ class NewPost extends React.Component {
       showApplications: !this.state.showApplications
     });
 
-  updateProfile = () => {
-    const config = {
-      headers: { Authorization: "bearer " + this.state.token }
-    };
-    Axios.post(`${DEFAULT_URL}api/current/update`, this.state.user, config)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(error => {
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message === "Expired JWT Token"
-        ) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          this.props.history.push("/auth/login");
-        } else {
-          console.log(error.response.data);
-        }
-      });
-  };
-
   getCategories = () => {
     Axios.get(`${DEFAULT_URL}api/categories`)
       .then(res => {
         this.setState({ categories: res.data });
       })
       .catch(e => console.log(e.response.data));
+  };
+
+  toBase64 = imgs => {
+    Object.keys(imgs).forEach(key => {
+      let fileReader = new FileReader();
+      fileReader.onload = e => {
+        this.setState({
+          imgs: {
+            ...this.state.imgs,
+            [key]: {
+              file: imgs[key].file,
+              img: imgs[key].img,
+              b64: fileReader.result
+            }
+          },
+          images_available: this.state.images_available + 1
+        });
+      };
+      fileReader.readAsDataURL(imgs[key].file);
+    });
+  };
+
+  onFilesAdded = imgs => {
+    this.toBase64(imgs);
+    //this.setState({ imgs: imgs, images_available: true });
+  };
+
+  submitData = e => {
+    e.preventDefault();
+    this.setState({ uploading: true });
+    while (Object.keys(this.state.imgs).length !== this.state.images_available);
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    let data = {
+      ...this.state.prob,
+      category: {
+        id: this.state.categories[this.state.id_domain].sub_categories[
+          this.state.id_category
+        ].id
+      },
+      photos: Object.values(
+        Object.keys(this.state.imgs).map(key => {
+          return {
+            file: this.state.imgs[key].b64
+          };
+        })
+      )
+    };
+    this.setState({ showWarning: false });
+    if (this.state.accepted === false) {
+      this.setState({ showWarning: true });
+      return;
+    }
+    Axios.post(`${DEFAULT_URL}api/problematic/new`, data, config)
+      .then(res => {
+        this.props.history.push(`/default/posts/${res.data.extras.id}`);
+      })
+      .catch(error => {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.extras
+        ) {
+          this.setState({ extras: error.response.data.extras });
+        } else {
+          this.setState({ showGlobalWarning: true });
+        }
+      });
   };
 
   componentDidMount() {
@@ -212,7 +256,10 @@ class NewPost extends React.Component {
                       </Row>
                       <Row>
                         <Col md="12">
-                          <Dropzone onFilesAdded={this.onFilesAdded} />
+                          <Dropzone
+                            onFilesAdded={this.onFilesAdded}
+                            imgs={this.state.imgs}
+                          />
                         </Col>
                       </Row>
                     </div>
@@ -250,10 +297,10 @@ class NewPost extends React.Component {
                       showInput={this.state.showAdvantage}
                     />
                     <InputToogleHidden
-                      id="applications"
+                      id="possibleApplication"
                       placeholder="Possible Applications"
                       type="textarea"
-                      val={this.state.prob.applications}
+                      val={this.state.prob.possibleApplication}
                       onChange={this.onChange}
                       onClick={this.showApplications}
                       showInput={this.state.showApplications}
@@ -262,12 +309,19 @@ class NewPost extends React.Component {
                     <Button
                       color="primary"
                       href="#pablo"
-                      onClick={this.updateProfile}
+                      onClick={this.submitData}
                       size="sm"
                       disabled={this.state.disabled}
                       style={{ padding: "9px 34px 9px 34px", float: "right" }}
                     >
-                      Submit
+                      {this.state.uploading ? (
+                        <React.Fragment>
+                          <i className="fas fa-spin fa-spinner"></i>{" "}
+                          Uploading...
+                        </React.Fragment>
+                      ) : (
+                        "Submit"
+                      )}
                     </Button>
                   </Form>
                 </CardBody>

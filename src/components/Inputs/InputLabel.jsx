@@ -1,6 +1,6 @@
 import React from "react";
 // reactstrap components
-import { FormGroup, Input, Button } from "reactstrap";
+import { FormGroup, Input } from "reactstrap";
 
 const InputTextLabel = props => {
   const { id, val, placeholder, type, onChange, rows } = props;

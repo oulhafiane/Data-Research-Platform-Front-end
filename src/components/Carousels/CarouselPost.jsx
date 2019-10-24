@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators
-} from "reactstrap";
+import { Carousel, CarouselItem, CarouselControl } from "reactstrap";
 
 const CarouselPost = props => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -24,20 +19,18 @@ const CarouselPost = props => {
     setActiveIndex(nextIndex);
   };
 
-  const goToIndex = newIndex => {
-    if (animating) return;
-    setActiveIndex(newIndex);
-  };
-
   const slides = Object.keys(props.imgs).map(key => {
-    console.log(props.imgs[key]);
     return (
       <CarouselItem
-        onExiting={() => setAnimating(true)}
+        onExiting={() => setAnimating(false)}
         onExited={() => setAnimating(false)}
         key={key}
       >
-        <img src={props.imgs[key]} style={{ width: "100%", height: "400px" }} />
+        <img
+          alt="carousel"
+          src={props.imgs[key].img}
+          style={{ width: "100%", height: "400px" }}
+        />
       </CarouselItem>
     );
   });
@@ -50,11 +43,6 @@ const CarouselPost = props => {
         previous={previous}
         interval={false}
       >
-        <CarouselIndicators
-          items={Array.from(props.imgs)}
-          activeIndex={activeIndex}
-          onClickHandler={goToIndex}
-        />
         {slides}
         <CarouselControl
           direction="prev"

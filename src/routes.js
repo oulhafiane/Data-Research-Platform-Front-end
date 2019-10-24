@@ -11,42 +11,48 @@ var routes = [
     name: "Login",
     icon: "ni ni-key-25 text-info",
     component: Login,
-    layout: "/auth"
+    layout: "/auth",
+    role: "ROLE_ANON"
   },
   {
     path: "/register",
     name: "Register",
     icon: "ni ni-circle-08 text-pink",
     component: Register,
-    layout: "/auth"
+    layout: "/auth",
+    role: "ROLE_ANON"
   },
   {
     path: "/user-profile",
     name: "User Profile",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
-    layout: "/default"
+    layout: "/default",
+    role: "ROLE_AUTH"
   },
   {
     path: "/posts",
     name: "Posts",
     icon: "ni ni-circle-08 text-pink",
     component: Posts,
-    layout: "/default"
+    layout: "/default",
+    role: "ROLE_AUTH"
   },
   {
     path: "/new",
     name: "New Post",
     icon: "ni ni-circle-08 text-pink",
     component: NewPost,
-    layout: "/default"
+    layout: "/default",
+    role: "ROLE_SEARCHER"
   },
   {
     path: "/index",
     name: "Index",
     icon: "ni ni-circle-08 text-pink",
     component: Index,
-    layout: "/landing"
+    layout: "/landing",
+    role: "ROLE_ANON"
   }
 ];
 

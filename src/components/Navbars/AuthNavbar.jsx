@@ -41,35 +41,35 @@ class AuthNavbar extends React.Component {
   };
 
   logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    //localStorage.removeItem("token");
+    //localStorage.removeItem("user");
     //this.props.history.push("/");
   };
 
   checkUser = () => {
-    const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user === null && token !== undefined) {
-      const config = {
-        headers: { Authorization: "bearer " + token }
-      };
-      Axios.get(`${DEFAULT_URL}api/current/infos`, config)
-        .then(res => {
-          if (res.data !== undefined) {
-            localStorage.setItem("user", JSON.stringify(res.data));
-            this.setState({ user: res.data });
-          }
-        })
-        .catch(error => {
-          console.log("Log out.");
-          localStorage.removeItem("token");
-          this.logout();
-          console.log("Ok");
-        });
-    } else {
-      this.setState({ user: user });
-      if (user._photo) this.setState({ photo_user: user._photo.original });
-    }
+    // const token = localStorage.getItem("token");
+    // const user = JSON.parse(localStorage.getItem("user"));
+    // if (user === null && token !== undefined) {
+    //   const config = {
+    //     headers: { Authorization: "bearer " + token }
+    //   };
+    //   Axios.get(`${DEFAULT_URL}api/current/infos`, config)
+    //     .then(res => {
+    //       if (res.data !== undefined) {
+    //         localStorage.setItem("user", JSON.stringify(res.data));
+    //         this.setState({ user: res.data });
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log("Log out.");
+    //       localStorage.removeItem("token");
+    //       this.logout();
+    //       console.log("Ok");
+    //     });
+    // } else {
+    //   this.setState({ user: user });
+    //   if (user._photo) this.setState({ photo_user: user._photo.original });
+    // }
   };
 
   componentDidMount() {

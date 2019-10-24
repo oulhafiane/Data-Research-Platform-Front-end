@@ -21,16 +21,9 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import {
   UncontrolledCollapse,
-  DropdownMenu,
-  DropdownItem,
-  DropdownToggle,
-  UncontrolledDropdown,
-  NavbarBrand,
   Navbar,
   NavItem,
-  NavLink,
   Nav,
-  Container,
   Row,
   Col,
   Form,
@@ -91,20 +84,22 @@ class Menu extends React.Component {
                     </Button>
                   </NavItem>
                 </Nav>
-                <Nav className="ml-lg-auto" navbar>
-                  <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                    <FormGroup className="mb-0">
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="fas fa-search" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input placeholder="Search" type="text" />
-                      </InputGroup>
-                    </FormGroup>
-                  </Form>
-                </Nav>
+                {false ? (
+                  <Nav className="ml-lg-auto" navbar>
+                    <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                      <FormGroup className="mb-0">
+                        <InputGroup className="input-group-alternative">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="fas fa-search" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input placeholder="Search" type="text" />
+                        </InputGroup>
+                      </FormGroup>
+                    </Form>
+                  </Nav>
+                ) : null}
               </UncontrolledCollapse>
             </Navbar>
           </Col>

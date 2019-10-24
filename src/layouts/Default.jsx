@@ -26,6 +26,7 @@ import DefaultFooter from "components/Footers/DefaultFooter.jsx";
 import Header from "components/Headers/Header.jsx";
 
 import routes from "routes.js";
+import ProtectedRoute from "services/ProtectedRoute";
 
 class Default extends React.Component {
   componentDidUpdate(e) {
@@ -36,13 +37,23 @@ class Default extends React.Component {
   getRoutes = routes => {
     return routes.map((prop, key) => {
       if (prop.layout === "/default") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
+        if (prop.role === "ROLE_ANON") {
+          return (
+            <Route
+              path={prop.layout + prop.path}
+              component={prop.component}
+              key={key}
+            />
+          );
+        } else {
+          return (
+            <ProtectedRoute
+              path={prop.layout + prop.path}
+              component={prop.component}
+              key={key}
+            />
+          );
+        }
       } else {
         return null;
       }
