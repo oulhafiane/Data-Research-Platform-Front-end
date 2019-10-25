@@ -64,7 +64,7 @@ class AuthService {
   isValid(token) {
     if (moment().isBefore(this.getExpiration(token))) return true;
     else {
-      Axios.post(`${DEFAULT_URL}api/api/token/refresh`, {
+      return Axios.post(`${DEFAULT_URL}api/token/refresh`, {
         refresh_token: this.getRefreshToken()
       })
         .then(res => {

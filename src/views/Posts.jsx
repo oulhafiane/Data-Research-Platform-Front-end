@@ -17,6 +17,7 @@
 */
 import React from "react";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 import { DEFAULT_URL } from "../config";
 // reactstrap components
 import { Card, CardBody, Container, Row, Badge, Col } from "reactstrap";
@@ -25,12 +26,12 @@ import Menu from "components/Menus/Menu";
 class Profile extends React.Component {
   state = {
     photo_user: require("assets/img/theme/user-profile.png"),
+    photo_default: require("assets/img/theme/profile-cover.jpg"),
     token: localStorage.getItem("token"),
     data: []
   };
 
   componentDidMount() {
-    console.log("Ok now");
     Axios.get(`${DEFAULT_URL}api/problematic/all`)
       .then(res => {
         console.log(res.data);
@@ -56,7 +57,11 @@ class Profile extends React.Component {
                     <div
                       className="card-post__image"
                       style={{
-                        backgroundImage: `url(${post.photos[0].original})`
+                        backgroundImage: `url(${
+                          post.photos[0].img
+                            ? post.photos[0].img
+                            : this.state.photo_default
+                        })`
                       }}
                     >
                       <Badge
@@ -84,9 +89,12 @@ class Profile extends React.Component {
                     </div>
                     <CardBody>
                       <h5 className="card-title">
-                        <a href="#" className="text-fiord-blue">
+                        <Link
+                          to={`/default/posts/${post.id}`}
+                          className="text-fiord-blue"
+                        >
                           {post.title}
-                        </a>
+                        </Link>
                       </h5>
                       <p className="card-text d-inline-block mb-3">
                         {post.description}

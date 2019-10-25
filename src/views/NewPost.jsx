@@ -177,7 +177,7 @@ class NewPost extends React.Component {
         {/* Page content */}
         <Container fluid className="main-content-container px-4">
           <Row>
-            <ShowPost state={this.state} />
+            <ShowPost state={this.state} width="6" />
             <Col className="order-xl-1" xl="6">
               <Card className="bg-secondary shadow">
                 <CardHeader className="bg-white border-0">

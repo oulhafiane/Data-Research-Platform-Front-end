@@ -29,7 +29,7 @@ const CarouselPost = props => {
         <img
           alt="carousel"
           src={props.imgs[key].img}
-          style={{ width: "100%", height: "400px" }}
+          style={{ width: "100%", height: props.height }}
         />
       </CarouselItem>
     );

@@ -35,12 +35,15 @@ class ShowPost extends React.Component {
     const { state } = this.props;
     return (
       <>
-        <Col className="order-xl-2 mb-5 mb-xl-0" xl="6">
+        <Col className="order-xl-2 mb-5 mb-xl-0" xl={this.props.width}>
           <Card className="card-profile shadow">
             {state.images_available ? (
               <Row>
                 <Col>
-                  <CarouselPost imgs={state.imgs} />
+                  <CarouselPost
+                    imgs={state.imgs}
+                    height={this.props.height ? this.props.height : "400px"}
+                  />
                 </Col>
               </Row>
             ) : null}
@@ -91,8 +94,10 @@ class ShowPost extends React.Component {
                   {state.prob.type}
                 </div>
                 <div>
-                  <i className="ni education_hat mr-2" />
-                  {state.prob.link}
+                  <a href={state.prob.link} target="_blank">
+                    <i className="ni education_hat mr-2" />
+                    {state.prob.link}
+                  </a>
                 </div>
               </div>
               <hr className="my-4" />

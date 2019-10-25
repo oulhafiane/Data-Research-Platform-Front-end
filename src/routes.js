@@ -4,6 +4,7 @@ import Posts from "views/Posts";
 import Profile from "views/Profile.jsx";
 import Index from "views/Index";
 import NewPost from "views/NewPost";
+import Post from "views/Post";
 
 var routes = [
   {
@@ -27,6 +28,14 @@ var routes = [
     name: "User Profile",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
+    layout: "/default",
+    role: "ROLE_AUTH"
+  },
+  {
+    path: "/posts/:id",
+    name: "Post",
+    icon: "ni ni-circle-08 text-pink",
+    component: Post,
     layout: "/default",
     role: "ROLE_AUTH"
   },
