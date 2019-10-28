@@ -74,6 +74,9 @@ class AuthService {
           return true;
         })
         .catch(error => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("refresh_token");
+          localStorage.removeItem("user");
           return false;
         });
     }

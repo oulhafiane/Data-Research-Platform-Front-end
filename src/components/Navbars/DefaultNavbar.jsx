@@ -37,7 +37,7 @@ import {
   Nav
 } from "reactstrap";
 
-class DemoNavbar extends React.Component {
+class DefaultNavbar extends React.Component {
   state = {
     user: {},
     photo_user: require("assets/img/theme/user-profile.png")
@@ -151,4 +151,4 @@ class DemoNavbar extends React.Component {
   }
 }
 
-export default DemoNavbar;
+export default DefaultNavbar;

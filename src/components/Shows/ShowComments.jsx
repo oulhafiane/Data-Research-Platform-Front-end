@@ -106,47 +106,47 @@ class ShowComments extends React.Component {
   render() {
     const { state } = this.props;
     return (
-      <>
-        <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
-          <Card className="card-profile shadow">
-            <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-              <div className="d-flex justify-content-between">Comments</div>
-            </CardHeader>
-            <CardBody className="pt-0 pt-md-4">
-              <Row>
-                <Form style={{ width: "100%" }}>
-                  <InputTextLabel
-                    id="description"
-                    placeholder="New comment"
-                    type="textarea"
-                    val={this.state.comment}
-                    onChange={this.onChange}
-                    rows="5"
-                    style={{ resize: "None" }}
-                  />
-                  <Button
-                    color="primary"
-                    href="#pablo"
-                    onClick={this.submitData}
-                    size="sm"
-                    disabled={this.state.disabled}
-                    style={{ padding: "9px 34px 9px 34px", float: "right" }}
-                  >
-                    {this.state.uploading ? (
-                      <React.Fragment>
-                        <i className="fas fa-spin fa-spinner"></i> Uploading...
-                      </React.Fragment>
-                    ) : (
-                      "Submit"
-                    )}
-                  </Button>
-                </Form>
-              </Row>
-            </CardBody>
+      <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
+        <Card className="card-profile shadow">
+          <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+            <div className="d-flex justify-content-between">Comments</div>
+          </CardHeader>
+          <CardBody className="pt-0 pt-md-4">
+            <Row>
+              <Form style={{ width: "100%" }}>
+                <InputTextLabel
+                  id="description"
+                  placeholder="New comment"
+                  type="textarea"
+                  val={this.state.comment}
+                  onChange={this.onChange}
+                  rows="5"
+                  style={{ resize: "None" }}
+                />
+                <Button
+                  color="primary"
+                  href="#pablo"
+                  onClick={this.submitData}
+                  size="sm"
+                  disabled={this.state.disabled}
+                  style={{ padding: "9px 34px 9px 34px", float: "right" }}
+                >
+                  {this.state.uploading ? (
+                    <React.Fragment>
+                      <i className="fas fa-spin fa-spinner"></i> Uploading...
+                    </React.Fragment>
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
+              </Form>
+            </Row>
+          </CardBody>
+          <hr className="my-4" />
+          <div className="scrollbar scrollbar-custom">
             {Object.keys(this.state.comments).map(key => {
               return (
                 <div key={key}>
-                  <hr className="my-4" />
                   <CardHeader className="border-top d-flex">
                     <div className="card-post__author d-flex">
                       <a
@@ -180,13 +180,13 @@ class ShowComments extends React.Component {
                       {this.state.comments[key].text}
                     </h6>
                   </CardBody>
+                  <hr className="my-4" />
                 </div>
               );
             })}
-            <hr className="my-4" />
-          </Card>
-        </Col>
-      </>
+          </div>
+        </Card>
+      </Col>
     );
   }
 }

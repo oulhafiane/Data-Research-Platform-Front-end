@@ -45,7 +45,8 @@ class Post extends React.Component {
     photo_user: require("assets/img/theme/user-profile.png"),
     showSolution: false,
     showAdvantage: false,
-    showApplications: false
+    showApplications: false,
+    done: false
   };
 
   componentDidMount() {
@@ -74,6 +75,7 @@ class Post extends React.Component {
             }
           });
         }
+        this.setState({ done: true });
       })
       .catch(error => {
         console.log(error.response);
@@ -85,10 +87,12 @@ class Post extends React.Component {
       <>
         {/* Page content */}
         <Container fluid className="main-content-container px-4">
-          <Row>
-            <ShowPost state={this.state} width="8" height="600px" />
-            <ShowComments state={this.state} />
-          </Row>
+          {this.state.done ? (
+            <Row>
+              <ShowPost state={this.state} width="8" height="600px" />
+              <ShowComments state={this.state} />
+            </Row>
+          ) : null}
         </Container>
       </>
     );

@@ -53,7 +53,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: NewPost,
     layout: "/default",
-    role: "ROLE_SEARCHER"
+    role: "ROLE_AUTH"
   },
   {
     path: "/index",
