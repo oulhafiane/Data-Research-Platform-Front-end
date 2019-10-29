@@ -34,7 +34,6 @@ class Profile extends React.Component {
   componentDidMount() {
     Axios.get(`${DEFAULT_URL}api/problematic/all`)
       .then(res => {
-        console.log(res.data);
         this.setState({ data: res.data });
       })
       .catch(error => {
@@ -50,7 +49,6 @@ class Profile extends React.Component {
           <Menu {...this.props} />
           <Row>
             {this.state.data.map((post, key) => {
-              console.log(post.title);
               return (
                 <Col lg="3" md="6" sm="12" className="mb-4" key={key}>
                   <Card className="card-post card-post--1">

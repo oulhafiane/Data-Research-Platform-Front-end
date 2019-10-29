@@ -38,6 +38,8 @@ class Post extends React.Component {
       }
     },
     uploading: false,
+    countVotes: 0,
+    countComments: 0,
     id_domain: 0,
     id_category: 0,
     images_available: 1,
@@ -49,7 +51,29 @@ class Post extends React.Component {
     done: false
   };
 
+  updateCounts = () => {
+    this.setState({ countComments: this.state.countComments + 1 });
+  };
+
+  getCounts = () => {
+    Axios.get(
+      `${DEFAULT_URL}api/problematic/${
+        this.state.id
+      }/count?timestamp=${new Date().getTime()}`
+    )
+      .then(res => {
+        this.setState({
+          countVotes: res.data.extras.countVotes,
+          countComments: res.data.extras.countComments
+        });
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+  };
+
   componentDidMount() {
+    this.getCounts();
     Axios.get(`${DEFAULT_URL}api/problematic/${this.state.id}`)
       .then(res => {
         this.setState({ prob: res.data });
@@ -89,7 +113,12 @@ class Post extends React.Component {
         <Container fluid className="main-content-container px-4">
           {this.state.done ? (
             <Row>
-              <ShowPost state={this.state} width="8" height="600px" />
+              <ShowPost
+                state={this.state}
+                width="8"
+                height="600px"
+                getCounts={this.getCounts}
+              />
               <ShowComments state={this.state} />
             </Row>
           ) : null}

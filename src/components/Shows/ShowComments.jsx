@@ -29,7 +29,8 @@ class ShowComments extends React.Component {
     photo_user: require("assets/img/theme/user-profile.png"),
     comment: "",
     comments: {},
-    uploading: false
+    uploading: false,
+    target: null
   };
 
   btnStyle = {
@@ -42,7 +43,8 @@ class ShowComments extends React.Component {
   onChange = e =>
     this.setState({
       comment: e.target.value,
-      disabled: false
+      disabled: false,
+      target: e.target
     });
 
   newproblematic = e => {
@@ -52,7 +54,7 @@ class ShowComments extends React.Component {
 
   submitData = e => {
     e.preventDefault();
-    this.setState({ uploading: true });
+    this.state.target.value = "";
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
@@ -83,6 +85,7 @@ class ShowComments extends React.Component {
             }
           }
         });
+        this.props.updateCounts();
       })
       .catch(error => {
         console.log(error.response);

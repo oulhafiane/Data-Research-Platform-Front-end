@@ -16,19 +16,38 @@
 
 */
 import React from "react";
+import Axios from "axios";
+import { DEFAULT_URL } from "../../config";
 
 // reactstrap components
-import { Card, CardTitle, CardHeader, CardBody, Row, Col } from "reactstrap";
+import {
+  Card,
+  CardTitle,
+  CardHeader,
+  CardBody,
+  Row,
+  Col,
+  Button
+} from "reactstrap";
 import CarouselPost from "components/Carousels/CarouselPost";
 
 class ShowPost extends React.Component {
   constructor(props) {
     super(props);
-    this.ok = React.createRef();
   }
 
   state = {
-    photo_user: require("assets/img/theme/user-profile.png")
+    token: localStorage.getItem("token"),
+    photo_user: require("assets/img/theme/user-profile.png"),
+    up_voted: false,
+    down_voted: false
+  };
+
+  btnStyle = {
+    color: "inherit",
+    backgroundColor: "inherit",
+    borderRadius: "unset",
+    margin: "5px"
   };
 
   newproblematic = e => {
@@ -36,20 +55,65 @@ class ShowPost extends React.Component {
     this.props.history.push("/default/new");
   };
 
+  getCounts = () => {};
+
   componentDidMount() {
-    let ref = this.ok;
-    console.log(ref.clientHeight);
-    console.log(ref.clientWidth);
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    console.log(config.headers);
+    Axios.get(
+      `${DEFAULT_URL}api/current/problematic/${
+        this.props.state.id
+      }/vote?timestamp=${new Date().getTime()}`,
+      config
+    )
+      .then(res => {
+        if (res.data.extras.vote === true)
+          this.setState({ up_voted: true, down_voted: false });
+        else this.setState({ up_voted: false, down_voted: true });
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
   }
+
+  submitData = e => {
+    e.preventDefault();
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    let data = {};
+    if (e.target.name === "up_vote") {
+      data = { good: true };
+    } else if (e.target.name === "down_vote") {
+      data = { good: false };
+    } else return;
+    Axios.post(
+      `${DEFAULT_URL}api/problematic/${
+        this.props.state.id
+      }/vote?timestamp=${new Date().getTime()}`,
+      data,
+      config
+    )
+      .then(res => {
+        if (res.data.extras === undefined)
+          this.setState({ up_voted: false, down_voted: false });
+        else if (data.good === true)
+          this.setState({ up_voted: true, down_voted: false });
+        else if (data.good === false)
+          this.setState({ up_voted: false, down_voted: true });
+        this.props.getCounts();
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+  };
 
   render() {
     const { state } = this.props;
     return (
-      <Col
-        className="order-xl-2 mb-5 mb-xl-0"
-        xl={this.props.width}
-        ref={this.ok}
-      >
+      <Col className="order-xl-2 mb-5 mb-xl-0" xl={this.props.width}>
         <Card className="card-profile shadow">
           {state.images_available ? (
             <Row>
@@ -75,18 +139,45 @@ class ShowPost extends React.Component {
             </Col>
           </Row>
           <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-            <div className="d-flex justify-content-between"></div>
+            <div className="d-flex justify-content-between">
+              <div className="my-auto ml-auto">
+                <Button
+                  name="up_vote"
+                  size="sm"
+                  theme="white"
+                  style={{
+                    ...this.btnStyle,
+                    color: this.state.up_voted ? "red" : "inherit"
+                  }}
+                  onClick={this.submitData}
+                >
+                  <i className="ni ni-bold-up" />
+                </Button>
+                <Button
+                  name="down_vote"
+                  size="sm"
+                  theme="white"
+                  style={{
+                    ...this.btnStyle,
+                    color: this.state.down_voted ? "red" : "inherit"
+                  }}
+                  onClick={this.submitData}
+                >
+                  <i className="ni ni-bold-down" />
+                </Button>
+              </div>
+            </div>
           </CardHeader>
           <CardBody className="pt-0 pt-md-4">
             <Row>
               <div className="col">
                 <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                   <div>
-                    <span className="heading">0</span>
+                    <span className="heading">{state.countVotes}</span>
                     <span className="description">Recommendations</span>
                   </div>
                   <div>
-                    <span className="heading">0</span>
+                    <span className="heading">{state.countComments}</span>
                     <span className="description">Comments</span>
                   </div>
                 </div>

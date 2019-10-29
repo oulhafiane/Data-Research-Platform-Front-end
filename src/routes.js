@@ -2,6 +2,7 @@ import Register from "views/Register.jsx";
 import Login from "views/Login.jsx";
 import Posts from "views/Posts";
 import Profile from "views/Profile.jsx";
+import PublicProfile from "views/PublicProfile.jsx";
 import Index from "views/Index";
 import NewPost from "views/NewPost";
 import Post from "views/Post";
@@ -30,6 +31,14 @@ var routes = [
     component: Profile,
     layout: "/default",
     role: "ROLE_AUTH"
+  },
+  {
+    path: "/profile/:uuid",
+    name: "Public Profile",
+    icon: "ni ni-single-02 text-yellow",
+    component: PublicProfile,
+    layout: "/default",
+    role: "ROLE_ANON"
   },
   {
     path: "/posts/:id",
