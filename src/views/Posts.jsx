@@ -69,20 +69,20 @@ class Profile extends React.Component {
                         {post.category.title}
                       </Badge>
                       <div className="card-post__author d-flex">
-                        <a
-                          href="#pablo"
+                        <Link
+                          to={`/default/profile/${post.owner.uuid}`}
                           className="card-post__author-avatar"
                           style={{
                             backgroundImage: `url('${
                               post.owner._photo
-                                ? post.owner._photo.original
+                                ? post.owner._photo.img
                                 : this.state.photo_user
                             }')`
                           }}
                         >
                           Written by {post.owner.firstName}{" "}
                           {post.owner.lastName}
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <CardBody>

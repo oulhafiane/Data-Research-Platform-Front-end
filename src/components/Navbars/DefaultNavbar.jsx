@@ -51,16 +51,16 @@ class DefaultNavbar extends React.Component {
 
   checkUser = () => {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user === null && token !== undefined) {
+    if (token !== undefined) {
       const config = {
         headers: { Authorization: "bearer " + token }
       };
       Axios.get(`${DEFAULT_URL}api/current/infos`, config)
         .then(res => {
           if (res.data !== undefined) {
-            localStorage.setItem("user", JSON.stringify(res.data));
             this.setState({ user: res.data });
+            if (res.data._photo)
+              this.setState({ photo_user: res.data._photo.img });
           }
         })
         .catch(error => {
@@ -69,9 +69,6 @@ class DefaultNavbar extends React.Component {
           this.logout();
           console.log("Ok");
         });
-    } else {
-      this.setState({ user: user });
-      if (user._photo) this.setState({ photo_user: user._photo.original });
     }
   };
 

@@ -29,7 +29,8 @@ import {
   Form,
   Container,
   Row,
-  Col
+  Col,
+  Alert
 } from "reactstrap";
 import InputToogleHidden from "components/Inputs/InputToogleHidden";
 import ShowPost from "components/Shows/ShowPost";
@@ -56,7 +57,8 @@ class NewPost extends React.Component {
     photo_user: require("assets/img/theme/user-profile.png"),
     showSolution: false,
     showAdvantage: false,
-    showApplications: false
+    showApplications: false,
+    showGlobalWarning: false
   };
 
   onChange = e =>
@@ -155,15 +157,7 @@ class NewPost extends React.Component {
         this.props.history.push(`/default/posts/${res.data.extras.id}`);
       })
       .catch(error => {
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.extras
-        ) {
-          this.setState({ extras: error.response.data.extras });
-        } else {
-          this.setState({ showGlobalWarning: true });
-        }
+        this.setState({ showGlobalWarning: true, uploading: false });
       });
   };
 
@@ -305,7 +299,11 @@ class NewPost extends React.Component {
                       onClick={this.showApplications}
                       showInput={this.state.showApplications}
                     />
-
+                    {this.state.showGlobalWarning ? (
+                      <Alert color="danger">
+                        <strong>Error!</strong> An error occured!
+                      </Alert>
+                    ) : null}
                     <Button
                       color="primary"
                       href="#pablo"

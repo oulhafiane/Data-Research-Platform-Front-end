@@ -22,7 +22,7 @@ import { Container, Row } from "reactstrap";
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.jsx";
 import DefaultNavbar from "components/Navbars/DefaultNavbar.jsx";
-import DefaultFooter from "components/Footers/DefaultFooter.jsx";
+import DefaultFooter from "components/Footers/AuthFooter.jsx";
 import Header from "components/Headers/Header.jsx";
 
 import routes from "routes.js";
@@ -91,9 +91,8 @@ class Default extends React.Component {
               <Switch>{this.getRoutes(routes)}</Switch>
             </Row>
           </Container>
-          <Container fluid>
-            <DefaultFooter />
-          </Container>
+          <Container className="mt-7"></Container>
+          <DefaultFooter />
         </div>
       </>
     );

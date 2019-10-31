@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import { Link } from "react-router-dom";
 import Axios from "axios";
 import { DEFAULT_URL } from "../../config";
 
@@ -84,9 +85,12 @@ class ShowPost extends React.Component {
       headers: { Authorization: "bearer " + this.state.token }
     };
     let data = {};
-    if (e.target.name === "up_vote") {
+    if (e.target.id === "up_vote" || e.target.id === "up_vote_icon") {
       data = { good: true };
-    } else if (e.target.name === "down_vote") {
+    } else if (
+      e.target.id === "down_vote" ||
+      e.target.id === "down_vote_icon"
+    ) {
       data = { good: false };
     } else return;
     Axios.post(
@@ -128,13 +132,24 @@ class ShowPost extends React.Component {
           <Row className="justify-content-center">
             <Col className="order-lg-2" lg="3">
               <div className="card-profile-image">
-                <a href="#pablo" onClick={e => e.preventDefault()}>
+                <Link
+                  to={
+                    state.prob.owner
+                      ? `/default/profile/${state.prob.owner.uuid}`
+                      : "#pablo"
+                  }
+                >
                   <img
                     alt="..."
                     className="rounded-circle"
-                    src={this.state.photo_user}
+                    src={
+                      state.prob.owner && state.prob.owner._photo
+                        ? state.prob.owner._photo.img
+                        : this.state.photo_user
+                    }
+                    style={{ width: "180px", height: "180px" }}
                   />
-                </a>
+                </Link>
               </div>
             </Col>
           </Row>
@@ -142,8 +157,7 @@ class ShowPost extends React.Component {
             <div className="d-flex justify-content-between">
               <div className="my-auto ml-auto">
                 <Button
-                  name="up_vote"
-                  size="sm"
+                  id="up_vote"
                   theme="white"
                   style={{
                     ...this.btnStyle,
@@ -151,11 +165,10 @@ class ShowPost extends React.Component {
                   }}
                   onClick={this.submitData}
                 >
-                  <i className="ni ni-bold-up" />
+                  <i id="up_vote_icon" className="ni ni-bold-up" />
                 </Button>
                 <Button
-                  name="down_vote"
-                  size="sm"
+                  id="down_vote"
                   theme="white"
                   style={{
                     ...this.btnStyle,
@@ -163,7 +176,7 @@ class ShowPost extends React.Component {
                   }}
                   onClick={this.submitData}
                 >
-                  <i className="ni ni-bold-down" />
+                  <i id="down_vote_icon" className="ni ni-bold-down" />
                 </Button>
               </div>
             </div>

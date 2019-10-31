@@ -111,9 +111,9 @@ class ShowComments extends React.Component {
     return (
       <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
         <Card className="card-profile shadow">
-          <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          <div className="text-center border-0 pt-md-4 pb-md-4 card-header">
             <div className="d-flex justify-content-between">Comments</div>
-          </CardHeader>
+          </div>
           <CardBody className="pt-0 pt-md-4">
             <Row>
               <Form style={{ width: "100%" }}>
@@ -161,8 +161,9 @@ class ShowComments extends React.Component {
                       ></a>
                       <div className="d-flex flex-column justify-content-center ml-3">
                         <span className="card-post__author-name">
-                          {this.state.comments[key].owner.firstName}{" "}
-                          {this.state.comments[key].owner.lastName}
+                          {this.state.comments[key].owner
+                            ? `${this.state.comments[key].owner.firstName} ${this.state.comments[key].owner.lastName}`
+                            : null}
                         </span>
                         <small className="text-muted">
                           {this.state.comments[key].creationDate}

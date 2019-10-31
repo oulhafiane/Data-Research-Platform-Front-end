@@ -40,7 +40,7 @@ class Register extends React.Component {
       firstName: "",
       lastName: "",
       phone: "",
-      type: "customer"
+      type: "searcher"
     },
     showSuccess: false,
     showWarning: false,

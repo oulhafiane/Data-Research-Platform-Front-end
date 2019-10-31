@@ -29,29 +29,85 @@ import {
   Form,
   Container,
   Row,
-  Col
+  Col,
+  Alert
 } from "reactstrap";
 
 class Profile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.fileInputRef = React.createRef();
+  }
+
   state = {
     token: localStorage.getItem("token"),
     user: {},
     disabled: true,
-    photo_user: require("assets/img/theme/user-profile.png")
+    photo_user: require("assets/img/theme/user-profile.png"),
+    file: null,
+    showGlobalWarning: false,
+    showSuccess: false,
+    uploadingPhoto: false,
+    uploading: false
   };
 
-  onChange = e =>
+  cardStats = { padding: ".275rem" };
+
+  toBase64 = img => {
+    let fileReader = new FileReader();
+    fileReader.onload = e => {
+      const config = {
+        headers: { Authorization: "bearer " + this.state.token }
+      };
+      Axios.post(
+        `${DEFAULT_URL}api/current/update_photo`,
+        { photo: fileReader.result },
+        config
+      )
+        .then(res => {
+          this.setState({
+            photo_user: URL.createObjectURL(img),
+            uploadingPhoto: false
+          });
+        })
+        .catch(error => {
+          console.log(error.response.data);
+        });
+    };
+    fileReader.readAsDataURL(img);
+  };
+
+  onFilesAdded = e => {
+    this.setState({ uploadingPhoto: true });
+    const files = e.target.files;
+    this.toBase64(files[0]);
+  };
+
+  onChange = e => {
     this.setState({
       user: { ...this.state.user, [e.target.name]: e.target.value },
       disabled: false
     });
+  };
 
-  updateProfile = () => {
+  updatePhoto = e => {
+    e.preventDefault();
+    this.fileInputRef.current.click();
+  };
+
+  updateProfile = e => {
+    e.preventDefault();
+    this.setState({
+      showSuccess: false,
+      showGlobalWarning: false,
+      uploading: true
+    });
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
     Axios.post(`${DEFAULT_URL}api/current/update`, this.state.user, config)
       .then(res => {
+        this.setState({ showSuccess: true, uploading: false });
         console.log(res);
       })
       .catch(error => {
@@ -64,32 +120,33 @@ class Profile extends React.Component {
           localStorage.removeItem("user");
           this.props.history.push("/auth/login");
         } else {
-          console.log(error.response.data);
+          this.setState({
+            message: error.response.data.message,
+            showGlobalWarning: true
+          });
         }
       });
   };
 
   checkUser = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
-    if (user === null && this.state.token !== undefined) {
+    if (this.state.token !== undefined) {
       Axios.get(`${DEFAULT_URL}api/current/infos`, config)
         .then(res => {
           if (res.data !== undefined) {
-            localStorage.setItem("user", JSON.stringify(res.data));
             this.setState({ user: res.data });
+            if (res.data._photo)
+              this.setState({ photo_user: res.data._photo.img });
           }
         })
         .catch(error => {
           localStorage.removeItem("token");
-          localStorage.removeItem("user");
           this.props.history.push("/auth/login");
         });
     } else {
-      this.setState({ user: user });
-      if (user._photo) this.setState({ photo_user: user._photo.original });
+      this.props.history.push("/auth/login");
     }
   };
 
@@ -108,11 +165,23 @@ class Profile extends React.Component {
                 <Row className="justify-content-center">
                   <Col className="order-lg-2" lg="3">
                     <div className="card-profile-image">
-                      <a href="#pablo" onClick={e => e.preventDefault()}>
+                      <input
+                        name="photo"
+                        accept="image/*"
+                        ref={this.fileInputRef}
+                        onChange={this.onFilesAdded}
+                        className="FileInput"
+                        type="file"
+                        autoComplete="off"
+                        tabIndex="-1"
+                        style={{ display: "none" }}
+                      />
+                      <a href="#pablo" onClick={this.updatePhoto}>
                         <img
                           alt="..."
                           className="rounded-circle"
                           src={this.state.photo_user}
+                          style={{ width: "180px", height: "180px" }}
                         />
                       </a>
                     </div>
@@ -122,18 +191,32 @@ class Profile extends React.Component {
                   <div className="d-flex justify-content-between"></div>
                 </CardHeader>
                 <CardBody className="pt-0 pt-md-4">
+                  {this.state.uploadingPhoto ? (
+                    <Row>
+                      <Col>
+                        <div
+                          className="card-profile-stats d-flex justify-content-center"
+                          style={{ marginTop: "100px" }}
+                        >
+                          <React.Fragment>
+                            <i className="fas fa-spin fa-spinner"></i>
+                          </React.Fragment>
+                        </div>
+                      </Col>
+                    </Row>
+                  ) : null}
                   <Row>
                     <div className="col">
-                      <div className="card-profile-stats d-flex justify-content-center mt-md-5">
-                        <div>
+                      <div className="card-profile-stats d-flex justify-content-center mt-md-6">
+                        <div style={this.cardStats}>
                           <span className="heading">22</span>
-                          <span className="description">Friends</span>
+                          <span className="description">Problematics</span>
                         </div>
-                        <div>
+                        <div style={this.cardStats}>
                           <span className="heading">10</span>
-                          <span className="description">Photos</span>
+                          <span className="description">Recommendations</span>
                         </div>
-                        <div>
+                        <div style={this.cardStats}>
                           <span className="heading">89</span>
                           <span className="description">Comments</span>
                         </div>
@@ -280,6 +363,16 @@ class Profile extends React.Component {
                         rows="10"
                       />
                     </div>
+                    {this.state.showSuccess ? (
+                      <Alert color="success">
+                        <strong>Success!</strong> You profile has been updated.
+                      </Alert>
+                    ) : null}
+                    {this.state.showGlobalWarning ? (
+                      <Alert color="danger">
+                        <strong>Error!</strong> {this.state.message}
+                      </Alert>
+                    ) : null}
                     <Button
                       color="primary"
                       href="#pablo"
@@ -288,7 +381,14 @@ class Profile extends React.Component {
                       disabled={this.state.disabled}
                       style={{ padding: "9px 34px 9px 34px", float: "right" }}
                     >
-                      Update profile
+                      {this.state.uploading ? (
+                        <React.Fragment>
+                          <i className="fas fa-spin fa-spinner"></i>{" "}
+                          Uploading...
+                        </React.Fragment>
+                      ) : (
+                        "Update profile"
+                      )}
                     </Button>
                   </Form>
                 </CardBody>
