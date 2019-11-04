@@ -19,6 +19,8 @@ import React from "react";
 import Axios from "axios";
 import InputTextLabel from "../Inputs/InputLabel";
 import { DEFAULT_URL } from "../../config";
+import { connect } from "react-redux";
+import { getUser } from "actions/userAction";
 
 // reactstrap components
 import { Card, CardHeader, CardBody, Button, Row, Col, Form } from "reactstrap";
@@ -26,7 +28,6 @@ import { Card, CardHeader, CardBody, Button, Row, Col, Form } from "reactstrap";
 class ShowComments extends React.Component {
   state = {
     token: localStorage.getItem("token"),
-    photo_user: require("assets/img/theme/user-profile.png"),
     comment: "",
     comments: {},
     uploading: false,
@@ -73,6 +74,7 @@ class ShowComments extends React.Component {
     )
       .then(res => {
         const user = JSON.parse(localStorage.getItem("user"));
+        console.log(user);
         this.setState({
           uploading: false,
           comments: {
@@ -93,6 +95,7 @@ class ShowComments extends React.Component {
   };
 
   componentDidMount() {
+    this.props.getUser();
     Axios.get(
       `${DEFAULT_URL}api/problematic/${
         this.props.state.id
@@ -156,7 +159,7 @@ class ShowComments extends React.Component {
                         href="#"
                         className="card-post__author-avatar card-post__author-avatar--small"
                         style={{
-                          backgroundImage: `url('${state.photo_user}')`
+                          backgroundImage: `url('${this.props.photo_user}')`
                         }}
                       ></a>
                       <div className="d-flex flex-column justify-content-center ml-3">
@@ -195,4 +198,11 @@ class ShowComments extends React.Component {
   }
 }
 
-export default ShowComments;
+const mapStateProps = state => ({
+  photo_user: state.user.photo_user
+});
+
+export default connect(
+  mapStateProps,
+  { getUser }
+)(ShowComments);

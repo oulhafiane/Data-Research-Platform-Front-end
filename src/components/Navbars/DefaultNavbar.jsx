@@ -20,9 +20,8 @@ import { Link } from "react-router-dom";
 // JavaScript plugin that hides or shows a component based on your scroll
 import Headroom from "headroom.js";
 import SharedNavbar from "./SharedNavbar";
-
-import Axios from "axios";
-import { DEFAULT_URL } from "../../config";
+import { connect } from "react-redux";
+import { getUser } from "actions/userAction";
 
 // reactstrap components
 import {
@@ -38,45 +37,16 @@ import {
 } from "reactstrap";
 
 class DefaultNavbar extends React.Component {
-  state = {
-    user: {},
-    photo_user: require("assets/img/theme/user-profile.png")
-  };
-
   logout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
     this.props.history.push("/");
-  };
-
-  checkUser = () => {
-    const token = localStorage.getItem("token");
-    if (token !== undefined) {
-      const config = {
-        headers: { Authorization: "bearer " + token }
-      };
-      Axios.get(`${DEFAULT_URL}api/current/infos`, config)
-        .then(res => {
-          if (res.data !== undefined) {
-            this.setState({ user: res.data });
-            if (res.data._photo)
-              this.setState({ photo_user: res.data._photo.img });
-          }
-        })
-        .catch(error => {
-          console.log("Log out.");
-          localStorage.removeItem("token");
-          this.logout();
-          console.log("Ok");
-        });
-    }
   };
 
   componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));
     // initialise
     headroom.init();
-    this.checkUser();
+    this.props.getUser();
   }
   render() {
     return (
@@ -103,11 +73,21 @@ class DefaultNavbar extends React.Component {
                   <DropdownToggle className="pr-0" nav>
                     <Media className="align-items-center">
                       <span className="avatar avatar-sm rounded-circle">
-                        <img alt="..." src={this.state.photo_user} />
+                        <img
+                          alt="..."
+                          src={
+                            this.props.user
+                              ? this.props.user._photo
+                                ? this.props.user._photo.img
+                                : this.props.photo_user
+                              : this.props.photo_user
+                          }
+                        />
                       </span>
                       <Media className="ml-2 d-none d-lg-block">
                         <span className="mb-0 text-sm font-weight-bold">
-                          {this.state.user.firstName} {this.state.user.lastName}
+                          {this.props.user ? this.props.user.firstName : null}{" "}
+                          {this.props.user ? this.props.user.lastName : null}
                         </span>
                       </Media>
                     </Media>
@@ -123,14 +103,6 @@ class DefaultNavbar extends React.Component {
                     <DropdownItem to="/admin/user-profile" tag={Link}>
                       <i className="ni ni-settings-gear-65" />
                       <span>Settings</span>
-                    </DropdownItem>
-                    <DropdownItem to="/admin/user-profile" tag={Link}>
-                      <i className="ni ni-calendar-grid-58" />
-                      <span>Activity</span>
-                    </DropdownItem>
-                    <DropdownItem to="/admin/user-profile" tag={Link}>
-                      <i className="ni ni-support-16" />
-                      <span>Support</span>
                     </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem href="#pablo" onClick={this.logout}>
@@ -148,4 +120,12 @@ class DefaultNavbar extends React.Component {
   }
 }
 
-export default DefaultNavbar;
+const mapStateProps = state => ({
+  photo_user: state.user.photo_user,
+  user: state.user.user
+});
+
+export default connect(
+  mapStateProps,
+  { getUser }
+)(DefaultNavbar);

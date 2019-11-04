@@ -158,6 +158,7 @@ class ShowPost extends React.Component {
               <div className="my-auto ml-auto">
                 <Button
                   id="up_vote"
+                  size="sm"
                   theme="white"
                   style={{
                     ...this.btnStyle,
@@ -169,6 +170,7 @@ class ShowPost extends React.Component {
                 </Button>
                 <Button
                   id="down_vote"
+                  size="sm"
                   theme="white"
                   style={{
                     ...this.btnStyle,

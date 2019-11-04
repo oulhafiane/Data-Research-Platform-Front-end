@@ -19,6 +19,8 @@ import React from "react";
 import Axios from "axios";
 import InputTextLabel from "../components/Inputs/InputLabel";
 import { DEFAULT_URL } from "../config";
+import { connect } from "react-redux";
+import { getUser } from "actions/userAction";
 
 // reactstrap components
 import {
@@ -43,7 +45,6 @@ class Profile extends React.Component {
     token: localStorage.getItem("token"),
     user: {},
     disabled: true,
-    photo_user: require("assets/img/theme/user-profile.png"),
     file: null,
     showGlobalWarning: false,
     showSuccess: false,
@@ -117,7 +118,6 @@ class Profile extends React.Component {
           error.response.data.message === "Expired JWT Token"
         ) {
           localStorage.removeItem("token");
-          localStorage.removeItem("user");
           this.props.history.push("/auth/login");
         } else {
           this.setState({
@@ -128,30 +128,9 @@ class Profile extends React.Component {
       });
   };
 
-  checkUser = () => {
-    const config = {
-      headers: { Authorization: "bearer " + this.state.token }
-    };
-    if (this.state.token !== undefined) {
-      Axios.get(`${DEFAULT_URL}api/current/infos`, config)
-        .then(res => {
-          if (res.data !== undefined) {
-            this.setState({ user: res.data });
-            if (res.data._photo)
-              this.setState({ photo_user: res.data._photo.img });
-          }
-        })
-        .catch(error => {
-          localStorage.removeItem("token");
-          this.props.history.push("/auth/login");
-        });
-    } else {
-      this.props.history.push("/auth/login");
-    }
-  };
-
-  componentDidMount() {
-    this.checkUser();
+  async componentDidMount() {
+    await this.props.getUser();
+    this.setState({ user: this.props.user });
   }
 
   render() {
@@ -180,7 +159,13 @@ class Profile extends React.Component {
                         <img
                           alt="..."
                           className="rounded-circle"
-                          src={this.state.photo_user}
+                          src={
+                            this.state.user
+                              ? this.state.user._photo
+                                ? this.state.user._photo.img
+                                : this.props.photo_user
+                              : this.props.photo_user
+                          }
                           style={{ width: "180px", height: "180px" }}
                         />
                       </a>
@@ -401,4 +386,12 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+const mapStateProps = state => ({
+  photo_user: state.user.photo_user,
+  user: state.user.user
+});
+
+export default connect(
+  mapStateProps,
+  { getUser }
+)(Profile);

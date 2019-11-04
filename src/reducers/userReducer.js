@@ -1,0 +1,15 @@
+import { GET_USER } from "../actions/types";
+
+const initialState = {
+  photo_user: require("assets/img/theme/user-profile.png"),
+  user: {}
+};
+
+export default function(state = initialState, action) {
+  switch (action.type) {
+    case GET_USER:
+      return { ...state, user: action.payload };
+    default:
+      return state;
+  }
+}
