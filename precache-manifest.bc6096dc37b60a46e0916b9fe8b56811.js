@@ -1,67 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5ce5da83d1d434656a6f9d78a467d39c",
+    "revision": "ac937f54f7729a07af14ba3bdd158785",
     "url": "/Data-Research-Platform-Front-end/index.html"
   },
   {
-    "revision": "e83cce4f94aec2097dba",
-    "url": "/Data-Research-Platform-Front-end/static/css/main.61bba750.chunk.css"
+    "revision": "73faf23fca9e908bcbad",
+    "url": "/Data-Research-Platform-Front-end/static/css/main.59602ec8.chunk.css"
   },
   {
-    "revision": "1196f14653521ec9e6b9",
-    "url": "/Data-Research-Platform-Front-end/static/js/2.9f55e3d9.chunk.js"
+    "revision": "9ebfceb2719b2fc78411",
+    "url": "/Data-Research-Platform-Front-end/static/js/2.7eed9ed1.chunk.js"
   },
   {
-    "revision": "e83cce4f94aec2097dba",
-    "url": "/Data-Research-Platform-Front-end/static/js/main.d70625ef.chunk.js"
+    "revision": "73faf23fca9e908bcbad",
+    "url": "/Data-Research-Platform-Front-end/static/js/main.18190cfe.chunk.js"
   },
   {
     "revision": "ac248040fe55b0df8455",
     "url": "/Data-Research-Platform-Front-end/static/js/runtime-main.72fcb8cc.js"
-  },
-  {
-    "revision": "73476783ca0f7583198978de7073815b",
-    "url": "/Data-Research-Platform-Front-end/static/media/0.73476783.jpg"
-  },
-  {
-    "revision": "ed986061ad9bf89c081724362956b134",
-    "url": "/Data-Research-Platform-Front-end/static/media/1.ed986061.jpeg"
-  },
-  {
-    "revision": "fe349e8528c79623ea6795ddd110985a",
-    "url": "/Data-Research-Platform-Front-end/static/media/10.fe349e85.jpeg"
-  },
-  {
-    "revision": "780ccb41c83dad3cbd24a9bcd3262586",
-    "url": "/Data-Research-Platform-Front-end/static/media/2.780ccb41.jpeg"
-  },
-  {
-    "revision": "41bf3241965cc7c2990174ed9d6e9714",
-    "url": "/Data-Research-Platform-Front-end/static/media/3.41bf3241.jpeg"
-  },
-  {
-    "revision": "026cb7af3133d721efff2a0134f7e16f",
-    "url": "/Data-Research-Platform-Front-end/static/media/4.026cb7af.jpeg"
-  },
-  {
-    "revision": "6e846951d7a04c931a0f9efa94a1316f",
-    "url": "/Data-Research-Platform-Front-end/static/media/5.6e846951.jpeg"
-  },
-  {
-    "revision": "47789d678cfff97c48fda4de3f3621d5",
-    "url": "/Data-Research-Platform-Front-end/static/media/6.47789d67.jpeg"
-  },
-  {
-    "revision": "2835396c930c8bf53ffd3beeedba7c41",
-    "url": "/Data-Research-Platform-Front-end/static/media/7.2835396c.jpeg"
-  },
-  {
-    "revision": "10b775cc930b6986ec69eb9a4adef56a",
-    "url": "/Data-Research-Platform-Front-end/static/media/8.10b775cc.jpeg"
-  },
-  {
-    "revision": "565ad4a387d2090e5d73f0c7b8de2793",
-    "url": "/Data-Research-Platform-Front-end/static/media/9.565ad4a3.jpeg"
   },
   {
     "revision": "275a2629582aa2af3469364c6748cf38",
@@ -76,8 +32,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Data-Research-Platform-Front-end/static/media/banner1.14f92eea.jpg"
   },
   {
-    "revision": "dfeacadac91344f26a4fb744173c7209",
-    "url": "/Data-Research-Platform-Front-end/static/media/banner3.dfeacada.png"
+    "revision": "71e9639528a1656f56142b94cb188142",
+    "url": "/Data-Research-Platform-Front-end/static/media/banner5.71e96395.jpg"
+  },
+  {
+    "revision": "d0b6982530b482d51d90b17a28b9f6b2",
+    "url": "/Data-Research-Platform-Front-end/static/media/banner6.d0b69825.jpg"
+  },
+  {
+    "revision": "e68f69a80ae57adc403a86a5c4e0b8bb",
+    "url": "/Data-Research-Platform-Front-end/static/media/banner9.e68f69a8.jpg"
   },
   {
     "revision": "dfeacadac91344f26a4fb744173c7209",
