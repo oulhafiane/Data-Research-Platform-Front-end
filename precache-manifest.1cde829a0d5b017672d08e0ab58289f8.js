@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "12b2c2202d30e6cd59b5c836642c14d7",
+    "revision": "5e66a39ddfb09439a46cf2cd5932df6e",
     "url": "/Data-Research-Platform-Front-end/index.html"
   },
   {
-    "revision": "62d0b6b56bb5b804cd33",
+    "revision": "3b0662c4c6e3b2381ec0",
     "url": "/Data-Research-Platform-Front-end/static/css/main.8748a534.chunk.css"
   },
   {
-    "revision": "fb52b0a66cb47dce08a0",
-    "url": "/Data-Research-Platform-Front-end/static/js/2.1479f509.chunk.js"
+    "revision": "f74223d15fe503c36386",
+    "url": "/Data-Research-Platform-Front-end/static/js/2.98549f75.chunk.js"
   },
   {
-    "revision": "62d0b6b56bb5b804cd33",
-    "url": "/Data-Research-Platform-Front-end/static/js/main.8ff10495.chunk.js"
+    "revision": "3b0662c4c6e3b2381ec0",
+    "url": "/Data-Research-Platform-Front-end/static/js/main.59bf9214.chunk.js"
   },
   {
     "revision": "ac248040fe55b0df8455",
