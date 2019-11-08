@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ac937f54f7729a07af14ba3bdd158785",
+    "revision": "12b2c2202d30e6cd59b5c836642c14d7",
     "url": "/Data-Research-Platform-Front-end/index.html"
   },
   {
-    "revision": "73faf23fca9e908bcbad",
-    "url": "/Data-Research-Platform-Front-end/static/css/main.59602ec8.chunk.css"
+    "revision": "62d0b6b56bb5b804cd33",
+    "url": "/Data-Research-Platform-Front-end/static/css/main.8748a534.chunk.css"
   },
   {
-    "revision": "9ebfceb2719b2fc78411",
-    "url": "/Data-Research-Platform-Front-end/static/js/2.7eed9ed1.chunk.js"
+    "revision": "fb52b0a66cb47dce08a0",
+    "url": "/Data-Research-Platform-Front-end/static/js/2.1479f509.chunk.js"
   },
   {
-    "revision": "73faf23fca9e908bcbad",
-    "url": "/Data-Research-Platform-Front-end/static/js/main.18190cfe.chunk.js"
+    "revision": "62d0b6b56bb5b804cd33",
+    "url": "/Data-Research-Platform-Front-end/static/js/main.8ff10495.chunk.js"
   },
   {
     "revision": "ac248040fe55b0df8455",
@@ -26,10 +26,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "f38ddea9dedadea03c5d43c596dac13f",
     "url": "/Data-Research-Platform-Front-end/static/media/argon-react.f38ddea9.png"
-  },
-  {
-    "revision": "14f92eea4f9497fd3bcbd014c4113440",
-    "url": "/Data-Research-Platform-Front-end/static/media/banner1.14f92eea.jpg"
   },
   {
     "revision": "71e9639528a1656f56142b94cb188142",
@@ -144,6 +140,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Data-Research-Platform-Front-end/static/media/landing.0ec26478.jpg"
   },
   {
+    "revision": "b21ef5c94fcfb92829c02fd5c2775fbd",
+    "url": "/Data-Research-Platform-Front-end/static/media/map.b21ef5c9.png"
+  },
+  {
     "revision": "0b8a30b10cbe7708d5f3a4b007c1d665",
     "url": "/Data-Research-Platform-Front-end/static/media/nucleo-icons.0b8a30b1.svg"
   },
@@ -166,10 +166,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "3b8b511819e10a0b08dbabe967b605cb",
     "url": "/Data-Research-Platform-Front-end/static/media/profile-cover.3b8b5118.jpg"
-  },
-  {
-    "revision": "278a0d250cc46de3a4f65a0791479e71",
-    "url": "/Data-Research-Platform-Front-end/static/media/profile.278a0d25.jpg"
   },
   {
     "revision": "75f7ab18f707114d817522df8dea0a3b",

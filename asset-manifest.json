@@ -1,19 +1,18 @@
 {
   "files": {
-    "main.css": "/Data-Research-Platform-Front-end/static/css/main.59602ec8.chunk.css",
-    "main.js": "/Data-Research-Platform-Front-end/static/js/main.18190cfe.chunk.js",
-    "main.js.map": "/Data-Research-Platform-Front-end/static/js/main.18190cfe.chunk.js.map",
+    "main.css": "/Data-Research-Platform-Front-end/static/css/main.8748a534.chunk.css",
+    "main.js": "/Data-Research-Platform-Front-end/static/js/main.8ff10495.chunk.js",
+    "main.js.map": "/Data-Research-Platform-Front-end/static/js/main.8ff10495.chunk.js.map",
     "runtime-main.js": "/Data-Research-Platform-Front-end/static/js/runtime-main.72fcb8cc.js",
     "runtime-main.js.map": "/Data-Research-Platform-Front-end/static/js/runtime-main.72fcb8cc.js.map",
-    "static/js/2.7eed9ed1.chunk.js": "/Data-Research-Platform-Front-end/static/js/2.7eed9ed1.chunk.js",
-    "static/js/2.7eed9ed1.chunk.js.map": "/Data-Research-Platform-Front-end/static/js/2.7eed9ed1.chunk.js.map",
+    "static/js/2.1479f509.chunk.js": "/Data-Research-Platform-Front-end/static/js/2.1479f509.chunk.js",
+    "static/js/2.1479f509.chunk.js.map": "/Data-Research-Platform-Front-end/static/js/2.1479f509.chunk.js.map",
     "index.html": "/Data-Research-Platform-Front-end/index.html",
-    "precache-manifest.bc6096dc37b60a46e0916b9fe8b56811.js": "/Data-Research-Platform-Front-end/precache-manifest.bc6096dc37b60a46e0916b9fe8b56811.js",
+    "precache-manifest.492b3b62122b8208fa137d4355996b8e.js": "/Data-Research-Platform-Front-end/precache-manifest.492b3b62122b8208fa137d4355996b8e.js",
     "service-worker.js": "/Data-Research-Platform-Front-end/service-worker.js",
-    "static/css/main.59602ec8.chunk.css.map": "/Data-Research-Platform-Front-end/static/css/main.59602ec8.chunk.css.map",
+    "static/css/main.8748a534.chunk.css.map": "/Data-Research-Platform-Front-end/static/css/main.8748a534.chunk.css.map",
     "static/media/argon-react-white.png": "/Data-Research-Platform-Front-end/static/media/argon-react-white.275a2629.png",
     "static/media/argon-react.png": "/Data-Research-Platform-Front-end/static/media/argon-react.f38ddea9.png",
-    "static/media/banner1.jpg": "/Data-Research-Platform-Front-end/static/media/banner1.14f92eea.jpg",
     "static/media/banner5.jpg": "/Data-Research-Platform-Front-end/static/media/banner5.71e96395.jpg",
     "static/media/banner6.jpg": "/Data-Research-Platform-Front-end/static/media/banner6.d0b69825.jpg",
     "static/media/banner9.jpg": "/Data-Research-Platform-Front-end/static/media/banner9.e68f69a8.jpg",
@@ -24,9 +23,9 @@
     "static/media/ill-2.svg": "/Data-Research-Platform-Front-end/static/media/ill-2.594b1ee1.svg",
     "static/media/img-1-1200x1000.jpg": "/Data-Research-Platform-Front-end/static/media/img-1-1200x1000.1e7c70dc.jpg",
     "static/media/landing.jpg": "/Data-Research-Platform-Front-end/static/media/landing.0ec26478.jpg",
+    "static/media/map.png": "/Data-Research-Platform-Front-end/static/media/map.b21ef5c9.png",
     "static/media/nucleo.css": "/Data-Research-Platform-Front-end/static/media/nucleo-icons.f82ec6ba.ttf",
     "static/media/profile-cover.jpg": "/Data-Research-Platform-Front-end/static/media/profile-cover.3b8b5118.jpg",
-    "static/media/profile.jpg": "/Data-Research-Platform-Front-end/static/media/profile.278a0d25.jpg",
     "static/media/promo-1.png": "/Data-Research-Platform-Front-end/static/media/promo-1.75f7ab18.png",
     "static/media/team-1-800x800.jpg": "/Data-Research-Platform-Front-end/static/media/team-1-800x800.53033970.jpg",
     "static/media/team-2-800x800.jpg": "/Data-Research-Platform-Front-end/static/media/team-2-800x800.dcfcf3b7.jpg",
@@ -35,8 +34,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.72fcb8cc.js",
-    "static/js/2.7eed9ed1.chunk.js",
-    "static/css/main.59602ec8.chunk.css",
-    "static/js/main.18190cfe.chunk.js"
+    "static/js/2.1479f509.chunk.js",
+    "static/css/main.8748a534.chunk.css",
+    "static/js/main.8ff10495.chunk.js"
   ]
 }
