@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Data-Research-Platform-Front-end/static/css/main.8748a534.chunk.css",
-    "main.js": "/Data-Research-Platform-Front-end/static/js/main.59bf9214.chunk.js",
-    "main.js.map": "/Data-Research-Platform-Front-end/static/js/main.59bf9214.chunk.js.map",
+    "main.js": "/Data-Research-Platform-Front-end/static/js/main.feb4fc6d.chunk.js",
+    "main.js.map": "/Data-Research-Platform-Front-end/static/js/main.feb4fc6d.chunk.js.map",
     "runtime-main.js": "/Data-Research-Platform-Front-end/static/js/runtime-main.72fcb8cc.js",
     "runtime-main.js.map": "/Data-Research-Platform-Front-end/static/js/runtime-main.72fcb8cc.js.map",
     "static/js/2.98549f75.chunk.js": "/Data-Research-Platform-Front-end/static/js/2.98549f75.chunk.js",
     "static/js/2.98549f75.chunk.js.map": "/Data-Research-Platform-Front-end/static/js/2.98549f75.chunk.js.map",
     "index.html": "/Data-Research-Platform-Front-end/index.html",
-    "precache-manifest.1cde829a0d5b017672d08e0ab58289f8.js": "/Data-Research-Platform-Front-end/precache-manifest.1cde829a0d5b017672d08e0ab58289f8.js",
+    "precache-manifest.acc1e10a56507338a4777d5bcaa0da88.js": "/Data-Research-Platform-Front-end/precache-manifest.acc1e10a56507338a4777d5bcaa0da88.js",
     "service-worker.js": "/Data-Research-Platform-Front-end/service-worker.js",
     "static/css/main.8748a534.chunk.css.map": "/Data-Research-Platform-Front-end/static/css/main.8748a534.chunk.css.map",
     "static/media/argon-react-white.png": "/Data-Research-Platform-Front-end/static/media/argon-react-white.275a2629.png",
@@ -36,6 +36,6 @@
     "static/js/runtime-main.72fcb8cc.js",
     "static/js/2.98549f75.chunk.js",
     "static/css/main.8748a534.chunk.css",
-    "static/js/main.59bf9214.chunk.js"
+    "static/js/main.feb4fc6d.chunk.js"
   ]
 }

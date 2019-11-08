@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5e66a39ddfb09439a46cf2cd5932df6e",
+    "revision": "8eba46ffe33144b3d79f5da2eeb559ee",
     "url": "/Data-Research-Platform-Front-end/index.html"
   },
   {
-    "revision": "3b0662c4c6e3b2381ec0",
+    "revision": "c79222a8bb0b05d8abec",
     "url": "/Data-Research-Platform-Front-end/static/css/main.8748a534.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Data-Research-Platform-Front-end/static/js/2.98549f75.chunk.js"
   },
   {
-    "revision": "3b0662c4c6e3b2381ec0",
-    "url": "/Data-Research-Platform-Front-end/static/js/main.59bf9214.chunk.js"
+    "revision": "c79222a8bb0b05d8abec",
+    "url": "/Data-Research-Platform-Front-end/static/js/main.feb4fc6d.chunk.js"
   },
   {
     "revision": "ac248040fe55b0df8455",
