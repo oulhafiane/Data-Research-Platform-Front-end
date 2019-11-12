@@ -152,7 +152,7 @@ class SharedNavbar extends React.Component {
           <NavItem>
             <NavLink href="#pablo" onClick={e => e.preventDefault()}>
               <i className="ni ni-email-83" />
-              Contact us <span className="sr-only">(current)</span>
+              Contact Us <span className="sr-only">(current)</span>
             </NavLink>
           </NavItem>
           <NavItem>

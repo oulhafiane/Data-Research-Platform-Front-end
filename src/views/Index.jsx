@@ -27,10 +27,55 @@ class Index extends React.Component {
           <Container>
             <Row className="row-grid align-items-center">
               <Col md="6">
+                <div className="pl-md-5">
+                  <di>
+                    <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
+                      <i className="ni ni-briefcase-24" />
+                    </div>
+                    <h2 style={{ marginLeft: "15px", display: "inline" }}>
+                      About Us
+                    </h2>
+                  </di>
+                  <h3>Objectives :</h3>
+                  <ul style={{ fontSize: "1.3rem" }}>
+                    <li>
+                      Inspire community and policy makers to design more
+                      effective, efficient and sustainable services and programs
+                      for small holder farmers.
+                    </li>
+                    <li>
+                      Enable people to better understand the complexity of
+                      challenges facing small holder farmers through research
+                      and data.
+                    </li>
+                    <li>
+                      Build a databank on small holder farmers in Morocco and
+                      Africa by merging data from multiple sources.
+                    </li>
+                    <li>
+                      Form working groups for knowledge building around small
+                      holder farmer challenges.
+                    </li>
+                    <li>
+                      Implement a collaboration platform allowing researchers
+                      and experts to share their knowledge on small holder
+                      farmer challenges.
+                    </li>
+                    <li>
+                      Provide data-driven insights on small holder farmers in
+                      Morocco and Africa.
+                    </li>
+                    <li>
+                      Enable innovation capability by using data-insights.
+                    </li>
+                  </ul>
+                </div>
+              </Col>
+              <Col md="6">
                 <Card className="bg-default shadow border-0">
                   <CardImg
                     alt="..."
-                    src={require("assets/img/theme/img-1-1200x1000.jpg")}
+                    src={require("assets/img/theme/vision.jpg")}
                     top
                   />
                   <blockquote className="card-blockquote">
@@ -51,45 +96,23 @@ class Index extends React.Component {
                       />
                     </svg>
                     <h4 className="display-3 font-weight-bold text-white">
-                      Design System
+                      Vision
                     </h4>
                     <p className="lead text-italic text-white">
-                      The Arctic Ocean freezes every winter and much of the
-                      sea-ice then thaws every summer, and that process will
-                      continue whatever happens.
+                      Provide research breakthroughs and actionable insights on
+                      smallholder farmers challenges in Morocco and Africa for a
+                      sustainable inclusive future.
+                    </p>
+                    <h4 className="display-3 font-weight-bold text-white">
+                      Mission
+                    </h4>
+                    <p className="lead text-italic text-white">
+                      Create new knowledge from combined data sources paving the
+                      way for the design of sustainable, inclusive and
+                      innovative programs.
                     </p>
                   </blockquote>
                 </Card>
-              </Col>
-              <Col md="6">
-                <div className="pl-md-5">
-                  <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
-                    <i className="ni ni-briefcase-24" />
-                  </div>
-                  <h3>About Us</h3>
-                  <p className="lead">
-                    Don't let your uses guess by attaching tooltips and popoves
-                    to any element. Just make sure you enable them first via
-                    JavaScript.
-                  </p>
-                  <p>
-                    The kit comes with three pre-built pages to help you get
-                    started faster. You can change the text and images and
-                    you're good to go.
-                  </p>
-                  <p>
-                    The kit comes with three pre-built pages to help you get
-                    started faster. You can change the text and images and
-                    you're good to go.
-                  </p>
-                  <a
-                    className="font-weight-bold text-warning mt-5"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    A beautiful UI Kit for impactful websites
-                  </a>
-                </div>
               </Col>
             </Row>
           </Container>
