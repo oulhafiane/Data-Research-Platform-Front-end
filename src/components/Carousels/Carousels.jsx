@@ -47,7 +47,7 @@ const Carousels = props => {
         <img
           src={item.src}
           alt={item.altText}
-          style={{ width: "100%", height: "700px" }}
+          style={{ width: "100%", height: "100vh" }}
         />
         {/* Mask */}
         <span className="mask bg-gradient-default opacity-7" />{" "}
