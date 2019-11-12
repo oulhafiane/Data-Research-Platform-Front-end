@@ -38,7 +38,7 @@ class AuthFooter extends React.Component {
             <Row className=" row-grid align-items-center mb-5">
               <Col lg="6">
                 <h3 className=" text-primary font-weight-light mb-2">
-                  Thank you for supporting us!
+                  Innovate Trough Data
                 </h3>
                 <h4 className=" mb-0 font-weight-light">
                   Let's get in touch on any of these platforms.
@@ -61,7 +61,7 @@ class AuthFooter extends React.Component {
                 <Button
                   className=" btn-neutral btn-icon-only btn-round ml-1"
                   color="facebook"
-                  href="https://www.facebook.com/creativetim"
+                  href="https://www.facebook.com/pcuriosity.cl.9?_rdc=1&_rdr"
                   id="tooltip383967593"
                   size="lg"
                   target="_blank"
@@ -104,11 +104,8 @@ class AuthFooter extends React.Component {
               <Col md="6">
                 <div className=" copyright">
                   © {new Date().getFullYear()}{" "}
-                  <a
-                    href="https://www.creative-tim.com?ref=adsr-footer"
-                    target="_blank"
-                  >
-                    Creative Tim
+                  <a href="https://pcuriosity.site123.me/" target="_blank">
+                    P-Curiosity Lab
                   </a>
                   .
                 </div>
@@ -117,10 +114,10 @@ class AuthFooter extends React.Component {
                 <Nav className=" nav-footer justify-content-end">
                   <NavItem>
                     <NavLink
-                      href="https://www.creative-tim.com?ref=adsr-footer"
+                      href="https://pcuriosity.site123.me/"
                       target="_blank"
                     >
-                      Creative Tim
+                      P-Curiosity Lab
                     </NavLink>
                   </NavItem>
                   <NavItem>

@@ -122,10 +122,7 @@ class ShowPost extends React.Component {
           {state.images_available ? (
             <Row>
               <Col>
-                <CarouselPost
-                  imgs={state.imgs}
-                  height={this.props.height ? this.props.height : "400px"}
-                />
+                <CarouselPost imgs={state.imgs} />
               </Col>
             </Row>
           ) : null}

@@ -22,14 +22,14 @@ const CarouselPost = props => {
   const slides = Object.keys(props.imgs).map(key => {
     return (
       <CarouselItem
-        onExiting={() => setAnimating(false)}
+        onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
         key={key}
       >
         <img
           alt="carousel"
           src={props.imgs[key].img}
-          style={{ width: "100%", height: props.height }}
+          style={{ width: "100%", height: "600px" }}
         />
       </CarouselItem>
     );
@@ -41,7 +41,7 @@ const CarouselPost = props => {
         activeIndex={activeIndex}
         next={next}
         previous={previous}
-        interval={false}
+        interval="2000"
       >
         {slides}
         <CarouselControl

@@ -23,65 +23,72 @@ class Index extends React.Component {
   render() {
     return (
       <>
-        <section className="section section-lg">
+        <section className="section bg-secondary">
           <Container>
             <Row className="row-grid align-items-center">
-              <Col className="order-md-2" md="6">
-                <img
-                  alt="..."
-                  className="img-fluid floating"
-                  src={require("assets/img/theme/promo-1.png")}
-                />
+              <Col md="6">
+                <Card className="bg-default shadow border-0">
+                  <CardImg
+                    alt="..."
+                    src={require("assets/img/theme/img-1-1200x1000.jpg")}
+                    top
+                  />
+                  <blockquote className="card-blockquote">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="svg-bg"
+                      preserveAspectRatio="none"
+                      viewBox="0 0 583 95"
+                    >
+                      <polygon
+                        className="fill-default"
+                        points="0,52 583,95 0,95"
+                      />
+                      <polygon
+                        className="fill-default"
+                        opacity=".2"
+                        points="0,42 583,95 683,0 0,95"
+                      />
+                    </svg>
+                    <h4 className="display-3 font-weight-bold text-white">
+                      Design System
+                    </h4>
+                    <p className="lead text-italic text-white">
+                      The Arctic Ocean freezes every winter and much of the
+                      sea-ice then thaws every summer, and that process will
+                      continue whatever happens.
+                    </p>
+                  </blockquote>
+                </Card>
               </Col>
-              <Col className="order-md-1" md="6">
-                <div className="pr-md-5">
-                  <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
-                    <i className="ni ni-chart-bar-32" />
+              <Col md="6">
+                <div className="pl-md-5">
+                  <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
+                    <i className="ni ni-briefcase-24" />
                   </div>
-                  <h3>Data Platform</h3>
+                  <h3>About Us</h3>
+                  <p className="lead">
+                    Don't let your uses guess by attaching tooltips and popoves
+                    to any element. Just make sure you enable them first via
+                    JavaScript.
+                  </p>
                   <p>
                     The kit comes with three pre-built pages to help you get
                     started faster. You can change the text and images and
                     you're good to go.
                   </p>
-                  <ul className="list-unstyled mt-5">
-                    <li className="py-2">
-                      <div className="d-flex align-items-center">
-                        <div>
-                          <Badge className="badge-circle mr-3" color="success">
-                            <i className="ni ni-settings-gear-65" />
-                          </Badge>
-                        </div>
-                        <div>
-                          <h6 className="mb-0">Carefully crafted components</h6>
-                        </div>
-                      </div>
-                    </li>
-                    <li className="py-2">
-                      <div className="d-flex align-items-center">
-                        <div>
-                          <Badge className="badge-circle mr-3" color="success">
-                            <i className="ni ni-html5" />
-                          </Badge>
-                        </div>
-                        <div>
-                          <h6 className="mb-0">Amazing page examples</h6>
-                        </div>
-                      </div>
-                    </li>
-                    <li className="py-2">
-                      <div className="d-flex align-items-center">
-                        <div>
-                          <Badge className="badge-circle mr-3" color="success">
-                            <i className="ni ni-satisfied" />
-                          </Badge>
-                        </div>
-                        <div>
-                          <h6 className="mb-0">Super friendly support team</h6>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
+                  <p>
+                    The kit comes with three pre-built pages to help you get
+                    started faster. You can change the text and images and
+                    you're good to go.
+                  </p>
+                  <a
+                    className="font-weight-bold text-warning mt-5"
+                    href="#pablo"
+                    onClick={e => e.preventDefault()}
+                  >
+                    A beautiful UI Kit for impactful websites
+                  </a>
                 </div>
               </Col>
             </Row>
@@ -185,6 +192,174 @@ class Index extends React.Component {
               <polygon className="fill-white" points="2560 0 2560 100 0 100" />
             </svg>
           </div>
+        </section>
+        <section className="section section-lg">
+          <Container>
+            <Row className="row-grid align-items-center">
+              <Col className="order-md-2" md="6">
+                <img
+                  alt="..."
+                  className="img-fluid floating"
+                  src={require("assets/img/theme/promo-1.png")}
+                />
+              </Col>
+              <Col className="order-md-1" md="6">
+                <div className="pr-md-5">
+                  <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
+                    <i className="ni ni-chart-bar-32" />
+                  </div>
+                  <h3>Data Platform</h3>
+                  <p>
+                    The kit comes with three pre-built pages to help you get
+                    started faster. You can change the text and images and
+                    you're good to go.
+                  </p>
+                  <ul className="list-unstyled mt-5">
+                    <li className="py-2">
+                      <div className="d-flex align-items-center">
+                        <div>
+                          <Badge className="badge-circle mr-3" color="success">
+                            <i className="ni ni-settings-gear-65" />
+                          </Badge>
+                        </div>
+                        <div>
+                          <h6 className="mb-0">Carefully crafted components</h6>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="py-2">
+                      <div className="d-flex align-items-center">
+                        <div>
+                          <Badge className="badge-circle mr-3" color="success">
+                            <i className="ni ni-html5" />
+                          </Badge>
+                        </div>
+                        <div>
+                          <h6 className="mb-0">Amazing page examples</h6>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="py-2">
+                      <div className="d-flex align-items-center">
+                        <div>
+                          <Badge className="badge-circle mr-3" color="success">
+                            <i className="ni ni-satisfied" />
+                          </Badge>
+                        </div>
+                        <div>
+                          <h6 className="mb-0">Super friendly support team</h6>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </section>
+
+        <section className="section section-lg bg-gradient-default">
+          <Container className="pt-lg pb-300">
+            <Row className="text-center justify-content-center">
+              <Col lg="10">
+                <h2 className="display-3 text-white">Innovate Trough Data</h2>
+                <p className="lead text-white">
+                  According to the National Oceanic and Atmospheric
+                  Administration, Ted, Scambos, NSIDClead scentist, puts the
+                  potentially record low maximum sea ice extent tihs year down
+                  to low ice.
+                </p>
+              </Col>
+            </Row>
+          </Container>
+          {/* SVG separator */}
+          <div className="separator separator-bottom separator-skew zindex-100">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon className="fill-white" points="2560 0 2560 100 0 100" />
+            </svg>
+          </div>
+        </section>
+        <section className="section section-lg pt-lg-0 section-contact-us">
+          <Container>
+            <Row className="justify-content-center mt--300">
+              <Col lg="8">
+                <Card className="bg-gradient-secondary shadow">
+                  <CardBody className="p-lg-5">
+                    <h4 className="mb-1">Contact us</h4>
+                    <p className="mt-0">
+                      Your project is very important to us.
+                    </p>
+                    <FormGroup
+                      className={classnames("mt-5", {
+                        focused: this.state.nameFocused
+                      })}
+                    >
+                      <InputGroup className="input-group-alternative">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="ni ni-user-run" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Your name"
+                          type="text"
+                          onFocus={e => this.setState({ nameFocused: true })}
+                          onBlur={e => this.setState({ nameFocused: false })}
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                    <FormGroup
+                      className={classnames({
+                        focused: this.state.emailFocused
+                      })}
+                    >
+                      <InputGroup className="input-group-alternative">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="ni ni-email-83" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Email address"
+                          type="email"
+                          onFocus={e => this.setState({ emailFocused: true })}
+                          onBlur={e => this.setState({ emailFocused: false })}
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                    <FormGroup className="mb-4">
+                      <Input
+                        className="form-control-alternative"
+                        cols="80"
+                        name="name"
+                        placeholder="Type a message..."
+                        rows="4"
+                        type="textarea"
+                      />
+                    </FormGroup>
+                    <div>
+                      <Button
+                        block
+                        className="btn-round"
+                        color="default"
+                        size="lg"
+                        type="button"
+                      >
+                        Send Message
+                      </Button>
+                    </div>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
         </section>
         <section className="section section-lg">
           <Container>
@@ -363,180 +538,6 @@ class Index extends React.Component {
                     </div>
                   </div>
                 </div>
-              </Col>
-            </Row>
-          </Container>
-        </section>
-        <section className="section bg-secondary">
-          <Container>
-            <Row className="row-grid align-items-center">
-              <Col md="6">
-                <Card className="bg-default shadow border-0">
-                  <CardImg
-                    alt="..."
-                    src={require("assets/img/theme/img-1-1200x1000.jpg")}
-                    top
-                  />
-                  <blockquote className="card-blockquote">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="svg-bg"
-                      preserveAspectRatio="none"
-                      viewBox="0 0 583 95"
-                    >
-                      <polygon
-                        className="fill-default"
-                        points="0,52 583,95 0,95"
-                      />
-                      <polygon
-                        className="fill-default"
-                        opacity=".2"
-                        points="0,42 583,95 683,0 0,95"
-                      />
-                    </svg>
-                    <h4 className="display-3 font-weight-bold text-white">
-                      Design System
-                    </h4>
-                    <p className="lead text-italic text-white">
-                      The Arctic Ocean freezes every winter and much of the
-                      sea-ice then thaws every summer, and that process will
-                      continue whatever happens.
-                    </p>
-                  </blockquote>
-                </Card>
-              </Col>
-              <Col md="6">
-                <div className="pl-md-5">
-                  <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
-                    <i className="ni ni-briefcase-24" />
-                  </div>
-                  <h3>About Us</h3>
-                  <p className="lead">
-                    Don't let your uses guess by attaching tooltips and popoves
-                    to any element. Just make sure you enable them first via
-                    JavaScript.
-                  </p>
-                  <p>
-                    The kit comes with three pre-built pages to help you get
-                    started faster. You can change the text and images and
-                    you're good to go.
-                  </p>
-                  <p>
-                    The kit comes with three pre-built pages to help you get
-                    started faster. You can change the text and images and
-                    you're good to go.
-                  </p>
-                  <a
-                    className="font-weight-bold text-warning mt-5"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    A beautiful UI Kit for impactful websites
-                  </a>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </section>
-        <section className="section section-lg bg-gradient-default">
-          <Container className="pt-lg pb-300">
-            <Row className="text-center justify-content-center">
-              <Col lg="10">
-                <h2 className="display-3 text-white">Innovate Trough Data</h2>
-                <p className="lead text-white">
-                  According to the National Oceanic and Atmospheric
-                  Administration, Ted, Scambos, NSIDClead scentist, puts the
-                  potentially record low maximum sea ice extent tihs year down
-                  to low ice.
-                </p>
-              </Col>
-            </Row>
-          </Container>
-          {/* SVG separator */}
-          <div className="separator separator-bottom separator-skew zindex-100">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-              version="1.1"
-              viewBox="0 0 2560 100"
-              x="0"
-              y="0"
-            >
-              <polygon className="fill-white" points="2560 0 2560 100 0 100" />
-            </svg>
-          </div>
-        </section>
-        <section className="section section-lg pt-lg-0 section-contact-us">
-          <Container>
-            <Row className="justify-content-center mt--300">
-              <Col lg="8">
-                <Card className="bg-gradient-secondary shadow">
-                  <CardBody className="p-lg-5">
-                    <h4 className="mb-1">Contact us</h4>
-                    <p className="mt-0">
-                      Your project is very important to us.
-                    </p>
-                    <FormGroup
-                      className={classnames("mt-5", {
-                        focused: this.state.nameFocused
-                      })}
-                    >
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-user-run" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          placeholder="Your name"
-                          type="text"
-                          onFocus={e => this.setState({ nameFocused: true })}
-                          onBlur={e => this.setState({ nameFocused: false })}
-                        />
-                      </InputGroup>
-                    </FormGroup>
-                    <FormGroup
-                      className={classnames({
-                        focused: this.state.emailFocused
-                      })}
-                    >
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-email-83" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          placeholder="Email address"
-                          type="email"
-                          onFocus={e => this.setState({ emailFocused: true })}
-                          onBlur={e => this.setState({ emailFocused: false })}
-                        />
-                      </InputGroup>
-                    </FormGroup>
-                    <FormGroup className="mb-4">
-                      <Input
-                        className="form-control-alternative"
-                        cols="80"
-                        name="name"
-                        placeholder="Type a message..."
-                        rows="4"
-                        type="textarea"
-                      />
-                    </FormGroup>
-                    <div>
-                      <Button
-                        block
-                        className="btn-round"
-                        color="default"
-                        size="lg"
-                        type="button"
-                      >
-                        Send Message
-                      </Button>
-                    </div>
-                  </CardBody>
-                </Card>
               </Col>
             </Row>
           </Container>

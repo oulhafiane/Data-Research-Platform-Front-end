@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import AuthLayout from "layouts/Auth.jsx";
 import Default from "layouts/Default";
@@ -21,7 +21,7 @@ import ScrollToTop from "components/Scroll/ScrollUp";
 
 ReactDOM.render(
   <Provider store={store}>
-    <HashRouter>
+    <BrowserRouter basename="Data-Research-Platform-Front-end">
       <ScrollToTop />
       <Switch>
         <Route path="/auth" render={props => <AuthLayout {...props} />} />
@@ -29,7 +29,7 @@ ReactDOM.render(
         <Route path="/landing" render={props => <Landing {...props} />} />
         <Redirect from="/" to="/landing/index" />
       </Switch>
-    </HashRouter>
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );

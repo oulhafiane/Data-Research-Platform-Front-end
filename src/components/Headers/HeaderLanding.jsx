@@ -34,10 +34,7 @@ class HeaderLanding extends React.Component {
               </p>
               <Card className="card-lift--hover shadow border-0">
                 <Link to="/data/map">
-                  <CardImg
-                    alt="..."
-                    src={require("assets/img/theme/profile.jpg")}
-                  />
+                  <CardImg alt="..." src={require("assets/img/map.png")} />
                 </Link>
               </Card>
             </Col>

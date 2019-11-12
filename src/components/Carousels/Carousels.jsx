@@ -9,10 +9,13 @@ import {
 
 const items = [
   {
-    src: require("assets/img/banner/banner3.png")
+    src: require("assets/img/banner/banner6.jpg")
   },
   {
-    src: require("assets/img/banner/banner1.jpg")
+    src: require("assets/img/banner/banner9.jpg")
+  },
+  {
+    src: require("assets/img/banner/banner5.jpg")
   }
 ];
 
@@ -40,17 +43,17 @@ const Carousels = props => {
   const slides = items.map(item => {
     return (
       <CarouselItem
-        onExiting={() => setAnimating(false)}
+        onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
         key={item.src}
       >
         <img
           src={item.src}
           alt={item.altText}
-          style={{ width: "100%", height: "900px" }}
+          style={{ width: "100%", height: "700px" }}
         />
         {/* Mask */}
-        <span className="mask bg-gradient-primary opacity-4" />{" "}
+        <span className="mask bg-gradient-default opacity-2" />{" "}
         <CarouselCaption
           captionHeader="Data & Research Platform"
           captionText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -65,7 +68,7 @@ const Carousels = props => {
         activeIndex={activeIndex}
         next={next}
         previous={previous}
-        interval={false}
+        interval="2000"
       >
         <CarouselIndicators
           items={items}

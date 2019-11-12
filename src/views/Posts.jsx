@@ -94,9 +94,7 @@ class Profile extends React.Component {
                           {post.title}
                         </Link>
                       </h5>
-                      <p className="card-text d-inline-block mb-3">
-                        {post.description}
-                      </p>
+                      <p className="card-text mb-3 post">{post.description}</p>
                       <span className="text-muted">{post.creationDate}</span>
                     </CardBody>
                   </Card>

@@ -80,26 +80,31 @@ class Menu extends React.Component {
                       href="#pablo"
                       onClick={this.newProblematic}
                     >
-                      Create
+                      <i className="fas fa-plus"></i> Create
+                    </Button>
+                    <Button
+                      color="info"
+                      href="#pablo"
+                      onClick={this.newProblematic}
+                    >
+                      <i className="fas fa-filter"></i> Filter
                     </Button>
                   </NavItem>
                 </Nav>
-                {false ? (
-                  <Nav className="ml-lg-auto" navbar>
-                    <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                      <FormGroup className="mb-0">
-                        <InputGroup className="input-group-alternative">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="fas fa-search" />
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input placeholder="Search" type="text" />
-                        </InputGroup>
-                      </FormGroup>
-                    </Form>
-                  </Nav>
-                ) : null}
+                {/* <Nav className="ml-lg-auto" navbar>
+                  <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                    <FormGroup className="mb-0">
+                      <InputGroup className="input-group-alternative">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="fas fa-search" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input placeholder="Search" type="text" />
+                      </InputGroup>
+                    </FormGroup>
+                  </Form>
+                </Nav> */}
               </UncontrolledCollapse>
             </Navbar>
           </Col>

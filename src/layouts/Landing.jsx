@@ -22,7 +22,7 @@ import { Route, Switch } from "react-router-dom";
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar";
 import DefaultNavbar from "components/Navbars/DefaultNavbar";
-import DefaultFooter from "components/Footers/DefaultFooter.jsx";
+import DefaultFooter from "components/Footers/AuthFooter.jsx";
 
 import routes from "routes.js";
 import HeaderLanding from "components/Headers/HeaderLanding";
@@ -78,8 +78,6 @@ class Landing extends React.Component {
             <Carousels />
             {/* 1st Hero Variation */}
           </div>
-
-          <HeaderLanding />
           <Switch>{this.getRoutes(routes)}</Switch>
           <DefaultFooter />
         </main>

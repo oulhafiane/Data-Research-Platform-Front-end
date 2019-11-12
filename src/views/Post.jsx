@@ -116,7 +116,6 @@ class Post extends React.Component {
               <ShowPost
                 state={this.state}
                 width="8"
-                height="600px"
                 getCounts={this.getCounts}
               />
               <ShowComments state={this.state} />
