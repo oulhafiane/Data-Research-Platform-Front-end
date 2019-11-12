@@ -41,7 +41,7 @@ class AuthFooter extends React.Component {
                   Innovate Trough Data
                 </h3>
                 <h4 className=" mb-0 font-weight-light">
-                  Let's get in touch on any of these platforms.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </h4>
               </Col>
               <Col className=" text-lg-center btn-wrapper" lg="6">
