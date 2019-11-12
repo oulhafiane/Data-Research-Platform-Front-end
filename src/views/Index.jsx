@@ -36,8 +36,8 @@ class Index extends React.Component {
                       About Us
                     </h2>
                   </di>
-                  <h3>Objectives :</h3>
-                  <ul style={{ fontSize: "1.3rem" }}>
+                  <h4 className="display-4 font-weight-bold">Objectives :</h4>
+                  <ul style={{ fontSize: "1.1rem" }}>
                     <li>
                       Inspire community and policy makers to design more
                       effective, efficient and sustainable services and programs
@@ -95,18 +95,18 @@ class Index extends React.Component {
                         points="0,42 583,95 683,0 0,95"
                       />
                     </svg>
-                    <h4 className="display-3 font-weight-bold text-white">
+                    <h4 className="display-4 font-weight-bold text-white">
                       Vision
                     </h4>
-                    <p className="lead text-italic text-white">
+                    <p className="text-italic text-white">
                       Provide research breakthroughs and actionable insights on
                       smallholder farmers challenges in Morocco and Africa for a
                       sustainable inclusive future.
                     </p>
-                    <h4 className="display-3 font-weight-bold text-white">
+                    <h4 className="display-4 font-weight-bold text-white">
                       Mission
                     </h4>
-                    <p className="lead text-italic text-white">
+                    <p className="text-italic text-white">
                       Create new knowledge from combined data sources paving the
                       way for the design of sustainable, inclusive and
                       innovative programs.
