@@ -17,6 +17,7 @@ import {
 
 // nodejs library that concatenates classes
 import classnames from "classnames";
+import NewsEvents from "components/Tabs/NewsEvents";
 
 class Index extends React.Component {
   state = {};
@@ -26,93 +27,18 @@ class Index extends React.Component {
         <section className="section bg-secondary">
           <Container>
             <Row className="row-grid align-items-center">
-              <Col md="6">
+              <Col md="12">
                 <div className="pl-md-5">
                   <di>
                     <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
-                      <i className="ni ni-briefcase-24" />
+                      <i className="ni ni-calendar-grid-58" />
                     </div>
                     <h2 style={{ marginLeft: "15px", display: "inline" }}>
-                      About Us
+                      News & Events
                     </h2>
                   </di>
-                  <h4 className="display-4 font-weight-bold">Objectives :</h4>
-                  <ul style={{ fontSize: "1.1rem" }}>
-                    <li>
-                      Inspire community and policy makers to design more
-                      effective, efficient and sustainable services and programs
-                      for small holder farmers.
-                    </li>
-                    <li>
-                      Enable people to better understand the complexity of
-                      challenges facing small holder farmers through research
-                      and data.
-                    </li>
-                    <li>
-                      Build a databank on small holder farmers in Morocco and
-                      Africa by merging data from multiple sources.
-                    </li>
-                    <li>
-                      Form working groups for knowledge building around small
-                      holder farmer challenges.
-                    </li>
-                    <li>
-                      Implement a collaboration platform allowing researchers
-                      and experts to share their knowledge on small holder
-                      farmer challenges.
-                    </li>
-                    <li>
-                      Provide data-driven insights on small holder farmers in
-                      Morocco and Africa.
-                    </li>
-                    <li>
-                      Enable innovation capability by using data-insights.
-                    </li>
-                  </ul>
+                  <NewsEvents />
                 </div>
-              </Col>
-              <Col md="6">
-                <Card className="bg-default shadow border-0">
-                  <CardImg
-                    alt="..."
-                    src={require("assets/img/theme/vision.jpg")}
-                    top
-                  />
-                  <blockquote className="card-blockquote">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="svg-bg"
-                      preserveAspectRatio="none"
-                      viewBox="0 0 583 95"
-                    >
-                      <polygon
-                        className="fill-default"
-                        points="0,52 583,95 0,95"
-                      />
-                      <polygon
-                        className="fill-default"
-                        opacity=".2"
-                        points="0,42 583,95 683,0 0,95"
-                      />
-                    </svg>
-                    <h4 className="display-4 font-weight-bold text-white">
-                      Vision
-                    </h4>
-                    <p className="text-italic text-white">
-                      Provide research breakthroughs and actionable insights on
-                      smallholder farmers challenges in Morocco and Africa for a
-                      sustainable inclusive future.
-                    </p>
-                    <h4 className="display-4 font-weight-bold text-white">
-                      Mission
-                    </h4>
-                    <p className="text-italic text-white">
-                      Create new knowledge from combined data sources paving the
-                      way for the design of sustainable, inclusive and
-                      innovative programs.
-                    </p>
-                  </blockquote>
-                </Card>
               </Col>
             </Row>
           </Container>
@@ -280,7 +206,100 @@ class Index extends React.Component {
             </Row>
           </Container>
         </section>
-
+        <section className="section bg-secondary">
+          <Container>
+            <Row className="row-grid align-items-center">
+              <Col md="6">
+                <div className="pl-md-5">
+                  <di>
+                    <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
+                      <i className="ni ni-briefcase-24" />
+                    </div>
+                    <h2 style={{ marginLeft: "15px", display: "inline" }}>
+                      About Us
+                    </h2>
+                  </di>
+                  <h4 className="display-4 font-weight-bold">Objectives :</h4>
+                  <ul style={{ fontSize: "1.1rem" }}>
+                    <li>
+                      Inspire community and policy makers to design more
+                      effective, efficient and sustainable services and programs
+                      for small holder farmers.
+                    </li>
+                    <li>
+                      Enable people to better understand the complexity of
+                      challenges facing small holder farmers through research
+                      and data.
+                    </li>
+                    <li>
+                      Build a databank on small holder farmers in Morocco and
+                      Africa by merging data from multiple sources.
+                    </li>
+                    <li>
+                      Form working groups for knowledge building around small
+                      holder farmer challenges.
+                    </li>
+                    <li>
+                      Implement a collaboration platform allowing researchers
+                      and experts to share their knowledge on small holder
+                      farmer challenges.
+                    </li>
+                    <li>
+                      Provide data-driven insights on small holder farmers in
+                      Morocco and Africa.
+                    </li>
+                    <li>
+                      Enable innovation capability by using data-insights.
+                    </li>
+                  </ul>
+                </div>
+              </Col>
+              <Col md="6">
+                <Card className="bg-default shadow border-0">
+                  <CardImg
+                    alt="..."
+                    src={require("assets/img/theme/vision.jpg")}
+                    top
+                  />
+                  <blockquote className="card-blockquote">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="svg-bg"
+                      preserveAspectRatio="none"
+                      viewBox="0 0 583 95"
+                    >
+                      <polygon
+                        className="fill-default"
+                        points="0,52 583,95 0,95"
+                      />
+                      <polygon
+                        className="fill-default"
+                        opacity=".2"
+                        points="0,42 583,95 683,0 0,95"
+                      />
+                    </svg>
+                    <h4 className="display-4 font-weight-bold text-white">
+                      Vision
+                    </h4>
+                    <p className="text-italic text-white">
+                      Provide research breakthroughs and actionable insights on
+                      smallholder farmers challenges in Morocco and Africa for a
+                      sustainable inclusive future.
+                    </p>
+                    <h4 className="display-4 font-weight-bold text-white">
+                      Mission
+                    </h4>
+                    <p className="text-italic text-white">
+                      Create new knowledge from combined data sources paving the
+                      way for the design of sustainable, inclusive and
+                      innovative programs.
+                    </p>
+                  </blockquote>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </section>
         <section className="section section-lg bg-gradient-default">
           <Container className="pt-lg pb-300">
             <Row className="text-center justify-content-center">
@@ -384,6 +403,7 @@ class Index extends React.Component {
             </Row>
           </Container>
         </section>
+
         <section className="section section-lg">
           <Container>
             <Row className="justify-content-center text-center mb-lg">
@@ -397,41 +417,9 @@ class Index extends React.Component {
                   <img
                     alt="..."
                     className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                    src={require("assets/img/theme/team-1-800x800.jpg")}
+                    src={require("assets/img/partners/ocp.jpg")}
                     style={{ width: "200px" }}
                   />
-                  <div className="pt-4 text-center">
-                    <h5 className="title">
-                      <span className="d-block mb-1">Ryan Tompson</span>
-                      <small className="h6 text-muted">Web Developer</small>
-                    </h5>
-                    <div className="mt-3">
-                      <Button
-                        className="btn-icon-only rounded-circle"
-                        color="warning"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-twitter" />
-                      </Button>
-                      <Button
-                        className="btn-icon-only rounded-circle ml-1"
-                        color="warning"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-facebook" />
-                      </Button>
-                      <Button
-                        className="btn-icon-only rounded-circle ml-1"
-                        color="warning"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-dribbble" />
-                      </Button>
-                    </div>
-                  </div>
                 </div>
               </Col>
               <Col className="mb-5 mb-lg-0" lg="3" md="6">
@@ -439,43 +427,9 @@ class Index extends React.Component {
                   <img
                     alt="..."
                     className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                    src={require("assets/img/theme/team-2-800x800.jpg")}
+                    src={require("assets/img/partners/um6p.jpg")}
                     style={{ width: "200px" }}
                   />
-                  <div className="pt-4 text-center">
-                    <h5 className="title">
-                      <span className="d-block mb-1">Romina Hadid</span>
-                      <small className="h6 text-muted">
-                        Marketing Strategist
-                      </small>
-                    </h5>
-                    <div className="mt-3">
-                      <Button
-                        className="btn-icon-only rounded-circle"
-                        color="primary"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-twitter" />
-                      </Button>
-                      <Button
-                        className="btn-icon-only rounded-circle ml-1"
-                        color="primary"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-facebook" />
-                      </Button>
-                      <Button
-                        className="btn-icon-only rounded-circle ml-1"
-                        color="primary"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-dribbble" />
-                      </Button>
-                    </div>
-                  </div>
                 </div>
               </Col>
               <Col className="mb-5 mb-lg-0" lg="3" md="6">
@@ -483,41 +437,9 @@ class Index extends React.Component {
                   <img
                     alt="..."
                     className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                    src={require("assets/img/theme/team-3-800x800.jpg")}
+                    src={require("assets/img/partners/inra.jpg")}
                     style={{ width: "200px" }}
                   />
-                  <div className="pt-4 text-center">
-                    <h5 className="title">
-                      <span className="d-block mb-1">Alexander Smith</span>
-                      <small className="h6 text-muted">UI/UX Designer</small>
-                    </h5>
-                    <div className="mt-3">
-                      <Button
-                        className="btn-icon-only rounded-circle"
-                        color="info"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-twitter" />
-                      </Button>
-                      <Button
-                        className="btn-icon-only rounded-circle ml-1"
-                        color="info"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-facebook" />
-                      </Button>
-                      <Button
-                        className="btn-icon-only rounded-circle ml-1"
-                        color="info"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-dribbble" />
-                      </Button>
-                    </div>
-                  </div>
                 </div>
               </Col>
               <Col className="mb-5 mb-lg-0" lg="3" md="6">
@@ -525,41 +447,9 @@ class Index extends React.Component {
                   <img
                     alt="..."
                     className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                    src={require("assets/img/theme/team-4-800x800.jpg")}
+                    src={require("assets/img/partners/um6ss.jpg")}
                     style={{ width: "200px" }}
                   />
-                  <div className="pt-4 text-center">
-                    <h5 className="title">
-                      <span className="d-block mb-1">John Doe</span>
-                      <small className="h6 text-muted">Founder and CEO</small>
-                    </h5>
-                    <div className="mt-3">
-                      <Button
-                        className="btn-icon-only rounded-circle"
-                        color="success"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-twitter" />
-                      </Button>
-                      <Button
-                        className="btn-icon-only rounded-circle ml-1"
-                        color="success"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-facebook" />
-                      </Button>
-                      <Button
-                        className="btn-icon-only rounded-circle ml-1"
-                        color="success"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fa fa-dribbble" />
-                      </Button>
-                    </div>
-                  </div>
                 </div>
               </Col>
             </Row>

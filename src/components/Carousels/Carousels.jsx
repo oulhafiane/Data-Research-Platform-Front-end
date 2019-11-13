@@ -65,7 +65,7 @@ const Carousels = props => {
         activeIndex={activeIndex}
         next={next}
         previous={previous}
-        interval="2000"
+        interval="3000"
       >
         <CarouselIndicators
           items={items}

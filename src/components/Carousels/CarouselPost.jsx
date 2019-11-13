@@ -41,7 +41,7 @@ const CarouselPost = props => {
         activeIndex={activeIndex}
         next={next}
         previous={previous}
-        interval="2000"
+        interval="3000"
       >
         {slides}
         <CarouselControl

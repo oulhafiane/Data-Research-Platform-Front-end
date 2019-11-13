@@ -62,8 +62,8 @@ class SharedNavbar extends React.Component {
         <Nav className="navbar-nav-hover align-items-lg-center" navbar>
           <NavItem>
             <NavLink href="#pablo" onClick={e => e.preventDefault()}>
-              <i className="ni ni-briefcase-24" />
-              About Us <span className="sr-only">(current)</span>
+              <i className="ni ni-calendar-grid-58" />
+              News & Events
             </NavLink>
           </NavItem>
           <UncontrolledDropdown nav>
@@ -149,6 +149,12 @@ class SharedNavbar extends React.Component {
               </div>
             </DropdownMenu>
           </UncontrolledDropdown>
+          <NavItem>
+            <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+              <i className="ni ni-briefcase-24" />
+              About Us <span className="sr-only">(current)</span>
+            </NavLink>
+          </NavItem>
           <NavItem>
             <NavLink href="#pablo" onClick={e => e.preventDefault()}>
               <i className="ni ni-email-83" />
