@@ -155,84 +155,18 @@
   -webkit-box-orient: vertical;
 }
 
+.d-none {
+  display: block !important;
+}
+
 /*News & Events*/
 
-.searchForm {
-  position: relative;
-}
-.customSelect {
-  width: 100%;
-  max-width: 370px;
-}
-.searchForm.type2 input[type="search"] {
-  background: #fff;
-  border: 2px solid #959595;
-}
-
-.searchForm input[type="search"] {
-  display: inline-block;
-  width: 100%;
-  max-width: 505px;
-  height: 52px;
-  padding: 11px 0 11px 20px;
-  font-size: 17px;
-  line-height: 19px;
-  color: #222;
-  font-style: normal;
-  background-color: #f1f1f1;
-  background-image: none;
-  border: 1px solid #8196a1;
-  border-radius: 0;
-  -webkit-transition: none;
-  transition: none;
-}
-.searchForm input[type="submit"] {
-  background: transparent
-    url(https://www.solodev.com/assets/news-events-tabs/search-ico.png)
-    no-repeat center center;
-  font-size: 0;
-  color: transparent;
-  border: 0;
-  width: 52px;
-  height: 52px;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-.dropdownCategories {
-  display: inline-block;
-  width: 100%;
-  max-width: 505px;
-  height: 52px;
-  padding: 15px 0 11px;
-  font-size: 17px;
-  line-height: 19px;
-  color: #222;
-  font-style: normal;
-  background: #fff;
-  border: 2px solid #959595;
-  background-image: none;
-  border-radius: 0;
-  -webkit-transition: none;
-  transition: none;
-}
-.dropdownCategories select {
-  width: 100%;
-  padding: 0 20px;
-  border: 0px;
-  outline: none;
-}
-
-.nav-pills > li > a {
-  border-radius: 0;
-  font-size: 18px;
-  padding: 6px 18px;
-}
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
-.nav-pills > li.active > a:focus {
-  color: #fff;
-  background-color: #5e72e4;
+.title-post {
+  height: 60px;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 
 .tab-content {
@@ -290,7 +224,7 @@
   margin-right: 25px;
 }
 .blogPost--small a {
-  color: #5e72e4;
+  color: #fb6340;
 }
 .blogPost--small .date,
 .blogPost--small .dateEl2 {
@@ -298,7 +232,7 @@
   text-align: center;
   padding: 18px 0 25px 0;
   color: #fff;
-  background: #5e72e4;
+  background: #fb6340;
   width: 113px;
 }
 .blogPost--small .date span,
@@ -324,7 +258,7 @@
   text-transform: uppercase;
 }
 
-.btn-default {
+.btn-event {
   color: #fff;
   font-size: 14px;
   background-color: #5e72e4;

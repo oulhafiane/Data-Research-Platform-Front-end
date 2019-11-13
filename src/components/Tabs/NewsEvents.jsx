@@ -58,7 +58,7 @@ class NewsEvents extends React.Component {
             {/* Tabs with icons */}
             <div className="nav-wrapper">
               <Nav
-                className="flex-column flex-md-row"
+                className="nav-fill flex-column flex-md-row"
                 id="tabs-icons-text"
                 pills
                 role="tablist"
@@ -91,24 +91,6 @@ class NewsEvents extends React.Component {
                     Events
                   </NavLink>
                 </NavItem>
-                <Form className="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                  <FormGroup className="mb-0">
-                    <InputGroup
-                      className="input-group-alternative"
-                      style={{ color: "#5e72e4" }}
-                    >
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i
-                            className="fas fa-search"
-                            style={{ color: "#5e72e4" }}
-                          />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input placeholder="Search" type="text" />
-                    </InputGroup>
-                  </FormGroup>
-                </Form>
               </Nav>
             </div>
             <Card className="shadow">
@@ -127,10 +109,10 @@ class NewsEvents extends React.Component {
                               </a>
                             </span>
                             <div className="media-body">
-                              <h4 className="media-heading">
+                              <h4 className="media-heading title-post">
                                 <a href="#">Building In WebCorpCo CMS 8</a>
                               </h4>
-                              <p>
+                              <p className="post">
                                 Learn about all of the possibilities of web
                                 design in our latest CMS release.
                               </p>
@@ -147,10 +129,10 @@ class NewsEvents extends React.Component {
                               </a>
                             </span>
                             <div className="media-body">
-                              <h4 className="media-heading">
+                              <h4 className="media-heading title-post">
                                 <a href="#">WebCorpCo Named To Inc. 5000</a>
                               </h4>
-                              <p>
+                              <p className="post">
                                 Inc. magazine today ranked WebCorpCo as the
                                 1,870th fastest growing company on the 34th
                                 annual Inc. 5000.
@@ -170,12 +152,12 @@ class NewsEvents extends React.Component {
                               </a>
                             </span>
                             <div className="media-body">
-                              <h4 className="media-heading">
+                              <h4 className="media-heading title-post">
                                 <a href="#">
                                   7 Critical Factors When Choosing A CMS
                                 </a>
                               </h4>
-                              <p>
+                              <p className="post">
                                 Finding a solution that can be tailored to
                                 support the needs of your business is more
                                 important than ever.
@@ -193,12 +175,12 @@ class NewsEvents extends React.Component {
                               </a>
                             </span>
                             <div className="media-body">
-                              <h4 className="media-heading">
+                              <h4 className="media-heading title-post">
                                 <a href="#">
                                   What Is A Content Management System
                                 </a>
                               </h4>
-                              <p>
+                              <p className="post">
                                 So many acronyms that most of us know a brief
                                 amount about, if at all, let alone the meaning
                                 of those three little letters we hear so often.
@@ -210,9 +192,11 @@ class NewsEvents extends React.Component {
                     </Row>
                     <Row>
                       <Col>
-                        <Link to="/default/events" style={{ float: "right" }}>
-                          See all news
-                        </Link>
+                        <div className="text-center">
+                          <Link to="/default/events" className="btn btn-event">
+                            SEE ALL NEWS
+                          </Link>
+                        </div>
                       </Col>
                     </Row>
                   </TabPane>
@@ -229,10 +213,10 @@ class NewsEvents extends React.Component {
                               </a>
                             </span>
                             <div className="media-body">
-                              <h4 className="media-heading">
+                              <h4 className="media-heading title-post">
                                 <a href="#">Building In WebCorpCo CMS 8</a>
                               </h4>
-                              <p>
+                              <p className="post">
                                 Learn about all of the possibilities of web
                                 design in our latest CMS release.
                               </p>
@@ -249,10 +233,10 @@ class NewsEvents extends React.Component {
                               </a>
                             </span>
                             <div className="media-body">
-                              <h4 className="media-heading">
+                              <h4 className="media-heading title-post">
                                 <a href="#">WebCorpCo Named To Inc. 5000</a>
                               </h4>
-                              <p>
+                              <p className="post">
                                 Inc. magazine today ranked WebCorpCo as the
                                 1,870th fastest growing company on the 34th
                                 annual Inc. 5000.
@@ -272,12 +256,12 @@ class NewsEvents extends React.Component {
                               </a>
                             </span>
                             <div className="media-body">
-                              <h4 className="media-heading">
+                              <h4 className="media-heading title-post">
                                 <a href="#">
                                   7 Critical Factors When Choosing A CMS
                                 </a>
                               </h4>
-                              <p>
+                              <p className="post">
                                 Finding a solution that can be tailored to
                                 support the needs of your business is more
                                 important than ever.
@@ -295,12 +279,12 @@ class NewsEvents extends React.Component {
                               </a>
                             </span>
                             <div className="media-body">
-                              <h4 className="media-heading">
+                              <h4 className="media-heading title-post">
                                 <a href="#">
                                   What Is A Content Management System
                                 </a>
                               </h4>
-                              <p>
+                              <p className="post">
                                 So many acronyms that most of us know a brief
                                 amount about, if at all, let alone the meaning
                                 of those three little letters we hear so often.
@@ -312,9 +296,11 @@ class NewsEvents extends React.Component {
                     </Row>
                     <Row>
                       <Col>
-                        <Link to="/default/events" style={{ float: "right" }}>
-                          See all events
-                        </Link>
+                        <div className="text-center">
+                          <Link to="/default/events" className="btn btn-event">
+                            SEE ALL EVENTS
+                          </Link>
+                        </div>
                       </Col>
                     </Row>
                   </TabPane>

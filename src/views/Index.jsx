@@ -29,14 +29,14 @@ class Index extends React.Component {
             <Row className="row-grid align-items-center">
               <Col md="12">
                 <div className="pl-md-5">
-                  <di>
+                  <div>
                     <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
                       <i className="ni ni-calendar-grid-58" />
                     </div>
                     <h2 style={{ marginLeft: "15px", display: "inline" }}>
                       News & Events
                     </h2>
-                  </di>
+                  </div>
                   <NewsEvents />
                 </div>
               </Col>
@@ -211,14 +211,14 @@ class Index extends React.Component {
             <Row className="row-grid align-items-center">
               <Col md="6">
                 <div className="pl-md-5">
-                  <di>
+                  <div>
                     <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
                       <i className="ni ni-briefcase-24" />
                     </div>
                     <h2 style={{ marginLeft: "15px", display: "inline" }}>
                       About Us
                     </h2>
-                  </di>
+                  </div>
                   <h4 className="display-4 font-weight-bold">Objectives :</h4>
                   <ul style={{ fontSize: "1.1rem" }}>
                     <li>
