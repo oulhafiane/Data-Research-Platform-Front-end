@@ -264,3 +264,21 @@
   background-color: #5e72e4;
   border-radius: 0px;
 }
+
+/* Scroll */
+#partners::before,
+#contact-us::before,
+#about-us::before,
+#data::before,
+#research::before,
+#events::before {
+  display: block;
+  content: " ";
+  margin-top: -65px;
+  height: 65px;
+  visibility: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}

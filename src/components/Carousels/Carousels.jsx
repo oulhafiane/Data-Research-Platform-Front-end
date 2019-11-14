@@ -51,7 +51,7 @@ const Carousels = props => {
         />
         {/* Mask */}
         <span className="mask bg-gradient-default opacity-7" />{" "}
-        <div class="carousel-caption">
+        <div className="carousel-caption">
           <h3>Data &amp; Research Platform</h3>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

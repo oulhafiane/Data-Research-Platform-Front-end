@@ -24,7 +24,7 @@ class Index extends React.Component {
   render() {
     return (
       <>
-        <section className="section bg-secondary">
+        <section className="section bg-secondary" id="events">
           <Container>
             <Row className="row-grid align-items-center">
               <Col md="12">
@@ -43,7 +43,7 @@ class Index extends React.Component {
             </Row>
           </Container>
         </section>
-        <section className="section pb-0 bg-gradient-warning">
+        <section className="section pb-0 bg-gradient-warning" id="research">
           <Container>
             <Row className="row-grid align-items-center">
               <Col className="order-lg-2 ml-lg-auto" md="6">
@@ -142,7 +142,7 @@ class Index extends React.Component {
             </svg>
           </div>
         </section>
-        <section className="section section-lg">
+        <section className="section section-lg" id="data">
           <Container>
             <Row className="row-grid align-items-center">
               <Col className="order-md-2" md="6">
@@ -206,7 +206,7 @@ class Index extends React.Component {
             </Row>
           </Container>
         </section>
-        <section className="section bg-secondary">
+        <section className="section bg-secondary" id="about-us">
           <Container>
             <Row className="row-grid align-items-center">
               <Col md="6">
@@ -300,7 +300,10 @@ class Index extends React.Component {
             </Row>
           </Container>
         </section>
-        <section className="section section-lg bg-gradient-default">
+        <section
+          className="section section-lg bg-gradient-default"
+          id="contact-us"
+        >
           <Container className="pt-lg pb-300">
             <Row className="text-center justify-content-center">
               <Col lg="10">
@@ -403,8 +406,7 @@ class Index extends React.Component {
             </Row>
           </Container>
         </section>
-
-        <section className="section section-lg">
+        <section className="section section-lg" id="partners">
           <Container>
             <Row className="justify-content-center text-center mb-lg">
               <Col lg="8">

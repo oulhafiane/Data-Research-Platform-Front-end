@@ -21,7 +21,7 @@ import ScrollToTop from "components/Scroll/ScrollUp";
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename="Data-Research-Platform-Front-end">
+    <BrowserRouter>
       <ScrollToTop />
       <Switch>
         <Route path="/auth" render={props => <AuthLayout {...props} />} />

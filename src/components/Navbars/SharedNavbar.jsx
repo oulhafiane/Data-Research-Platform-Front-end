@@ -61,7 +61,7 @@ class SharedNavbar extends React.Component {
         </div>
         <Nav className="navbar-nav-hover align-items-lg-center" navbar>
           <NavItem>
-            <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+            <NavLink href="/landing/index#events">
               <i className="ni ni-calendar-grid-58" />
               News & Events
             </NavLink>
@@ -90,7 +90,10 @@ class SharedNavbar extends React.Component {
                     </p>
                   </Media>
                 </Media>
-                <Media className="d-flex align-items-center" href="#pablo">
+                <Media
+                  className="d-flex align-items-center"
+                  href="/landing/index#research"
+                >
                   <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
                     <i className="ni ni-briefcase-24" />
                   </div>
@@ -132,7 +135,10 @@ class SharedNavbar extends React.Component {
                     </p>
                   </Media>
                 </Media>
-                <Media className="d-flex align-items-center" href="#pablo">
+                <Media
+                  className="d-flex align-items-center"
+                  href="/landing/index#data"
+                >
                   <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
                     <i className="ni ni-briefcase-24" />
                   </div>
@@ -150,19 +156,19 @@ class SharedNavbar extends React.Component {
             </DropdownMenu>
           </UncontrolledDropdown>
           <NavItem>
-            <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+            <NavLink href="/landing/index#about-us">
               <i className="ni ni-briefcase-24" />
               About Us <span className="sr-only">(current)</span>
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+            <NavLink href="/landing/index#contact-us">
               <i className="ni ni-email-83" />
               Contact Us <span className="sr-only">(current)</span>
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+            <NavLink href="/landing/index#partners">
               <i className="ni ni-satisfied" />
               Our Partners <span className="sr-only">(current)</span>
             </NavLink>

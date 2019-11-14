@@ -25,7 +25,6 @@ import DefaultNavbar from "components/Navbars/DefaultNavbar";
 import DefaultFooter from "components/Footers/AuthFooter.jsx";
 
 import routes from "routes.js";
-import HeaderLanding from "components/Headers/HeaderLanding";
 import Carousels from "components/Carousels/Carousels";
 
 class Landing extends React.Component {
