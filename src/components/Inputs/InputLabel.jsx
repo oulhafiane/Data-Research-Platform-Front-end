@@ -4,7 +4,7 @@ import { FormGroup, Input } from "reactstrap";
 
 class InputTextLabel extends React.Component {
   render() {
-    const { id, val, placeholder, type, onChange, rows } = this.props;
+    const { id, val, placeholder, type, onChange, rows, disabled } = this.props;
     return (
       <div>
         <FormGroup>
@@ -21,6 +21,7 @@ class InputTextLabel extends React.Component {
             onChange={onChange}
             style={{ color: "#365d8a", fontSize: "1rem" }}
             rows={rows}
+            disabled={disabled}
           />
         </FormGroup>
       </div>

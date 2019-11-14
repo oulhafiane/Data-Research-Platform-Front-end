@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import AuthLayout from "layouts/Auth.jsx";
 import Default from "layouts/Default";
 import Landing from "layouts/Landing";
+import Admin from "layouts/Admin";
 
 import { Provider } from "react-redux";
 import store from "./store";
@@ -27,6 +28,7 @@ ReactDOM.render(
         <Route path="/auth" render={props => <AuthLayout {...props} />} />
         <Route path="/default" render={props => <Default {...props} />} />
         <Route path="/landing" render={props => <Landing {...props} />} />
+        <Route path="/admin" render={props => <Admin {...props} />} />
         <Redirect from="/" to="/landing/index" />
       </Switch>
     </BrowserRouter>

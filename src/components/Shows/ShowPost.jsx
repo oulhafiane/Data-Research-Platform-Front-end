@@ -19,6 +19,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { DEFAULT_URL } from "../../config";
+import authService from "../../services/auth-service";
 
 // reactstrap components
 import {
@@ -162,6 +163,7 @@ class ShowPost extends React.Component {
                     color: this.state.up_voted ? "red" : "inherit"
                   }}
                   onClick={this.submitData}
+                  disabled={!authService.isSearcher()}
                 >
                   <i id="up_vote_icon" className="ni ni-bold-up" />
                 </Button>
@@ -174,6 +176,7 @@ class ShowPost extends React.Component {
                     color: this.state.down_voted ? "red" : "inherit"
                   }}
                   onClick={this.submitData}
+                  disabled={!authService.isSearcher()}
                 >
                   <i id="down_vote_icon" className="ni ni-bold-down" />
                 </Button>

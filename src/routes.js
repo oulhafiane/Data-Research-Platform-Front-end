@@ -6,6 +6,7 @@ import PublicProfile from "views/PublicProfile.jsx";
 import Index from "views/Index";
 import NewPost from "views/NewPost";
 import Post from "views/Post";
+import Dashboard from "views/Dashboard";
 
 var routes = [
   {
@@ -46,7 +47,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Post,
     layout: "/default",
-    role: "ROLE_AUTH"
+    role: "ROLE_ANON"
   },
   {
     path: "/posts",
@@ -54,7 +55,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Posts,
     layout: "/default",
-    role: "ROLE_AUTH"
+    role: "ROLE_ANON"
   },
   {
     path: "/new",
@@ -70,6 +71,14 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Index,
     layout: "/landing",
+    role: "ROLE_ANON"
+  },
+  {
+    path: "/index",
+    name: "Dashboard",
+    icon: "ni ni-tv-2 text-primary",
+    component: Dashboard,
+    layout: "/admin",
     role: "ROLE_ANON"
   }
 ];

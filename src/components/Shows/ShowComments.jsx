@@ -21,6 +21,7 @@ import InputTextLabel from "../Inputs/InputLabel";
 import { DEFAULT_URL } from "../../config";
 import { connect } from "react-redux";
 import { getUser } from "actions/userAction";
+import authService from "../../services/auth-service";
 
 // reactstrap components
 import { Card, CardHeader, CardBody, Button, Row, Col, Form } from "reactstrap";
@@ -128,6 +129,7 @@ class ShowComments extends React.Component {
                   onChange={this.onChange}
                   rows="5"
                   style={{ resize: "None" }}
+                  disabled={!authService.isSearcher()}
                 />
                 <Button
                   color="primary"
@@ -136,6 +138,7 @@ class ShowComments extends React.Component {
                   size="sm"
                   disabled={this.state.disabled}
                   style={{ padding: "9px 34px 9px 34px", float: "right" }}
+                  disabled={!authService.isSearcher()}
                 >
                   {this.state.uploading ? (
                     <React.Fragment>
@@ -174,10 +177,20 @@ class ShowComments extends React.Component {
                       </div>
                     </div>
                     <div className="my-auto ml-auto">
-                      <Button size="sm" theme="white" style={this.btnStyle}>
+                      <Button
+                        size="sm"
+                        theme="white"
+                        style={this.btnStyle}
+                        disabled={!authService.isSearcher()}
+                      >
                         <i className="ni ni-bold-up" />
                       </Button>
-                      <Button size="sm" theme="white" style={this.btnStyle}>
+                      <Button
+                        size="sm"
+                        theme="white"
+                        style={this.btnStyle}
+                        disabled={!authService.isSearcher()}
+                      >
                         <i className="ni ni-bold-down" />
                       </Button>
                     </div>
@@ -202,7 +215,4 @@ const mapStateProps = state => ({
   photo_user: state.user.photo_user
 });
 
-export default connect(
-  mapStateProps,
-  { getUser }
-)(ShowComments);
+export default connect(mapStateProps, { getUser })(ShowComments);

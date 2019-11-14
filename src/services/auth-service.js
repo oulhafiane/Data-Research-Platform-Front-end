@@ -37,30 +37,6 @@ class AuthService {
     return token.username;
   }
 
-  getRoles(token) {
-    let role = "";
-    if (token) {
-      const roles = this.decode(token).roles;
-      if (roles) {
-        role = roles[0];
-      }
-      return role;
-    }
-    return role;
-  }
-
-  isSearcher() {
-    return "ROLE_SEARCHER";
-  }
-
-  isCustomer() {
-    return "ROLE_CUSTOMER";
-  }
-
-  isAdmin() {
-    return "ROLE_ADMIN";
-  }
-
   isValid(token) {
     if (moment().isBefore(this.getExpiration(token))) return true;
     else {
@@ -85,6 +61,45 @@ class AuthService {
   isAuthenticated() {
     const token = this.getToken();
     return token && this.isValid(token) ? true : false;
+  }
+
+  isSearcher() {
+    let found = false;
+    if (this.isAuthenticated()) {
+      const roles = this.decode(this.getToken()).roles;
+      roles.forEach(role => {
+        if (role == "ROLE_SEARCHER") {
+          found = true;
+        }
+      });
+    }
+    return found;
+  }
+
+  isCustomer() {
+    let found = false;
+    if (this.isAuthenticated()) {
+      const roles = this.decode(this.getToken()).roles;
+      roles.forEach(role => {
+        if (role == "ROLE_CUSTOMER") {
+          found = true;
+        }
+      });
+    }
+    return found;
+  }
+
+  isAdmin() {
+    let found = false;
+    if (this.isAuthenticated()) {
+      const roles = this.decode(this.getToken()).roles;
+      roles.forEach(role => {
+        if (role == "ROLE_ADMIN") {
+          found = true;
+        }
+      });
+    }
+    return found;
   }
 }
 
