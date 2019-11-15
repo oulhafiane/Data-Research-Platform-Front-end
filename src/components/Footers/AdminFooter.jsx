@@ -31,11 +31,11 @@ class Footer extends React.Component {
               © 2018{" "}
               <a
                 className="font-weight-bold ml-1"
-                href="https://www.creative-tim.com?ref=adr-admin-footer"
+                href="https://pcuriosity.site123.me/"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Creative Tim
+                P-Curiosity Lab
               </a>
             </div>
           </Col>
@@ -44,31 +44,21 @@ class Footer extends React.Component {
             <Nav className="nav-footer justify-content-center justify-content-xl-end">
               <NavItem>
                 <NavLink
-                  href="https://www.creative-tim.com?ref=adr-admin-footer"
+                  href="https://pcuriosity.site123.me/"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  Creative Tim
+                  P-Curiosity Lab
                 </NavLink>
               </NavItem>
 
               <NavItem>
                 <NavLink
-                  href="https://www.creative-tim.com/presentation?ref=adr-admin-footer"
+                  href="/landing/index#about-us"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   About Us
-                </NavLink>
-              </NavItem>
-
-              <NavItem>
-                <NavLink
-                  href="http://blog.creative-tim.com?ref=adr-admin-footer"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Blog
                 </NavLink>
               </NavItem>
 

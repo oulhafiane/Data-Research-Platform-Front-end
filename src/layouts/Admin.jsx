@@ -71,7 +71,11 @@ class Admin extends React.Component {
             imgAlt: "..."
           }}
         />
-        <div className="main-content" ref="mainContent">
+        <div
+          className="main-content"
+          ref="mainContent"
+          style={{ backgroundColor: "#f4f5f7" }}
+        >
           <AdminNavbar
             {...this.props}
             brandText={this.getBrandText(this.props.location.pathname)}

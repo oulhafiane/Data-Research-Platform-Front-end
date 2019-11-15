@@ -7,6 +7,7 @@ import Index from "views/Index";
 import NewPost from "views/NewPost";
 import Post from "views/Post";
 import Dashboard from "views/Dashboard";
+import Applications from "views/Applications";
 
 var routes = [
   {
@@ -78,6 +79,14 @@ var routes = [
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: Dashboard,
+    layout: "/admin",
+    role: "ROLE_ANON"
+  },
+  {
+    path: "/applications",
+    name: "Applications",
+    icon: "ni ni-badge text-danger",
+    component: Applications,
     layout: "/admin",
     role: "ROLE_ANON"
   }
