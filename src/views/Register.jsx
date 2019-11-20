@@ -39,14 +39,15 @@ class Register extends React.Component {
       password: "",
       firstName: "",
       lastName: "",
-      phone: "",
-      type: "searcher"
+      organization: "",
+      jobTitle: "",
+      type: "customer"
     },
     showSuccess: false,
     showWarning: false,
     showGlobalWarning: false,
     extras: {},
-    seconds: 5,
+    seconds: 3,
     accepted: false
   };
 
@@ -69,7 +70,7 @@ class Register extends React.Component {
         }, 1000);
         setTimeout(() => {
           this.props.history.push("/auth/login");
-        }, 5000);
+        }, 3000);
       })
       .catch(error => {
         if (
@@ -165,12 +166,21 @@ class Register extends React.Component {
                 />
                 <InputText
                   icon="ni ni-mobile-button"
-                  placeholder="Phone"
-                  type="Phone"
-                  name="phone"
+                  placeholder="Organization"
+                  type="Text"
+                  name="organization"
                   onChange={this.onChange}
-                  stateError={this.state.extras.phone !== undefined}
-                  errorMessage={this.state.extras.phone}
+                  stateError={this.state.extras.organization !== undefined}
+                  errorMessage={this.state.extras.organization}
+                />
+                <InputText
+                  icon="ni ni-mobile-button"
+                  placeholder="Job Title"
+                  type="Text"
+                  name="jobTitle"
+                  onChange={this.onChange}
+                  stateError={this.state.extras.jobTitle !== undefined}
+                  errorMessage={this.state.extras.jobTitle}
                 />
 
                 {this.state.showSuccess ? (

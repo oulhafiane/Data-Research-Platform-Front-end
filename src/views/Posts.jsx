@@ -56,46 +56,48 @@ class Profile extends React.Component {
                       className="card-post__image"
                       style={{
                         backgroundImage: `url(${
-                          post.photos[0].img
-                            ? post.photos[0].img
+                          post[0].photos[0].img
+                            ? post[0].photos[0].img
                             : this.state.photo_default
                         })`
                       }}
                     >
                       <Badge
                         pill
-                        className={`card-post__category bg-${post.category.id}`}
+                        className={`card-post__category bg-${post[0].category.id}`}
                       >
-                        {post.category.title}
+                        {post[0].category.title}
                       </Badge>
                       <div className="card-post__author d-flex">
                         <Link
-                          to={`/default/profile/${post.owner.uuid}`}
+                          to={`/default/profile/${post[0].owner.uuid}`}
                           className="card-post__author-avatar"
                           style={{
                             backgroundImage: `url('${
-                              post.owner._photo
-                                ? post.owner._photo.img
+                              post[0].owner._photo
+                                ? post[0].owner._photo.img
                                 : this.state.photo_user
                             }')`
                           }}
                         >
-                          Written by {post.owner.firstName}{" "}
-                          {post.owner.lastName}
+                          Written by {post[0].owner.firstName}{" "}
+                          {post[0].owner.lastName}
                         </Link>
                       </div>
                     </div>
                     <CardBody>
                       <h5 className="card-title">
                         <Link
-                          to={`/default/posts/${post.id}`}
+                          to={`/default/posts/${post[0].id}`}
                           className="text-fiord-blue"
                         >
-                          {post.title}
+                          {post[0].title}
                         </Link>
                       </h5>
-                      <p className="card-text mb-3 post">{post.description}</p>
-                      <span className="text-muted">{post.creationDate}</span>
+                      <p className="card-text mb-3 post">
+                        {post[0].description}
+                      </p>
+                      <span className="text-muted">{post[0].creationDate}</span>
                     </CardBody>
                   </Card>
                 </Col>

@@ -123,26 +123,6 @@ class Profile extends React.Component {
                       <Row>
                         <Col lg="6">
                           <InputTextLabel
-                            id="organization"
-                            placeholder="Organization"
-                            type="text"
-                            val={this.state.user.organization}
-                            onChange={this.onChange}
-                          />
-                        </Col>
-                        <Col lg="6">
-                          <InputTextLabel
-                            id="email"
-                            placeholder="Email"
-                            type="text"
-                            val={this.state.user.email}
-                            onChange={this.onChange}
-                          />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="6">
-                          <InputTextLabel
                             id="firstName"
                             placeholder="First name"
                             type="text"
@@ -156,6 +136,26 @@ class Profile extends React.Component {
                             placeholder="Last name"
                             type="text"
                             val={this.state.user.lastName}
+                            onChange={this.onChange}
+                          />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg="6">
+                          <InputTextLabel
+                            id="organization"
+                            placeholder="Organization"
+                            type="text"
+                            val={this.state.user.organization}
+                            onChange={this.onChange}
+                          />
+                        </Col>
+                        <Col lg="6">
+                          <InputTextLabel
+                            id="email"
+                            placeholder="Email"
+                            type="text"
+                            val={this.state.user.email}
                             onChange={this.onChange}
                           />
                         </Col>
