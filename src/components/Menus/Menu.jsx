@@ -91,7 +91,7 @@ class Menu extends React.Component {
                     </Button>
                   </NavItem>
                 </Nav>
-                {/* <Nav className="ml-lg-auto" navbar>
+                <Nav className="ml-lg-auto" navbar>
                   <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
                     <FormGroup className="mb-0">
                       <InputGroup className="input-group-alternative">
@@ -104,7 +104,7 @@ class Menu extends React.Component {
                       </InputGroup>
                     </FormGroup>
                   </Form>
-                </Nav> */}
+                </Nav>
               </UncontrolledCollapse>
             </Navbar>
           </Col>

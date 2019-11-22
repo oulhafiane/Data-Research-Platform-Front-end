@@ -61,9 +61,9 @@ class SharedNavbar extends React.Component {
         </div>
         <Nav className="navbar-nav-hover align-items-lg-center" navbar>
           <NavItem>
-            <NavLink href="/landing/index#events">
-              <i className="ni ni-calendar-grid-58" />
-              News & Events
+            <NavLink href="/landing/index#about-us">
+              <i className="ni ni-briefcase-24" />
+              About Us <span className="sr-only">(current)</span>
             </NavLink>
           </NavItem>
           <UncontrolledDropdown nav>
@@ -156,9 +156,9 @@ class SharedNavbar extends React.Component {
             </DropdownMenu>
           </UncontrolledDropdown>
           <NavItem>
-            <NavLink href="/landing/index#about-us">
-              <i className="ni ni-briefcase-24" />
-              About Us <span className="sr-only">(current)</span>
+            <NavLink href="/landing/index#events">
+              <i className="ni ni-calendar-grid-58" />
+              News & Events
             </NavLink>
           </NavItem>
           <NavItem>

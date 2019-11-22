@@ -19,6 +19,8 @@ import React from "react";
 import Axios from "axios";
 import InputTextLabel from "../components/Inputs/InputLabel";
 import { DEFAULT_URL } from "../config";
+import { connect } from "react-redux";
+import { getUser } from "actions/userAction";
 
 // reactstrap components
 import {
@@ -161,8 +163,9 @@ class NewPost extends React.Component {
       });
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getCategories();
+    await this.props.getUser();
   }
 
   render() {
@@ -171,7 +174,16 @@ class NewPost extends React.Component {
         {/* Page content */}
         <Container fluid className="main-content-container px-4">
           <Row>
-            <ShowPost state={this.state} width="6" />
+            <ShowPost
+              state={this.state}
+              photo_user={
+                this.props.user._photo
+                  ? this.props.user._photo.img
+                  : this.props.photo_user
+              }
+              request={false}
+              width="6"
+            />
             <Col className="order-xl-1" xl="6">
               <Card className="bg-secondary shadow">
                 <CardHeader className="bg-white border-0">
@@ -332,4 +344,9 @@ class NewPost extends React.Component {
   }
 }
 
-export default NewPost;
+const mapStateProps = state => ({
+  photo_user: state.user.photo_user,
+  user: state.user.user
+});
+
+export default connect(mapStateProps, { getUser })(NewPost);

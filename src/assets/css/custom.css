@@ -282,3 +282,19 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* Multi-Select */
+
+.css-yk16xz-control {
+  box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
+}
+.css-1hwfws3 {
+  color: #365d8a;
+  font-size: 1rem;
+  min-height: calc(2.75rem + 1px);
+  border-radius: 0.25rem;
+  background-color: #fff;
+  background-clip: padding-box;
+  line-height: 1.5;
+  width: 100%;
+}

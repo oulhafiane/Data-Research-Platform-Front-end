@@ -35,6 +35,7 @@ import {
   Alert
 } from "reactstrap";
 import ShowProfile from "components/Shows/ShowProfile";
+import SelectLabel from "components/Inputs/SelectLabel";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -44,6 +45,14 @@ class Profile extends React.Component {
   state = {
     token: localStorage.getItem("token"),
     user: {},
+    categories: {
+      0: {
+        id: 1,
+        title: "Domain",
+        sub_categories: { 0: { id: 1, title: "Category" } }
+      }
+    },
+    selected: [],
     disabled: true,
     file: null,
     showGlobalWarning: false,
@@ -58,8 +67,19 @@ class Profile extends React.Component {
     });
   };
 
+  onChangeDomains = e => {
+    console.log(e);
+    this.setState({
+      selected: e,
+      disabled: false
+    });
+  };
+
   updateProfile = e => {
     e.preventDefault();
+    let domains = this.state.selected.map(domain => ({
+      id: domain.value
+    }));
     this.setState({
       showSuccess: false,
       showGlobalWarning: false,
@@ -68,7 +88,11 @@ class Profile extends React.Component {
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
-    Axios.post(`${DEFAULT_URL}api/current/update`, this.state.user, config)
+    Axios.post(
+      `${DEFAULT_URL}api/current/update`,
+      { ...this.state.user, domains: domains },
+      config
+    )
       .then(res => {
         this.setState({ showSuccess: true, uploading: false });
         console.log(res);
@@ -90,9 +114,22 @@ class Profile extends React.Component {
       });
   };
 
+  getCategories = () => {
+    Axios.get(`${DEFAULT_URL}api/categories`)
+      .then(res => {
+        this.setState({ categories: res.data });
+      })
+      .catch(e => console.log(e.response.data));
+  };
+
   async componentDidMount() {
+    this.getCategories();
     await this.props.getUser();
-    this.setState({ user: this.props.user });
+    const domains = this.props.user.domains.map(domain => ({
+      value: domain.id,
+      label: domain.title
+    }));
+    this.setState({ user: this.props.user, selected: domains });
   }
 
   render() {
@@ -143,20 +180,21 @@ class Profile extends React.Component {
                       <Row>
                         <Col lg="6">
                           <InputTextLabel
-                            id="organization"
-                            placeholder="Organization"
+                            id="jobTitle"
+                            placeholder="Job Title"
                             type="text"
-                            val={this.state.user.organization}
+                            val={this.state.user.jobTitle}
                             onChange={this.onChange}
                           />
                         </Col>
                         <Col lg="6">
-                          <InputTextLabel
-                            id="email"
-                            placeholder="Email"
+                          <SelectLabel
+                            id="domains"
+                            placeholder="Domains Of Expertise"
                             type="text"
-                            val={this.state.user.email}
-                            onChange={this.onChange}
+                            selected={this.state.selected}
+                            val={this.state.categories}
+                            onChange={this.onChangeDomains}
                           />
                         </Col>
                       </Row>
@@ -164,45 +202,45 @@ class Profile extends React.Component {
                     <hr className="my-4" />
                     {/* Address */}
                     <h6 className="heading-small text-muted mb-4">
-                      Contact information
+                      Organization information
                     </h6>
                     <div className="pl-lg-4">
                       <Row>
-                        <Col md="12">
+                        <Col md="6">
                           <InputTextLabel
-                            id="address"
-                            placeholder="Address"
+                            id="organization"
+                            placeholder="Organization"
                             type="text"
-                            val={this.state.user.address}
+                            val={this.state.user.organization}
+                            onChange={this.onChange}
+                          />
+                        </Col>
+                        <Col md="6">
+                          <InputTextLabel
+                            id="organizationAddress"
+                            placeholder="Organization Address"
+                            type="text"
+                            val={this.state.user.organizationAddress}
                             onChange={this.onChange}
                           />
                         </Col>
                       </Row>
                       <Row>
-                        <Col lg="4">
+                        <Col lg="6">
                           <InputTextLabel
-                            id="city"
-                            placeholder="City"
+                            id="organizationCity"
+                            placeholder="Organization City"
                             type="text"
-                            val={this.state.user.city}
+                            val={this.state.user.organizationCity}
                             onChange={this.onChange}
                           />
                         </Col>
-                        <Col lg="4">
+                        <Col lg="6">
                           <InputTextLabel
-                            id="country"
-                            placeholder="Country"
+                            id="organizationCountry"
+                            placeholder="Organization Country"
                             type="text"
-                            val={this.state.user.country}
-                            onChange={this.onChange}
-                          />
-                        </Col>
-                        <Col lg="4">
-                          <InputTextLabel
-                            id="postalCode"
-                            placeholder="Postal code"
-                            type="text"
-                            val={this.state.user.postalCode}
+                            val={this.state.user.organizationCountry}
                             onChange={this.onChange}
                           />
                         </Col>

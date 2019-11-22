@@ -28,17 +28,52 @@ class Profile extends React.Component {
     photo_user: require("assets/img/theme/user-profile.png"),
     photo_default: require("assets/img/theme/profile-cover.jpg"),
     token: localStorage.getItem("token"),
-    data: []
+    data: [],
+    scrolling: false,
+    limit: 12,
+    currentPage: 1,
+    lastItem: 0,
+    totalPages: null,
+    itemsCount: null
   };
 
-  componentDidMount() {
-    Axios.get(`${DEFAULT_URL}api/problematic/all`)
+  loadProblematics = () => {
+    Axios.get(
+      `${DEFAULT_URL}api/problematic/all?limit=${this.state.limit}&page=${this.state.currentPage}`
+    )
       .then(res => {
-        this.setState({ data: res.data });
+        this.setState(prevState => ({
+          data: [...prevState.data, ...res.data.problematics],
+          totalPages: res.data.nbPages,
+          itemsCount: res.data.itemsCount,
+          lastItem: prevState.lastItem + this.state.limit,
+          currentPage: prevState.currentPage + 1,
+          scrolling: false
+        }));
       })
       .catch(error => {
         console.log(error.response);
       });
+  };
+
+  handleScroll = () => {
+    if (this.state.scrolling) return;
+    if (this.state.lastItem === 0) return;
+    let lastCol = document.querySelector(`#col-${this.state.lastItem}`);
+    if (!lastCol) return;
+    let lastColOffset = lastCol.offsetTop + lastCol.clientHeight;
+    let pageOffset = window.pageYOffset + window.innerHeight;
+    if (pageOffset > lastColOffset) {
+      this.setState({ scrolling: true });
+      this.loadProblematics();
+    }
+  };
+
+  componentDidMount() {
+    this.loadProblematics();
+    this.scrollListener = window.addEventListener("scroll", e => {
+      this.handleScroll();
+    });
   }
 
   render() {
@@ -50,7 +85,14 @@ class Profile extends React.Component {
           <Row>
             {this.state.data.map((post, key) => {
               return (
-                <Col lg="3" md="6" sm="12" className="mb-4" key={key}>
+                <Col
+                  id={`col-${key + 1}`}
+                  lg="3"
+                  md="6"
+                  sm="12"
+                  className="mb-4"
+                  key={key}
+                >
                   <Card className="card-post card-post--1">
                     <div
                       className="card-post__image"

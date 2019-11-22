@@ -24,7 +24,6 @@ import AuthNavbar from "components/Navbars/AuthNavbar.jsx";
 import DefaultNavbar from "components/Navbars/DefaultNavbar.jsx";
 import DefaultFooter from "components/Footers/AuthFooter.jsx";
 import Header from "components/Headers/Header.jsx";
-
 import routes from "routes.js";
 import ProtectedRoute from "services/ProtectedRoute";
 

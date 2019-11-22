@@ -60,24 +60,26 @@ class ShowPost extends React.Component {
   getCounts = () => {};
 
   componentDidMount() {
-    const config = {
-      headers: { Authorization: "bearer " + this.state.token }
-    };
-    console.log(config.headers);
-    Axios.get(
-      `${DEFAULT_URL}api/current/problematic/${
-        this.props.state.id
-      }/vote?timestamp=${new Date().getTime()}`,
-      config
-    )
-      .then(res => {
-        if (res.data.extras.vote === true)
-          this.setState({ up_voted: true, down_voted: false });
-        else this.setState({ up_voted: false, down_voted: true });
-      })
-      .catch(error => {
-        console.log(error.response);
-      });
+    if (this.props.request) {
+      const config = {
+        headers: { Authorization: "bearer " + this.state.token }
+      };
+      console.log(config.headers);
+      Axios.get(
+        `${DEFAULT_URL}api/current/problematic/${
+          this.props.state.id
+        }/vote?timestamp=${new Date().getTime()}`,
+        config
+      )
+        .then(res => {
+          if (res.data.extras.vote === true)
+            this.setState({ up_voted: true, down_voted: false });
+          else this.setState({ up_voted: false, down_voted: true });
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
+    }
   }
 
   submitData = e => {
@@ -116,7 +118,7 @@ class ShowPost extends React.Component {
   };
 
   render() {
-    const { state } = this.props;
+    const { state, photo_user } = this.props;
     return (
       <Col className="order-xl-2 mb-5 mb-xl-0" xl={this.props.width}>
         <Card className="card-profile shadow">
@@ -143,6 +145,8 @@ class ShowPost extends React.Component {
                     src={
                       state.prob.owner && state.prob.owner._photo
                         ? state.prob.owner._photo.img
+                        : photo_user
+                        ? photo_user
                         : this.state.photo_user
                     }
                     style={{ width: "180px", height: "180px" }}
@@ -153,48 +157,54 @@ class ShowPost extends React.Component {
           </Row>
           <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
             <div className="d-flex justify-content-between">
-              <div className="my-auto ml-auto">
-                <Button
-                  id="up_vote"
-                  size="sm"
-                  theme="white"
-                  style={{
-                    ...this.btnStyle,
-                    color: this.state.up_voted ? "red" : "inherit"
-                  }}
-                  onClick={this.submitData}
-                  disabled={!authService.isSearcher()}
-                >
-                  <i id="up_vote_icon" className="ni ni-bold-up" />
-                </Button>
-                <Button
-                  id="down_vote"
-                  size="sm"
-                  theme="white"
-                  style={{
-                    ...this.btnStyle,
-                    color: this.state.down_voted ? "red" : "inherit"
-                  }}
-                  onClick={this.submitData}
-                  disabled={!authService.isSearcher()}
-                >
-                  <i id="down_vote_icon" className="ni ni-bold-down" />
-                </Button>
-              </div>
+              {this.props.request ? (
+                <div className="my-auto ml-auto">
+                  <Button
+                    id="up_vote"
+                    size="sm"
+                    theme="white"
+                    style={{
+                      ...this.btnStyle,
+                      color: this.state.up_voted ? "red" : "inherit"
+                    }}
+                    onClick={this.submitData}
+                    disabled={!authService.isSearcher()}
+                  >
+                    <i id="up_vote_icon" className="ni ni-bold-up" />
+                  </Button>
+                  <Button
+                    id="down_vote"
+                    size="sm"
+                    theme="white"
+                    style={{
+                      ...this.btnStyle,
+                      color: this.state.down_voted ? "red" : "inherit"
+                    }}
+                    onClick={this.submitData}
+                    disabled={!authService.isSearcher()}
+                  >
+                    <i id="down_vote_icon" className="ni ni-bold-down" />
+                  </Button>
+                </div>
+              ) : null}
             </div>
           </CardHeader>
           <CardBody className="pt-0 pt-md-4">
             <Row>
               <div className="col">
                 <div className="card-profile-stats d-flex justify-content-center mt-md-5">
-                  <div>
-                    <span className="heading">{state.countVotes}</span>
-                    <span className="description">Recommendations</span>
-                  </div>
-                  <div>
-                    <span className="heading">{state.countComments}</span>
-                    <span className="description">Comments</span>
-                  </div>
+                  {this.props.request ? (
+                    <>
+                      <div>
+                        <span className="heading">{state.countVotes}</span>
+                        <span className="description">Recommendations</span>
+                      </div>
+                      <div>
+                        <span className="heading">{state.countComments}</span>
+                        <span className="description">Comments</span>
+                      </div>
+                    </>
+                  ) : null}
                 </div>
               </div>
             </Row>
