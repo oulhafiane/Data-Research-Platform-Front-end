@@ -20,7 +20,15 @@ import Axios from "axios";
 import { Link } from "react-router-dom";
 import { DEFAULT_URL } from "../config";
 // reactstrap components
-import { Card, CardBody, Container, Row, Badge, Col } from "reactstrap";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Container,
+  Row,
+  Badge,
+  Col
+} from "reactstrap";
 import Menu from "components/Menus/Menu";
 
 class Profile extends React.Component {
@@ -34,12 +42,52 @@ class Profile extends React.Component {
     currentPage: 1,
     lastItem: 0,
     totalPages: null,
-    itemsCount: null
+    itemsCount: null,
+    sortyBy: "VOTES",
+    orderBy: "DESC",
+    filter: false
   };
 
   loadProblematics = () => {
     Axios.get(
       `${DEFAULT_URL}api/problematic/all?limit=${this.state.limit}&page=${this.state.currentPage}`
+    )
+      .then(res => {
+        this.setState(prevState => ({
+          data: [...prevState.data, ...res.data.problematics],
+          totalPages: res.data.nbPages,
+          itemsCount: res.data.itemsCount,
+          lastItem: prevState.lastItem + this.state.limit,
+          currentPage: prevState.currentPage + 1,
+          scrolling: false
+        }));
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+  };
+
+  resetAndFilterProblematics = (sortBy, orderBy, data) => {
+    this.setState(
+      {
+        currentPage: 1,
+        lastItem: 0,
+        totalPages: null,
+        itemsCount: null,
+        filter: true,
+        sortBy: sortBy,
+        orderBy: orderBy,
+        filterData: data,
+        data: []
+      },
+      this.filterProblematics
+    );
+  };
+
+  filterProblematics = () => {
+    Axios.patch(
+      `${DEFAULT_URL}api/public/problematic/filter?limit=${this.state.limit}&page=${this.state.currentPage}&orderBy=${this.state.sortBy}&order=${this.state.orderBy}`,
+      this.state.filterData
     )
       .then(res => {
         this.setState(prevState => ({
@@ -63,9 +111,12 @@ class Profile extends React.Component {
     if (!lastCol) return;
     let lastColOffset = lastCol.offsetTop + lastCol.clientHeight;
     let pageOffset = window.pageYOffset + window.innerHeight;
-    if (pageOffset > lastColOffset) {
+    if (
+      pageOffset > lastColOffset &&
+      this.state.currentPage <= this.state.totalPages
+    ) {
       this.setState({ scrolling: true });
-      this.loadProblematics();
+      this.state.filter ? this.filterProblematics() : this.loadProblematics();
     }
   };
 
@@ -81,7 +132,7 @@ class Profile extends React.Component {
       <>
         <Container fluid className="main-content-container px-4">
           {/* First Row of Posts */}
-          <Menu {...this.props} />
+          <Menu {...this.props} onFilter={this.resetAndFilterProblematics} />
           <Row>
             {this.state.data.map((post, key) => {
               return (
@@ -106,15 +157,23 @@ class Profile extends React.Component {
                     >
                       <Badge
                         pill
-                        className={`card-post__category bg-${post[0].category.id}`}
+                        className={`card-post__category bg-${
+                          post["votes"] > 0
+                            ? "success"
+                            : post["votes"] < 0
+                            ? "danger"
+                            : ""
+                        }`}
                       >
-                        {post[0].category.title}
+                        {post["votes"] + " Votes"}
                       </Badge>
                       <div className="card-post__author d-flex">
                         <Link
                           to={`/default/profile/${post[0].owner.uuid}`}
                           className="card-post__author-avatar"
                           style={{
+                            width: "60px",
+                            height: "60px",
                             backgroundImage: `url('${
                               post[0].owner._photo
                                 ? post[0].owner._photo.img
@@ -127,8 +186,28 @@ class Profile extends React.Component {
                         </Link>
                       </div>
                     </div>
+                    <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                      <div className="d-flex justify-content-between"></div>
+                      <div className="d-flex flex-column justify-content-center ml-3">
+                        <span className="card-post__author-name">
+                          <Link to={`/default/profile/${post[0].owner.uuid}`}>
+                            {post[0].owner.firstName} {post[0].owner.lastName}
+                          </Link>
+                        </span>
+                        <small className="text-muted">
+                          {post[0].creationDate}
+                        </small>
+                      </div>
+                    </CardHeader>
                     <CardBody>
-                      <h5 className="card-title">
+                      <h5
+                        className="card-title"
+                        style={{
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden"
+                        }}
+                      >
                         <Link
                           to={`/default/posts/${post[0].id}`}
                           className="text-fiord-blue"
@@ -136,10 +215,20 @@ class Profile extends React.Component {
                           {post[0].title}
                         </Link>
                       </h5>
+                      <h6
+                        style={{
+                          marginTop: "-15px",
+                          marginBottom: "20px",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden"
+                        }}
+                      >
+                        {post[0].category.title}
+                      </h6>
                       <p className="card-text mb-3 post">
                         {post[0].description}
                       </p>
-                      <span className="text-muted">{post[0].creationDate}</span>
                     </CardBody>
                   </Card>
                 </Col>

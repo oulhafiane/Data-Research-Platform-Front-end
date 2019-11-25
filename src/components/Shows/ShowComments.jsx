@@ -115,7 +115,13 @@ class ShowComments extends React.Component {
     return (
       <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
         <Card className="card-profile shadow">
-          <div className="text-center border-0 pt-md-4 pb-md-4 card-header">
+          <div
+            className="text-center border-0 pt-md-4 pb-md-4 card-header"
+            style={{
+              borderTopLeftRadius: "0.625rem",
+              borderTopRightRadius: "0.625rem"
+            }}
+          >
             <div className="d-flex justify-content-between">Comments</div>
           </div>
           <CardBody className="pt-0 pt-md-4">

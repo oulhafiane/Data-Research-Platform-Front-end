@@ -293,7 +293,6 @@ html {
   font-size: 1rem;
   min-height: calc(2.75rem + 1px);
   border-radius: 0.25rem;
-  background-color: #fff;
   background-clip: padding-box;
   line-height: 1.5;
   width: 100%;

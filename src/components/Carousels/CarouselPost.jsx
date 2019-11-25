@@ -29,7 +29,12 @@ const CarouselPost = props => {
         <img
           alt="carousel"
           src={props.imgs[key].img}
-          style={{ width: "100%", height: "600px" }}
+          style={{
+            width: "100%",
+            height: "600px",
+            borderTopLeftRadius: "0.625rem",
+            borderTopRightRadius: "0.625rem"
+          }}
         />
       </CarouselItem>
     );

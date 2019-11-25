@@ -1,22 +1,23 @@
 import React from "react";
 // reactstrap components
 import { FormGroup, Input } from "reactstrap";
-import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 import makeAnimated from "react-select/animated";
 
-class SelectLabel extends React.Component {
+const components = {
+  DropdownIndicator: null
+};
+
+class CreatableSelectLabel extends React.Component {
   render() {
     const {
       id,
       selected,
       val,
-      formatGroupLabel,
       placeholder,
-      type,
       onChange,
-      rows,
-      disabled,
-      styles
+      onInputChange,
+      onKeyDown
     } = this.props;
     const animatedComponents = makeAnimated();
     return (
@@ -25,7 +26,19 @@ class SelectLabel extends React.Component {
           <label className="form-control-label" htmlFor={id}>
             {placeholder}
           </label>
-          <Select
+          <CreatableSelect
+            components={components}
+            inputValue={val}
+            isClearable
+            isMulti
+            menuIsOpen={false}
+            onChange={onChange}
+            onInputChange={onInputChange}
+            onKeyDown={onKeyDown}
+            placeholder="Type something and press enter..."
+            value={selected}
+          />
+          {/* <Select
             placeholder={placeholder}
             closeMenuOnSelect={false}
             components={animatedComponents}
@@ -35,7 +48,7 @@ class SelectLabel extends React.Component {
             formatGroupLabel={formatGroupLabel ? formatGroupLabel : undefined}
             onChange={onChange}
             styles={styles ? styles : undefined}
-          />
+          /> */}
           {/* <Input
             className="form-control-alternative"
             defaultValue={val}
@@ -54,4 +67,4 @@ class SelectLabel extends React.Component {
   }
 }
 
-export default SelectLabel;
+export default CreatableSelectLabel;

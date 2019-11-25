@@ -193,7 +193,12 @@ class Profile extends React.Component {
                             placeholder="Domains Of Expertise"
                             type="text"
                             selected={this.state.selected}
-                            val={this.state.categories}
+                            val={Object.keys(this.state.categories).map(
+                              key => ({
+                                value: this.state.categories[key].id,
+                                label: this.state.categories[key].title
+                              })
+                            )}
                             onChange={this.onChangeDomains}
                           />
                         </Col>

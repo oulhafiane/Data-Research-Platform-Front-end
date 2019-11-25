@@ -115,6 +115,7 @@ class Post extends React.Component {
             <Row>
               <ShowPost
                 state={this.state}
+                request={true}
                 width="8"
                 getCounts={this.getCounts}
               />
