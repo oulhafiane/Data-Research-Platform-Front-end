@@ -23,6 +23,7 @@ import { DEFAULT_URL } from "../config";
 import { Container, Row } from "reactstrap";
 import ShowPost from "components/Shows/ShowPost";
 import ShowComments from "components/Shows/ShowComments";
+import MenuPost from "components/Menus/MenuPost";
 
 class Post extends React.Component {
   state = {
@@ -111,6 +112,7 @@ class Post extends React.Component {
       <>
         {/* Page content */}
         <Container fluid className="main-content-container px-4">
+          <MenuPost />
           {this.state.done ? (
             <Row>
               <ShowPost

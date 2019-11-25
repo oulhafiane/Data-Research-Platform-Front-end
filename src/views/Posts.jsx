@@ -146,8 +146,12 @@ class Profile extends React.Component {
                 >
                   <Card className="card-post card-post--1">
                     <div
+                      onClick={() =>
+                        this.props.history.push(`/default/posts/${post[0].id}`)
+                      }
                       className="card-post__image"
                       style={{
+                        cursor: "pointer",
                         backgroundImage: `url(${
                           post[0].photos[0].img
                             ? post[0].photos[0].img
