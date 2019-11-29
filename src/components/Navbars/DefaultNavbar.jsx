@@ -42,11 +42,11 @@ class DefaultNavbar extends React.Component {
     this.props.history.push("/");
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));
     // initialise
     headroom.init();
-    this.props.getUser();
+    await this.props.getUser();
   }
   render() {
     return (
@@ -125,7 +125,4 @@ const mapStateProps = state => ({
   user: state.user.user
 });
 
-export default connect(
-  mapStateProps,
-  { getUser }
-)(DefaultNavbar);
+export default connect(mapStateProps, { getUser })(DefaultNavbar);

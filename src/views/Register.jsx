@@ -41,7 +41,7 @@ class Register extends React.Component {
       lastName: "",
       organization: "",
       jobTitle: "",
-      type: "customer"
+      type: "searcher"
     },
     showSuccess: false,
     showWarning: false,

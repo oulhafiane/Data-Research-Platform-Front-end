@@ -5,11 +5,13 @@ import Axios from "axios";
 export const getUser = () => async dispatch => {
   const token = localStorage.getItem("token");
   let res = null;
-  if (token !== undefined) {
+  if (token !== null) {
     const config = {
       headers: { Authorization: "bearer " + token }
     };
-    res = await Axios.get(`${DEFAULT_URL}api/current/infos`, config);
+    try {
+      res = await Axios.get(`${DEFAULT_URL}api/current/infos`, config);
+    } catch (error) {}
   }
   dispatch({
     type: GET_USER,

@@ -39,6 +39,7 @@ class PublicProfile extends React.Component {
       }?timestamp=${new Date().getTime()}`
     )
       .then(res => {
+        console.log(res.data);
         this.setState({ profile: res.data });
       })
       .catch(error => {

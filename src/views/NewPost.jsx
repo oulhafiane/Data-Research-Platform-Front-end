@@ -38,6 +38,12 @@ import InputToogleHidden from "components/Inputs/InputToogleHidden";
 import ShowPost from "components/Shows/ShowPost";
 import DropDownLabel from "components/Inputs/DropDownLabel";
 import Dropzone from "components/Dropzone/Dropzone";
+import CreatableSelectLabel from "components/Inputs/CreatableSelectLabel";
+
+const createOption = label => ({
+  label,
+  value: label
+});
 
 class NewPost extends React.Component {
   state = {
@@ -51,6 +57,8 @@ class NewPost extends React.Component {
         sub_categories: { 0: { id: 1, title: "Category" } }
       }
     },
+    keywordsSelected: [],
+    inputValue: "",
     uploading: false,
     id_domain: 0,
     id_category: 0,
@@ -61,6 +69,31 @@ class NewPost extends React.Component {
     showAdvantage: false,
     showApplications: false,
     showGlobalWarning: false
+  };
+
+  handleChange = (value, actionMeta) => {
+    this.setState({ keywordsSelected: value ? value : [] });
+  };
+
+  handleInputChange = inputValue => {
+    this.setState({ inputValue });
+  };
+
+  handleKeyDown = event => {
+    const { inputValue, value } = this.state;
+    if (!inputValue) return;
+    switch (event.key) {
+      case "Enter":
+      case "Tab":
+        this.setState({
+          inputValue: "",
+          keywordsSelected: [
+            ...this.state.keywordsSelected,
+            createOption(inputValue)
+          ]
+        });
+        event.preventDefault();
+    }
   };
 
   onChange = e =>
@@ -147,7 +180,8 @@ class NewPost extends React.Component {
             file: this.state.imgs[key].b64
           };
         })
-      )
+      ),
+      keywords: this.state.keywordsSelected.map((val, key) => val.value)
     };
     this.setState({ showWarning: false });
     if (this.state.accepted === false) {
@@ -250,13 +284,24 @@ class NewPost extends React.Component {
                         </Col>
                       </Row>
                       <Row>
-                        <Col md="12">
+                        <Col md="6">
                           <InputTextLabel
                             id="link"
                             placeholder="Link"
                             type="text"
                             val={this.state.prob.link}
                             onChange={this.onChange}
+                          />
+                        </Col>
+                        <Col md="6">
+                          <CreatableSelectLabel
+                            id="keywords"
+                            placeholder="Keywords"
+                            selected={this.state.keywordsSelected}
+                            val={this.state.inputValue}
+                            onChange={this.handleChange}
+                            onInputChange={this.handleInputChange}
+                            onKeyDown={this.handleKeyDown}
                           />
                         </Col>
                       </Row>

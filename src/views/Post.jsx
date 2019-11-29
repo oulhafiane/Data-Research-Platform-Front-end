@@ -18,6 +18,8 @@
 import React from "react";
 import Axios from "axios";
 import { DEFAULT_URL } from "../config";
+import { connect } from "react-redux";
+import { getUser } from "actions/userAction";
 
 // reactstrap components
 import { Container, Row } from "reactstrap";
@@ -73,7 +75,8 @@ class Post extends React.Component {
       });
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.props.getUser();
     this.getCounts();
     Axios.get(`${DEFAULT_URL}api/problematic/${this.state.id}`)
       .then(res => {
@@ -112,17 +115,23 @@ class Post extends React.Component {
       <>
         {/* Page content */}
         <Container fluid className="main-content-container px-4">
-          <MenuPost />
           {this.state.done ? (
-            <Row>
-              <ShowPost
-                state={this.state}
-                request={true}
-                width="8"
-                getCounts={this.getCounts}
-              />
-              <ShowComments state={this.state} />
-            </Row>
+            <>
+              {this.props.user ? (
+                this.props.user.uuid === this.state.prob.owner.uuid ? (
+                  <MenuPost />
+                ) : null
+              ) : null}
+              <Row>
+                <ShowPost
+                  state={this.state}
+                  request={true}
+                  width="8"
+                  getCounts={this.getCounts}
+                />
+                <ShowComments state={this.state} />
+              </Row>
+            </>
           ) : null}
         </Container>
       </>
@@ -130,4 +139,9 @@ class Post extends React.Component {
   }
 }
 
-export default Post;
+const mapStateProps = state => ({
+  photo_user: state.user.photo_user,
+  user: state.user.user
+});
+
+export default connect(mapStateProps, { getUser })(Post);

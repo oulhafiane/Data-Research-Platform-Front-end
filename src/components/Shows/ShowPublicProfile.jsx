@@ -16,8 +16,6 @@
 
 */
 import React from "react";
-import Axios from "axios";
-import { DEFAULT_URL } from "../../config";
 
 // reactstrap components
 import { Card, CardHeader, Row, Col } from "reactstrap";
@@ -58,31 +56,33 @@ class ShowPublicProfile extends React.Component {
             </Row>
             <div className="card-profile-stats d-flex justify-content-center mt-7">
               <div style={this.cardStats}>
-                <span className="heading">22</span>
+                <span className="heading">
+                  {state.profile.countProblematics}
+                </span>
                 <span className="description">Problematics</span>
               </div>
               <div style={this.cardStats}>
-                <span className="heading">10</span>
-                <span className="description">Recommendations</span>
+                <span className="heading">{state.profile.countComments}</span>
+                <span className="description">Comments</span>
               </div>
               <div style={this.cardStats}>
-                <span className="heading">89</span>
-                <span className="description">Comments</span>
+                <span className="heading">{state.profile.countFollowers}</span>
+                <span className="description">Followers</span>
               </div>
             </div>
             <div className="text-center mt--2">
               <h3>{`${state.profile.firstName} ${state.profile.lastName}`}</h3>
               <div className="h6 mt-4">
                 <i className="ni business_briefcase-24 mr-2" />
-                Solution Manager - Creative Tim Officer
-              </div>
-              <div className="h6 font-weight-300">
-                <i className="ni location_pin mr-2" />
-                {`${state.profile.city} ${state.profile.country}`}
+                {state.profile.jobTitle} - {state.profile.organization}
               </div>
               <div>
                 <i className="ni education_hat mr-2" />
-                {state.profile.organization}
+                {state.profile.domains
+                  ? state.profile.domains.map((val, key) => (
+                      <div key={key}>{val.title}</div>
+                    ))
+                  : null}
               </div>
             </div>
             <div className="mt-5 py-5 border-top text-center">

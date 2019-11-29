@@ -131,35 +131,33 @@ class ShowProfile extends React.Component {
               <div className="col">
                 <div className="card-profile-stats d-flex justify-content-center mt-md-6">
                   <div style={this.cardStats}>
-                    <span className="heading">22</span>
+                    <span className="heading">
+                      {state.user.countProblematics}
+                    </span>
                     <span className="description">Problematics</span>
                   </div>
                   <div style={this.cardStats}>
-                    <span className="heading">10</span>
-                    <span className="description">Recommendations</span>
+                    <span className="heading">{state.user.countComments}</span>
+                    <span className="description">Comments</span>
                   </div>
                   <div style={this.cardStats}>
-                    <span className="heading">89</span>
-                    <span className="description">Comments</span>
+                    <span className="heading">{state.user.countFollowers}</span>
+                    <span className="description">Followers</span>
                   </div>
                 </div>
               </div>
             </Row>
             <div className="text-center">
-              <h3>
-                {state.user.firstName} {state.user.lastName}
-              </h3>
-              <div className="h5 mt-4">
+              <h3>{`${state.user.firstName} ${state.user.lastName}`}</h3>
+              <div className="h6 mt-4">
                 <i className="ni business_briefcase-24 mr-2" />
-                Solution Manager - Creative Tim Officer
-              </div>
-              <div className="h5 font-weight-300">
-                <i className="ni location_pin mr-2" />
-                {state.user.city} {state.user.country}
+                {state.user.jobTitle} - {state.user.organization}
               </div>
               <div>
                 <i className="ni education_hat mr-2" />
-                {state.user.organization}
+                {state.user.domains
+                  ? state.user.domains.map(val => <div>{val.title}</div>)
+                  : null}
               </div>
               <hr className="my-4" />
               <p style={{ whiteSpace: "pre-line" }}>{state.user.bio}</p>
