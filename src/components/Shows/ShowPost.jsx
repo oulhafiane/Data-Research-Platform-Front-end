@@ -64,7 +64,6 @@ class ShowPost extends React.Component {
       const config = {
         headers: { Authorization: "bearer " + this.state.token }
       };
-      console.log(config.headers);
       Axios.get(
         `${DEFAULT_URL}api/current/problematic/${
           this.props.state.id

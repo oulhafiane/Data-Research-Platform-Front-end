@@ -19,6 +19,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { DEFAULT_URL } from "../../config";
+import { withRouter } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -28,24 +29,37 @@ import {
   Nav,
   Row,
   Col,
-  Form,
-  FormGroup,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
   Modal,
   Button
 } from "reactstrap";
-import SelectLabel from "components/Inputs/SelectLabel";
-import CreatableSelectLabel from "components/Inputs/CreatableSelectLabel";
-
-const createOption = label => ({
-  label,
-  value: label
-});
 
 class MenuPost extends React.Component {
+  state = { token: localStorage.getItem("token") };
+  toggleModal = state => {
+    this.setState({
+      [state]: !this.state[state]
+    });
+  };
+
+  editProblematic = e => {
+    e.preventDefault();
+    this.props.history.push(`/default/posts/${this.props.state.id}/edit`);
+  };
+
+  deleteProblematic = e => {
+    e.preventDefault();
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    Axios.delete(`${DEFAULT_URL}api/problematic/${this.props.state.id}`, config)
+      .then(res => {
+        this.props.history.push(`/default/posts`);
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+  };
+
   render() {
     return (
       <>
@@ -84,17 +98,69 @@ class MenuPost extends React.Component {
                     <Button
                       color="info"
                       href="#pablo"
-                      onClick={this.newProblematic}
+                      onClick={this.editProblematic}
                     >
                       <i className="fas fa-edit"></i> Edit
                     </Button>
                     <Button
                       color="info"
                       href="#pablo"
-                      onClick={this.newProblematic}
+                      onClick={() => this.toggleModal("notificationModal")}
                     >
                       <i className="fas fa-trash-alt"></i> Delete
                     </Button>
+                    <Modal
+                      className="modal-dialog-centered modal-danger"
+                      contentClassName="bg-gradient-danger"
+                      isOpen={this.state.notificationModal}
+                      toggle={() => this.toggleModal("notificationModal")}
+                    >
+                      <div className="modal-header">
+                        <h6
+                          className="modal-title"
+                          id="modal-title-notification"
+                        >
+                          Your attention is required
+                        </h6>
+                        <button
+                          aria-label="Close"
+                          className="close"
+                          data-dismiss="modal"
+                          type="button"
+                          onClick={() => this.toggleModal("notificationModal")}
+                        >
+                          <span aria-hidden={true}>×</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <div className="py-3 text-center">
+                          <i className="ni ni-bell-55 ni-3x" />
+                          <h4 className="heading mt-4">
+                            Are you sure you want to permanently delete this
+                            problematic ?
+                          </h4>
+                        </div>
+                      </div>
+                      <div className="modal-footer">
+                        <Button
+                          className="btn-white"
+                          color="default"
+                          type="button"
+                          onClick={this.deleteProblematic}
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          className="text-white ml-auto"
+                          color="link"
+                          data-dismiss="modal"
+                          type="button"
+                          onClick={() => this.toggleModal("notificationModal")}
+                        >
+                          Close
+                        </Button>
+                      </div>
+                    </Modal>
                   </NavItem>
                 </Nav>
                 {/* <Nav className="ml-lg-auto" navbar>
@@ -109,4 +175,4 @@ class MenuPost extends React.Component {
   }
 }
 
-export default MenuPost;
+export default withRouter(MenuPost);

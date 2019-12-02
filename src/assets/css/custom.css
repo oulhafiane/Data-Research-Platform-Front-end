@@ -297,3 +297,8 @@ html {
   line-height: 1.5;
   width: 100%;
 }
+
+.card-header {
+  border-top-left-radius: 0.625rem !important;
+  border-top-right-radius: 0.625rem !important;
+}

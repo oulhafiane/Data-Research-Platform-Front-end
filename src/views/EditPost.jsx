@@ -45,8 +45,9 @@ const createOption = label => ({
   value: label
 });
 
-class NewPost extends React.Component {
+class EditPost extends React.Component {
   state = {
+    id: this.props.match.params.id,
     token: localStorage.getItem("token"),
     imgs: {},
     prob: {},
@@ -57,6 +58,7 @@ class NewPost extends React.Component {
         sub_categories: { 0: { id: 1, title: "Category" } }
       }
     },
+    uploading: false,
     keywordsSelected: [],
     inputValue: "",
     uploading: false,
@@ -68,7 +70,8 @@ class NewPost extends React.Component {
     showSolution: false,
     showAdvantage: false,
     showApplications: false,
-    showGlobalWarning: false
+    showGlobalWarning: false,
+    done: false
   };
 
   handleChange = (value, actionMeta) => {
@@ -163,7 +166,11 @@ class NewPost extends React.Component {
   submitData = e => {
     e.preventDefault();
     this.setState({ uploading: true });
-    while (Object.keys(this.state.imgs).length !== this.state.images_available);
+    if (this.state.images_available !== -1) {
+      while (
+        Object.keys(this.state.imgs).length !== this.state.images_available
+      );
+    }
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
@@ -183,12 +190,15 @@ class NewPost extends React.Component {
       ),
       keywords: this.state.keywordsSelected.map((val, key) => val.value)
     };
+    if (this.state.images_available === -1) delete data.photos;
+    delete data.id;
+    delete data.owner;
     this.setState({ showWarning: false });
     if (this.state.accepted === false) {
       this.setState({ showWarning: true });
       return;
     }
-    Axios.post(`${DEFAULT_URL}api/problematic/new`, data, config)
+    Axios.patch(`${DEFAULT_URL}api/problematic/${this.state.id}`, data, config)
       .then(res => {
         this.props.history.push(`/default/posts/${res.data.extras.id}`);
       })
@@ -200,6 +210,43 @@ class NewPost extends React.Component {
   async componentDidMount() {
     this.getCategories();
     await this.props.getUser();
+    Axios.get(`${DEFAULT_URL}api/problematic/${this.state.id}`)
+      .then(res => {
+        this.setState({ prob: res.data });
+        if (res.data.photos[0].img)
+          this.setState({
+            images_available: -1,
+            imgs: res.data.photos
+          });
+        if (res.data.solution) this.setState({ showSolution: true });
+        if (res.data.advantage) this.setState({ showAdvantage: true });
+        if (res.data.possibleApplication)
+          this.setState({ showApplications: true });
+        if (res.data.category) {
+          const domain = this.state.categories
+            .map(e => e.id)
+            .indexOf(res.data.category.parent_category.id);
+          const category = this.state.categories[domain].sub_categories
+            .map(e => e.id)
+            .indexOf(res.data.category.id);
+          this.setState({
+            id_domain: domain,
+            id_category: category
+          });
+        }
+        if (res.data.keywords) {
+          this.setState({
+            keywordsSelected: res.data.keywords.map(val => ({
+              label: val,
+              value: val
+            }))
+          });
+        }
+        this.setState({ done: true });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -394,4 +441,4 @@ const mapStateProps = state => ({
   user: state.user.user
 });
 
-export default connect(mapStateProps, { getUser })(NewPost);
+export default connect(mapStateProps, { getUser })(EditPost);

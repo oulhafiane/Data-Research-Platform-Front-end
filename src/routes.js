@@ -5,6 +5,7 @@ import Profile from "views/Profile.jsx";
 import PublicProfile from "views/PublicProfile.jsx";
 import Index from "views/Index";
 import NewPost from "views/NewPost";
+import EditPost from "views/EditPost";
 import Post from "views/Post";
 import Dashboard from "views/Dashboard";
 import Applications from "views/Applications";
@@ -41,6 +42,14 @@ var routes = [
     component: PublicProfile,
     layout: "/default",
     role: "ROLE_ANON"
+  },
+  {
+    path: "/posts/:id/edit",
+    name: "Post",
+    icon: "ni ni-circle-08 text-pink",
+    component: EditPost,
+    layout: "/default",
+    role: "ROLE_AUTH"
   },
   {
     path: "/posts/:id",

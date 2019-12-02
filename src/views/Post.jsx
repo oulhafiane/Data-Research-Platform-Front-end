@@ -119,7 +119,7 @@ class Post extends React.Component {
             <>
               {this.props.user ? (
                 this.props.user.uuid === this.state.prob.owner.uuid ? (
-                  <MenuPost />
+                  <MenuPost state={this.state} />
                 ) : null
               ) : null}
               <Row>
