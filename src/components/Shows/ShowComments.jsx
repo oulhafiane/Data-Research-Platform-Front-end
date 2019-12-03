@@ -17,6 +17,7 @@
 */
 import React from "react";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 import InputTextLabel from "../Inputs/InputLabel";
 import { DEFAULT_URL } from "../../config";
 import { connect } from "react-redux";
@@ -30,9 +31,14 @@ class ShowComments extends React.Component {
   state = {
     token: localStorage.getItem("token"),
     comment: "",
-    comments: {},
+    comments: [],
     uploading: false,
-    target: null
+    limit: 10,
+    currentPage: 1,
+    totalPages: null,
+    itemsCount: null,
+    scrolling: false,
+    showLoadComments: true
   };
 
   btnStyle = {
@@ -56,7 +62,6 @@ class ShowComments extends React.Component {
 
   submitData = e => {
     e.preventDefault();
-    this.state.target.value = "";
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
@@ -74,19 +79,27 @@ class ShowComments extends React.Component {
       config
     )
       .then(res => {
-        const user = JSON.parse(localStorage.getItem("user"));
-        console.log(user);
-        this.setState({
-          uploading: false,
-          comments: {
-            ...this.state.comments,
-            [Object.keys(this.state.comments).length + 1]: {
+        const newComments = this.state.comments
+          .reverse()
+          .concat({
+            "0": {
               id: res.data.extras.id,
               text: data.text,
-              creationDate: Date.now(),
-              owner: user
+              creationDate: Date(),
+              owner: {
+                uuid: this.props.user.uuid,
+                firstName: this.props.user.firstName,
+                lastName: this.props.user.lastName,
+                _photo: {
+                  img: this.props.user._photo.img
+                }
+              }
             }
-          }
+          })
+          .reverse();
+        this.setState({
+          uploading: false,
+          comments: newComments
         });
         this.props.updateCounts();
       })
@@ -95,19 +108,48 @@ class ShowComments extends React.Component {
       });
   };
 
-  componentDidMount() {
-    this.props.getUser();
+  loadComments = () => {
     Axios.get(
       `${DEFAULT_URL}api/problematic/${
         this.props.state.id
-      }/comment?timestamp=${new Date().getTime()}`
+      }/comment?timestamp=${new Date().getTime()}&limit=${
+        this.state.limit
+      }&page=${this.state.currentPage}`
     )
       .then(res => {
-        this.setState({ comments: res.data });
+        console.log(this.state.totalPages);
+        this.setState(
+          prevState => ({
+            comments: [...prevState.comments, ...res.data.comments],
+            totalPages: res.data.nbPages,
+            itemsCount: res.data.itemsCount,
+            currentPage: prevState.currentPage + 1,
+            scrolling: false
+          }),
+          () => {
+            if (this.state.currentPage > this.state.totalPages) {
+              this.setState({ showLoadComments: false });
+            }
+          }
+        );
       })
       .catch(error => {
         console.log(error.response);
       });
+  };
+
+  handleScroll = e => {
+    e.preventDefault();
+    if (this.state.scrolling) return;
+    if (this.state.currentPage <= this.state.totalPages) {
+      this.setState({ scrolling: true });
+      this.loadComments();
+    }
+  };
+
+  componentDidMount() {
+    this.props.getUser();
+    this.loadComments();
   }
 
   render() {
@@ -162,48 +204,77 @@ class ShowComments extends React.Component {
                         href="#"
                         className="card-post__author-avatar card-post__author-avatar--small"
                         style={{
-                          backgroundImage: `url('${this.props.photo_user}')`
+                          backgroundImage: `url(
+                            ${
+                              this.state.comments[key][0].owner
+                                ? this.state.comments[key][0].owner._photo.img
+                                : this.props.photo_user
+                            }
+                          )`
                         }}
                       ></a>
                       <div className="d-flex flex-column justify-content-center ml-3">
                         <span className="card-post__author-name">
-                          {this.state.comments[key].owner
-                            ? `${this.state.comments[key].owner.firstName} ${this.state.comments[key].owner.lastName}`
+                          {this.state.comments[key][0].owner
+                            ? `${this.state.comments[key][0].owner.firstName} ${this.state.comments[key][0].owner.lastName}`
                             : null}
                         </span>
                         <small className="text-muted">
-                          {this.state.comments[key].creationDate}
+                          {this.state.comments[key][0].creationDate}
                         </small>
                       </div>
                     </div>
                     <div className="my-auto ml-auto">
-                      <Button
+                      {/* <Button
+                        id="up_vote"
                         size="sm"
                         theme="white"
-                        style={this.btnStyle}
+                        style={{
+                          ...this.btnStyle,
+                          color:
+                            this.state.comments[key]["iAmVoted"] == 1
+                              ? "red"
+                              : "inherit"
+                        }}
+                        onClick={this.submitData}
                         disabled={!authService.isSearcher()}
                       >
-                        <i className="ni ni-bold-up" />
+                        <i id="up_vote_icon" className="ni ni-bold-up" />
                       </Button>
                       <Button
+                        id="down_vote"
                         size="sm"
                         theme="white"
-                        style={this.btnStyle}
+                        style={{
+                          ...this.btnStyle,
+                          color:
+                            this.state.comments[key]["iAmVoted"] == 0
+                              ? "red"
+                              : "inherit"
+                        }}
+                        onClick={this.submitData}
                         disabled={!authService.isSearcher()}
                       >
-                        <i className="ni ni-bold-down" />
-                      </Button>
+                        <i id="down_vote_icon" className="ni ni-bold-down" />
+                      </Button> */}
                     </div>
                   </CardHeader>
                   <CardBody>
                     <h6 className="card-title">
-                      {this.state.comments[key].text}
+                      {this.state.comments[key][0].text}
                     </h6>
                   </CardBody>
                   <hr className="my-4" />
                 </div>
               );
             })}
+            {this.state.showLoadComments ? (
+              <div className="text-center" style={{ paddingBottom: "20px" }}>
+                <Link to="#" onClick={this.handleScroll}>
+                  Load more comments...
+                </Link>
+              </div>
+            ) : null}
           </div>
         </Card>
       </Col>

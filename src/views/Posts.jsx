@@ -173,7 +173,8 @@ class Profile extends React.Component {
                       </Badge>
                       <div className="card-post__author d-flex">
                         <Link
-                          to={`/default/profile/${post[0].owner.uuid}`}
+                          // to={`/default/profile/${post[0].owner.uuid}`}
+                          to="#"
                           className="card-post__author-avatar"
                           style={{
                             width: "60px",
@@ -190,7 +191,7 @@ class Profile extends React.Component {
                         </Link>
                       </div>
                     </div>
-                    <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                    <CardHeader className="text-center border-0 pt-4 pb-4">
                       <div className="d-flex justify-content-between"></div>
                       <div className="d-flex flex-column justify-content-center ml-3">
                         <span className="card-post__author-name">

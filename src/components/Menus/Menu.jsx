@@ -190,240 +190,196 @@ class Menu extends React.Component {
     );
     return (
       <>
-        <Row
-          className="justify-content-center"
-          style={{ margin: "30px", marginTop: "-100px" }}
-        >
+        <Row style={{ margin: "-80px 15px 30px" }}>
           {/* Menu */}
-          <Col lg="12">
-            <Navbar className="navbar-dark rounded" expand="lg">
-              <UncontrolledCollapse navbar toggler="#nav-inner-primary">
-                <div className="navbar-collapse-header">
-                  <Row>
-                    <Col className="collapse-brand" xs="6">
-                      <Link to="/">
-                        <img
-                          alt="..."
-                          src={require("assets/img/brand/argon-react.png")}
+          <Col lg="14">
+            <Button color="info" href="#pablo" onClick={this.newProblematic}>
+              <i className="fas fa-plus"></i> Create
+            </Button>
+            <Button
+              color="info"
+              onClick={() => this.toggleModal("defaultModal")}
+            >
+              <i className="fas fa-filter"></i> Filter
+            </Button>
+            <Modal
+              className="modal-dialog-centered"
+              isOpen={this.state.defaultModal}
+              toggle={() => this.toggleModal("defaultModal")}
+            >
+              <div className="modal-header">
+                <h6 className="modal-title" id="modal-title-default">
+                  Advanced Search
+                </h6>
+                <button
+                  aria-label="Close"
+                  className="close"
+                  data-dismiss="modal"
+                  type="button"
+                  onClick={() => this.toggleModal("defaultModal")}
+                >
+                  <span aria-hidden={true}>×</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <SelectLabel
+                  id="categories"
+                  placeholder="Categories"
+                  type="text"
+                  selected={this.state.categoriesSelected}
+                  val={Object.keys(this.state.categories).map(key => ({
+                    value: this.state.categories[key].id,
+                    label: this.state.categories[key].title
+                  }))}
+                  onChange={this.onChangeCategories}
+                />
+                <SelectLabel
+                  id="subCategories"
+                  placeholder="Sub-Categories"
+                  type="text"
+                  selected={this.state.subCategoriesSelected}
+                  val={Object.keys(this.state.categories).map(key => ({
+                    label: this.state.categories[key].title,
+                    options: this.state.categories[key].sub_categories.map(
+                      (val, key) => ({
+                        value: val.id,
+                        label: val.title
+                      })
+                    )
+                  }))}
+                  formatGroupLabel={formatGroupLabel}
+                  onChange={this.onChangeSubCategories}
+                />
+                <SelectLabel
+                  id="domains"
+                  placeholder="Researchers"
+                  type="text"
+                  selected={this.state.researchersSelected}
+                  val={Object.keys(this.state.searchers).map(key => ({
+                    value: this.state.searchers[key].uuid,
+                    label: `${this.state.searchers[key].firstName} ${this.state.searchers[key].lastName}`
+                  }))}
+                  onChange={this.onChangeSearchers}
+                />
+                <CreatableSelectLabel
+                  id="keywords"
+                  placeholder="Keywords"
+                  selected={this.state.keywordsSelected}
+                  val={this.state.inputValue}
+                  onChange={this.handleChange}
+                  onInputChange={this.handleInputChange}
+                  onKeyDown={this.handleKeyDown}
+                />
+                <FormGroup>
+                  <label
+                    className="form-control-label"
+                    htmlFor="custom-radio-1"
+                  >
+                    Sort Result By
+                  </label>
+                  <Row style={{ width: "300px", margin: "0 auto" }}>
+                    <Col md="6">
+                      <div className="custom-control custom-radio mb-3">
+                        <input
+                          className="custom-control-input"
+                          id="radioVotes"
+                          defaultChecked
+                          name="radioSort"
+                          type="radio"
+                          value="1"
+                          onChange={this.onChangeSort}
                         />
-                      </Link>
+                        <label
+                          className="custom-control-label"
+                          htmlFor="radioVotes"
+                        >
+                          <span>Votes</span>
+                        </label>
+                      </div>
                     </Col>
-                    <Col className="collapse-close" xs="6">
-                      <button
-                        className="navbar-toggler"
-                        id="nav-inner-primary"
-                        type="button"
-                      >
-                        <span />
-                        <span />
-                      </button>
+                    <Col md="6">
+                      <div className="custom-control custom-radio mb-3">
+                        <input
+                          className="custom-control-input"
+                          id="radioDate"
+                          name="radioSort"
+                          type="radio"
+                          value="2"
+                          onChange={this.onChangeSort}
+                        />
+                        <label
+                          className="custom-control-label"
+                          htmlFor="radioDate"
+                        >
+                          <span>Date</span>
+                        </label>
+                      </div>
                     </Col>
                   </Row>
-                </div>
-                <Nav className="navbar-nav-hover align-items-lg-center" navbar>
-                  <NavItem>
-                    <Button
-                      color="info"
-                      href="#pablo"
-                      onClick={this.newProblematic}
-                    >
-                      <i className="fas fa-plus"></i> Create
-                    </Button>
-                    <Button
-                      color="info"
-                      onClick={() => this.toggleModal("defaultModal")}
-                    >
-                      <i className="fas fa-filter"></i> Filter
-                    </Button>
-                    <Modal
-                      className="modal-dialog-centered"
-                      isOpen={this.state.defaultModal}
-                      toggle={() => this.toggleModal("defaultModal")}
-                    >
-                      <div className="modal-header">
-                        <h6 className="modal-title" id="modal-title-default">
-                          Advanced Search
-                        </h6>
-                        <button
-                          aria-label="Close"
-                          className="close"
-                          data-dismiss="modal"
-                          type="button"
-                          onClick={() => this.toggleModal("defaultModal")}
+                </FormGroup>
+                <FormGroup>
+                  <label
+                    className="form-control-label"
+                    htmlFor="custom-radio-1"
+                  >
+                    Order Result By
+                  </label>
+                  <Row style={{ width: "300px", margin: "0 auto" }}>
+                    <Col md="6">
+                      <div className="custom-control custom-radio mb-3">
+                        <input
+                          className="custom-control-input"
+                          id="radioAscending"
+                          name="radioOrder"
+                          type="radio"
+                          value="1"
+                          onChange={this.onChangeOrder}
+                        />
+                        <label
+                          className="custom-control-label"
+                          htmlFor="radioAscending"
                         >
-                          <span aria-hidden={true}>×</span>
-                        </button>
+                          <span>Ascending</span>
+                        </label>
                       </div>
-                      <div className="modal-body">
-                        <SelectLabel
-                          id="categories"
-                          placeholder="Categories"
-                          type="text"
-                          selected={this.state.categoriesSelected}
-                          val={Object.keys(this.state.categories).map(key => ({
-                            value: this.state.categories[key].id,
-                            label: this.state.categories[key].title
-                          }))}
-                          onChange={this.onChangeCategories}
+                    </Col>
+                    <Col md="6">
+                      <div className="custom-control custom-radio mb-3">
+                        <input
+                          className="custom-control-input"
+                          id="radioDescending"
+                          defaultChecked
+                          name="radioOrder"
+                          type="radio"
+                          value="2"
+                          onChange={this.onChangeOrder}
                         />
-                        <SelectLabel
-                          id="subCategories"
-                          placeholder="Sub-Categories"
-                          type="text"
-                          selected={this.state.subCategoriesSelected}
-                          val={Object.keys(this.state.categories).map(key => ({
-                            label: this.state.categories[key].title,
-                            options: this.state.categories[
-                              key
-                            ].sub_categories.map((val, key) => ({
-                              value: val.id,
-                              label: val.title
-                            }))
-                          }))}
-                          formatGroupLabel={formatGroupLabel}
-                          onChange={this.onChangeSubCategories}
-                        />
-                        <SelectLabel
-                          id="domains"
-                          placeholder="Researchers"
-                          type="text"
-                          selected={this.state.researchersSelected}
-                          val={Object.keys(this.state.searchers).map(key => ({
-                            value: this.state.searchers[key].uuid,
-                            label: `${this.state.searchers[key].firstName} ${this.state.searchers[key].lastName}`
-                          }))}
-                          onChange={this.onChangeSearchers}
-                        />
-                        <CreatableSelectLabel
-                          id="keywords"
-                          placeholder="Keywords"
-                          selected={this.state.keywordsSelected}
-                          val={this.state.inputValue}
-                          onChange={this.handleChange}
-                          onInputChange={this.handleInputChange}
-                          onKeyDown={this.handleKeyDown}
-                        />
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="custom-radio-1"
-                          >
-                            Sort Result By
-                          </label>
-                          <Row style={{ width: "300px", margin: "0 auto" }}>
-                            <Col md="6">
-                              <div className="custom-control custom-radio mb-3">
-                                <input
-                                  className="custom-control-input"
-                                  id="radioVotes"
-                                  defaultChecked
-                                  name="radioSort"
-                                  type="radio"
-                                  value="1"
-                                  onChange={this.onChangeSort}
-                                />
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="radioVotes"
-                                >
-                                  <span>Votes</span>
-                                </label>
-                              </div>
-                            </Col>
-                            <Col md="6">
-                              <div className="custom-control custom-radio mb-3">
-                                <input
-                                  className="custom-control-input"
-                                  id="radioDate"
-                                  name="radioSort"
-                                  type="radio"
-                                  value="2"
-                                  onChange={this.onChangeSort}
-                                />
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="radioDate"
-                                >
-                                  <span>Date</span>
-                                </label>
-                              </div>
-                            </Col>
-                          </Row>
-                        </FormGroup>
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="custom-radio-1"
-                          >
-                            Order Result By
-                          </label>
-                          <Row style={{ width: "300px", margin: "0 auto" }}>
-                            <Col md="6">
-                              <div className="custom-control custom-radio mb-3">
-                                <input
-                                  className="custom-control-input"
-                                  id="radioAscending"
-                                  name="radioOrder"
-                                  type="radio"
-                                  value="1"
-                                  onChange={this.onChangeOrder}
-                                />
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="radioAscending"
-                                >
-                                  <span>Ascending</span>
-                                </label>
-                              </div>
-                            </Col>
-                            <Col md="6">
-                              <div className="custom-control custom-radio mb-3">
-                                <input
-                                  className="custom-control-input"
-                                  id="radioDescending"
-                                  defaultChecked
-                                  name="radioOrder"
-                                  type="radio"
-                                  value="2"
-                                  onChange={this.onChangeOrder}
-                                />
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="radioDescending"
-                                >
-                                  <span>Descending</span>
-                                </label>
-                              </div>
-                            </Col>
-                          </Row>
-                        </FormGroup>
-                      </div>
-                      <div className="modal-footer">
-                        <Button
-                          color="primary"
-                          type="button"
-                          onClick={this.filter}
+                        <label
+                          className="custom-control-label"
+                          htmlFor="radioDescending"
                         >
-                          Save changes
-                        </Button>
-                        <Button
-                          className="ml-auto"
-                          color="link"
-                          data-dismiss="modal"
-                          type="button"
-                          onClick={() => this.toggleModal("defaultModal")}
-                        >
-                          Close
-                        </Button>
+                          <span>Descending</span>
+                        </label>
                       </div>
-                    </Modal>
-                  </NavItem>
-                </Nav>
-                {/* <Nav className="ml-lg-auto" navbar>
-                  
-                </Nav> */}
-              </UncontrolledCollapse>
-            </Navbar>
+                    </Col>
+                  </Row>
+                </FormGroup>
+              </div>
+              <div className="modal-footer">
+                <Button color="primary" type="button" onClick={this.filter}>
+                  Save changes
+                </Button>
+                <Button
+                  className="ml-auto"
+                  color="link"
+                  data-dismiss="modal"
+                  type="button"
+                  onClick={() => this.toggleModal("defaultModal")}
+                >
+                  Close
+                </Button>
+              </div>
+            </Modal>
           </Col>
         </Row>
       </>

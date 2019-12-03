@@ -129,7 +129,7 @@ class Post extends React.Component {
                   width="8"
                   getCounts={this.getCounts}
                 />
-                <ShowComments state={this.state} />
+                <ShowComments state={this.state} user={this.props.user} />
               </Row>
             </>
           ) : null}

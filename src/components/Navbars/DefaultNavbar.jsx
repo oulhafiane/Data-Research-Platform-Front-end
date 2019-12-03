@@ -84,7 +84,7 @@ class DefaultNavbar extends React.Component {
                           }
                         />
                       </span>
-                      <Media className="ml-2 d-none d-lg-block">
+                      <Media className="ml-2 d-lg-block">
                         <span className="mb-0 text-sm font-weight-bold">
                           {this.props.user ? this.props.user.firstName : null}{" "}
                           {this.props.user ? this.props.user.lastName : null}

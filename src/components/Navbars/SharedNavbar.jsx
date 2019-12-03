@@ -69,7 +69,7 @@ class SharedNavbar extends React.Component {
           <UncontrolledDropdown nav>
             <DropdownToggle nav>
               <i className="ni ni-single-copy-04" />
-              <span className="nav-link-inner--text">Research</span>
+              <span className="nav-link-inner--text">Research & Data</span>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu-xl">
               <div className="dropdown-menu-inner">
@@ -92,33 +92,6 @@ class SharedNavbar extends React.Component {
                 </Media>
                 <Media
                   className="d-flex align-items-center"
-                  href="/landing/index#research"
-                >
-                  <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
-                    <i className="ni ni-briefcase-24" />
-                  </div>
-                  <Media body className="ml-3">
-                    <h6 className="heading text-primary mb-md-1">
-                      More about problematics
-                    </h6>
-                    <p className="description d-none d-md-inline-block mb-0">
-                      A research problem is a statement about an area of
-                      concern.
-                    </p>
-                  </Media>
-                </Media>
-              </div>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-          <UncontrolledDropdown nav>
-            <DropdownToggle nav>
-              <i className="ni ni-chart-bar-32" />
-              <span className="nav-link-inner--text">Data</span>
-            </DropdownToggle>
-            <DropdownMenu className="dropdown-menu-xl">
-              <div className="dropdown-menu-inner">
-                <Media
-                  className="d-flex align-items-center"
                   href="/default/data"
                 >
                   <div className="icon icon-shape bg-gradient-primary rounded-circle text-white">
@@ -132,6 +105,23 @@ class SharedNavbar extends React.Component {
                       Provides a listing of available datasets, including
                       databases, pre-formatted tables, reports, and other
                       resources.
+                    </p>
+                  </Media>
+                </Media>
+                <Media
+                  className="d-flex align-items-center"
+                  href="/landing/index#research"
+                >
+                  <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
+                    <i className="ni ni-briefcase-24" />
+                  </div>
+                  <Media body className="ml-3">
+                    <h6 className="heading text-primary mb-md-1">
+                      More about problematics
+                    </h6>
+                    <p className="description d-none d-md-inline-block mb-0">
+                      A research problem is a statement about an area of
+                      concern.
                     </p>
                   </Media>
                 </Media>
@@ -155,6 +145,7 @@ class SharedNavbar extends React.Component {
               </div>
             </DropdownMenu>
           </UncontrolledDropdown>
+
           <NavItem>
             <NavLink href="/landing/index#events">
               <i className="ni ni-calendar-grid-58" />

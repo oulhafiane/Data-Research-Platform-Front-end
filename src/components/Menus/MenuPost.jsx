@@ -63,111 +63,74 @@ class MenuPost extends React.Component {
   render() {
     return (
       <>
-        <Row
-          className="justify-content-center"
-          style={{ margin: "30px", marginTop: "-100px" }}
-        >
+        <Row style={{ margin: "-80px 15px 30px" }}>
           {/* Menu */}
-          <Col lg="12">
-            <Navbar className="navbar-dark rounded" expand="lg">
-              <UncontrolledCollapse navbar toggler="#nav-inner-primary">
-                <div className="navbar-collapse-header">
-                  <Row>
-                    <Col className="collapse-brand" xs="6">
-                      <Link to="/">
-                        <img
-                          alt="..."
-                          src={require("assets/img/brand/argon-react.png")}
-                        />
-                      </Link>
-                    </Col>
-                    <Col className="collapse-close" xs="6">
-                      <button
-                        className="navbar-toggler"
-                        id="nav-inner-primary"
-                        type="button"
-                      >
-                        <span />
-                        <span />
-                      </button>
-                    </Col>
-                  </Row>
+          <Col lg="14">
+            <Button
+              color="info"
+              href="#pablo"
+              onClick={this.editProblematic}
+              style={{ float: "left" }}
+            >
+              <i className="fas fa-edit"></i> Edit
+            </Button>
+            <Button
+              color="info"
+              href="#pablo"
+              style={{ float: "right" }}
+              onClick={() => this.toggleModal("notificationModal")}
+            >
+              <i className="fas fa-trash-alt"></i> Delete
+            </Button>
+            <Modal
+              className="modal-dialog-centered modal-danger"
+              contentClassName="bg-gradient-danger"
+              isOpen={this.state.notificationModal}
+              toggle={() => this.toggleModal("notificationModal")}
+            >
+              <div className="modal-header">
+                <h6 className="modal-title" id="modal-title-notification">
+                  Your attention is required
+                </h6>
+                <button
+                  aria-label="Close"
+                  className="close"
+                  data-dismiss="modal"
+                  type="button"
+                  onClick={() => this.toggleModal("notificationModal")}
+                >
+                  <span aria-hidden={true}>×</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <div className="py-3 text-center">
+                  <i className="ni ni-bell-55 ni-3x" />
+                  <h4 className="heading mt-4">
+                    Are you sure you want to permanently delete this problematic
+                    ?
+                  </h4>
                 </div>
-                <Nav className="navbar-nav-hover align-items-lg-center" navbar>
-                  <NavItem>
-                    <Button
-                      color="info"
-                      href="#pablo"
-                      onClick={this.editProblematic}
-                    >
-                      <i className="fas fa-edit"></i> Edit
-                    </Button>
-                    <Button
-                      color="info"
-                      href="#pablo"
-                      onClick={() => this.toggleModal("notificationModal")}
-                    >
-                      <i className="fas fa-trash-alt"></i> Delete
-                    </Button>
-                    <Modal
-                      className="modal-dialog-centered modal-danger"
-                      contentClassName="bg-gradient-danger"
-                      isOpen={this.state.notificationModal}
-                      toggle={() => this.toggleModal("notificationModal")}
-                    >
-                      <div className="modal-header">
-                        <h6
-                          className="modal-title"
-                          id="modal-title-notification"
-                        >
-                          Your attention is required
-                        </h6>
-                        <button
-                          aria-label="Close"
-                          className="close"
-                          data-dismiss="modal"
-                          type="button"
-                          onClick={() => this.toggleModal("notificationModal")}
-                        >
-                          <span aria-hidden={true}>×</span>
-                        </button>
-                      </div>
-                      <div className="modal-body">
-                        <div className="py-3 text-center">
-                          <i className="ni ni-bell-55 ni-3x" />
-                          <h4 className="heading mt-4">
-                            Are you sure you want to permanently delete this
-                            problematic ?
-                          </h4>
-                        </div>
-                      </div>
-                      <div className="modal-footer">
-                        <Button
-                          className="btn-white"
-                          color="default"
-                          type="button"
-                          onClick={this.deleteProblematic}
-                        >
-                          Yes
-                        </Button>
-                        <Button
-                          className="text-white ml-auto"
-                          color="link"
-                          data-dismiss="modal"
-                          type="button"
-                          onClick={() => this.toggleModal("notificationModal")}
-                        >
-                          Close
-                        </Button>
-                      </div>
-                    </Modal>
-                  </NavItem>
-                </Nav>
-                {/* <Nav className="ml-lg-auto" navbar>
-                  
-                </Nav> */}
-              </UncontrolledCollapse>
-            </Navbar>
+              </div>
+              <div className="modal-footer">
+                <Button
+                  className="btn-white"
+                  color="default"
+                  type="button"
+                  onClick={this.deleteProblematic}
+                >
+                  Yes
+                </Button>
+                <Button
+                  className="text-white ml-auto"
+                  color="link"
+                  data-dismiss="modal"
+                  type="button"
+                  onClick={() => this.toggleModal("notificationModal")}
+                >
+                  Close
+                </Button>
+              </div>
+            </Modal>
           </Col>
         </Row>
       </>
