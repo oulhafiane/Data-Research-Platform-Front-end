@@ -20,7 +20,7 @@ import Axios from "axios";
 import { DEFAULT_URL } from "../config";
 import { connect } from "react-redux";
 import { getUser } from "actions/userAction";
-
+import authService from "../services/auth-service";
 // reactstrap components
 import { Container, Row } from "reactstrap";
 import ShowPost from "components/Shows/ShowPost";
@@ -51,7 +51,8 @@ class Post extends React.Component {
     showSolution: false,
     showAdvantage: false,
     showApplications: false,
-    done: false
+    done: false,
+    isSearcher: false
   };
 
   updateCounts = () => {
@@ -76,6 +77,7 @@ class Post extends React.Component {
   };
 
   async componentDidMount() {
+    authService.isAuthenticated().then(e => this.setState({ isSearcher: e }));
     await this.props.getUser();
     this.getCounts();
     Axios.get(`${DEFAULT_URL}api/problematic/${this.state.id}`)

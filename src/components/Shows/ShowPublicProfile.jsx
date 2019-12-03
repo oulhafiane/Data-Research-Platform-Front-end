@@ -31,7 +31,10 @@ class ShowPublicProfile extends React.Component {
     const { state } = this.props;
     return (
       <Row>
-        <Card className={`card-profile shadow ${this.props.mt}`}>
+        <Card
+          className={`card-profile shadow ${this.props.mt}`}
+          style={{ width: "100%" }}
+        >
           <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
             <div className="d-flex justify-content-between"></div>
           </CardHeader>

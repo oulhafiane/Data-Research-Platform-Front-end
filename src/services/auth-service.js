@@ -12,7 +12,6 @@ class AuthService {
   }
 
   getRefreshToken() {
-    console.log("hadi : " + localStorage.getItem(this.refreshTokenKey));
     return localStorage.getItem(this.refreshTokenKey);
   }
 
@@ -29,7 +28,9 @@ class AuthService {
   }
 
   getExpiration(token) {
-    const exp = this.decode(token).exp;
+    const tokenDecoded = this.decode(token);
+    if (null === tokenDecoded) return null;
+    const exp = tokenDecoded.exp;
     return moment.unix(exp);
   }
 
@@ -40,44 +41,44 @@ class AuthService {
 
   async isValid(token) {
     console.log("dkhalna");
-    if (moment().isBefore(this.getExpiration(token))) return true;
+    const exp = this.getExpiration(token);
+    if (null === exp) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("refresh_token");
+      return false;
+    }
+    if (moment().isBefore(exp)) return true;
     else {
-      return await Axios.post(`${DEFAULT_URL}api/token/refresh`, {
+      const res = await Axios.post(`${DEFAULT_URL}api/token/refresh`, {
         refresh_token: this.getRefreshToken()
-      })
-        .then(res => {
-          console.log("refresh");
-          console.log(res.data.refresh_token);
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("refresh_token", res.data.refresh_token);
-          console.log(localStorage.getItem("refresh_token"));
-          return true;
-        })
-        .catch(error => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("refresh_token");
-          return false;
-        });
+      });
+      if (res.data) {
+        await localStorage.setItem("token", res.data.token);
+        await localStorage.setItem("refresh_token", res.data.refresh_token);
+        return true;
+      } else {
+        localStorage.removeItem("token");
+        localStorage.removeItem("refresh_token");
+        return false;
+      }
     }
   }
 
-  isAuthenticated() {
+  async isAuthenticated() {
     const token = this.getToken();
-    return token && this.isValid(token) ? true : false;
+    return token && (await this.isValid(token)) ? true : false;
   }
 
-  isSearcher() {
+  async isSearcher() {
     let found = false;
-    if (this.isAuthenticated()) {
+    if (await this.isAuthenticated()) {
       const roles = this.decode(this.getToken()).roles;
       roles.forEach(role => {
-        console.log(role);
         if (role == "ROLE_SEARCHER") {
           found = true;
         }
       });
     }
-    console.log("IsSearcher : " + found);
     return found;
   }
 

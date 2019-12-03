@@ -22,7 +22,6 @@ import InputTextLabel from "../Inputs/InputLabel";
 import { DEFAULT_URL } from "../../config";
 import { connect } from "react-redux";
 import { getUser } from "actions/userAction";
-import authService from "../../services/auth-service";
 
 // reactstrap components
 import { Card, CardHeader, CardBody, Button, Row, Col, Form } from "reactstrap";
@@ -51,7 +50,6 @@ class ShowComments extends React.Component {
   onChange = e =>
     this.setState({
       comment: e.target.value,
-      disabled: false,
       target: e.target
     });
 
@@ -170,16 +168,15 @@ class ShowComments extends React.Component {
                   onChange={this.onChange}
                   rows="5"
                   style={{ resize: "None" }}
-                  disabled={!authService.isSearcher()}
+                  disabled={!state.isSearcher}
                 />
                 <Button
                   color="primary"
                   href="#pablo"
                   onClick={this.submitData}
                   size="sm"
-                  disabled={this.state.disabled}
                   style={{ padding: "9px 34px 9px 34px", float: "right" }}
-                  disabled={!authService.isSearcher()}
+                  disabled={!state.isSearcher}
                 >
                   {this.state.uploading ? (
                     <React.Fragment>
@@ -200,7 +197,7 @@ class ShowComments extends React.Component {
                   <CardHeader className="border-top d-flex">
                     <div className="card-post__author d-flex">
                       <a
-                        href="#"
+                        href={`/default/profile/${this.state.comments[key][0].owner.uuid}`}
                         className="card-post__author-avatar card-post__author-avatar--small"
                         style={{
                           backgroundImage: `url(
@@ -238,7 +235,7 @@ class ShowComments extends React.Component {
                               : "inherit"
                         }}
                         onClick={this.submitData}
-                        disabled={!authService.isSearcher()}
+                        disabled={!state.isSearcher}
                       >
                         <i id="up_vote_icon" className="ni ni-bold-up" />
                       </Button>
@@ -254,7 +251,7 @@ class ShowComments extends React.Component {
                               : "inherit"
                         }}
                         onClick={this.submitData}
-                        disabled={!authService.isSearcher()}
+                        disabled={!state.isSearcher}
                       >
                         <i id="down_vote_icon" className="ni ni-bold-down" />
                       </Button> */}
