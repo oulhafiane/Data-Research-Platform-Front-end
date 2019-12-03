@@ -37,7 +37,8 @@ class ShowComments extends React.Component {
     totalPages: null,
     itemsCount: null,
     scrolling: false,
-    showLoadComments: true
+    showLoadComments: true,
+    target: null
   };
 
   btnStyle = {
@@ -60,6 +61,7 @@ class ShowComments extends React.Component {
 
   submitData = e => {
     e.preventDefault();
+    this.state.target.value = "";
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
@@ -89,7 +91,9 @@ class ShowComments extends React.Component {
                 firstName: this.props.user.firstName,
                 lastName: this.props.user.lastName,
                 _photo: {
-                  img: this.props.user._photo.img
+                  img: this.props.user._photo
+                    ? this.props.user._photo.img
+                    : this.props.photo_user
                 }
               }
             }
