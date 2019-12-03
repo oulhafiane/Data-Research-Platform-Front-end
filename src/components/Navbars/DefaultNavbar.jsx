@@ -39,6 +39,7 @@ import {
 class DefaultNavbar extends React.Component {
   logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("refresh_token");
     this.props.history.push("/");
   };
 
@@ -100,7 +101,7 @@ class DefaultNavbar extends React.Component {
                       <i className="ni ni-single-02" />
                       <span>My profile</span>
                     </DropdownItem>
-                    <DropdownItem to="/admin/user-profile" tag={Link}>
+                    <DropdownItem to="/default/user-profile" tag={Link}>
                       <i className="ni ni-settings-gear-65" />
                       <span>Settings</span>
                     </DropdownItem>

@@ -117,7 +117,6 @@ class ShowComments extends React.Component {
       }&page=${this.state.currentPage}`
     )
       .then(res => {
-        console.log(this.state.totalPages);
         this.setState(
           prevState => ({
             comments: [...prevState.comments, ...res.data.comments],
@@ -207,7 +206,9 @@ class ShowComments extends React.Component {
                           backgroundImage: `url(
                             ${
                               this.state.comments[key][0].owner
-                                ? this.state.comments[key][0].owner._photo.img
+                                ? this.state.comments[key][0].owner._photo
+                                  ? this.state.comments[key][0].owner._photo.img
+                                  : this.props.photo_user
                                 : this.props.photo_user
                             }
                           )`

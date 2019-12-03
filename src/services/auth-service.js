@@ -12,6 +12,7 @@ class AuthService {
   }
 
   getRefreshToken() {
+    console.log("hadi : " + localStorage.getItem(this.refreshTokenKey));
     return localStorage.getItem(this.refreshTokenKey);
   }
 
@@ -37,22 +38,24 @@ class AuthService {
     return token.username;
   }
 
-  isValid(token) {
+  async isValid(token) {
+    console.log("dkhalna");
     if (moment().isBefore(this.getExpiration(token))) return true;
     else {
-      return Axios.post(`${DEFAULT_URL}api/token/refresh`, {
+      return await Axios.post(`${DEFAULT_URL}api/token/refresh`, {
         refresh_token: this.getRefreshToken()
       })
         .then(res => {
-          console.log("expired");
+          console.log("refresh");
+          console.log(res.data.refresh_token);
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("refresh_token", res.data.refresh_token);
+          console.log(localStorage.getItem("refresh_token"));
           return true;
         })
         .catch(error => {
           localStorage.removeItem("token");
           localStorage.removeItem("refresh_token");
-          localStorage.removeItem("user");
           return false;
         });
     }
@@ -68,11 +71,13 @@ class AuthService {
     if (this.isAuthenticated()) {
       const roles = this.decode(this.getToken()).roles;
       roles.forEach(role => {
+        console.log(role);
         if (role == "ROLE_SEARCHER") {
           found = true;
         }
       });
     }
+    console.log("IsSearcher : " + found);
     return found;
   }
 
