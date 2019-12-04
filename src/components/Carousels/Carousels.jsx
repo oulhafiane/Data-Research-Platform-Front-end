@@ -3,16 +3,33 @@ import {
   Carousel,
   CarouselItem,
   CarouselControl,
-  CarouselIndicators,
-  CarouselCaption
+  CarouselIndicators
 } from "reactstrap";
 
 const items = [
   {
-    src: require("assets/img/banner/banner3.png")
+    src: require("assets/img/banner/banner11.jpg"),
+    opacity: 0
   },
   {
-    src: require("assets/img/banner/banner1.jpg")
+    src: require("assets/img/banner/banner12.jpg"),
+    opacity: 2
+  },
+  {
+    src: require("assets/img/banner/banner13.jpg"),
+    opacity: 0
+  },
+  {
+    src: require("assets/img/banner/banner15.jpg"),
+    opacity: 0
+  },
+  {
+    src: require("assets/img/banner/banner16.jpg"),
+    opacity: 2
+  },
+  {
+    src: require("assets/img/banner/banner10.jpg"),
+    opacity: 0
   }
 ];
 
@@ -50,17 +67,19 @@ const Carousels = props => {
           style={{ width: "100%", height: "100vh" }}
         />
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-7" />{" "}
+        {console.log(item.opacity)}
+        {item.opacity !== 0 ? (
+          <span
+            className={`mask bg-gradient-default opacity-${item.opacity}`}
+          />
+        ) : null}{" "}
         <div className="carousel-caption">
           <h3>Data &amp; Research Platform</h3>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            aliquip ex ea commodo consequat.
           </p>
         </div>
       </CarouselItem>
