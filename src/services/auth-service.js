@@ -49,14 +49,20 @@ class AuthService {
     }
     if (moment().isBefore(exp)) return true;
     else {
-      const res = await Axios.post(`${DEFAULT_URL}api/token/refresh`, {
-        refresh_token: this.getRefreshToken()
-      });
-      if (res.data) {
-        await localStorage.setItem("token", res.data.token);
-        await localStorage.setItem("refresh_token", res.data.refresh_token);
-        return true;
-      } else {
+      try {
+        const res = await Axios.post(`${DEFAULT_URL}api/token/refresh`, {
+          refresh_token: this.getRefreshToken()
+        });
+        if (res.data) {
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("refresh_token", res.data.refresh_token);
+          return true;
+        } else {
+          localStorage.removeItem("token");
+          localStorage.removeItem("refresh_token");
+          return false;
+        }
+      } catch (error) {
         localStorage.removeItem("token");
         localStorage.removeItem("refresh_token");
         return false;
