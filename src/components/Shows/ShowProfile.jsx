@@ -20,7 +20,7 @@ import Axios from "axios";
 import { DEFAULT_URL } from "../../config";
 
 // reactstrap components
-import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+import { Card, CardHeader, CardBody, Row, Col, Alert } from "reactstrap";
 
 class ShowProfile extends React.Component {
   constructor(props) {
@@ -54,6 +54,7 @@ class ShowProfile extends React.Component {
           });
         })
         .catch(error => {
+          this.setState({ uploadingPhoto: false, showGlobalError: true });
           console.log(error.response.data);
         });
     };
@@ -61,7 +62,7 @@ class ShowProfile extends React.Component {
   };
 
   onFilesAdded = e => {
-    this.setState({ uploadingPhoto: true });
+    this.setState({ uploadingPhoto: true, showGlobalError: false });
     const files = e.target.files;
     this.toBase64(files[0]);
   };
@@ -75,6 +76,11 @@ class ShowProfile extends React.Component {
     const { state } = this.props;
     return (
       <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
+        {this.state.showGlobalError ? (
+          <Alert color="danger">
+            <strong>Error!</strong> {this.state.message}
+          </Alert>
+        ) : null}
         <Card className="card-profile shadow">
           <Row className="justify-content-center">
             <Col className="order-lg-2" lg="3">
