@@ -67,7 +67,6 @@ const Carousels = props => {
           style={{ width: "100%", height: "100vh" }}
         />
         {/* Mask */}
-        {console.log(item.opacity)}
         {item.opacity !== 0 ? (
           <span
             className={`mask bg-gradient-default opacity-${item.opacity}`}

@@ -26,12 +26,20 @@ import DefaultFooter from "components/Footers/AuthFooter.jsx";
 
 import routes from "routes.js";
 import Carousels from "components/Carousels/Carousels";
+import authService from "../services/auth-service";
 
 class Landing extends React.Component {
+  state = {
+    isAuthenticated: false
+  };
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+    authService.isAuthenticated().then(good => {
+      this.setState({ isAuthenticated: good });
+    });
   }
   getRoutes = routes => {
     return routes.map((prop, key) => {
@@ -63,7 +71,7 @@ class Landing extends React.Component {
   render() {
     return (
       <>
-        {localStorage.getItem("token") ? (
+        {this.state.isAuthenticated ? (
           <DefaultNavbar
             {...this.props}
             brandText={this.getBrandText(this.props.location.pathname)}

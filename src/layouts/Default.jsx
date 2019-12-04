@@ -26,13 +26,25 @@ import DefaultFooter from "components/Footers/AuthFooter.jsx";
 import Header from "components/Headers/Header.jsx";
 import routes from "routes.js";
 import ProtectedRoute from "services/ProtectedRoute";
+import authService from "../services/auth-service";
 
 class Default extends React.Component {
+  state = {
+    isAuthenticated: false
+  };
+
   componentDidUpdate(e) {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.mainContent.scrollTop = 0;
   }
+
+  componentDidMount() {
+    authService.isAuthenticated().then(good => {
+      this.setState({ isAuthenticated: good });
+    });
+  }
+
   getRoutes = routes => {
     return routes.map((prop, key) => {
       if (prop.layout === "/default") {
@@ -74,7 +86,7 @@ class Default extends React.Component {
     return (
       <>
         <div className="main-content" ref="mainContent">
-          {localStorage.getItem("token") ? (
+          {this.state.isAuthenticated ? (
             <DefaultNavbar
               {...this.props}
               brandText={this.getBrandText(this.props.location.pathname)}
