@@ -219,47 +219,35 @@ class Index extends React.Component {
                       About Us
                     </h2>
                   </div>
-                  <h4 className="display-4 font-weight-bold">Objectives :</h4>
-                  <ul style={{ fontSize: "1.1rem" }}>
-                    <li>
-                      Inspire community and policy makers to design more
-                      effective, efficient and sustainable services and programs
-                      for small holder farmers.
-                    </li>
-                    <li>
-                      Enable people to better understand the complexity of
-                      challenges facing small holder farmers through research
-                      and data.
-                    </li>
-                    <li>
-                      Build a databank on small holder farmers in Morocco and
-                      Africa by merging data from multiple sources.
-                    </li>
-                    <li>
-                      Form working groups for knowledge building around small
-                      holder farmer challenges.
-                    </li>
-                    <li>
-                      Implement a collaboration platform allowing researchers
-                      and experts to share their knowledge on small holder
-                      farmer challenges.
-                    </li>
-                    <li>
-                      Provide data-driven insights on small holder farmers in
-                      Morocco and Africa.
-                    </li>
-                    <li>
-                      Enable innovation capability by using data-insights.
-                    </li>
-                  </ul>
+                  <p>
+                    Impactree is a platform created within P-Curiosity Lab
+                    (PCL), an innovation lab based in the Moroccan University:
+                    Mohammed VI Polytechnic University.
+                  </p>
+                  <p>
+                    PCL aims to create inclusive, sustainable and innovative
+                    services for smallholder farmers in Morocco and Africa. To
+                    serve our purpose, a full understanding on smallholder
+                    farmers challenges is required. The necessary knowledge to
+                    tackle those challenges can only be provided by a community
+                    of researchers and experts.
+                  </p>
+                  <p>
+                    Impactree offers this community the necessary tools and the
+                    opportunity to create and share their knowledge, thus
+                    bringing all the pieces of the puzzle together to allow a
+                    wider vision of, and a greater impact on our targeted
+                    population.
+                  </p>
                 </div>
               </Col>
               <Col md="6">
                 <Card className="bg-default shadow border-0">
                   <CardImg
                     alt="..."
-                    src={require("assets/img/theme/vision.jpg")}
+                    src={require("assets/img/banner/banner14.jpg")}
                     top
+                    style={{ height: "600px" }}
                   />
                   <blockquote className="card-blockquote">
                     <svg
@@ -286,14 +274,6 @@ class Index extends React.Component {
                       smallholder farmers challenges in Morocco and Africa for a
                       sustainable inclusive future.
                     </p>
-                    <h4 className="display-4 font-weight-bold text-white">
-                      Mission
-                    </h4>
-                    <p className="text-italic text-white">
-                      Create new knowledge from combined data sources paving the
-                      way for the design of sustainable, inclusive and
-                      innovative programs.
-                    </p>
                   </blockquote>
                 </Card>
               </Col>
@@ -307,7 +287,9 @@ class Index extends React.Component {
           <Container className="pt-lg pb-300">
             <Row className="text-center justify-content-center">
               <Col lg="10">
-                <h2 className="display-3 text-white">Innovate Trough Data</h2>
+                <h2 className="display-3 text-white">
+                  Share knowledge. Impact lives.
+                </h2>
                 <p className="lead text-white">
                   According to the National Oceanic and Atmospheric
                   Administration, Ted, Scambos, NSIDClead scentist, puts the
@@ -339,7 +321,8 @@ class Index extends React.Component {
                   <CardBody className="p-lg-5">
                     <h4 className="mb-1">Contact us</h4>
                     <p className="mt-0">
-                      Your project is very important to us.
+                      Whether you have a question, a request or a suggestion,
+                      we'd love to hear from you.
                     </p>
                     <FormGroup
                       className={classnames("mt-5", {

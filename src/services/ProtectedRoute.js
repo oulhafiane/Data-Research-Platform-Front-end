@@ -9,10 +9,12 @@ function ProtectedRoute(props) {
     <Route
       {...rest}
       render={props =>
-        authService.isAuthenticated() ? (
+        authService.isAuthenticatedSync() ? (
           <Component {...props} {...rest} />
         ) : (
-          <Redirect to={{ pathname: "/auth/login" }} />
+          <Redirect
+            to={{ pathname: "/auth/login", state: { from: props.location } }}
+          />
         )
       }
     />

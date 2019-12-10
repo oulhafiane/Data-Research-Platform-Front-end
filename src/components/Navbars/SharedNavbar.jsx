@@ -69,7 +69,7 @@ class SharedNavbar extends React.Component {
           <UncontrolledDropdown nav>
             <DropdownToggle nav>
               <i className="ni ni-single-copy-04" />
-              <span className="nav-link-inner--text">Research & Data</span>
+              <span className="nav-link-inner--text">Impactree</span>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu-xl">
               <div className="dropdown-menu-inner">

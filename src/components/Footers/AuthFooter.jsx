@@ -38,7 +38,7 @@ class AuthFooter extends React.Component {
             <Row className=" row-grid align-items-center mb-5">
               <Col lg="6">
                 <h3 className=" text-primary font-weight-light mb-2">
-                  Innovate Trough Data
+                  Share knowledge. Impact lives.
                 </h3>
                 <h4 className=" mb-0 font-weight-light">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.

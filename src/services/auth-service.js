@@ -40,7 +40,6 @@ class AuthService {
   }
 
   async isValid(token) {
-    console.log("dkhalna");
     const exp = this.getExpiration(token);
     if (null === exp) {
       localStorage.removeItem("token");
@@ -73,6 +72,11 @@ class AuthService {
   async isAuthenticated() {
     const token = this.getToken();
     return token && (await this.isValid(token)) ? true : false;
+  }
+
+  isAuthenticatedSync() {
+    const token = this.getToken();
+    return token && this.isValid(token) ? true : false;
   }
 
   async isSearcher() {

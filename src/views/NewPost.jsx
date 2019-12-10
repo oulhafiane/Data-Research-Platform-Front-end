@@ -211,8 +211,10 @@ class NewPost extends React.Component {
             <ShowPost
               state={this.state}
               photo_user={
-                this.props.user._photo
-                  ? this.props.user._photo.img
+                this.props.user
+                  ? this.props.user._photo
+                    ? this.props.user._photo.img
+                    : this.props.photo_user
                   : this.props.photo_user
               }
               request={false}
