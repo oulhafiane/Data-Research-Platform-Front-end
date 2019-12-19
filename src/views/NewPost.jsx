@@ -377,8 +377,8 @@ class NewPost extends React.Component {
                           Uploading...
                         </React.Fragment>
                       ) : (
-                        "Submit"
-                      )}
+                          "Submit"
+                        )}
                     </Button>
                   </Form>
                 </CardBody>

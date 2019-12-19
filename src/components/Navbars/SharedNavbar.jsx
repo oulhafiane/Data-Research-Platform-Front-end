@@ -92,7 +92,7 @@ class SharedNavbar extends React.Component {
                 </Media>
                 <Media
                   className="d-flex align-items-center"
-                  href="/default/data"
+                  href="/data/index"
                 >
                   <div className="icon icon-shape bg-gradient-primary rounded-circle text-white">
                     <i className="ni ni-chart-bar-32" />

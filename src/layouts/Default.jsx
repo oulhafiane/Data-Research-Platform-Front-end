@@ -93,8 +93,8 @@ class Default extends React.Component {
               brandText={this.getBrandText(this.props.location.pathname)}
             />
           ) : (
-            <AuthNavbar />
-          )}
+              <AuthNavbar />
+            )}
 
           <Header />
           {/* Page content */}

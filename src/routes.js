@@ -7,6 +7,7 @@ import Index from "views/Index";
 import NewPost from "views/NewPost";
 import EditPost from "views/EditPost";
 import Post from "views/Post";
+import IndexData from "views/IndexData";
 import Dashboard from "views/Dashboard";
 import Applications from "views/Applications";
 
@@ -82,6 +83,14 @@ var routes = [
     component: Index,
     layout: "/landing",
     role: "ROLE_ANON"
+  },
+  {
+    path: "/index",
+    name: "Data",
+    icon: "ni ni-chart-pie-35 text-green",
+    component: IndexData,
+    layout: "/data",
+    role: "ROLE_AUTH"
   },
   {
     path: "/index",

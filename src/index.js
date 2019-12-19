@@ -6,6 +6,8 @@ import AuthLayout from "layouts/Auth.jsx";
 import Default from "layouts/Default";
 import Landing from "layouts/Landing";
 import Admin from "layouts/Admin";
+import ScrollToTop from "components/Scroll/ScrollUp";
+import Data from "layouts/Data";
 
 import { Provider } from "react-redux";
 import store from "./store";
@@ -18,7 +20,6 @@ import "assets/css/Dropzone.css";
 import "assets/css/custom.css";
 import "assets/scss/argon-design-system-react.scss";
 import "assets/vendor/font-awesome/css/font-awesome.min.css";
-import ScrollToTop from "components/Scroll/ScrollUp";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -28,6 +29,7 @@ ReactDOM.render(
         <Route path="/auth" render={props => <AuthLayout {...props} />} />
         <Route path="/default" render={props => <Default {...props} />} />
         <Route path="/landing" render={props => <Landing {...props} />} />
+        <Route path="/data" render={props => <Data {...props} />} />
         <Route path="/admin" render={props => <Admin {...props} />} />
         <Redirect from="/" to="/landing/index" />
       </Switch>
