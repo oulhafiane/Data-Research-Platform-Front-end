@@ -31,9 +31,10 @@ import {
 
 class AuthFooter extends React.Component {
   render() {
+    const { style } = this.props
     return (
       <>
-        <footer className=" footer">
+        <footer className=" footer" style={style}>
           <Container>
             <Row className=" row-grid align-items-center mb-5">
               <Col lg="6">

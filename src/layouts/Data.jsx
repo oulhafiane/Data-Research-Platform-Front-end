@@ -20,13 +20,13 @@ import { Route, Switch } from "react-router-dom";
 // reactstrap components
 import { Container, Row } from "reactstrap";
 // core components
-import AuthNavbar from "components/Navbars/AuthNavbar.jsx";
-import DefaultNavbar from "components/Navbars/DefaultNavbar.jsx";
 import DefaultFooter from "components/Footers/AuthFooter.jsx";
 import routes from "routes.js";
 import ProtectedRoute from "services/ProtectedRoute";
 import authService from "../services/auth-service";
 import HeaderData from "components/Headers/HeaderData";
+import DataSidebar from "components/Sidebar/DataSidebar";
+import DefaultNavbar from "components/Navbars/DefaultNavbar";
 
 class Data extends React.Component {
   state = {
@@ -86,25 +86,18 @@ class Data extends React.Component {
   render() {
     return (
       <>
+        <DataSidebar />
+        <DefaultNavbar styleBrand={{ marginLeft: "100px" }} />
+        <HeaderData />
         <div className="main-content" ref="mainContent">
-          {this.state.isAuthenticated ? (
-            <DefaultNavbar
-              {...this.props}
-              brandText={this.getBrandText(this.props.location.pathname)}
-            />
-          ) : (
-              <AuthNavbar />
-            )}
-
-          <HeaderData />
           {/* Page content */}
-          <Container className="mt--7" fluid>
+          <Container className="mt-5" fluid>
             <Row>
               <Switch>{this.getRoutes(routes)}</Switch>
             </Row>
           </Container>
           <Container className="mt-7"></Container>
-          <DefaultFooter />
+          <DefaultFooter style={{ marginLeft: "62px" }} />
         </div>
       </>
     );

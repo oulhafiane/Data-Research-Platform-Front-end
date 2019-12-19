@@ -21,22 +21,7 @@ import Axios from "axios";
 import { DEFAULT_URL } from "../../config";
 
 // reactstrap components
-import {
-  UncontrolledCollapse,
-  Navbar,
-  NavItem,
-  Nav,
-  Row,
-  Col,
-  Form,
-  FormGroup,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-  Modal,
-  Button
-} from "reactstrap";
+import { Row, Col, FormGroup, Modal, Button } from "reactstrap";
 import SelectLabel from "components/Inputs/SelectLabel";
 import CreatableSelectLabel from "components/Inputs/CreatableSelectLabel";
 

@@ -63,7 +63,7 @@ class SharedNavbar extends React.Component {
           <NavItem>
             <NavLink href="/landing/index#about-us">
               <i className="ni ni-briefcase-24" />
-              About Us <span className="sr-only">(current)</span>
+              <span className="nav-link-inner--text">About Us</span>
             </NavLink>
           </NavItem>
           <UncontrolledDropdown nav>
@@ -149,19 +149,19 @@ class SharedNavbar extends React.Component {
           <NavItem>
             <NavLink href="/landing/index#events">
               <i className="ni ni-calendar-grid-58" />
-              News & Events
+              <span className="nav-link-inner--text">News & Events</span>
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="/landing/index#contact-us">
               <i className="ni ni-email-83" />
-              Contact Us <span className="sr-only">(current)</span>
+              <span className="nav-link-inner--text">Contact Us</span>
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="/landing/index#partners">
               <i className="ni ni-satisfied" />
-              Our Partners <span className="sr-only">(current)</span>
+              <span className="nav-link-inner--text">Our Partners</span>
             </NavLink>
           </NavItem>
         </Nav>

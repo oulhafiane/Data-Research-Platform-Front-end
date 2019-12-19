@@ -12,10 +12,7 @@ class SelectLabel extends React.Component {
       val,
       formatGroupLabel,
       placeholder,
-      type,
       onChange,
-      rows,
-      disabled,
       styles
     } = this.props;
     const animatedComponents = makeAnimated();

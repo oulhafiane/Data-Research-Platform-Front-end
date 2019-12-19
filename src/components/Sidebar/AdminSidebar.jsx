@@ -23,17 +23,11 @@ import { PropTypes } from "prop-types";
 
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
   Collapse,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  FormGroup,
   Form,
   Input,
   InputGroupAddon,
@@ -45,8 +39,6 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Progress,
-  Table,
   Container,
   Row,
   Col
@@ -210,10 +202,10 @@ class AdminSidebar extends React.Component {
                         <img alt={logo.imgAlt} src={logo.imgSrc} />
                       </Link>
                     ) : (
-                      <a href={logo.outterLink}>
-                        <img alt={logo.imgAlt} src={logo.imgSrc} />
-                      </a>
-                    )}
+                        <a href={logo.outterLink}>
+                          <img alt={logo.imgAlt} src={logo.imgSrc} />
+                        </a>
+                      )}
                   </Col>
                 ) : null}
                 <Col className="collapse-close" xs="6">

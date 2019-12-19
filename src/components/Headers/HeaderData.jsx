@@ -29,11 +29,11 @@ class HeaderData extends React.Component {
           className="header pb-5 pt-5 pt-lg-5 d-flex align-items-center"
           style={{
             backgroundSize: "cover",
-            backgroundPosition: "center top"
+            backgroundPosition: "center top",
+            backgroundColor: "#172b4d"
           }}
         >
           {/* Mask */}
-          <span className="mask bg-gradient-default opacity-8" />
           {/* Header container */}
           <Container className="d-flex align-items-center" fluid>
             <Row>

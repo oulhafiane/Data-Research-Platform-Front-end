@@ -16,330 +16,345 @@
 
 */
 import React from "react";
-// node.js library that concatenates classes (strings)
-import classnames from "classnames";
-// javascipt plugin for creating charts
-import Chart from "chart.js";
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
 // reactstrap components
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
-  NavItem,
-  NavLink,
-  Nav,
-  Progress,
-  Table,
   Container,
   Row,
-  Col
+  Col,
+  Badge,
+  Modal,
+  FormGroup
 } from "reactstrap";
-
-// core components
-import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2
-} from "../variables/charts.jsx";
-
-import HeaderAdmin from "components/Headers/HeaderAdmin.jsx";
+import InputTextLabel from "components/Inputs/InputLabel";
+import SelectLabel from "components/Inputs/SelectLabel";
+import DropDownLabel from "components/Inputs/DropDownLabel";
 
 class IndexData extends React.Component {
   state = {
-    activeNav: 1,
-    chartExample1Data: "data1"
+    dataset: {},
+    types: [
+      { id: 0, value: "Public" },
+      { id: 1, value: "Private" }
+    ],
+    id_type: 0
   };
-  toggleNavs = (e, index) => {
+  onChangeType = e => {
     e.preventDefault();
-    this.setState({
-      activeNav: index,
-      chartExample1Data:
-        this.state.chartExample1Data === "data1" ? "data2" : "data1"
-    });
-    let wow = () => {
-      console.log(this.state);
-    };
-    wow.bind(this);
-    setTimeout(() => wow(), 1000);
-    // this.chartReference.update();
+    this.setState({ id_domain: e.target.id, id_category: 0 });
   };
-  componentWillMount() {
-    if (window.Chart) {
-      parseOptions(Chart, chartOptions());
-    }
-  }
+  toggleModal = state => {
+    this.setState({
+      [state]: !this.state[state]
+    });
+  };
+  createProject = e => {
+    e.preventDefault();
+  };
   render() {
+    const groupStyles = {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between"
+    };
+    const groupBadgeStyles = {
+      backgroundColor: "#EBECF0",
+      borderRadius: "2em",
+      color: "#172B4D",
+      display: "inline-block",
+      fontSize: 12,
+      fontWeight: "normal",
+      lineHeight: "1",
+      minWidth: 1,
+      padding: "0.16666666666667em 0.5em",
+      textAlign: "center"
+    };
+    const formatGroupLabel = data => (
+      <div style={groupStyles}>
+        <span>{data.label}</span>
+        <span style={groupBadgeStyles}>{data.options.length}</span>
+      </div>
+    );
     return (
       <>
         {/* Page content */}
-        <Container className="mt-9" fluid>
-          <Row>
-            <Col className="mb-5 mb-xl-0" xl="8">
-              <Card className="bg-gradient-default shadow">
-                <CardHeader className="bg-transparent">
-                  <Row className="align-items-center">
-                    <div className="col">
-                      <h6 className="text-uppercase text-light ls-1 mb-1">
-                        Overview
-                      </h6>
-                      <h2 className="text-white mb-0">Sales value</h2>
-                    </div>
-                    <div className="col">
-                      <Nav className="justify-content-end" pills>
-                        <NavItem>
-                          <NavLink
-                            className={classnames("py-2 px-3", {
-                              active: this.state.activeNav === 1
-                            })}
-                            href="#pablo"
-                            onClick={e => this.toggleNavs(e, 1)}
-                          >
-                            <span className="d-none d-md-block">Month</span>
-                            <span className="d-md-none">M</span>
-                          </NavLink>
-                        </NavItem>
-                        <NavItem>
-                          <NavLink
-                            className={classnames("py-2 px-3", {
-                              active: this.state.activeNav === 2
-                            })}
-                            data-toggle="tab"
-                            href="#pablo"
-                            onClick={e => this.toggleNavs(e, 2)}
-                          >
-                            <span className="d-none d-md-block">Week</span>
-                            <span className="d-md-none">W</span>
-                          </NavLink>
-                        </NavItem>
-                      </Nav>
-                    </div>
-                  </Row>
-                </CardHeader>
-                <CardBody>
-                  {/* Chart */}
-                  <div className="chart">
-                    <Line
-                      data={chartExample1[this.state.chartExample1Data]}
-                      options={chartExample1.options}
-                      getDatasetAtEvent={e => console.log(e)}
-                    />
+        <Container fluid style={{ marginLeft: "50px" }}>
+          <Row className="row-grid">
+            <Col lg="4">
+              <Card className="card-lift--hover shadow border-0">
+                <CardBody className="py-5">
+                  <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
+                    <i className="ni ni-check-bold" />
                   </div>
+                  <h6 className="text-primary text-uppercase">
+                    Create Project
+                  </h6>
+                  <p className="description mt-3">
+                    Create Dataset, import data or create survey, clean up data,
+                    get data summary, analyze the data, create machine learning
+                    model
+                  </p>
+                  <div>
+                    <Badge color="primary" pill className="mr-1">
+                      Dataset
+                    </Badge>
+                    <Badge color="primary" pill className="mr-1">
+                      Survey
+                    </Badge>
+                    <Badge color="primary" pill className="mr-1">
+                      Analysis
+                    </Badge>
+                  </div>
+                  <Button
+                    className="mt-4"
+                    color="primary"
+                    onClick={() => this.toggleModal("defaultModal")}
+                  >
+                    Create Project
+                  </Button>
+                  <Modal
+                    className="modal-dialog-centered"
+                    isOpen={this.state.defaultModal}
+                    toggle={() => this.toggleModal("defaultModal")}
+                  >
+                    <div className="modal-header">
+                      <h6 className="modal-title" id="modal-title-default">
+                        Create Project
+                      </h6>
+                      <button
+                        aria-label="Close"
+                        className="close"
+                        data-dismiss="modal"
+                        type="button"
+                        onClick={() => this.toggleModal("defaultModal")}
+                      >
+                        <span aria-hidden={true}>×</span>
+                      </button>
+                    </div>
+                    <div className="modal-body">
+                      <InputTextLabel
+                        id="title"
+                        placeholder="Title"
+                        type="text"
+                        val={this.state.dataset.title}
+                        onChange={this.onChange}
+                      />
+                      <DropDownLabel
+                        id="privacy"
+                        name="Privacy"
+                        placeholder={this.state.types[this.state.id_type].value}
+                        type="text"
+                        val={this.state.types}
+                        onChange={this.onChangeType}
+                      />
+                      <InputTextLabel
+                        id="description"
+                        placeholder="Description"
+                        type="textarea"
+                        rows="5"
+                        val={this.state.dataset.description}
+                        onChange={this.onChange}
+                      />
+                    </div>
+                    <div className="modal-footer">
+                      <Button
+                        color="primary"
+                        type="button"
+                        onClick={this.filter}
+                      >
+                        create
+                      </Button>
+                      <Button
+                        className="ml-auto"
+                        color="link"
+                        data-dismiss="modal"
+                        type="button"
+                        onClick={() => this.toggleModal("defaultModal")}
+                      >
+                        Close
+                      </Button>
+                    </div>
+                  </Modal>
                 </CardBody>
               </Card>
             </Col>
-            <Col xl="4">
-              <Card className="shadow">
-                <CardHeader className="bg-transparent">
-                  <Row className="align-items-center">
-                    <div className="col">
-                      <h6 className="text-uppercase text-muted ls-1 mb-1">
-                        Performance
-                      </h6>
-                      <h2 className="mb-0">Total orders</h2>
-                    </div>
-                  </Row>
-                </CardHeader>
-                <CardBody>
-                  {/* Chart */}
-                  <div className="chart">
-                    <Bar
-                      data={chartExample2.data}
-                      options={chartExample2.options}
-                    />
+            <Col lg="4">
+              <Card className="card-lift--hover shadow border-0">
+                <CardBody className="py-5">
+                  <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
+                    <i className="ni ni-istanbul" />
                   </div>
+                  <h6 className="text-success text-uppercase">
+                    Build Something
+                  </h6>
+                  <p className="description mt-3">
+                    Argon is a great free UI package based on Bootstrap 4 that
+                    includes the most important components and features.
+                  </p>
+                  <div>
+                    <Badge color="success" pill className="mr-1">
+                      business
+                    </Badge>
+                    <Badge color="success" pill className="mr-1">
+                      vision
+                    </Badge>
+                    <Badge color="success" pill className="mr-1">
+                      success
+                    </Badge>
+                  </div>
+                  <Button
+                    className="mt-4"
+                    color="success"
+                    href="#pablo"
+                    onClick={e => e.preventDefault()}
+                  >
+                    Learn more
+                  </Button>
+                </CardBody>
+              </Card>
+            </Col>
+            <Col lg="4">
+              <Card className="card-lift--hover shadow border-0">
+                <CardBody className="py-5">
+                  <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
+                    <i className="ni ni-planet" />
+                  </div>
+                  <h6 className="text-warning text-uppercase">
+                    Prepare Launch
+                  </h6>
+                  <p className="description mt-3">
+                    Argon is a great free UI package based on Bootstrap 4 that
+                    includes the most important components and features.
+                  </p>
+                  <div>
+                    <Badge color="warning" pill className="mr-1">
+                      marketing
+                    </Badge>
+                    <Badge color="warning" pill className="mr-1">
+                      product
+                    </Badge>
+                    <Badge color="warning" pill className="mr-1">
+                      launch
+                    </Badge>
+                  </div>
+                  <Button
+                    className="mt-4"
+                    color="warning"
+                    href="#pablo"
+                    onClick={e => e.preventDefault()}
+                  >
+                    Learn more
+                  </Button>
                 </CardBody>
               </Card>
             </Col>
           </Row>
-          <Row className="mt-5">
-            <Col className="mb-5 mb-xl-0" xl="8">
-              <Card className="shadow">
-                <CardHeader className="border-0">
-                  <Row className="align-items-center">
-                    <div className="col">
-                      <h3 className="mb-0">Page visits</h3>
-                    </div>
-                    <div className="col text-right">
-                      <Button
-                        color="primary"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                        size="sm"
-                      >
-                        See all
-                      </Button>
-                    </div>
-                  </Row>
-                </CardHeader>
-                <Table className="align-items-center table-flush" responsive>
-                  <thead className="thead-light">
-                    <tr>
-                      <th scope="col">Page name</th>
-                      <th scope="col">Visitors</th>
-                      <th scope="col">Unique users</th>
-                      <th scope="col">Bounce rate</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">/argon/</th>
-                      <td>4,569</td>
-                      <td>340</td>
-                      <td>
-                        <i className="fas fa-arrow-up text-success mr-3" />{" "}
-                        46,53%
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">/argon/index.html</th>
-                      <td>3,985</td>
-                      <td>319</td>
-                      <td>
-                        <i className="fas fa-arrow-down text-warning mr-3" />{" "}
-                        46,53%
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">/argon/charts.html</th>
-                      <td>3,513</td>
-                      <td>294</td>
-                      <td>
-                        <i className="fas fa-arrow-down text-warning mr-3" />{" "}
-                        36,49%
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">/argon/tables.html</th>
-                      <td>2,050</td>
-                      <td>147</td>
-                      <td>
-                        <i className="fas fa-arrow-up text-success mr-3" />{" "}
-                        50,87%
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">/argon/profile.html</th>
-                      <td>1,795</td>
-                      <td>190</td>
-                      <td>
-                        <i className="fas fa-arrow-down text-danger mr-3" />{" "}
-                        46,53%
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
+          <Row className="row-grid">
+            <Col lg="4">
+              <Card className="card-lift--hover shadow border-0">
+                <CardBody className="py-5">
+                  <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
+                    <i className="ni ni-check-bold" />
+                  </div>
+                  <h6 className="text-primary text-uppercase">
+                    Download Argon
+                  </h6>
+                  <p className="description mt-3">
+                    Argon is a great free UI package based on Bootstrap 4 that
+                    includes the most important components and features.
+                  </p>
+                  <div>
+                    <Badge color="primary" pill className="mr-1">
+                      design
+                    </Badge>
+                    <Badge color="primary" pill className="mr-1">
+                      system
+                    </Badge>
+                    <Badge color="primary" pill className="mr-1">
+                      creative
+                    </Badge>
+                  </div>
+                  <Button
+                    className="mt-4"
+                    color="primary"
+                    href="#pablo"
+                    onClick={e => e.preventDefault()}
+                  >
+                    Learn more
+                  </Button>
+                </CardBody>
               </Card>
             </Col>
-            <Col xl="4">
-              <Card className="shadow">
-                <CardHeader className="border-0">
-                  <Row className="align-items-center">
-                    <div className="col">
-                      <h3 className="mb-0">Social traffic</h3>
-                    </div>
-                    <div className="col text-right">
-                      <Button
-                        color="primary"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                        size="sm"
-                      >
-                        See all
-                      </Button>
-                    </div>
-                  </Row>
-                </CardHeader>
-                <Table className="align-items-center table-flush" responsive>
-                  <thead className="thead-light">
-                    <tr>
-                      <th scope="col">Referral</th>
-                      <th scope="col">Visitors</th>
-                      <th scope="col" />
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">Facebook</th>
-                      <td>1,480</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">60%</span>
-                          <div>
-                            <Progress
-                              max="100"
-                              value="60"
-                              barClassName="bg-gradient-danger"
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Facebook</th>
-                      <td>5,480</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">70%</span>
-                          <div>
-                            <Progress
-                              max="100"
-                              value="70"
-                              barClassName="bg-gradient-success"
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Google</th>
-                      <td>4,807</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">80%</span>
-                          <div>
-                            <Progress max="100" value="80" />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Instagram</th>
-                      <td>3,678</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">75%</span>
-                          <div>
-                            <Progress
-                              max="100"
-                              value="75"
-                              barClassName="bg-gradient-info"
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">twitter</th>
-                      <td>2,645</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">30%</span>
-                          <div>
-                            <Progress
-                              max="100"
-                              value="30"
-                              barClassName="bg-gradient-warning"
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
+            <Col lg="4">
+              <Card className="card-lift--hover shadow border-0">
+                <CardBody className="py-5">
+                  <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
+                    <i className="ni ni-istanbul" />
+                  </div>
+                  <h6 className="text-success text-uppercase">
+                    Build Something
+                  </h6>
+                  <p className="description mt-3">
+                    Argon is a great free UI package based on Bootstrap 4 that
+                    includes the most important components and features.
+                  </p>
+                  <div>
+                    <Badge color="success" pill className="mr-1">
+                      business
+                    </Badge>
+                    <Badge color="success" pill className="mr-1">
+                      vision
+                    </Badge>
+                    <Badge color="success" pill className="mr-1">
+                      success
+                    </Badge>
+                  </div>
+                  <Button
+                    className="mt-4"
+                    color="success"
+                    href="#pablo"
+                    onClick={e => e.preventDefault()}
+                  >
+                    Learn more
+                  </Button>
+                </CardBody>
+              </Card>
+            </Col>
+            <Col lg="4">
+              <Card className="card-lift--hover shadow border-0">
+                <CardBody className="py-5">
+                  <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
+                    <i className="ni ni-planet" />
+                  </div>
+                  <h6 className="text-warning text-uppercase">
+                    Prepare Launch
+                  </h6>
+                  <p className="description mt-3">
+                    Argon is a great free UI package based on Bootstrap 4 that
+                    includes the most important components and features.
+                  </p>
+                  <div>
+                    <Badge color="warning" pill className="mr-1">
+                      marketing
+                    </Badge>
+                    <Badge color="warning" pill className="mr-1">
+                      product
+                    </Badge>
+                    <Badge color="warning" pill className="mr-1">
+                      launch
+                    </Badge>
+                  </div>
+                  <Button
+                    className="mt-4"
+                    color="warning"
+                    href="#pablo"
+                    onClick={e => e.preventDefault()}
+                  >
+                    Learn more
+                  </Button>
+                </CardBody>
               </Card>
             </Col>
           </Row>

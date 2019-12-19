@@ -50,6 +50,7 @@ class DefaultNavbar extends React.Component {
     await this.props.getUser();
   }
   render() {
+    const { styleBrand } = this.props
     return (
       <>
         <header className="header-global">
@@ -58,7 +59,7 @@ class DefaultNavbar extends React.Component {
             expand="lg"
             id="navbar-main"
           >
-            <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
+            <NavbarBrand className="mr-lg-5" to="/" tag={Link} style={styleBrand}>
               <img
                 alt="..."
                 src={require("assets/img/brand/argon-react-white.png")}

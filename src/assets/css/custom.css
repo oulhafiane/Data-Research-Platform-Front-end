@@ -302,3 +302,14 @@ html {
   border-top-left-radius: 0.625rem !important;
   border-top-right-radius: 0.625rem !important;
 }
+
+/* SideBar */
+.sidenav---sidenav---_2tBP {
+  position: fixed !important;
+}
+
+/* NavBar */
+.show.navbar-collapse {
+  margin-left: 80px !important;
+  width: 88% !important;
+}

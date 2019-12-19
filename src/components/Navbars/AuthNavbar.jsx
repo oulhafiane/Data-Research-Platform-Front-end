@@ -21,9 +21,6 @@ import { Link } from "react-router-dom";
 import Headroom from "headroom.js";
 import SharedNavbar from "./SharedNavbar";
 
-import Axios from "axios";
-import { DEFAULT_URL } from "../../config";
-
 // reactstrap components
 import {
   UncontrolledCollapse,
@@ -40,44 +37,12 @@ class AuthNavbar extends React.Component {
     photo_user: require("assets/img/theme/user-profile.png")
   };
 
-  logout = () => {
-    //localStorage.removeItem("token");
-    //localStorage.removeItem("user");
-    //this.props.history.push("/");
-  };
-
-  checkUser = () => {
-    // const token = localStorage.getItem("token");
-    // const user = JSON.parse(localStorage.getItem("user"));
-    // if (user === null && token !== undefined) {
-    //   const config = {
-    //     headers: { Authorization: "bearer " + token }
-    //   };
-    //   Axios.get(`${DEFAULT_URL}api/current/infos`, config)
-    //     .then(res => {
-    //       if (res.data !== undefined) {
-    //         localStorage.setItem("user", JSON.stringify(res.data));
-    //         this.setState({ user: res.data });
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.log("Log out.");
-    //       localStorage.removeItem("token");
-    //       this.logout();
-    //       console.log("Ok");
-    //     });
-    // } else {
-    //   this.setState({ user: user });
-    //   if (user._photo) this.setState({ photo_user: user._photo.original });
-    // }
-  };
-
   componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));
     // initialise
     headroom.init();
-    this.checkUser();
   }
+
   render() {
     return (
       <>
