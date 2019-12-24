@@ -7,9 +7,10 @@ import Index from "views/Index";
 import NewPost from "views/NewPost";
 import EditPost from "views/EditPost";
 import Post from "views/Post";
-import IndexData from "views/IndexData";
 import Dashboard from "views/Dashboard";
 import Applications from "views/Applications";
+import IndexData from "views/IndexData";
+import MyDataSet from "views/MyDataSet";
 
 var routes = [
   {
@@ -89,6 +90,14 @@ var routes = [
     name: "Data",
     icon: "ni ni-chart-pie-35 text-green",
     component: IndexData,
+    layout: "/data",
+    role: "ROLE_AUTH"
+  },
+  {
+    path: "/mydataset/:uuid",
+    name: "Data",
+    icon: "ni ni-chart-pie-35 text-green",
+    component: MyDataSet,
     layout: "/data",
     role: "ROLE_AUTH"
   },

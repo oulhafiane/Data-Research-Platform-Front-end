@@ -26,24 +26,34 @@ import {
   Col,
   Badge,
   Modal,
-  FormGroup
+  Alert
 } from "reactstrap";
 import InputTextLabel from "components/Inputs/InputLabel";
-import SelectLabel from "components/Inputs/SelectLabel";
 import DropDownLabel from "components/Inputs/DropDownLabel";
+import Axios from "axios";
+import { DEFAULT_URL } from "../config";
 
 class IndexData extends React.Component {
   state = {
+    token: localStorage.getItem("token"),
     dataset: {},
     types: [
-      { id: 0, value: "Public" },
-      { id: 1, value: "Private" }
+      { id: 0, title: "Public" },
+      { id: 1, title: "Private" }
     ],
-    id_type: 0
+    id_type: 0,
+    extras: {},
+    showGlobalWarning: false,
+    uploading: false
   };
+  onChange = e =>
+    this.setState({
+      dataset: { ...this.state.dataset, [e.target.name]: e.target.value },
+      disabled: false
+    });
   onChangeType = e => {
     e.preventDefault();
-    this.setState({ id_domain: e.target.id, id_category: 0 });
+    this.setState({ id_type: e.target.id });
   };
   toggleModal = state => {
     this.setState({
@@ -52,6 +62,31 @@ class IndexData extends React.Component {
   };
   createProject = e => {
     e.preventDefault();
+    if (!this.state.dataset.title) {
+      this.setState({
+        extras: {
+          ...this.state.extras,
+          title: "The title should not be blank!"
+        }
+      });
+      return;
+    }
+    this.setState({ uploading: true });
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    let data = {
+      name: this.state.dataset.title,
+      description: this.state.dataset.description,
+      privacy: this.state.id_type
+    };
+    Axios.post(`${DEFAULT_URL}api/current/dataset`, data, config)
+      .then(res => {
+        this.props.history.push(`/data/mydataset/${res.data.extras.uuid}`);
+      })
+      .catch(error => {
+        this.setState({ showGlobalWarning: true, uploading: false });
+      });
   };
   render() {
     const groupStyles = {
@@ -140,11 +175,13 @@ class IndexData extends React.Component {
                         type="text"
                         val={this.state.dataset.title}
                         onChange={this.onChange}
+                        stateError={this.state.extras.title !== undefined}
+                        errorMessage={this.state.extras.title}
                       />
                       <DropDownLabel
                         id="privacy"
                         name="Privacy"
-                        placeholder={this.state.types[this.state.id_type].value}
+                        placeholder={this.state.types[this.state.id_type].title}
                         type="text"
                         val={this.state.types}
                         onChange={this.onChangeType}
@@ -156,15 +193,28 @@ class IndexData extends React.Component {
                         rows="5"
                         val={this.state.dataset.description}
                         onChange={this.onChange}
+                        value
                       />
+                      {this.state.showGlobalWarning ? (
+                        <Alert color="danger">
+                          <strong>Error!</strong> An error occured!
+                        </Alert>
+                      ) : null}
                     </div>
                     <div className="modal-footer">
                       <Button
                         color="primary"
                         type="button"
-                        onClick={this.filter}
+                        onClick={this.createProject}
                       >
-                        create
+                        {this.state.uploading ? (
+                          <React.Fragment>
+                            <i className="fas fa-spin fa-spinner"></i>{" "}
+                            Uploading...
+                          </React.Fragment>
+                        ) : (
+                          "Create"
+                        )}
                       </Button>
                       <Button
                         className="ml-auto"

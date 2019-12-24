@@ -313,3 +313,12 @@ html {
   margin-left: 80px !important;
   width: 88% !important;
 }
+
+/* ToolBox */
+.centerText {
+  text-align: center;
+}
+
+.hr {
+  border-top: 0.5rem solid #f4f5f7 !important;
+}

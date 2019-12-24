@@ -1,10 +1,20 @@
 import React from "react";
 // reactstrap components
-import { FormGroup, Input } from "reactstrap";
+import { FormGroup, Input, Alert } from "reactstrap";
 
 class InputTextLabel extends React.Component {
   render() {
-    const { id, val, placeholder, type, onChange, rows, disabled } = this.props;
+    const {
+      id,
+      val,
+      placeholder,
+      type,
+      onChange,
+      rows,
+      disabled,
+      stateError,
+      errorMessage
+    } = this.props;
     return (
       <div>
         <FormGroup>
@@ -23,6 +33,12 @@ class InputTextLabel extends React.Component {
             rows={rows}
             disabled={disabled}
           />
+          <p></p>
+          {stateError ? (
+            <Alert color="danger">
+              <strong>Error!</strong> {errorMessage}
+            </Alert>
+          ) : null}
         </FormGroup>
       </div>
     );
