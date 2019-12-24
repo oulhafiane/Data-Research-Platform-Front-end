@@ -36,10 +36,7 @@ import {
 } from "reactstrap";
 
 class Structure extends React.Component {
-  state = {
-    a: { top: 20, left: 80, title: "Drag me around" },
-    b: { top: 180, left: 20, title: "Drag me too" }
-  };
+  state = {};
   render() {
     return (
       <>

@@ -1,55 +1,56 @@
-/*!
+import React, { useState } from "react";
+import { useDrop } from "react-dnd";
+import ItemTypes from "./ItemTypes";
+import Box from "./Box.jsx";
+import update from "immutability-helper";
 
-=========================================================
-* Argon Design System React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-design-system-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React from "react";
-import { Link } from "react-router-dom";
-// nodejs library that concatenates classes
-import classnames from "classnames";
-
-// reactstrap components
-import {
-  Card,
-  CardBody,
-  NavItem,
-  NavLink,
-  Nav,
-  TabContent,
-  TabPane,
-  Row,
-  Col
-} from "reactstrap";
-
-class Data extends React.Component {
-  render() {
-    return (
-      <>
-        <p className="description">
-          Raw denim you probably haven't heard of them jean shorts Austin.
-          Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache
-          cliche tempor, williamsburg carles vegan helvetica. Reprehenderit
-          butcher retro keffiyeh dreamcatcher synth.
-        </p>
-        <p className="description">
-          Raw denim you probably haven't heard of them jean shorts Austin.
-          Nesciunt tofu stumptown aliqua, retro synth master cleanse.
-        </p>
-      </>
+const styles = {
+  width: 300,
+  height: 300,
+  border: "1px solid black",
+  position: "relative"
+};
+const Data = ({ hideSourceOnDrag }) => {
+  const [boxes, setBoxes] = useState({
+    a: { top: 20, left: 80, title: "Drag me around" },
+    b: { top: 180, left: 20, title: "Drag me too" }
+  });
+  const [, drop] = useDrop({
+    accept: ItemTypes.BOX,
+    drop(item, monitor) {
+      const delta = monitor.getDifferenceFromInitialOffset();
+      const left = Math.round(item.left + delta.x);
+      const top = Math.round(item.top + delta.y);
+      moveBox(item.id, left, top);
+      return undefined;
+    }
+  });
+  const moveBox = (id, left, top) => {
+    setBoxes(
+      update(boxes, {
+        [id]: {
+          $merge: { left, top }
+        }
+      })
     );
-  }
-}
-
+  };
+  return (
+    <div ref={drop} style={styles}>
+      {Object.keys(boxes).map(key => {
+        const { left, top, title } = boxes[key];
+        return (
+          <Box
+            key={key}
+            id={key}
+            left={left}
+            top={top}
+            hideSourceOnDrag={hideSourceOnDrag}
+          >
+            {title}
+          </Box>
+        );
+      })}
+    </div>
+  );
+};
 export default Data;

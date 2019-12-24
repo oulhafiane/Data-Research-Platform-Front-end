@@ -34,6 +34,16 @@ import {
 } from "reactstrap";
 
 class NewsEvents extends React.Component {
+  state = {
+    iconTabs: 1,
+    plainTabs: 1
+  };
+  toggleNavs = (e, state, index) => {
+    e.preventDefault();
+    this.setState({
+      [state]: index
+    });
+  };
   render() {
     return (
       <>

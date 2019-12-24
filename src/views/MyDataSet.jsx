@@ -36,6 +36,8 @@ import classnames from "classnames";
 import Structure from "components/Tabs/Structure";
 import Analytics from "components/Tabs/Analytics";
 import Data from "components/Tabs/Data";
+import { DndProvider } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
 
 class MyDataSet extends React.Component {
   state = {
@@ -192,7 +194,9 @@ class MyDataSet extends React.Component {
                       <Structure state={this.state} />
                     </TabPane>
                     <TabPane tabId="iconTabs2">
-                      <Data state={this.state} />
+                      <DndProvider backend={Backend}>
+                        <Data state={this.state} />
+                      </DndProvider>
                     </TabPane>
                     <TabPane tabId="iconTabs3">
                       <Analytics state={this.state} />
