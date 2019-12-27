@@ -124,7 +124,7 @@ class IndexData extends React.Component {
                     <i className="ni ni-check-bold" />
                   </div>
                   <h6 className="text-primary text-uppercase">
-                    Create Project
+                    Create Dataset
                   </h6>
                   <p className="description mt-3">
                     Create Dataset, import data or create survey, clean up data,
@@ -147,7 +147,7 @@ class IndexData extends React.Component {
                     color="primary"
                     onClick={() => this.toggleModal("defaultModal")}
                   >
-                    Create Project
+                    Create Dataset
                   </Button>
                   <Modal
                     className="modal-dialog-centered"
@@ -156,7 +156,7 @@ class IndexData extends React.Component {
                   >
                     <div className="modal-header">
                       <h6 className="modal-title" id="modal-title-default">
-                        Create Project
+                        Create Dataset
                       </h6>
                       <button
                         aria-label="Close"
@@ -236,31 +236,27 @@ class IndexData extends React.Component {
                   <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
                     <i className="ni ni-istanbul" />
                   </div>
-                  <h6 className="text-success text-uppercase">
-                    Build Something
-                  </h6>
+                  <h6 className="text-success text-uppercase">My Datasets</h6>
                   <p className="description mt-3">
-                    Argon is a great free UI package based on Bootstrap 4 that
-                    includes the most important components and features.
+                    Consult and edit all your datasets.
                   </p>
                   <div>
                     <Badge color="success" pill className="mr-1">
-                      business
+                      Dataset
                     </Badge>
                     <Badge color="success" pill className="mr-1">
-                      vision
+                      Survey
                     </Badge>
                     <Badge color="success" pill className="mr-1">
-                      success
+                      Analysis
                     </Badge>
                   </div>
                   <Button
                     className="mt-4"
                     color="success"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
+                    href="/data/mydatasets"
                   >
-                    Learn more
+                    My Datasets
                   </Button>
                 </CardBody>
               </Card>
@@ -272,7 +268,7 @@ class IndexData extends React.Component {
                     <i className="ni ni-planet" />
                   </div>
                   <h6 className="text-warning text-uppercase">
-                    Prepare Launch
+                    Public Datasets
                   </h6>
                   <p className="description mt-3">
                     Argon is a great free UI package based on Bootstrap 4 that
@@ -280,13 +276,13 @@ class IndexData extends React.Component {
                   </p>
                   <div>
                     <Badge color="warning" pill className="mr-1">
-                      marketing
+                      Dataset
                     </Badge>
                     <Badge color="warning" pill className="mr-1">
-                      product
+                      Survey
                     </Badge>
                     <Badge color="warning" pill className="mr-1">
-                      launch
+                      Analysis
                     </Badge>
                   </div>
                   <Button
@@ -295,7 +291,7 @@ class IndexData extends React.Component {
                     href="#pablo"
                     onClick={e => e.preventDefault()}
                   >
-                    Learn more
+                    Public Datasets
                   </Button>
                 </CardBody>
               </Card>

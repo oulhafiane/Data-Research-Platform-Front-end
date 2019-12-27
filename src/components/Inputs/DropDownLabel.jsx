@@ -13,9 +13,11 @@ const DropDownLabel = props => {
   return (
     <div>
       <FormGroup>
-        <label className="form-control-label" htmlFor={id}>
-          {name}
-        </label>
+        {placeholder === null ? null : (
+          <label className="form-control-label" htmlFor={id}>
+            {name}
+          </label>
+        )}
         <UncontrolledDropdown style={{ display: "block" }} group>
           <DropdownToggle
             caret

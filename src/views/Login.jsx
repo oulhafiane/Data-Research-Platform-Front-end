@@ -58,7 +58,17 @@ class Login extends React.Component {
         if (res.data.token !== undefined) {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("refresh_token", res.data.refresh_token);
-          this.props.history.push("/default/posts");
+          this.props.history.push(
+            this.props.location
+              ? this.props.location.state
+                ? this.props.location.state.from
+                  ? this.props.location.state.from.pathname
+                    ? this.props.location.state.from.pathname
+                    : "/default/posts"
+                  : "/default/posts"
+                : "/default/posts"
+              : "/default/posts"
+          );
         }
       })
       .catch(error => {

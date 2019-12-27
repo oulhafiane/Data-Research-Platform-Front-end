@@ -34,6 +34,7 @@ import {
   InputGroupAddon,
   InputGroupText
 } from "reactstrap";
+import Data from "./Data";
 
 class Structure extends React.Component {
   state = {};
@@ -41,20 +42,11 @@ class Structure extends React.Component {
     return (
       <>
         <Row className="row-grid justify-content-between align-items-center">
-          <Col lg="9">
-            <h3 className="display-3">
-              A beautiful Design System <span>completed with examples</span>
-            </h3>
-            <p>
-              The Design System comes with four pre-built pages to help you get
-              started faster. You can change the text and images and you're good
-              to go. More importantly, looking at them will give you a picture
-              of what you can built with this powerful Bootstrap 4 Design
-              System.
-            </p>
-            <div className="btn-wrapper">
+          <Col lg="12">
+            <Data state={this.state} />
+            <div className="btn-wrapper" style={{ marginTop: "20px" }}>
               <Button color="success" to="/login-page" tag={Link}>
-                Login Page
+                Save
               </Button>
               <Button
                 className="btn-white"
@@ -62,45 +54,8 @@ class Structure extends React.Component {
                 to="/register-page"
                 tag={Link}
               >
-                Register Page
+                Add Table
               </Button>
-            </div>
-          </Col>
-          <Col className="mb-lg-auto" lg="3">
-            <div>
-              <Card className="bg-secondary shadow border-0">
-                <CardHeader className="bg-white pb-2">
-                  <div className="text-muted text-center mb-3">
-                    <small>Tools Box</small>
-                  </div>
-                </CardHeader>
-                <CardBody className="px-lg-3 py-lg-3">
-                  <div
-                    className="scrollbar scrollbar-custom"
-                    style={{ width: "100%" }}
-                  >
-                    <CardBody className="px-lg-1 py-lg-1 centerText">
-                      Table
-                    </CardBody>
-                    <hr className="hr my-1" />
-                    <CardBody className="px-lg-1 py-lg-1 centerText">
-                      dadsas
-                    </CardBody>
-                    <hr className="hr my-1" />
-                    <CardBody className="px-lg-1 py-lg-1 centerText">
-                      dadsas
-                    </CardBody>
-                    <hr className="hr my-1" />
-                    <CardBody className="px-lg-1 py-lg-1 centerText">
-                      dadsas
-                    </CardBody>
-                    <hr className="hr my-1" />
-                    <CardBody className="px-lg-1 py-lg-1 centerText">
-                      dadsas
-                    </CardBody>
-                  </div>
-                </CardBody>
-              </Card>
             </div>
           </Col>
         </Row>

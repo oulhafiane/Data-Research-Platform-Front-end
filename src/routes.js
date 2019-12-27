@@ -11,6 +11,7 @@ import Dashboard from "views/Dashboard";
 import Applications from "views/Applications";
 import IndexData from "views/IndexData";
 import MyDataSet from "views/MyDataSet";
+import MyDataSets from "views/MyDataSets";
 
 var routes = [
   {
@@ -98,6 +99,14 @@ var routes = [
     name: "Data",
     icon: "ni ni-chart-pie-35 text-green",
     component: MyDataSet,
+    layout: "/data",
+    role: "ROLE_AUTH"
+  },
+  {
+    path: "/mydatasets",
+    name: "Data",
+    icon: "ni ni-chart-pie-35 text-green",
+    component: MyDataSets,
     layout: "/data",
     role: "ROLE_AUTH"
   },

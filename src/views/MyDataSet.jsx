@@ -191,7 +191,9 @@ class MyDataSet extends React.Component {
                     style={{ margin: "0" }}
                   >
                     <TabPane tabId="iconTabs1">
-                      <Structure state={this.state} />
+                      <DndProvider backend={Backend}>
+                        <Structure state={this.state} />
+                      </DndProvider>
                     </TabPane>
                     <TabPane tabId="iconTabs2">
                       <DndProvider backend={Backend}>

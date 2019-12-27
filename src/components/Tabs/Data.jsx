@@ -1,33 +1,47 @@
 import React, { useState } from "react";
 import { useDrop } from "react-dnd";
 import ItemTypes from "./ItemTypes";
-import Box from "./Box.jsx";
+import Table from "./Table";
 import update from "immutability-helper";
 
 const styles = {
-  width: 300,
-  height: 300,
+  width: "100%",
+  height: "60vh",
   border: "1px solid black",
   position: "relative"
 };
 const Data = ({ hideSourceOnDrag }) => {
-  const [boxes, setBoxes] = useState({
-    a: { top: 20, left: 80, title: "Drag me around" },
-    b: { top: 180, left: 20, title: "Drag me too" }
+  const [tables, setTables] = useState({
+    a: {
+      top: 20,
+      left: 80,
+      title: "Region",
+      variables: [{ type: "Text", name: "Name" }]
+    },
+    b: {
+      top: 20,
+      left: 599,
+      title: "Farmer",
+      variables: [
+        { type: "Text", name: "FirstName" },
+        { type: "Text", name: "LastName" },
+        { type: "Integer", name: "Age" }
+      ]
+    }
   });
   const [, drop] = useDrop({
-    accept: ItemTypes.BOX,
+    accept: ItemTypes.TABLE,
     drop(item, monitor) {
       const delta = monitor.getDifferenceFromInitialOffset();
       const left = Math.round(item.left + delta.x);
       const top = Math.round(item.top + delta.y);
-      moveBox(item.id, left, top);
+      moveTable(item.id, left, top);
       return undefined;
     }
   });
-  const moveBox = (id, left, top) => {
-    setBoxes(
-      update(boxes, {
+  const moveTable = (id, left, top) => {
+    setTables(
+      update(tables, {
         [id]: {
           $merge: { left, top }
         }
@@ -35,19 +49,22 @@ const Data = ({ hideSourceOnDrag }) => {
     );
   };
   return (
-    <div ref={drop} style={styles}>
-      {Object.keys(boxes).map(key => {
-        const { left, top, title } = boxes[key];
+    <div className="scrollbar scrollbar-custom" ref={drop} style={styles}>
+      {Object.keys(tables).map(key => {
+        const { left, top, title, variables } = tables[key];
         return (
-          <Box
+          <Table
             key={key}
             id={key}
             left={left}
             top={top}
             hideSourceOnDrag={hideSourceOnDrag}
-          >
-            {title}
-          </Box>
+            title={title}
+            onChangeTitle={e => {
+              console.log(e.target);
+            }}
+            variables={variables}
+          ></Table>
         );
       })}
     </div>
