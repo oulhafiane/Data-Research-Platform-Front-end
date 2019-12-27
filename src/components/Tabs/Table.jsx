@@ -50,6 +50,7 @@ const Table = ({
         >
           <Input
             value={title}
+            dataset={id}
             type="tableName"
             onChange={onChangeTitle}
             style={{
@@ -63,48 +64,66 @@ const Table = ({
         </CardHeader>
         <CardBody className="px-lg-2 py-lg-2">
           <FormGroup style={{ marginBottom: "1px" }}>
-            <InputGroup className="input-group-alternative">
-              <UncontrolledDropdown
-                style={{
-                  marginRight: "10px",
-                  backgroundColor: "#e9ecef"
-                }}
-              >
-                <DropdownToggle
-                  className="text-dark"
-                  href="#pablo"
-                  role="button"
-                  color=""
-                  onClick={e => e.preventDefault()}
-                >
-                  Text
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-menu-arrow" right>
-                  <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                    Action
-                  </DropdownItem>
-                  <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                    Another action
-                  </DropdownItem>
-                  <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                    Something else here
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <Input placeholder="Email" type="email" />
-              <UncontrolledDropdown>
-                <DropdownToggle
-                  className="btn-icon-only text-light"
-                  href="#pablo"
-                  role="button"
-                  color=""
-                  onClick={e => e.preventDefault()}
-                  style={{ marginTop: "4px", paddingTop: "3px" }}
-                >
-                  <i className="ni ni-fat-remove" />
-                </DropdownToggle>
-              </UncontrolledDropdown>
-            </InputGroup>
+            {variables.map((val, key) => {
+              return (
+                <InputGroup className="input-group-alternative">
+                  <UncontrolledDropdown
+                    style={{
+                      marginRight: "10px",
+                      backgroundColor: "#e9ecef"
+                    }}
+                  >
+                    <DropdownToggle
+                      className="text-dark"
+                      href="#pablo"
+                      role="button"
+                      color=""
+                      onClick={e => e.preventDefault()}
+                      style={{ width: "100px" }}
+                    >
+                      {val.type}
+                    </DropdownToggle>
+                    <DropdownMenu className="dropdown-menu-arrow" right>
+                      <DropdownItem
+                        href="#pablo"
+                        onClick={e => e.preventDefault()}
+                      >
+                        Action
+                      </DropdownItem>
+                      <DropdownItem
+                        href="#pablo"
+                        onClick={e => e.preventDefault()}
+                      >
+                        Another action
+                      </DropdownItem>
+                      <DropdownItem
+                        href="#pablo"
+                        onClick={e => e.preventDefault()}
+                      >
+                        Something else here
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                  <Input
+                    placeholder={val.name}
+                    type="text"
+                    style={{ height: "10px", marginTop: "10px" }}
+                  />
+                  <UncontrolledDropdown>
+                    <DropdownToggle
+                      className="btn-icon-only text-light"
+                      href="#pablo"
+                      role="button"
+                      color=""
+                      onClick={e => e.preventDefault()}
+                      style={{ marginTop: "4px", paddingTop: "3px" }}
+                    >
+                      <i className="ni ni-fat-remove" />
+                    </DropdownToggle>
+                  </UncontrolledDropdown>
+                </InputGroup>
+              );
+            })}
           </FormGroup>
           <Pagination
             className="pagination justify-content-end mb-0"

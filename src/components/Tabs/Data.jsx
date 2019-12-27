@@ -11,14 +11,14 @@ const styles = {
   position: "relative"
 };
 const Data = ({ hideSourceOnDrag }) => {
-  const [tables, setTables] = useState({
-    a: {
+  const [tables, setTables] = useState([
+    {
       top: 20,
       left: 80,
       title: "Region",
       variables: [{ type: "Text", name: "Name" }]
     },
-    b: {
+    {
       top: 20,
       left: 599,
       title: "Farmer",
@@ -28,7 +28,7 @@ const Data = ({ hideSourceOnDrag }) => {
         { type: "Integer", name: "Age" }
       ]
     }
-  });
+  ]);
   const [, drop] = useDrop({
     accept: ItemTypes.TABLE,
     drop(item, monitor) {
@@ -50,20 +50,26 @@ const Data = ({ hideSourceOnDrag }) => {
   };
   return (
     <div className="scrollbar scrollbar-custom" ref={drop} style={styles}>
-      {Object.keys(tables).map(key => {
-        const { left, top, title, variables } = tables[key];
+      {tables.map((val, key) => {
         return (
           <Table
             key={key}
             id={key}
-            left={left}
-            top={top}
+            left={val.left}
+            top={val.top}
             hideSourceOnDrag={hideSourceOnDrag}
-            title={title}
+            title={val.title}
             onChangeTitle={e => {
-              console.log(e.target);
+              setTables(
+                tables.map((val, key2) => {
+                  if (key2 === key) {
+                    return { ...val, title: e.target.value };
+                  }
+                  return val;
+                })
+              );
             }}
-            variables={variables}
+            variables={val.variables}
           ></Table>
         );
       })}
