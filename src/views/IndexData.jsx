@@ -20,6 +20,7 @@ import React from "react";
 import {
   Button,
   Card,
+  CardImg,
   CardBody,
   Container,
   Row,
@@ -118,15 +119,22 @@ class IndexData extends React.Component {
         <Container fluid style={{ marginLeft: "50px" }}>
           <Row className="row-grid">
             <Col lg="4">
-              <Card className="card-lift--hover shadow border-0">
+              <Card
+                className="card-lift--hover shadow border-0"
+                style={{ height: "70vh" }}
+              >
+                <CardImg
+                  alt="..."
+                  src={require("assets/img/banner/place.jpg")}
+                  top
+                  style={{ height: "30vh" }}
+                />
                 <CardBody className="py-5">
                   <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
                     <i className="ni ni-check-bold" />
                   </div>
-                  <h6 className="text-primary text-uppercase">
-                    Create Dataset
-                  </h6>
-                  <p className="description mt-3">
+                  <h6 className="text-primary text-uppercase">Create Survey</h6>
+                  <p className="description mt-3" style={{ height: "8vh" }}>
                     Create Dataset, import data or create survey, clean up data,
                     get data summary, analyze the data, create machine learning
                     model
@@ -147,7 +155,7 @@ class IndexData extends React.Component {
                     color="primary"
                     onClick={() => this.toggleModal("defaultModal")}
                   >
-                    Create Dataset
+                    Create Survey
                   </Button>
                   <Modal
                     className="modal-dialog-centered"
@@ -156,7 +164,7 @@ class IndexData extends React.Component {
                   >
                     <div className="modal-header">
                       <h6 className="modal-title" id="modal-title-default">
-                        Create Dataset
+                        Create Survey
                       </h6>
                       <button
                         aria-label="Close"
@@ -231,13 +239,22 @@ class IndexData extends React.Component {
               </Card>
             </Col>
             <Col lg="4">
-              <Card className="card-lift--hover shadow border-0">
+              <Card
+                className="card-lift--hover shadow border-0"
+                style={{ height: "70vh" }}
+              >
+                <CardImg
+                  alt="..."
+                  src={require("assets/img/banner/place.jpg")}
+                  top
+                  style={{ height: "30vh" }}
+                />
                 <CardBody className="py-5">
                   <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
                     <i className="ni ni-istanbul" />
                   </div>
-                  <h6 className="text-success text-uppercase">My Datasets</h6>
-                  <p className="description mt-3">
+                  <h6 className="text-success text-uppercase">My Surveys</h6>
+                  <p className="description mt-3" style={{ height: "8vh" }}>
                     Consult and edit all your datasets.
                   </p>
                   <div>
@@ -256,13 +273,22 @@ class IndexData extends React.Component {
                     color="success"
                     href="/data/mydatasets"
                   >
-                    My Datasets
+                    My Surveys
                   </Button>
                 </CardBody>
               </Card>
             </Col>
             <Col lg="4">
-              <Card className="card-lift--hover shadow border-0">
+              <Card
+                className="card-lift--hover shadow border-0"
+                style={{ height: "70vh" }}
+              >
+                <CardImg
+                  alt="..."
+                  src={require("assets/img/banner/place.jpg")}
+                  top
+                  style={{ height: "30vh" }}
+                />
                 <CardBody className="py-5">
                   <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
                     <i className="ni ni-planet" />
@@ -270,7 +296,7 @@ class IndexData extends React.Component {
                   <h6 className="text-warning text-uppercase">
                     Public Datasets
                   </h6>
-                  <p className="description mt-3">
+                  <p className="description mt-3" style={{ height: "8vh" }}>
                     Argon is a great free UI package based on Bootstrap 4 that
                     includes the most important components and features.
                   </p>
@@ -292,113 +318,6 @@ class IndexData extends React.Component {
                     onClick={e => e.preventDefault()}
                   >
                     Public Datasets
-                  </Button>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-          <Row className="row-grid">
-            <Col lg="4">
-              <Card className="card-lift--hover shadow border-0">
-                <CardBody className="py-5">
-                  <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
-                    <i className="ni ni-check-bold" />
-                  </div>
-                  <h6 className="text-primary text-uppercase">
-                    Download Argon
-                  </h6>
-                  <p className="description mt-3">
-                    Argon is a great free UI package based on Bootstrap 4 that
-                    includes the most important components and features.
-                  </p>
-                  <div>
-                    <Badge color="primary" pill className="mr-1">
-                      design
-                    </Badge>
-                    <Badge color="primary" pill className="mr-1">
-                      system
-                    </Badge>
-                    <Badge color="primary" pill className="mr-1">
-                      creative
-                    </Badge>
-                  </div>
-                  <Button
-                    className="mt-4"
-                    color="primary"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    Learn more
-                  </Button>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col lg="4">
-              <Card className="card-lift--hover shadow border-0">
-                <CardBody className="py-5">
-                  <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
-                    <i className="ni ni-istanbul" />
-                  </div>
-                  <h6 className="text-success text-uppercase">
-                    Build Something
-                  </h6>
-                  <p className="description mt-3">
-                    Argon is a great free UI package based on Bootstrap 4 that
-                    includes the most important components and features.
-                  </p>
-                  <div>
-                    <Badge color="success" pill className="mr-1">
-                      business
-                    </Badge>
-                    <Badge color="success" pill className="mr-1">
-                      vision
-                    </Badge>
-                    <Badge color="success" pill className="mr-1">
-                      success
-                    </Badge>
-                  </div>
-                  <Button
-                    className="mt-4"
-                    color="success"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    Learn more
-                  </Button>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col lg="4">
-              <Card className="card-lift--hover shadow border-0">
-                <CardBody className="py-5">
-                  <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
-                    <i className="ni ni-planet" />
-                  </div>
-                  <h6 className="text-warning text-uppercase">
-                    Prepare Launch
-                  </h6>
-                  <p className="description mt-3">
-                    Argon is a great free UI package based on Bootstrap 4 that
-                    includes the most important components and features.
-                  </p>
-                  <div>
-                    <Badge color="warning" pill className="mr-1">
-                      marketing
-                    </Badge>
-                    <Badge color="warning" pill className="mr-1">
-                      product
-                    </Badge>
-                    <Badge color="warning" pill className="mr-1">
-                      launch
-                    </Badge>
-                  </div>
-                  <Button
-                    className="mt-4"
-                    color="warning"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    Learn more
                   </Button>
                 </CardBody>
               </Card>

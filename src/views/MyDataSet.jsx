@@ -33,7 +33,7 @@ import Axios from "axios";
 import { DEFAULT_URL } from "../config";
 // nodejs library that concatenates classes
 import classnames from "classnames";
-import Structure from "components/Tabs/Structure";
+import DesignSurvey from "components/Tabs/DesignSurvey";
 import Analytics from "components/Tabs/Analytics";
 import Data from "components/Tabs/Data";
 import { DndProvider } from "react-dnd";
@@ -42,26 +42,38 @@ import Backend from "react-dnd-html5-backend";
 class MyDataSet extends React.Component {
   state = {
     token: localStorage.getItem("token"),
+    uuid: this.props.match.params.uuid,
     dataset: {},
-    types: [
-      { id: 0, title: "Public" },
-      { id: 1, title: "Private" }
-    ],
-    id_type: 0,
     extras: {},
     showGlobalWarning: false,
     uploading: false,
     iconTabs: 1,
     plainTabs: 1
   };
-  onChange = e =>
+  saveTitle = title => {
+    /* Need to save it in back-end */
+    this.setState({ dataset: { ...this.state.dataset, name: title } });
+  };
+  addQuestion = (question, page) => {
+    /* Need to save it in back-end */
     this.setState({
-      dataset: { ...this.state.dataset, [e.target.name]: e.target.value },
-      disabled: false
+      dataset: {
+        ...this.state.dataset,
+        parts:
+          this.state.dataset.parts.length === 0
+            ? [{ variables: [question] }]
+            : this.state.dataset.parts.map((val, key) => {
+                if (key + 1 === page) {
+                  return { ...val, variables: [...val.variables, question] };
+                } else return val;
+              })
+      }
     });
-  onChangeType = e => {
+  };
+  saveData = e => {
+    /* Need to save it in back-end */
     e.preventDefault();
-    this.setState({ id_type: e.target.id });
+    console.log(this.state.dataset);
   };
   toggleNavs = (e, state, index) => {
     e.preventDefault();
@@ -69,34 +81,18 @@ class MyDataSet extends React.Component {
       [state]: index
     });
   };
-  createProject = e => {
-    e.preventDefault();
-    if (!this.state.dataset.title) {
-      this.setState({
-        extras: {
-          ...this.state.extras,
-          title: "The title should not be blank!"
-        }
-      });
-      return;
-    }
-    this.setState({ uploading: true });
+  componentDidMount() {
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
-    let data = {
-      name: this.state.dataset.title,
-      description: this.state.dataset.description,
-      privacy: this.state.id_type
-    };
-    Axios.post(`${DEFAULT_URL}api/current/dataset`, data, config)
+    Axios.get(`${DEFAULT_URL}api/current/dataset/${this.state.uuid}`, config)
       .then(res => {
-        this.props.history.push(`/data/mydataset/${res.data.extras.uuid}`);
+        this.setState({ dataset: res.data });
       })
       .catch(error => {
-        this.setState({ showGlobalWarning: true, uploading: false });
+        console.log(error.response);
       });
-  };
+  }
   render() {
     const groupStyles = {
       display: "flex",
@@ -115,12 +111,6 @@ class MyDataSet extends React.Component {
       padding: "0.16666666666667em 0.5em",
       textAlign: "center"
     };
-    const formatGroupLabel = data => (
-      <div style={groupStyles}>
-        <span>{data.label}</span>
-        <span style={groupBadgeStyles}>{data.options.length}</span>
-      </div>
-    );
     return (
       <>
         {/* Page content */}
@@ -151,7 +141,7 @@ class MyDataSet extends React.Component {
                       role="tab"
                     >
                       <i className="ni ni-app mr-2" />
-                      Structure
+                      Design
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -163,6 +153,7 @@ class MyDataSet extends React.Component {
                       onClick={e => this.toggleNavs(e, "iconTabs", 2)}
                       href="#pablo"
                       role="tab"
+                      disabled
                     >
                       <i className="ni ni-chart-bar-32 mr-2" />
                       Data
@@ -177,6 +168,7 @@ class MyDataSet extends React.Component {
                       onClick={e => this.toggleNavs(e, "iconTabs", 3)}
                       href="#pablo"
                       role="tab"
+                      disabled
                     >
                       <i className="ni ni-chart-pie-35 mr-2" />
                       Analytics
@@ -192,7 +184,12 @@ class MyDataSet extends React.Component {
                   >
                     <TabPane tabId="iconTabs1">
                       <DndProvider backend={Backend}>
-                        <Structure state={this.state} />
+                        <DesignSurvey
+                          state={this.state}
+                          saveTitle={this.saveTitle}
+                          addQuestion={this.addQuestion}
+                          saveData={this.saveData}
+                        />
                       </DndProvider>
                     </TabPane>
                     <TabPane tabId="iconTabs2">

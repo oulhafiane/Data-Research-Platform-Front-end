@@ -16,10 +16,6 @@ const items = [
     opacity: 2
   },
   {
-    src: require("assets/img/banner/banner13.jpg"),
-    opacity: 0
-  },
-  {
     src: require("assets/img/banner/banner15.jpg"),
     opacity: 0
   },

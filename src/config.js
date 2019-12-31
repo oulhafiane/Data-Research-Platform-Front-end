@@ -1,17 +1,11 @@
 export const DEFAULT_URL = "http://wtr.oulhafiane.me/";
-export const TYPES_DATA = {
-  STRING_INPUT: 0,
-  TEXTAREA_INPUT: 1,
-  INTEGER_INPUT: 2,
-  FLOAT_INPUT: 3,
-  BOOLEAN_INPUT: 4,
-  DATETIME_INPUT: 5,
-  DATE_INPUT: 6,
-  TIME_INPUT: 7,
-  DROPDROWN_SINGLECHOISE_INPUT: 8,
-  DROPDROWN_MULTIPLECHOISES_INPUT: 9,
-  CHECKBOX_INPUT: 10,
-  RADIO_INPUT: 11,
-  SLIDER_FROMZERO_INPUT: 12,
-  SLIDER_RANGE_INPUT: 13
-};
+export const TYPES_DATA = [
+  { id: "STRING", title: "TextBox" },
+  { id: "TEXT", title: "TextArea" },
+  { id: "INTEGER", title: "Number" },
+  { id: "FLOAT", title: "Decimal Number" },
+  { id: "BOOLEAN", title: "Yes/No" },
+  { id: "DATETIME", title: "Date & Time" },
+  { id: "DATE", title: "Date" },
+  { id: "TIME", title: "Time" }
+];
