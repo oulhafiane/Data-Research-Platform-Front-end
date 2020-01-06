@@ -2,26 +2,32 @@ import React from "react";
 import InputTextLabel from "components/Inputs/InputLabel";
 // reactstrap components
 import { Button, Alert } from "reactstrap";
-class SurveyHeader extends React.Component {
+class PageHeader extends React.Component {
   state = {
-    title: { hover: false, showEdit: false, title: "" },
+    title: { hover: false, showEdit: false, title: "", description: "" },
     extras: {},
     uploading: false
   };
-  onChangeTitle = e => {
+  onChange = e => {
     e.preventDefault();
-    this.setState({ title: { ...this.state.title, title: e.target.value } });
+    this.setState({
+      title: {
+        ...this.state.title,
+        [e.target.name]: e.target.value,
+        [`${e.target.name}Target`]: e.target
+      }
+    });
   };
   render() {
-    const { dataset, saveTitle } = this.props;
+    const { dataset, currentPage, saveTitle } = this.props;
     return (
       <>
         {this.state.title.showEdit === false ? (
-          <h3
-            className="mb-0"
+          <div
             style={{
+              padding: "13px",
+              paddingTop: "10px",
               cursor: "pointer",
-              padding: "20px",
               backgroundColor: `${
                 this.state.title.hover === true
                   ? "rgba(0, 0, 0, 0.10)"
@@ -48,25 +54,30 @@ class SurveyHeader extends React.Component {
               })
             }
           >
-            {dataset.name}
-            {this.state.title.hover === true ? (
-              <Button
-                style={{ float: "right", height: "41px" }}
-                color="default"
-                onClick={() =>
-                  this.setState({
-                    title: {
-                      ...this.state.title,
-                      showEdit: true,
-                      hover: false
-                    }
-                  })
-                }
-              >
-                Edit
-              </Button>
-            ) : null}
-          </h3>
+            <h5 className="mb-0">
+              {dataset.title === "" || dataset.title === undefined
+                ? `Page ${currentPage}`
+                : dataset.title}
+              {this.state.title.hover === true ? (
+                <Button
+                  style={{ float: "right", height: "41px" }}
+                  color="default"
+                  onClick={() =>
+                    this.setState({
+                      title: {
+                        ...this.state.title,
+                        showEdit: true,
+                        hover: false
+                      }
+                    })
+                  }
+                >
+                  Edit
+                </Button>
+              ) : null}
+            </h5>
+            <h6 style={{ whiteSpace: "pre-line" }}>{dataset.description}</h6>
+          </div>
         ) : null}
 
         {this.state.title.showEdit ? (
@@ -86,10 +97,19 @@ class SurveyHeader extends React.Component {
             </button>
             <InputTextLabel
               id="title"
-              placeholder="Survey Title"
+              placeholder="Page Title"
               type="text"
-              val={dataset.name}
-              onChange={this.onChangeTitle}
+              val={dataset.title}
+              onChange={this.onChange}
+              stateError={this.state.extras.title !== undefined}
+              errorMessage={this.state.extras.title}
+            />
+            <InputTextLabel
+              id="description"
+              placeholder="Page Description"
+              type="textarea"
+              val={dataset.description}
+              onChange={this.onChange}
               stateError={this.state.extras.title !== undefined}
               errorMessage={this.state.extras.title}
             />
@@ -104,13 +124,19 @@ class SurveyHeader extends React.Component {
               style={{ float: "right" }}
               onClick={e => {
                 e.preventDefault();
-                saveTitle(this.state.title.title, () =>
-                  this.setState({ uploading: true })
+                saveTitle(
+                  this.state.title.title,
+                  this.state.title.description,
+                  () => this.setState({ uploading: false })
                 );
                 this.setState({
-                  title: { ...this.state.title, showEdit: false },
-                  uploading: false
+                  title: { title: "", description: "", showEdit: false },
+                  uploading: true
                 });
+                if (this.state.titleTarget !== undefined)
+                  this.state.titleTarget.value = "";
+                if (this.state.descriptionTarget !== undefined)
+                  this.state.descriptionTarget.value = "";
               }}
             >
               {this.state.uploading ? (
@@ -140,4 +166,4 @@ class SurveyHeader extends React.Component {
   }
 }
 
-export default SurveyHeader;
+export default PageHeader;

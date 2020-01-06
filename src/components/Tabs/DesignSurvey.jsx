@@ -33,28 +33,42 @@ import {
   Alert,
   CardBody
 } from "reactstrap";
+import PageHeader from "components/Survey/PageHeader";
 
 class DesignSurvey extends React.Component {
   state = {
     currentPage: 1,
-    nbrPages: 1,
     extras: {},
-    newQuestion: { variable: "", question: "" },
-    newQuestionTypeId: 0
+    showQuestionError: false,
+    newQuestion: { name: "", question: "" },
+    newQuestionTypeId: 0,
+    uploading: false
   };
   onChange = e =>
     this.setState({
       newQuestion: {
         ...this.state.newQuestion,
         [e.target.name]: e.target.value
-      }
+      },
+      [`${e.target.name}Target`]: e.target,
+      extras: { ...this.state.extras, questionError: "An error occured!" },
+      showQuestionError: false
     });
-  onChangeTitle = e => {
-    e.preventDefault();
-    this.setState({ title: { ...this.state.title, title: e.target.value } });
-  };
   render() {
-    const { state, saveTitle, addQuestion, saveData } = this.props;
+    const {
+      state,
+      saveTitle,
+      addPage,
+      savePageTitle,
+      addQuestion,
+      editQuestion,
+      removeQuestion,
+      saveData
+    } = this.props;
+    let nbrPages =
+      this.props.state.dataset.parts.length === 0
+        ? 1
+        : this.props.state.dataset.parts.length;
     return (
       <>
         <Row className="row-grid justify-content-between align-items-center">
@@ -64,7 +78,53 @@ class DesignSurvey extends React.Component {
                 <SurveyHeader dataset={state.dataset} saveTitle={saveTitle} />
               </CardHeader>
               <CardBody>
-                {/* <SurveyBody dataset={state.dataset} /> */}
+                <PageHeader
+                  dataset={
+                    state.dataset.parts.length === 0
+                      ? { title: "", description: "" }
+                      : state.dataset.parts[this.state.currentPage - 1] ===
+                        undefined
+                      ? { title: "", description: "" }
+                      : state.dataset.parts[this.state.currentPage - 1]
+                  }
+                  currentPage={this.state.currentPage}
+                  saveTitle={(title, description, callBack) => {
+                    savePageTitle(
+                      title,
+                      description,
+                      this.state.currentPage,
+                      callBack
+                    );
+                  }}
+                />
+                <SurveyBody
+                  dataset={
+                    state.dataset.parts.length === 0
+                      ? { variables: [] }
+                      : state.dataset.parts[this.state.currentPage - 1] ===
+                        undefined
+                      ? { variables: [] }
+                      : state.dataset.parts[this.state.currentPage - 1]
+                  }
+                  editQuestion={(question, index) =>
+                    editQuestion(question, index, this.state.currentPage)
+                  }
+                  removeQuestion={(index, callBack, errCallBack) =>
+                    removeQuestion(
+                      index,
+                      this.state.currentPage,
+                      callBack,
+                      errCallBack
+                    )
+                  }
+                />
+                <Row style={{ marginTop: "30px" }}>
+                  <Col>
+                    <div className="text-center">
+                      Page {this.state.currentPage} / {nbrPages}
+                    </div>
+                  </Col>
+                </Row>
               </CardBody>
               <CardFooter className="py-4">
                 <Row>
@@ -79,7 +139,7 @@ class DesignSurvey extends React.Component {
                   </Col>
                   <Col lg="3">
                     <InputTextLabel
-                      id="variable"
+                      id="name"
                       placeholder="Variable Name"
                       type="text"
                       val={this.state.newQuestion.name}
@@ -99,38 +159,142 @@ class DesignSurvey extends React.Component {
                     />
                   </Col>
                 </Row>
+                {this.state.showQuestionError ? (
+                  <Alert color="danger">
+                    <strong>Error!</strong>{" "}
+                    {this.state.extras.questionError
+                      ? this.state.extras.questionError
+                      : "An error occured!"}
+                  </Alert>
+                ) : null}
                 <Row>
                   <Col>
                     <div className="text-center">
-                      {this.state.currentPage > 1 ? (
-                        <Link to="/default/events" className="btn btn-event">
-                          PREVIOUS
-                        </Link>
-                      ) : null}
-                      {this.state.currentPage === this.state.nbrPages ? (
-                        <Link
-                          to="#add"
-                          onClick={e => {
-                            e.preventDefault();
-                            addQuestion(
-                              {
-                                question: this.state.newQuestion.question,
-                                variable: this.state.newQuestion.variable,
-                                type: this.state.newQuestionTypeId
-                              },
-                              this.state.currentPage
-                            );
-                          }}
-                          className="btn btn-event"
-                        >
-                          + ADD
-                        </Link>
-                      ) : null}
-                      {this.state.currentPage < this.state.nbrPages ? (
-                        <Link to="/default/events" className="btn btn-event">
-                          NEXT >
-                        </Link>
-                      ) : null}
+                      <Link
+                        to="#"
+                        className="btn btn-event"
+                        style={
+                          this.state.currentPage <= 1
+                            ? {
+                                pointerEvents: "none",
+                                backgroundColor: "#cccccc",
+                                color: "#666666"
+                              }
+                            : null
+                        }
+                        onClick={e => {
+                          e.preventDefault();
+                          this.setState({
+                            currentPage:
+                              this.state.currentPage > 1
+                                ? this.state.currentPage - 1
+                                : 1
+                          });
+                        }}
+                      >
+                        <i className="fas fa-angle-left" /> PREVIOUS
+                      </Link>
+                      <Link
+                        to="#add"
+                        onClick={e => {
+                          e.preventDefault();
+                          if (
+                            !this.state.newQuestion.question ||
+                            !this.state.newQuestion.name
+                          ) {
+                            this.setState({
+                              showQuestionError: true,
+                              extras: {
+                                questionError:
+                                  "The variable name or question is empty!"
+                              }
+                            });
+                            return;
+                          }
+                          let ok = true;
+                          state.dataset.parts.forEach(part => {
+                            part.variables.forEach(variable => {
+                              if (variable.name === this.state.newQuestion.name)
+                                ok = false;
+                            });
+                          });
+                          if (!ok) {
+                            this.setState({
+                              showQuestionError: true,
+                              extras: {
+                                questionError: "Variable name already taken."
+                              }
+                            });
+                            return;
+                          }
+                          addQuestion(
+                            {
+                              question: this.state.newQuestion.question,
+                              name: this.state.newQuestion.name,
+                              type: this.state.newQuestionTypeId
+                            },
+                            this.state.currentPage,
+                            () => this.setState({ uploading: false }),
+                            err => {
+                              this.setState({
+                                showQuestionError: true,
+                                extras: {
+                                  ...this.state.extras,
+                                  questionError: err
+                                },
+                                uploading: false
+                              });
+                            }
+                          );
+                          this.setState(
+                            {
+                              newQuestion: { name: "", question: "" },
+                              newQuestionTypeId: 0,
+                              uploading: true
+                            },
+                            () => {
+                              this.state.nameTarget.value = "";
+                              this.state.questionTarget.value = "";
+                            }
+                          );
+                        }}
+                        className="btn btn-event"
+                      >
+                        {this.state.uploading ? (
+                          <React.Fragment>
+                            <i className="fas fa-spin fa-spinner"></i>{" "}
+                            Uploading...
+                          </React.Fragment>
+                        ) : (
+                          <>
+                            <i className="fas fa-plus"></i> ADD Question
+                          </>
+                        )}
+                      </Link>
+                      <Link
+                        to="#"
+                        className="btn btn-event"
+                        style={
+                          this.state.currentPage >= nbrPages
+                            ? {
+                                pointerEvents: "none",
+                                backgroundColor: "#cccccc",
+                                color: "#666666"
+                              }
+                            : null
+                        }
+                        onClick={e => {
+                          e.preventDefault();
+                          this.setState({
+                            currentPage:
+                              this.state.currentPage < nbrPages
+                                ? this.state.currentPage + 1
+                                : nbrPages
+                          });
+                        }}
+                      >
+                        NEXT <i className="fas fa-angle-right" />
+                      </Link>
                     </div>
                   </Col>
                 </Row>
@@ -147,9 +311,17 @@ class DesignSurvey extends React.Component {
                 Save
               </Button>
               <Button
-                className="btn-white"
-                color="default"
-                to="/register-page"
+                color="primary"
+                to="#"
+                onClick={e => {
+                  e.preventDefault();
+                  addPage(this.state.currentPage + 1, () => {
+                    this.setState({
+                      nbrPages: nbrPages + 1,
+                      currentPage: this.state.currentPage + 1
+                    });
+                  });
+                }}
                 tag={Link}
                 style={{ float: "right", marginRight: "20px" }}
               >

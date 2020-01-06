@@ -16,6 +16,8 @@
 
 */
 import React from "react";
+import Axios from "axios";
+import { DEFAULT_URL } from "../config";
 // reactstrap components
 import {
   Card,
@@ -29,8 +31,6 @@ import {
   TabPane,
   TabContent
 } from "reactstrap";
-import Axios from "axios";
-import { DEFAULT_URL } from "../config";
 // nodejs library that concatenates classes
 import classnames from "classnames";
 import DesignSurvey from "components/Tabs/DesignSurvey";
@@ -43,32 +43,208 @@ class MyDataSet extends React.Component {
   state = {
     token: localStorage.getItem("token"),
     uuid: this.props.match.params.uuid,
-    dataset: {},
+    dataset: { parts: [{ variables: [] }] },
     extras: {},
     showGlobalWarning: false,
     uploading: false,
     iconTabs: 1,
     plainTabs: 1
   };
-  saveTitle = title => {
+  saveTitle = (title, callBack) => {
     /* Need to save it in back-end */
-    this.setState({ dataset: { ...this.state.dataset, name: title } });
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    let data = {
+      name: title
+    };
+    Axios.patch(
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}`,
+      data,
+      config
+    )
+      .then(res => {
+        this.setState(
+          { dataset: { ...this.state.dataset, name: title } },
+          callBack
+        );
+      })
+      .catch(error => {
+        console.log(error);
+        // this.setState({ showGlobalWarning: true, uploading: false });
+      });
   };
-  addQuestion = (question, page) => {
+  addPage = (index, callBack) => {
+    let old = [...this.state.dataset.parts];
+    if (this.state.dataset.parts.length === 0) {
+      old = [{ variables: [] }];
+    }
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    let data = {
+      title: `Page ${index}`
+    };
+    Axios.post(
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part`,
+      data,
+      config
+    )
+      .then(res => {
+        this.setState(
+          {
+            dataset: {
+              ...this.state.dataset,
+              parts: [
+                ...old,
+                { title: `Page ${index}`, description: "", variables: [] }
+              ]
+            }
+          },
+          callBack
+        );
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  savePageTitle = (title, description, page, callBack) => {
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    let data = {
+      title: title,
+      description: description
+    };
+    Axios.patch(
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${page}`,
+      data,
+      config
+    )
+      .then(res => {
+        this.setState(
+          {
+            dataset: {
+              ...this.state.dataset,
+              parts:
+                this.state.dataset.parts.length === 0
+                  ? [{ title: title, description: description, variables: [] }]
+                  : this.state.dataset.parts.map((val, key) => {
+                      if (key + 1 === page) {
+                        return {
+                          ...val,
+                          title: title,
+                          description: description
+                        };
+                      } else return val;
+                    })
+            }
+          },
+          callBack
+        );
+      })
+      .catch(error => {
+        console.log(error);
+        // this.setState({ showGlobalWarning: true, uploading: false });
+      });
+  };
+  addQuestion = (question, page, callBack, errCallBack) => {
     /* Need to save it in back-end */
+    if (!question.question || !question.name) return;
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    let data = {
+      variables: [question]
+    };
+    Axios.post(
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${page}`,
+      data,
+      config
+    )
+      .then(res => {
+        this.setState(
+          {
+            dataset: {
+              ...this.state.dataset,
+              parts:
+                this.state.dataset.parts.length === 0
+                  ? [{ variables: [question] }]
+                  : this.state.dataset.parts.map((val, key) => {
+                      if (key + 1 === page) {
+                        return {
+                          ...val,
+                          variables: [...val.variables, question]
+                        };
+                      } else return val;
+                    })
+            }
+          },
+          callBack
+        );
+      })
+      .catch(error => {
+        errCallBack(error.response.data.message);
+        // this.setState({ showGlobalWarning: true, uploading: false });
+      });
+  };
+  editQuestion = (question, index, page) => {
     this.setState({
       dataset: {
         ...this.state.dataset,
-        parts:
-          this.state.dataset.parts.length === 0
-            ? [{ variables: [question] }]
-            : this.state.dataset.parts.map((val, key) => {
-                if (key + 1 === page) {
-                  return { ...val, variables: [...val.variables, question] };
-                } else return val;
-              })
+        parts: this.state.dataset.parts.map((val, key) => {
+          if (key + 1 === page) {
+            return {
+              ...val,
+              variables: [
+                ...val.variables.map((variable, key2) => {
+                  if (key2 === index) {
+                    return question;
+                  } else return variable;
+                })
+              ]
+            };
+          } else return val;
+        })
       }
     });
+  };
+  removeQuestion = (index, page, callBack, errCallBack) => {
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    Axios.delete(
+      `${DEFAULT_URL}api/current/dataset/${
+        this.state.uuid
+      }/part/${page}/variable/${
+        this.state.dataset.parts[page - 1].variables[index].id
+      }`,
+      config
+    )
+      .then(res => {
+        this.setState(
+          {
+            dataset: {
+              ...this.state.dataset,
+              parts: this.state.dataset.parts.map((val, key) => {
+                if (key + 1 === page) {
+                  return {
+                    ...val,
+                    variables: val.variables.filter(
+                      (variable, key2) => key2 !== index
+                    )
+                  };
+                } else return val;
+              })
+            }
+          },
+          callBack
+        );
+      })
+      .catch(error => {
+        errCallBack(error.response.data.message);
+        // this.setState({ showGlobalWarning: true, uploading: false });
+      });
   };
   saveData = e => {
     /* Need to save it in back-end */
@@ -87,11 +263,45 @@ class MyDataSet extends React.Component {
     };
     Axios.get(`${DEFAULT_URL}api/current/dataset/${this.state.uuid}`, config)
       .then(res => {
-        this.setState({ dataset: res.data });
+        this.setState({
+          dataset: res.data
+        });
       })
       .catch(error => {
         console.log(error.response);
       });
+  }
+  componentDidUpdate() {
+    if (this.state.uuid !== this.props.match.params.uuid) {
+      window.location.reload();
+    }
+    if (
+      this.state.dataset.uuid !== undefined &&
+      this.state.dataset.parts.length === 0
+    ) {
+      const config = {
+        headers: { Authorization: "bearer " + this.state.token }
+      };
+      let data = {
+        title: "Page 1"
+      };
+      Axios.post(
+        `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part`,
+        data,
+        config
+      )
+        .then(res => {
+          this.setState({
+            dataset: {
+              ...this.state.dataset,
+              parts: [{ title: "Page 1", description: "", variables: [] }]
+            }
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
   render() {
     const groupStyles = {
@@ -187,7 +397,11 @@ class MyDataSet extends React.Component {
                         <DesignSurvey
                           state={this.state}
                           saveTitle={this.saveTitle}
+                          addPage={this.addPage}
+                          savePageTitle={this.savePageTitle}
                           addQuestion={this.addQuestion}
+                          editQuestion={this.editQuestion}
+                          removeQuestion={this.removeQuestion}
                           saveData={this.saveData}
                         />
                       </DndProvider>

@@ -114,7 +114,6 @@ class MyDataSets extends React.Component {
       config
     )
       .then(res => {
-        console.log(res.data.datasets);
         this.setState(prevState => ({
           datasets: [...prevState.datasets, ...res.data.datasets],
           totalPages: res.data.nbPages,
@@ -189,7 +188,6 @@ class MyDataSets extends React.Component {
                   <th scope="col">Description</th>
                   <th scope="col">Privacy</th>
                   <th scope="col">Creation Date</th>
-                  <th scope="col">Tables</th>
                   <th scope="col">Survey</th>
                   <th scope="col" />
                 </tr>
@@ -208,9 +206,6 @@ class MyDataSets extends React.Component {
                       <td>{value.privacy === 0 ? "PRIVATE" : "PUBLIC"}</td>
                       <td style={{ textAlign: "center" }}>
                         {value.creationDate}
-                      </td>
-                      <td style={{ textAlign: "center" }}>
-                        {value.tables.length}
                       </td>
                       <td style={{ textAlign: "center" }}>
                         {value.parts.length > 0 ? "YES" : "NO"}
