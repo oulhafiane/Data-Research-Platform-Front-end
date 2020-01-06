@@ -322,10 +322,12 @@ class DesignSurvey extends React.Component {
                 onClick={e => {
                   e.preventDefault();
                   addPage(this.state.currentPage + 1, () => {
-                    this.setState({
-                      nbrPages: nbrPages + 1,
-                      currentPage: this.state.currentPage + 1
-                    });
+                    this.setState(
+                      {
+                        nbrPages: nbrPages + 1
+                      },
+                      () => this.setState({ currentPage: this.state.nbrPages })
+                    );
                   });
                 }}
                 tag={Link}

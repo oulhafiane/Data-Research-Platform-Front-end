@@ -183,7 +183,10 @@ class MyDataSet extends React.Component {
                       if (key + 1 === page) {
                         return {
                           ...val,
-                          variables: [...val.variables, question]
+                          variables: [
+                            ...val.variables,
+                            ...res.data.extras.variables
+                          ]
                         };
                       } else return val;
                     })
