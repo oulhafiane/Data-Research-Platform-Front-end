@@ -106,8 +106,14 @@ class DesignSurvey extends React.Component {
                       ? { variables: [] }
                       : state.dataset.parts[this.state.currentPage - 1]
                   }
-                  editQuestion={(question, index) =>
-                    editQuestion(question, index, this.state.currentPage)
+                  editQuestion={(question, index, callBack, errCallBack) =>
+                    editQuestion(
+                      question,
+                      index,
+                      this.state.currentPage,
+                      callBack,
+                      errCallBack
+                    )
                   }
                   removeQuestion={(index, callBack, errCallBack) =>
                     removeQuestion(

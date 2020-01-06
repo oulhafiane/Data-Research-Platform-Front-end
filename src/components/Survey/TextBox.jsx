@@ -5,13 +5,13 @@ import { Input, Button, Alert, Modal, Row, Col } from "reactstrap";
 class TextBox extends React.Component {
   state = {
     extras: {},
-    showEditIndex: -1,
     hoverIndex: -1,
     question: {
       question: this.props.val.question,
       name: this.props.val.name,
       type: this.props.val.type
     },
+    editing: false,
     deleting: false
   };
   onChange = e => {
@@ -26,10 +26,17 @@ class TextBox extends React.Component {
     });
   };
   render() {
-    const { val, index, editQuestion, removeQuestion } = this.props;
+    const {
+      val,
+      index,
+      editQuestion,
+      removeQuestion,
+      showEditIndex,
+      changeShowEditIndex
+    } = this.props;
     return (
       <div>
-        {this.state.showEditIndex !== index ? (
+        {showEditIndex !== index ? (
           <div
             style={{
               padding: "20px",
@@ -54,10 +61,7 @@ class TextBox extends React.Component {
             }
             onClick={e => {
               if (e.target.value === "delete") return;
-              this.setState({
-                hoverIndex: -1,
-                showEditIndex: index
-              });
+              changeShowEditIndex(index);
             }}
           >
             <h3 className="mb-0">
@@ -116,13 +120,15 @@ class TextBox extends React.Component {
                         color="default"
                         type="button"
                         onClick={() => {
+                          this.setState({ deleting: true });
                           removeQuestion(
                             index,
                             () => this.setState({ deleting: false }),
                             err =>
                               this.setState({
                                 showGlobalWarning: true,
-                                error: err
+                                error: err,
+                                deleting: false
                               })
                           );
                           this.toggleModal("notificationModal");
@@ -149,12 +155,12 @@ class TextBox extends React.Component {
                       height: "41px"
                     }}
                     color="default"
-                    onClick={() =>
+                    onClick={() => {
+                      changeShowEditIndex(index);
                       this.setState({
-                        hoverIndex: -1,
-                        showEditIndex: index
-                      })
-                    }
+                        hoverIndex: -1
+                      });
+                    }}
                   >
                     Edit
                   </Button>
@@ -173,18 +179,14 @@ class TextBox extends React.Component {
           </div>
         ) : null}
 
-        {this.state.showEditIndex === index ? (
+        {showEditIndex === index ? (
           <div className="modal-body">
             <button
               aria-label="Close"
               className="close"
               data-dismiss="modal"
               type="button"
-              onClick={() =>
-                this.setState({
-                  showEditIndex: -1
-                })
-              }
+              onClick={() => changeShowEditIndex(-1)}
             >
               <span aria-hidden={true}>×</span>
             </button>
@@ -221,17 +223,32 @@ class TextBox extends React.Component {
               style={{ float: "right" }}
               onClick={e => {
                 e.preventDefault();
-                // saveTitle(this.state.title.title);
-                editQuestion(this.state.question, index);
-                this.setState({
-                  showEditIndex: -1
-                });
+                this.setState({ editing: true });
+                editQuestion(
+                  this.state.question,
+                  index,
+                  () => {
+                    changeShowEditIndex(-1);
+                    this.setState({
+                      editing: false,
+                      showGlobalWarning: false,
+                      error: undefined
+                    });
+                  },
+                  err => {
+                    this.setState({
+                      showGlobalWarning: true,
+                      error: err,
+                      editing: false
+                    });
+                  }
+                );
               }}
             >
               {/* When data will be saved in the server you must add this option Uploading */}
-              {this.state.uploading ? (
+              {this.state.editing ? (
                 <React.Fragment>
-                  <i className="fas fa-spin fa-spinner"></i> Uploading...
+                  <i className="fas fa-spin fa-spinner"></i> Editing...
                 </React.Fragment>
               ) : (
                 "Save"
@@ -241,11 +258,7 @@ class TextBox extends React.Component {
               color="link"
               type="button"
               style={{ float: "right" }}
-              onClick={() =>
-                this.setState({
-                  showEditIndex: -1
-                })
-              }
+              onClick={() => changeShowEditIndex(-1)}
             >
               Cancel
             </Button>

@@ -117,7 +117,9 @@ class MyDataSet extends React.Component {
       description: description
     };
     Axios.patch(
-      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${page}`,
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
+        this.state.dataset.parts[page - 1].id
+      }`,
       data,
       config
     )
@@ -158,7 +160,9 @@ class MyDataSet extends React.Component {
       variables: [question]
     };
     Axios.post(
-      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${page}`,
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
+        this.state.dataset.parts[page - 1].id
+      }`,
       data,
       config
     )
@@ -184,41 +188,58 @@ class MyDataSet extends React.Component {
         );
       })
       .catch(error => {
-        errCallBack(error.response.data.message);
-        // this.setState({ showGlobalWarning: true, uploading: false });
+        if (error.response) errCallBack(error.response.data.message);
+        else errCallBack("No Internet Connection!");
       });
   };
-  editQuestion = (question, index, page) => {
-    this.setState({
-      dataset: {
-        ...this.state.dataset,
-        parts: this.state.dataset.parts.map((val, key) => {
-          if (key + 1 === page) {
-            return {
-              ...val,
-              variables: [
-                ...val.variables.map((variable, key2) => {
-                  if (key2 === index) {
-                    return question;
-                  } else return variable;
-                })
-              ]
-            };
-          } else return val;
-        })
-      }
-    });
+  editQuestion = (question, index, page, callBack, errCallBack) => {
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    Axios.patch(
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
+        this.state.dataset.parts[page - 1].id
+      }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
+      question,
+      config
+    )
+      .then(res => {
+        this.setState(
+          {
+            dataset: {
+              ...this.state.dataset,
+              parts: this.state.dataset.parts.map((val, key) => {
+                if (key + 1 === page) {
+                  return {
+                    ...val,
+                    variables: [
+                      ...val.variables.map((variable, key2) => {
+                        if (key2 === index) {
+                          return question;
+                        } else return variable;
+                      })
+                    ]
+                  };
+                } else return val;
+              })
+            }
+          },
+          callBack
+        );
+      })
+      .catch(error => {
+        if (error.response) errCallBack(error.response.data.message);
+        else errCallBack("No Internet Connection!");
+      });
   };
   removeQuestion = (index, page, callBack, errCallBack) => {
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
     Axios.delete(
-      `${DEFAULT_URL}api/current/dataset/${
-        this.state.uuid
-      }/part/${page}/variable/${
-        this.state.dataset.parts[page - 1].variables[index].id
-      }`,
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
+        this.state.dataset.parts[page - 1].id
+      }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
       config
     )
       .then(res => {
@@ -242,8 +263,8 @@ class MyDataSet extends React.Component {
         );
       })
       .catch(error => {
-        errCallBack(error.response.data.message);
-        // this.setState({ showGlobalWarning: true, uploading: false });
+        if (error.response) errCallBack(error.response.data.message);
+        else errCallBack("No Internet Connection!");
       });
   };
   saveData = e => {

@@ -22,6 +22,9 @@ class SurveyBody extends React.Component {
     showEditIndex: -1,
     hoverIndex: -1
   };
+  changeShowEditIndex = index => {
+    this.setState({ showEditIndex: index });
+  };
   toggleModal = state => {
     this.setState({
       [state]: !this.state[state]
@@ -39,6 +42,8 @@ class SurveyBody extends React.Component {
               index={key}
               editQuestion={editQuestion}
               removeQuestion={removeQuestion}
+              showEditIndex={this.state.showEditIndex}
+              changeShowEditIndex={this.changeShowEditIndex}
             />
           );
         })}
