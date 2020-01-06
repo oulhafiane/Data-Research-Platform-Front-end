@@ -97,7 +97,12 @@ class MyDataSet extends React.Component {
               ...this.state.dataset,
               parts: [
                 ...old,
-                { title: `Page ${index}`, description: "", variables: [] }
+                {
+                  id: res.data.extras.id,
+                  title: `Page ${index}`,
+                  description: "",
+                  variables: []
+                }
               ]
             }
           },

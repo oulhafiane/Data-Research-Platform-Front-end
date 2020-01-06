@@ -119,10 +119,7 @@ class IndexData extends React.Component {
         <Container fluid style={{ marginLeft: "50px" }}>
           <Row className="row-grid">
             <Col lg="4">
-              <Card
-                className="card-lift--hover shadow border-0"
-                style={{ height: "70vh" }}
-              >
+              <Card className="card-lift--hover shadow border-0">
                 <CardImg
                   alt="..."
                   src={require("assets/img/banner/place.jpg")}
@@ -134,7 +131,7 @@ class IndexData extends React.Component {
                     <i className="ni ni-check-bold" />
                   </div>
                   <h6 className="text-primary text-uppercase">Create Survey</h6>
-                  <p className="description mt-3" style={{ height: "8vh" }}>
+                  <p className="description mt-3" style={{ height: "12vh" }}>
                     Create Dataset, import data or create survey, clean up data,
                     get data summary, analyze the data, create machine learning
                     model
@@ -239,10 +236,7 @@ class IndexData extends React.Component {
               </Card>
             </Col>
             <Col lg="4">
-              <Card
-                className="card-lift--hover shadow border-0"
-                style={{ height: "70vh" }}
-              >
+              <Card className="card-lift--hover shadow border-0">
                 <CardImg
                   alt="..."
                   src={require("assets/img/banner/place.jpg")}
@@ -254,7 +248,7 @@ class IndexData extends React.Component {
                     <i className="ni ni-istanbul" />
                   </div>
                   <h6 className="text-success text-uppercase">My Surveys</h6>
-                  <p className="description mt-3" style={{ height: "8vh" }}>
+                  <p className="description mt-3" style={{ height: "12vh" }}>
                     Consult and edit all your datasets.
                   </p>
                   <div>
@@ -279,10 +273,7 @@ class IndexData extends React.Component {
               </Card>
             </Col>
             <Col lg="4">
-              <Card
-                className="card-lift--hover shadow border-0"
-                style={{ height: "70vh" }}
-              >
+              <Card className="card-lift--hover shadow border-0">
                 <CardImg
                   alt="..."
                   src={require("assets/img/banner/place.jpg")}
@@ -296,7 +287,7 @@ class IndexData extends React.Component {
                   <h6 className="text-warning text-uppercase">
                     Public Datasets
                   </h6>
-                  <p className="description mt-3" style={{ height: "8vh" }}>
+                  <p className="description mt-3" style={{ height: "12vh" }}>
                     Argon is a great free UI package based on Bootstrap 4 that
                     includes the most important components and features.
                   </p>
