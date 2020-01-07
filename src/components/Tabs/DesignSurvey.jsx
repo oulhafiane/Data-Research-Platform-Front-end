@@ -88,12 +88,13 @@ class DesignSurvey extends React.Component {
                       : state.dataset.parts[this.state.currentPage - 1]
                   }
                   currentPage={this.state.currentPage}
-                  saveTitle={(title, description, callBack) => {
+                  saveTitle={(title, description, callBack, errCallBack) => {
                     savePageTitle(
                       title,
                       description,
                       this.state.currentPage,
-                      callBack
+                      callBack,
+                      errCallBack
                     );
                   }}
                 />
@@ -106,15 +107,25 @@ class DesignSurvey extends React.Component {
                       ? { variables: [] }
                       : state.dataset.parts[this.state.currentPage - 1]
                   }
-                  editQuestion={(question, index, callBack, errCallBack) =>
+                  editQuestion={(question, index, callBack, errCallBack) => {
+                    let ok = true;
+                    state.dataset.parts.forEach(part => {
+                      part.variables.forEach(variable => {
+                        if (variable.name === question.name) ok = false;
+                      });
+                    });
+                    if (!ok) {
+                      errCallBack("Variable name already taken.");
+                      return;
+                    }
                     editQuestion(
                       question,
                       index,
                       this.state.currentPage,
                       callBack,
                       errCallBack
-                    )
-                  }
+                    );
+                  }}
                   removeQuestion={(index, callBack, errCallBack) =>
                     removeQuestion(
                       index,

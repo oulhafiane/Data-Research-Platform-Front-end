@@ -50,7 +50,7 @@ class MyDataSet extends React.Component {
     iconTabs: 1,
     plainTabs: 1
   };
-  saveTitle = (title, callBack) => {
+  saveTitle = (title, callBack, errCallBack) => {
     /* Need to save it in back-end */
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
@@ -70,11 +70,11 @@ class MyDataSet extends React.Component {
         );
       })
       .catch(error => {
-        console.log(error);
-        // this.setState({ showGlobalWarning: true, uploading: false });
+        if (error.response) errCallBack(error.response.data.message);
+        else errCallBack("No Internet Connection!");
       });
   };
-  addPage = (index, callBack) => {
+  addPage = (index, callBack, errCallBack) => {
     let old = [...this.state.dataset.parts];
     if (this.state.dataset.parts.length === 0) {
       old = [{ variables: [] }];
@@ -113,7 +113,7 @@ class MyDataSet extends React.Component {
         console.log(error);
       });
   };
-  savePageTitle = (title, description, page, callBack) => {
+  savePageTitle = (title, description, page, callBack, errCallBack) => {
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
@@ -151,8 +151,8 @@ class MyDataSet extends React.Component {
         );
       })
       .catch(error => {
-        console.log(error);
-        // this.setState({ showGlobalWarning: true, uploading: false });
+        if (error.response) errCallBack(error.response.data.message);
+        else errCallBack("No Internet Connection!");
       });
   };
   addQuestion = (question, page, callBack, errCallBack) => {

@@ -6,7 +6,8 @@ class SurveyHeader extends React.Component {
   state = {
     title: { hover: false, showEdit: false, title: "" },
     extras: {},
-    uploading: false
+    uploading: false,
+    showGlobalWarning: false
   };
   onChangeTitle = e => {
     e.preventDefault();
@@ -95,7 +96,8 @@ class SurveyHeader extends React.Component {
             />
             {this.state.showGlobalWarning ? (
               <Alert color="danger">
-                <strong>Error!</strong> An error occured!
+                <strong>Error!</strong>{" "}
+                {this.state.error ? this.state.error : "An error occured!"}
               </Alert>
             ) : null}
             <Button
@@ -104,18 +106,23 @@ class SurveyHeader extends React.Component {
               style={{ float: "right" }}
               onClick={e => {
                 e.preventDefault();
-                saveTitle(this.state.title.title, () =>
-                  this.setState({ uploading: true })
+                this.setState({ uploading: true });
+                saveTitle(
+                  this.state.title.title,
+                  () =>
+                    this.setState({
+                      title: { ...this.state.title, showEdit: false },
+                      uploading: false,
+                      showGlobalWarning: false,
+                      error: undefined
+                    }),
+                  err => this.setState({ showGlobalWarning: true, error: err })
                 );
-                this.setState({
-                  title: { ...this.state.title, showEdit: false },
-                  uploading: false
-                });
               }}
             >
               {this.state.uploading ? (
                 <React.Fragment>
-                  <i className="fas fa-spin fa-spinner"></i> Uploading...
+                  <i className="fas fa-spin fa-spinner"></i> Saving...
                 </React.Fragment>
               ) : (
                 "Save"

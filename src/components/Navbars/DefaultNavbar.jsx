@@ -40,7 +40,7 @@ class DefaultNavbar extends React.Component {
   logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("refresh_token");
-    this.props.history.push("/");
+    if (this.props.history) this.props.history.push("/");
   };
 
   async componentDidMount() {
@@ -50,7 +50,7 @@ class DefaultNavbar extends React.Component {
     await this.props.getUser();
   }
   render() {
-    const { styleBrand } = this.props
+    const { styleBrand } = this.props;
     return (
       <>
         <header className="header-global">
@@ -59,7 +59,12 @@ class DefaultNavbar extends React.Component {
             expand="lg"
             id="navbar-main"
           >
-            <NavbarBrand className="mr-lg-5" to="/" tag={Link} style={styleBrand}>
+            <NavbarBrand
+              className="mr-lg-5"
+              to="/"
+              tag={Link}
+              style={styleBrand}
+            >
               <img
                 alt="..."
                 src={require("assets/img/brand/argon-react-white.png")}

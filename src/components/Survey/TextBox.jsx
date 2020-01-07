@@ -223,6 +223,16 @@ class TextBox extends React.Component {
               style={{ float: "right" }}
               onClick={e => {
                 e.preventDefault();
+                if (
+                  !this.state.question.question ||
+                  !this.state.question.name
+                ) {
+                  this.setState({
+                    showGlobalWarning: true,
+                    error: "The variable name or question is empty!"
+                  });
+                  return;
+                }
                 this.setState({ editing: true });
                 editQuestion(
                   this.state.question,

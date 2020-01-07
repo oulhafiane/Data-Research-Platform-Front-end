@@ -6,7 +6,8 @@ class PageHeader extends React.Component {
   state = {
     title: { hover: false, showEdit: false, title: "", description: "" },
     extras: {},
-    uploading: false
+    uploading: false,
+    showGlobalWarning: false
   };
   onChange = e => {
     e.preventDefault();
@@ -47,7 +48,8 @@ class PageHeader extends React.Component {
             onClick={() =>
               this.setState({
                 title: {
-                  ...this.state.title,
+                  title: dataset.title,
+                  description: dataset.description,
                   showEdit: true,
                   hover: false
                 }
@@ -62,15 +64,16 @@ class PageHeader extends React.Component {
                 <Button
                   style={{ float: "right", height: "41px" }}
                   color="default"
-                  onClick={() =>
+                  onClick={() => {
                     this.setState({
                       title: {
-                        ...this.state.title,
+                        title: dataset.title,
+                        description: dataset.description,
                         showEdit: true,
                         hover: false
                       }
-                    })
-                  }
+                    });
+                  }}
                 >
                   Edit
                 </Button>
@@ -115,7 +118,8 @@ class PageHeader extends React.Component {
             />
             {this.state.showGlobalWarning ? (
               <Alert color="danger">
-                <strong>Error!</strong> An error occured!
+                <strong>Error!</strong>{" "}
+                {this.state.error ? this.state.error : "An error occured!"}
               </Alert>
             ) : null}
             <Button
@@ -124,24 +128,32 @@ class PageHeader extends React.Component {
               style={{ float: "right" }}
               onClick={e => {
                 e.preventDefault();
+                this.setState({ uploading: true });
                 saveTitle(
                   this.state.title.title,
                   this.state.title.description,
-                  () => this.setState({ uploading: false })
+                  () => {
+                    this.setState({
+                      uploading: false,
+                      title: { title: "", description: "", showEdit: false }
+                    });
+                    if (this.state.titleTarget !== undefined)
+                      this.state.titleTarget.value = "";
+                    if (this.state.descriptionTarget !== undefined)
+                      this.state.descriptionTarget.value = "";
+                  },
+                  err =>
+                    this.setState({
+                      showGlobalWarning: true,
+                      error: err,
+                      uploading: false
+                    })
                 );
-                this.setState({
-                  title: { title: "", description: "", showEdit: false },
-                  uploading: true
-                });
-                if (this.state.titleTarget !== undefined)
-                  this.state.titleTarget.value = "";
-                if (this.state.descriptionTarget !== undefined)
-                  this.state.descriptionTarget.value = "";
               }}
             >
               {this.state.uploading ? (
                 <React.Fragment>
-                  <i className="fas fa-spin fa-spinner"></i> Uploading...
+                  <i className="fas fa-spin fa-spinner"></i> Saving...
                 </React.Fragment>
               ) : (
                 "Save"
