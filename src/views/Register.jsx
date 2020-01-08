@@ -18,7 +18,9 @@
 import React from "react";
 import axios from "axios";
 import InputText from "../components/Inputs/Input";
+import Axios from "axios";
 import { DEFAULT_URL } from "../config";
+import GoogleLogin from "react-google-login";
 
 // reactstrap components
 import {
@@ -49,6 +51,31 @@ class Register extends React.Component {
     extras: {},
     seconds: 3,
     accepted: false
+  };
+  googleAuth = res => {
+    const data = {
+      provider: "google",
+      token: res.tokenId
+    };
+    Axios.post(`${DEFAULT_URL}api/oauth`, data)
+      .then(res => {
+        localStorage.setItem("token", res.data.token);
+        // localStorage.setItem("refresh_token", res.data.refresh_token);
+        this.props.history.push(
+          this.props.location
+            ? this.props.location.state
+              ? this.props.location.state.from
+                ? this.props.location.state.from.pathname
+                  ? this.props.location.state.from.pathname
+                  : "/default/posts"
+                : "/default/posts"
+              : "/default/posts"
+            : "/default/posts"
+        );
+      })
+      .catch(error => {
+        this.setState({ showError: true });
+      });
   };
 
   submitData = () => {
@@ -106,20 +133,34 @@ class Register extends React.Component {
                 <small>Sign up with</small>
               </div>
               <div className="text-center">
-                <Button
-                  className="btn-neutral btn-icon"
-                  color="default"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
-                  <span className="btn-inner--icon">
-                    <img
-                      alt="..."
-                      src={require("assets/img/icons/common/google.svg")}
-                    />
-                  </span>
-                  <span className="btn-inner--text">Google</span>
-                </Button>
+                <GoogleLogin
+                  clientId="363549688127-4re3k697mg5ue1ngedfc2it2nd0mo1jh.apps.googleusercontent.com"
+                  render={renderProps => (
+                    <Button
+                      className="btn-neutral btn-icon"
+                      color="default"
+                      onClick={renderProps.onClick}
+                      disabled={renderProps.disabled}
+                    >
+                      <span className="btn-inner--icon">
+                        <img
+                          alt="..."
+                          src={require("assets/img/icons/common/google.svg")}
+                        />
+                      </span>
+                      <span className="btn-inner--text">Google</span>
+                    </Button>
+                  )}
+                  buttonText="Login"
+                  onSuccess={this.googleAuth}
+                  onFailure={response =>
+                    this.setState({
+                      showError: true,
+                      error: "Unauthorized Access"
+                    })
+                  }
+                  cookiePolicy={"single_host_origin"}
+                />
               </div>
             </CardHeader>
             <CardBody className="px-lg-5 py-lg-5">
