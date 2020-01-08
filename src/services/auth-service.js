@@ -69,6 +69,30 @@ class AuthService {
     }
   }
 
+  successAuth = (res, props) => {
+    if (res.data.token !== undefined) {
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("refresh_token", res.data.refresh_token);
+      props.history.push(
+        props.location
+          ? props.location.state
+            ? props.location.state.from
+              ? props.location.state.from.pathname
+                ? props.location.state.from.pathname
+                : "/default/posts"
+              : "/default/posts"
+            : "/default/posts"
+          : "/default/posts"
+      );
+    }
+  };
+
+  logout = props => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refresh_token");
+    if (props.history) props.history.push("/");
+  };
+
   async isAuthenticated() {
     const token = this.getToken();
     return token && (await this.isValid(token)) ? true : false;
