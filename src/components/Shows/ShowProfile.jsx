@@ -162,7 +162,9 @@ class ShowProfile extends React.Component {
               <div>
                 <i className="ni education_hat mr-2" />
                 {state.user.domains
-                  ? state.user.domains.map(val => <div>{val.title}</div>)
+                  ? state.user.domains.map((val, key) => (
+                      <div key={key}>{val.title}</div>
+                    ))
                   : null}
               </div>
               <hr className="my-4" />

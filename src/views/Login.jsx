@@ -19,6 +19,8 @@
 import React from "react";
 import axios from "axios";
 import InputText from "../components/Inputs/Input";
+import GoogleLogin from "react-google-login";
+import Axios from "axios";
 import { DEFAULT_URL } from "../config";
 
 import {
@@ -41,7 +43,31 @@ class Login extends React.Component {
     showError: false,
     errors: {}
   };
-
+  googleAuth = res => {
+    const data = {
+      provider: "google",
+      token: res.tokenId
+    };
+    Axios.post(`${DEFAULT_URL}api/oauth`, data)
+      .then(res => {
+        localStorage.setItem("token", res.data.token);
+        // localStorage.setItem("refresh_token", res.data.refresh_token);
+        this.props.history.push(
+          this.props.location
+            ? this.props.location.state
+              ? this.props.location.state.from
+                ? this.props.location.state.from.pathname
+                  ? this.props.location.state.from.pathname
+                  : "/default/posts"
+                : "/default/posts"
+              : "/default/posts"
+            : "/default/posts"
+        );
+      })
+      .catch(error => {
+        this.setState({ showError: true });
+      });
+  };
   onChange = e =>
     this.setState({
       credentials: {
@@ -49,9 +75,8 @@ class Login extends React.Component {
         [e.target.name]: e.target.value
       }
     });
-  showError;
   submitData = () => {
-    this.setState({ showError: false });
+    this.setState({ showError: false, error: undefined });
     axios
       .post(`${DEFAULT_URL}api/auth`, this.state.credentials)
       .then(res => {
@@ -86,20 +111,34 @@ class Login extends React.Component {
                 <small>Sign in with</small>
               </div>
               <div className="btn-wrapper text-center">
-                <Button
-                  className="btn-neutral btn-icon"
-                  color="default"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
-                  <span className="btn-inner--icon">
-                    <img
-                      alt="..."
-                      src={require("assets/img/icons/common/google.svg")}
-                    />
-                  </span>
-                  <span className="btn-inner--text">Google</span>
-                </Button>
+                <GoogleLogin
+                  clientId="363549688127-4re3k697mg5ue1ngedfc2it2nd0mo1jh.apps.googleusercontent.com"
+                  render={renderProps => (
+                    <Button
+                      className="btn-neutral btn-icon"
+                      color="default"
+                      onClick={renderProps.onClick}
+                      disabled={renderProps.disabled}
+                    >
+                      <span className="btn-inner--icon">
+                        <img
+                          alt="..."
+                          src={require("assets/img/icons/common/google.svg")}
+                        />
+                      </span>
+                      <span className="btn-inner--text">Google</span>
+                    </Button>
+                  )}
+                  buttonText="Login"
+                  onSuccess={this.googleAuth}
+                  onFailure={response =>
+                    this.setState({
+                      showError: true,
+                      error: "Unauthorized Access"
+                    })
+                  }
+                  cookiePolicy={"single_host_origin"}
+                />
               </div>
             </CardHeader>
             <CardBody className="px-lg-5 py-lg-5">
@@ -130,7 +169,8 @@ class Login extends React.Component {
 
                 {this.state.showError ? (
                   <Alert color="danger">
-                    <strong>Error!</strong> Bad credentials!
+                    <strong>Error!</strong>{" "}
+                    {this.state.error ? this.state.error : "Bad credentials!"}
                   </Alert>
                 ) : null}
 
