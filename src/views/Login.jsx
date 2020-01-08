@@ -22,6 +22,7 @@ import InputText from "../components/Inputs/Input";
 import GoogleLogin from "react-google-login";
 import Axios from "axios";
 import { DEFAULT_URL } from "../config";
+import authService from "../services/auth-service";
 
 import {
   Button,
@@ -50,19 +51,7 @@ class Login extends React.Component {
     };
     Axios.post(`${DEFAULT_URL}api/oauth`, data)
       .then(res => {
-        localStorage.setItem("token", res.data.token);
-        // localStorage.setItem("refresh_token", res.data.refresh_token);
-        this.props.history.push(
-          this.props.location
-            ? this.props.location.state
-              ? this.props.location.state.from
-                ? this.props.location.state.from.pathname
-                  ? this.props.location.state.from.pathname
-                  : "/default/posts"
-                : "/default/posts"
-              : "/default/posts"
-            : "/default/posts"
-        );
+        authService.successAuth(res, this.props);
       })
       .catch(error => {
         this.setState({ showError: true });
@@ -80,21 +69,7 @@ class Login extends React.Component {
     axios
       .post(`${DEFAULT_URL}api/auth`, this.state.credentials)
       .then(res => {
-        if (res.data.token !== undefined) {
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("refresh_token", res.data.refresh_token);
-          this.props.history.push(
-            this.props.location
-              ? this.props.location.state
-                ? this.props.location.state.from
-                  ? this.props.location.state.from.pathname
-                    ? this.props.location.state.from.pathname
-                    : "/default/posts"
-                  : "/default/posts"
-                : "/default/posts"
-              : "/default/posts"
-          );
-        }
+        authService.successAuth(res, this.props);
       })
       .catch(error => {
         this.setState({ showError: true });

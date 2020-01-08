@@ -21,6 +21,7 @@ import InputText from "../components/Inputs/Input";
 import Axios from "axios";
 import { DEFAULT_URL } from "../config";
 import GoogleLogin from "react-google-login";
+import authService from "../services/auth-service";
 
 // reactstrap components
 import {
@@ -52,6 +53,7 @@ class Register extends React.Component {
     seconds: 3,
     accepted: false
   };
+  loginSuccess = res => {};
   googleAuth = res => {
     const data = {
       provider: "google",
@@ -59,19 +61,7 @@ class Register extends React.Component {
     };
     Axios.post(`${DEFAULT_URL}api/oauth`, data)
       .then(res => {
-        localStorage.setItem("token", res.data.token);
-        // localStorage.setItem("refresh_token", res.data.refresh_token);
-        this.props.history.push(
-          this.props.location
-            ? this.props.location.state
-              ? this.props.location.state.from
-                ? this.props.location.state.from.pathname
-                  ? this.props.location.state.from.pathname
-                  : "/default/posts"
-                : "/default/posts"
-              : "/default/posts"
-            : "/default/posts"
-        );
+        authService.successAuth(res, this.props);
       })
       .catch(error => {
         this.setState({ showError: true });
