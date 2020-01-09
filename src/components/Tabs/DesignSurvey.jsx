@@ -84,8 +84,8 @@ class DesignSurvey extends React.Component {
                       ? { title: "", description: "" }
                       : state.dataset.parts[this.state.currentPage - 1] ===
                         undefined
-                      ? { title: "", description: "" }
-                      : state.dataset.parts[this.state.currentPage - 1]
+                        ? { title: "", description: "" }
+                        : state.dataset.parts[this.state.currentPage - 1]
                   }
                   currentPage={this.state.currentPage}
                   saveTitle={(title, description, callBack, errCallBack) => {
@@ -104,8 +104,8 @@ class DesignSurvey extends React.Component {
                       ? { variables: [] }
                       : state.dataset.parts[this.state.currentPage - 1] ===
                         undefined
-                      ? { variables: [] }
-                      : state.dataset.parts[this.state.currentPage - 1]
+                        ? { variables: [] }
+                        : state.dataset.parts[this.state.currentPage - 1]
                   }
                   editQuestion={(question, index, callBack, errCallBack) => {
                     let ok = true;
@@ -193,10 +193,10 @@ class DesignSurvey extends React.Component {
                         style={
                           this.state.currentPage <= 1
                             ? {
-                                pointerEvents: "none",
-                                backgroundColor: "#cccccc",
-                                color: "#666666"
-                              }
+                              pointerEvents: "none",
+                              backgroundColor: "#cccccc",
+                              color: "#666666"
+                            }
                             : null
                         }
                         onClick={e => {
@@ -283,10 +283,10 @@ class DesignSurvey extends React.Component {
                             Uploading...
                           </React.Fragment>
                         ) : (
-                          <>
-                            <i className="fas fa-plus"></i> ADD Question
+                            <>
+                              <i className="fas fa-plus"></i> ADD Question
                           </>
-                        )}
+                          )}
                       </Link>
                       <Link
                         to="#"
@@ -294,10 +294,10 @@ class DesignSurvey extends React.Component {
                         style={
                           this.state.currentPage >= nbrPages
                             ? {
-                                pointerEvents: "none",
-                                backgroundColor: "#cccccc",
-                                color: "#666666"
-                              }
+                              pointerEvents: "none",
+                              backgroundColor: "#cccccc",
+                              color: "#666666"
+                            }
                             : null
                         }
                         onClick={e => {

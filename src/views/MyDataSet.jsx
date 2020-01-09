@@ -123,7 +123,7 @@ class MyDataSet extends React.Component {
     };
     Axios.patch(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }`,
       data,
       config
@@ -137,14 +137,14 @@ class MyDataSet extends React.Component {
                 this.state.dataset.parts.length === 0
                   ? [{ title: title, description: description, variables: [] }]
                   : this.state.dataset.parts.map((val, key) => {
-                      if (key + 1 === page) {
-                        return {
-                          ...val,
-                          title: title,
-                          description: description
-                        };
-                      } else return val;
-                    })
+                    if (key + 1 === page) {
+                      return {
+                        ...val,
+                        title: title,
+                        description: description
+                      };
+                    } else return val;
+                  })
             }
           },
           callBack
@@ -166,7 +166,7 @@ class MyDataSet extends React.Component {
     };
     Axios.post(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }`,
       data,
       config
@@ -180,16 +180,16 @@ class MyDataSet extends React.Component {
                 this.state.dataset.parts.length === 0
                   ? [{ variables: [question] }]
                   : this.state.dataset.parts.map((val, key) => {
-                      if (key + 1 === page) {
-                        return {
-                          ...val,
-                          variables: [
-                            ...val.variables,
-                            ...res.data.extras.variables
-                          ]
-                        };
-                      } else return val;
-                    })
+                    if (key + 1 === page) {
+                      return {
+                        ...val,
+                        variables: [
+                          ...val.variables,
+                          ...res.data.extras.variables
+                        ]
+                      };
+                    } else return val;
+                  })
             }
           },
           callBack
@@ -206,7 +206,7 @@ class MyDataSet extends React.Component {
     };
     Axios.patch(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
       question,
       config
@@ -246,7 +246,7 @@ class MyDataSet extends React.Component {
     };
     Axios.delete(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
       config
     )
@@ -392,7 +392,6 @@ class MyDataSet extends React.Component {
                       onClick={e => this.toggleNavs(e, "iconTabs", 2)}
                       href="#pablo"
                       role="tab"
-                      disabled
                     >
                       <i className="ni ni-chart-bar-32 mr-2" />
                       Tokens
