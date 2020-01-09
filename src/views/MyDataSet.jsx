@@ -395,7 +395,7 @@ class MyDataSet extends React.Component {
                       disabled
                     >
                       <i className="ni ni-chart-bar-32 mr-2" />
-                      Data
+                      Tokens
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -405,6 +405,21 @@ class MyDataSet extends React.Component {
                         active: this.state.iconTabs === 3
                       })}
                       onClick={e => this.toggleNavs(e, "iconTabs", 3)}
+                      href="#pablo"
+                      role="tab"
+                      disabled
+                    >
+                      <i className="ni ni-chart-bar-32 mr-2" />
+                      Data
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      aria-selected={this.state.iconTabs === 4}
+                      className={classnames("mb-sm-3 mb-md-0", {
+                        active: this.state.iconTabs === 4
+                      })}
+                      onClick={e => this.toggleNavs(e, "iconTabs", 4)}
                       href="#pablo"
                       role="tab"
                       disabled
