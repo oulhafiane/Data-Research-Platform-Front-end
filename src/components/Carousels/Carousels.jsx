@@ -69,8 +69,9 @@ const Carousels = props => {
           />
         ) : null}{" "}
         <div className="carousel-caption">
+          <h2>ImpacTree</h2>
           <h3>
-            Foster research and data driven-innovation to solve smallholder
+            Fostering research and data driven-innovation to solve smallholder
             farmers challenges across Africa.
           </h3>
           {/* <p>

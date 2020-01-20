@@ -139,7 +139,14 @@
 }
 
 .carousel-caption h3 {
+  margin-bottom: 350px;
   font-size: 2rem;
+  color: #ffffff;
+}
+
+.carousel-caption h2 {
+  font-size: 3.5rem;
+  margin-bottom: 28px;
   color: #ffffff;
 }
 

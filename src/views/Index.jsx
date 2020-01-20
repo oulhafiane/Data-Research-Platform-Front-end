@@ -107,8 +107,8 @@ class Index extends React.Component {
                     </h4>
                     <p className="text-italic text-white">
                       Provide research breakthroughs and actionable insights on
-                      smallholder farmers challenges in Morocco and Africa for a
-                      sustainable inclusive future.
+                      smallholder farmers' challenges in Morocco and Africa for
+                      a sustainable inclusive future.
                     </p>
                   </blockquote>
                 </Card>
@@ -137,7 +137,7 @@ class Index extends React.Component {
                   </div>
                   <div className="pl-4">
                     <h4 className="display-3 text-white">
-                      Research Fruit picking
+                      Research Fruit Picking
                     </h4>
                     {/* <p className="text-white">
                       
@@ -155,7 +155,7 @@ class Index extends React.Component {
                       <div className="pl-4">
                         <p>
                           Research Fruit Picking aims to foster research
-                          driven-innovation to solve smallholder farmers
+                          driven-innovation to solve smallholder farmers'
                           challenges across Africa. <br />
                           Research Fruit Picking gives you exposure and allows
                           you to share, discuss and get feedback on your
@@ -219,13 +219,13 @@ class Index extends React.Component {
                   </div>
                   <h3>Data2Impact</h3>
                   <p>
-                    Data2Impact is an open data platform that provides
-                    actionable insights on smallholder farmers challenges across
-                    Africa. <br />
-                    Data2Impact offers the necessary tools to collect, clean,
-                    visualize and analyze smallholder farmers data in the
-                    following clusters education, health, finance, energy, water
-                    and sanitation, transportation and environment.
+                    Data2Impact is an open-data corpus that provides actionable
+                    insights on smallholder farmers challenges across Africa.{" "}
+                    <br />
+                    Data2Impact offers the necessary tools to collect, cleanse,
+                    visualize and analyze data in the following clusters: <br />
+                    Education, Health, Finance, Energy, Water and Sanitation,
+                    Transportation and Environment.
                   </p>
                   <ul className="list-unstyled mt-5">
                     <li className="py-2">
@@ -236,7 +236,10 @@ class Index extends React.Component {
                           </Badge>
                         </div>
                         <div>
-                          <h6 className="mb-0">Data collection and cleaning</h6>
+                          <h6 className="mb-0">
+                            Data collection and cleansing: Collect data by
+                            creating your own tailored survey
+                          </h6>
                         </div>
                       </div>
                     </li>
@@ -260,7 +263,7 @@ class Index extends React.Component {
                           </Badge>
                         </div>
                         <div>
-                          <h6 className="mb-0">Analyze the data</h6>
+                          <h6 className="mb-0">Data Analysis</h6>
                         </div>
                       </div>
                     </li>

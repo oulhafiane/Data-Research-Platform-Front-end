@@ -43,7 +43,7 @@ class Header extends React.Component {
               <Col lg="7" md="10">
                 <Link to="/">
                   <h1 className="display-2 text-white">
-                    Share knowledge. Impact lives.
+                    Research Fruit Picking
                   </h1>
                 </Link>{" "}
                 <p className="text-white mt-0 mb-5">
