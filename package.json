@@ -2,7 +2,7 @@
   "name": "data_research_front_end",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://oulhafiane.me/Data-Research-Platform-Front-end/",
+  "homepage": ".",
   "dependencies": {
     "@material-ui/core": "^4.8.3",
     "@trendmicro/react-sidenav": "^0.4.5",
