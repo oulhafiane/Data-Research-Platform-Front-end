@@ -1,19 +1,4 @@
 import React from "react";
-import InputTextLabel from "components/Inputs/InputLabel";
-// reactstrap components
-import {
-  Card,
-  CardHeader,
-  CardFooter,
-  Row,
-  Col,
-  Input,
-  Button,
-  Alert,
-  Modal,
-  CardBody
-} from "reactstrap";
-import InputText from "components/Inputs/Input";
 import TextBox from "./TextBox";
 class SurveyBody extends React.Component {
   state = {

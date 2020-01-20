@@ -24,7 +24,7 @@ class Index extends React.Component {
   render() {
     return (
       <>
-        <section className="section bg-secondary" id="events">
+        {/* <section className="section bg-secondary" id="events">
           <Container>
             <Row className="row-grid align-items-center">
               <Col md="12">
@@ -42,170 +42,7 @@ class Index extends React.Component {
               </Col>
             </Row>
           </Container>
-        </section>
-        <section className="section pb-0 bg-gradient-warning" id="research">
-          <Container>
-            <Row className="row-grid align-items-center">
-              <Col className="order-lg-2 ml-lg-auto" md="6">
-                <div className="position-relative pl-md-5">
-                  <img
-                    alt="..."
-                    className="img-center img-fluid"
-                    src={require("assets/img/ill/ill-2.svg")}
-                  />
-                </div>
-              </Col>
-              <Col className="order-lg-1" lg="6">
-                <div className="d-flex px-3">
-                  <div>
-                    <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
-                      <i className="ni ni-building text-primary" />
-                    </div>
-                  </div>
-                  <div className="pl-4">
-                    <h4 className="display-3 text-white">Research Platform</h4>
-                    <p className="text-white">
-                      The Arctic Ocean freezes every winter and much of the
-                      sea-ice then thaws every summer, and that process will
-                      continue whatever.
-                    </p>
-                  </div>
-                </div>
-                <Card className="shadow shadow-lg--hover mt-5">
-                  <CardBody>
-                    <div className="d-flex px-3">
-                      <div>
-                        <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
-                          <i className="ni ni-satisfied" />
-                        </div>
-                      </div>
-                      <div className="pl-4">
-                        <h5 className="title text-success">Awesome Support</h5>
-                        <p>
-                          The Arctic Ocean freezes every winter and much of the
-                          sea-ice then thaws every summer, and that process will
-                          continue whatever.
-                        </p>
-                        <a
-                          className="text-success"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          Learn more
-                        </a>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-                <Card className="shadow shadow-lg--hover mt-5">
-                  <CardBody>
-                    <div className="d-flex px-3">
-                      <div>
-                        <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
-                          <i className="ni ni-active-40" />
-                        </div>
-                      </div>
-                      <div className="pl-4">
-                        <h5 className="title text-warning">
-                          Modular Components
-                        </h5>
-                        <p>
-                          The Arctic Ocean freezes every winter and much of the
-                          sea-ice then thaws every summer, and that process will
-                          continue whatever.
-                        </p>
-                        <a
-                          className="text-warning"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          Learn more
-                        </a>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-          </Container>
-          {/* SVG separator */}
-          <div className="separator separator-bottom separator-skew zindex-100">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-              version="1.1"
-              viewBox="0 0 2560 100"
-              x="0"
-              y="0"
-            >
-              <polygon className="fill-white" points="2560 0 2560 100 0 100" />
-            </svg>
-          </div>
-        </section>
-        <section className="section section-lg" id="data">
-          <Container>
-            <Row className="row-grid align-items-center">
-              <Col className="order-md-2" md="6">
-                <img
-                  alt="..."
-                  className="img-fluid floating"
-                  src={require("assets/img/theme/promo-1.png")}
-                />
-              </Col>
-              <Col className="order-md-1" md="6">
-                <div className="pr-md-5">
-                  <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
-                    <i className="ni ni-chart-bar-32" />
-                  </div>
-                  <h3>Data Platform</h3>
-                  <p>
-                    The kit comes with three pre-built pages to help you get
-                    started faster. You can change the text and images and
-                    you're good to go.
-                  </p>
-                  <ul className="list-unstyled mt-5">
-                    <li className="py-2">
-                      <div className="d-flex align-items-center">
-                        <div>
-                          <Badge className="badge-circle mr-3" color="success">
-                            <i className="ni ni-settings-gear-65" />
-                          </Badge>
-                        </div>
-                        <div>
-                          <h6 className="mb-0">Carefully crafted components</h6>
-                        </div>
-                      </div>
-                    </li>
-                    <li className="py-2">
-                      <div className="d-flex align-items-center">
-                        <div>
-                          <Badge className="badge-circle mr-3" color="success">
-                            <i className="ni ni-html5" />
-                          </Badge>
-                        </div>
-                        <div>
-                          <h6 className="mb-0">Amazing page examples</h6>
-                        </div>
-                      </div>
-                    </li>
-                    <li className="py-2">
-                      <div className="d-flex align-items-center">
-                        <div>
-                          <Badge className="badge-circle mr-3" color="success">
-                            <i className="ni ni-satisfied" />
-                          </Badge>
-                        </div>
-                        <div>
-                          <h6 className="mb-0">Super friendly support team</h6>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </section>
+        </section> */}
         <section className="section bg-secondary" id="about-us">
           <Container>
             <Row className="row-grid align-items-center">
@@ -220,24 +57,23 @@ class Index extends React.Component {
                     </h2>
                   </div>
                   <p>
-                    Impactree is a platform created within P-Curiosity Lab
-                    (PCL), an innovation lab based in the Moroccan University:
-                    Mohammed VI Polytechnic University.
+                    ImpacTree (IT*) is a collaborative platform launched within
+                    P-Curiosity Lab (PCL) and one of its three driven engines.
                   </p>
                   <p>
-                    PCL aims to create inclusive, sustainable and innovative
-                    services for smallholder farmers in Morocco and Africa. To
-                    serve our purpose, a full understanding on smallholder
-                    farmers challenges is required. The necessary knowledge to
-                    tackle those challenges can only be provided by a community
-                    of researchers and experts.
+                    IT* feeds PCL’s purpose by actionable insights to create
+                    inclusive, sustainable and innovative services for
+                    smallholder farmers in Morocco and across Africa. <br />
+                    To serve this purpose, IT* offers an interactive platform
+                    for its community of researchers and experts to tackle the
+                    Smallholder farmers challenges by using two main concepts:
+                    “Research Fruit Picking” and “Data2Impact”.
                   </p>
                   <p>
-                    Impactree offers this community the necessary tools and the
-                    opportunity to create and share their knowledge, thus
-                    bringing all the pieces of the puzzle together to allow a
-                    wider vision of, and a greater impact on our targeted
-                    population.
+                    Therefore, IT* resembles communities by giving them the
+                    necessary tools and the opportunity to create and share
+                    their knowledge to allow a wider vision, and a greater
+                    impact on our targeted population.
                   </p>
                 </div>
               </Col>
@@ -280,6 +116,160 @@ class Index extends React.Component {
             </Row>
           </Container>
         </section>
+        <section className="section pb-0 bg-gradient-warning" id="research">
+          <Container>
+            <Row className="row-grid align-items-center">
+              <Col className="order-lg-2 ml-lg-auto" md="6">
+                <div className="position-relative pl-md-5">
+                  <img
+                    alt="..."
+                    className="img-center img-fluid"
+                    src={require("assets/img/ill/ill-2.svg")}
+                  />
+                </div>
+              </Col>
+              <Col className="order-lg-1" lg="6">
+                <div className="d-flex px-3">
+                  <div>
+                    <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
+                      <i className="ni ni-bulb-61 text-primary" />
+                    </div>
+                  </div>
+                  <div className="pl-4">
+                    <h4 className="display-3 text-white">
+                      Research Fruit picking
+                    </h4>
+                    {/* <p className="text-white">
+                      
+                    </p> */}
+                  </div>
+                </div>
+                <Card className="shadow shadow-lg--hover mt-5">
+                  <CardBody>
+                    <div className="d-flex px-3">
+                      <div>
+                        <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
+                          <i className="fas fa-spa" />
+                        </div>
+                      </div>
+                      <div className="pl-4">
+                        <p>
+                          Research Fruit Picking aims to foster research
+                          driven-innovation to solve smallholder farmers
+                          challenges across Africa. <br />
+                          Research Fruit Picking gives you exposure and allows
+                          you to share, discuss and get feedback on your
+                          research-based ideas.
+                        </p>
+                      </div>
+                    </div>
+                  </CardBody>
+                </Card>
+                <Card className="shadow shadow-lg--hover mt-5">
+                  <CardBody>
+                    <div className="d-flex px-3">
+                      <div>
+                        <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
+                          <i className="ni ni-active-40" />
+                        </div>
+                      </div>
+                      <div className="pl-4">
+                        <p>
+                          As an innovation lab, we are committed to support best
+                          ideas along the innovation and entrepreneurship
+                          journeys. <br />
+                          Don’t hesitate and take part of our research fruit
+                          picking community.
+                        </p>
+                      </div>
+                    </div>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+          {/* SVG separator */}
+          <div className="separator separator-bottom separator-skew zindex-100">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon className="fill-white" points="2560 0 2560 100 0 100" />
+            </svg>
+          </div>
+        </section>
+        <section className="section section-lg" id="data">
+          <Container>
+            <Row className="row-grid align-items-center">
+              <Col className="order-md-2" md="6">
+                <img
+                  alt="..."
+                  className="img-fluid floating"
+                  src={require("assets/img/theme/promo-1.png")}
+                />
+              </Col>
+              <Col className="order-md-1" md="6">
+                <div className="pr-md-5">
+                  <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
+                    <i className="ni ni-chart-bar-32" />
+                  </div>
+                  <h3>Data2Impact</h3>
+                  <p>
+                    Data2Impact is an open data platform that provides
+                    actionable insights on smallholder farmers challenges across
+                    Africa. <br />
+                    Data2Impact offers the necessary tools to collect, clean,
+                    visualize and analyze smallholder farmers data in the
+                    following clusters education, health, finance, energy, water
+                    and sanitation, transportation and environment.
+                  </p>
+                  <ul className="list-unstyled mt-5">
+                    <li className="py-2">
+                      <div className="d-flex align-items-center">
+                        <div>
+                          <Badge className="badge-circle mr-3" color="success">
+                            <i className="fas fa-database" />
+                          </Badge>
+                        </div>
+                        <div>
+                          <h6 className="mb-0">Data collection and cleaning</h6>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="py-2">
+                      <div className="d-flex align-items-center">
+                        <div>
+                          <Badge className="badge-circle mr-3" color="success">
+                            <i className="fas fa-chart-pie" />
+                          </Badge>
+                        </div>
+                        <div>
+                          <h6 className="mb-0">Data visualization</h6>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="py-2">
+                      <div className="d-flex align-items-center">
+                        <div>
+                          <Badge className="badge-circle mr-3" color="success">
+                            <i className="fas fa-chart-line" />
+                          </Badge>
+                        </div>
+                        <div>
+                          <h6 className="mb-0">Analyze the data</h6>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </section>
         <section
           className="section section-lg bg-gradient-default"
           id="contact-us"
@@ -290,12 +280,12 @@ class Index extends React.Component {
                 <h2 className="display-3 text-white">
                   Share knowledge. Impact lives.
                 </h2>
-                <p className="lead text-white">
+                {/* <p className="lead text-white">
                   According to the National Oceanic and Atmospheric
                   Administration, Ted, Scambos, NSIDClead scentist, puts the
                   potentially record low maximum sea ice extent tihs year down
                   to low ice.
-                </p>
+                </p> */}
               </Col>
             </Row>
           </Container>

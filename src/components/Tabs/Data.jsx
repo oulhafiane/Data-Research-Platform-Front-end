@@ -16,52 +16,56 @@
 
 */
 import React from "react";
-import { Link } from "react-router-dom";
-// nodejs library that concatenates classes
-import classnames from "classnames";
 // reactstrap components
-import {
-  Container
-} from "reactstrap";
-import Axios from 'axios';
-import MlResult from './DataTabSrcs/MlResult'
-import CardsAndModal from './DataTabSrcs/CardsAndModal'
+import { Container } from "reactstrap";
+import Axios from "axios";
+import MlResult from "./DataTabSrcs/MlResult";
+import CardsAndModal from "./DataTabSrcs/CardsAndModal";
 
 class Data extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       columns: null,
       rows: null,
       data: null,
       showMl: false,
       modal: false
-    }
+    };
   }
   componentDidMount() {
-    const url = 'http://127.0.0.1:5000/training'
+    const url = "http://127.0.0.1:5000/training";
     Axios.get(url)
       .then(res =>
-        this.setState({ columns: res.data['columns'], rows: res.data['index'], data: res.data['data'] })
+        this.setState({
+          columns: res.data["columns"],
+          rows: res.data["index"],
+          data: res.data["data"]
+        })
       )
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
   toggle = () => {
-    this.setState({ modal: !this.state.modal })
-  }
+    this.setState({ modal: !this.state.modal });
+  };
   showMlResult = () => {
-    this.setState({ showMl: true })
-  }
+    this.setState({ showMl: true });
+  };
   render() {
-    const { columns, rows, data, showMl, modal } = this.state
+    const { columns, rows, data, showMl, modal } = this.state;
     return (
       <Container>
-        {!showMl
-          ? <CardsAndModal toggle={this.toggle} modal={modal} showMlResult={this.showMlResult} />
-          : <MlResult data={data} columns={columns} rows={rows} />
-        }
+        {!showMl ? (
+          <CardsAndModal
+            toggle={this.toggle}
+            modal={modal}
+            showMlResult={this.showMlResult}
+          />
+        ) : (
+          <MlResult data={data} columns={columns} rows={rows} />
+        )}
       </Container>
-    )
+    );
   }
 }
 

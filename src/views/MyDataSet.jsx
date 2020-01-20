@@ -38,16 +38,18 @@ import Analytics from "components/Tabs/Analytics";
 import Data from "components/Tabs/Data";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
+import Tokens from "components/Tabs/Tokens";
 
 class MyDataSet extends React.Component {
   state = {
     token: localStorage.getItem("token"),
     uuid: this.props.match.params.uuid,
     dataset: { parts: [{ variables: [] }] },
+    tokens: { tokens: [] },
     extras: {},
     showGlobalWarning: false,
     uploading: false,
-    iconTabs: 1,
+    iconTabs: 2,
     plainTabs: 1
   };
   saveTitle = (title, callBack, errCallBack) => {
@@ -123,7 +125,7 @@ class MyDataSet extends React.Component {
     };
     Axios.patch(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-      this.state.dataset.parts[page - 1].id
+        this.state.dataset.parts[page - 1].id
       }`,
       data,
       config
@@ -137,14 +139,14 @@ class MyDataSet extends React.Component {
                 this.state.dataset.parts.length === 0
                   ? [{ title: title, description: description, variables: [] }]
                   : this.state.dataset.parts.map((val, key) => {
-                    if (key + 1 === page) {
-                      return {
-                        ...val,
-                        title: title,
-                        description: description
-                      };
-                    } else return val;
-                  })
+                      if (key + 1 === page) {
+                        return {
+                          ...val,
+                          title: title,
+                          description: description
+                        };
+                      } else return val;
+                    })
             }
           },
           callBack
@@ -166,7 +168,7 @@ class MyDataSet extends React.Component {
     };
     Axios.post(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-      this.state.dataset.parts[page - 1].id
+        this.state.dataset.parts[page - 1].id
       }`,
       data,
       config
@@ -180,16 +182,16 @@ class MyDataSet extends React.Component {
                 this.state.dataset.parts.length === 0
                   ? [{ variables: [question] }]
                   : this.state.dataset.parts.map((val, key) => {
-                    if (key + 1 === page) {
-                      return {
-                        ...val,
-                        variables: [
-                          ...val.variables,
-                          ...res.data.extras.variables
-                        ]
-                      };
-                    } else return val;
-                  })
+                      if (key + 1 === page) {
+                        return {
+                          ...val,
+                          variables: [
+                            ...val.variables,
+                            ...res.data.extras.variables
+                          ]
+                        };
+                      } else return val;
+                    })
             }
           },
           callBack
@@ -206,7 +208,7 @@ class MyDataSet extends React.Component {
     };
     Axios.patch(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-      this.state.dataset.parts[page - 1].id
+        this.state.dataset.parts[page - 1].id
       }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
       question,
       config
@@ -246,7 +248,7 @@ class MyDataSet extends React.Component {
     };
     Axios.delete(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-      this.state.dataset.parts[page - 1].id
+        this.state.dataset.parts[page - 1].id
       }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
       config
     )
@@ -275,13 +277,44 @@ class MyDataSet extends React.Component {
         else errCallBack("No Internet Connection!");
       });
   };
-  saveData = e => {
-    /* Need to save it in back-end */
-    e.preventDefault();
-    console.log(this.state.dataset);
+  publishSurvey = e => this.toggleNavs(e, "iconTabs", 2);
+  gotoTokenPage = page => {
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    Axios.get(
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/token?page=${page}`,
+      config
+    )
+      .then(res => {
+        this.setState({
+          tokens: res.data
+        });
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+  };
+  refreshTokens = () => {
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    Axios.get(
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/token`,
+      config
+    )
+      .then(res => {
+        this.setState({
+          tokens: res.data
+        });
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
   };
   toggleNavs = (e, state, index) => {
     e.preventDefault();
+    if (index === 2) this.refreshTokens();
     this.setState({
       [state]: index
     });
@@ -297,6 +330,7 @@ class MyDataSet extends React.Component {
         });
       })
       .catch(error => {
+        /* Need to check the owner */
         console.log(error.response);
       });
   }
@@ -333,23 +367,6 @@ class MyDataSet extends React.Component {
     }
   }
   render() {
-    const groupStyles = {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between"
-    };
-    const groupBadgeStyles = {
-      backgroundColor: "#EBECF0",
-      borderRadius: "2em",
-      color: "#172B4D",
-      display: "inline-block",
-      fontSize: 12,
-      fontWeight: "normal",
-      lineHeight: "1",
-      minWidth: 1,
-      padding: "0.16666666666667em 0.5em",
-      textAlign: "center"
-    };
     return (
       <>
         {/* Page content */}
@@ -406,7 +423,6 @@ class MyDataSet extends React.Component {
                       onClick={e => this.toggleNavs(e, "iconTabs", 3)}
                       href="#pablo"
                       role="tab"
-                      disabled
                     >
                       <i className="ni ni-chart-bar-32 mr-2" />
                       Data
@@ -421,7 +437,6 @@ class MyDataSet extends React.Component {
                       onClick={e => this.toggleNavs(e, "iconTabs", 4)}
                       href="#pablo"
                       role="tab"
-                      disabled
                     >
                       <i className="ni ni-chart-pie-35 mr-2" />
                       Analytics
@@ -445,16 +460,25 @@ class MyDataSet extends React.Component {
                           addQuestion={this.addQuestion}
                           editQuestion={this.editQuestion}
                           removeQuestion={this.removeQuestion}
-                          saveData={this.saveData}
+                          publishSurvey={this.publishSurvey}
                         />
                       </DndProvider>
                     </TabPane>
                     <TabPane tabId="iconTabs2">
                       <DndProvider backend={Backend}>
-                        <Data state={this.state} />
+                        <Tokens
+                          state={this.state}
+                          refreshTokens={this.refreshTokens}
+                          gotoTokenPage={this.gotoTokenPage}
+                        />
                       </DndProvider>
                     </TabPane>
                     <TabPane tabId="iconTabs3">
+                      <DndProvider backend={Backend}>
+                        <Data state={this.state} />
+                      </DndProvider>
+                    </TabPane>
+                    <TabPane tabId="iconTabs4">
                       <Analytics state={this.state} />
                     </TabPane>
                   </TabContent>

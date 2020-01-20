@@ -96,7 +96,7 @@ class NewsEvents extends React.Component {
                         <div className="blogPost--small">
                           <div className="media">
                             <span className="pull-left">
-                              <a href="#">
+                              <a href="#1">
                                 <span className="date">
                                   <span>18</span> <small>Nov</small>
                                 </span>
@@ -104,7 +104,7 @@ class NewsEvents extends React.Component {
                             </span>
                             <div className="media-body">
                               <h4 className="media-heading title-post">
-                                <a href="#">Building In WebCorpCo CMS 8</a>
+                                <a href="#2">Building In WebCorpCo CMS 8</a>
                               </h4>
                               <p className="post">
                                 Learn about all of the possibilities of web
@@ -116,7 +116,7 @@ class NewsEvents extends React.Component {
                         <div className="blogPost--small">
                           <div className="media">
                             <span className="pull-left">
-                              <a href="#">
+                              <a href="#3">
                                 <span className="date">
                                   <span>22</span> <small>Nov</small>
                                 </span>
@@ -124,7 +124,7 @@ class NewsEvents extends React.Component {
                             </span>
                             <div className="media-body">
                               <h4 className="media-heading title-post">
-                                <a href="#">WebCorpCo Named To Inc. 5000</a>
+                                <a href="#4">WebCorpCo Named To Inc. 5000</a>
                               </h4>
                               <p className="post">
                                 Inc. magazine today ranked WebCorpCo as the
@@ -139,7 +139,7 @@ class NewsEvents extends React.Component {
                         <div className="blogPost--small">
                           <div className="media">
                             <span className="pull-left">
-                              <a href="#">
+                              <a href="#5">
                                 <span className="date">
                                   <span>9</span> <small>Nov</small>
                                 </span>
@@ -147,7 +147,7 @@ class NewsEvents extends React.Component {
                             </span>
                             <div className="media-body">
                               <h4 className="media-heading title-post">
-                                <a href="#">
+                                <a href="#6">
                                   7 Critical Factors When Choosing A CMS
                                 </a>
                               </h4>
@@ -162,7 +162,7 @@ class NewsEvents extends React.Component {
                         <div className="blogPost--small">
                           <div className="media">
                             <span className="pull-left">
-                              <a href="#">
+                              <a href="#7">
                                 <span className="date">
                                   <span>18</span> <small>Nov</small>
                                 </span>
@@ -170,7 +170,7 @@ class NewsEvents extends React.Component {
                             </span>
                             <div className="media-body">
                               <h4 className="media-heading title-post">
-                                <a href="#">
+                                <a href="#8">
                                   What Is A Content Management System
                                 </a>
                               </h4>
@@ -200,7 +200,7 @@ class NewsEvents extends React.Component {
                         <div className="blogPost--small">
                           <div className="media">
                             <span className="pull-left">
-                              <a href="#">
+                              <a href="#9">
                                 <span className="date">
                                   <span>29</span> <small>Nov</small>
                                 </span>
@@ -208,7 +208,7 @@ class NewsEvents extends React.Component {
                             </span>
                             <div className="media-body">
                               <h4 className="media-heading title-post">
-                                <a href="#">Building In WebCorpCo CMS 8</a>
+                                <a href="#10">Building In WebCorpCo CMS 8</a>
                               </h4>
                               <p className="post">
                                 Learn about all of the possibilities of web
@@ -220,7 +220,7 @@ class NewsEvents extends React.Component {
                         <div className="blogPost--small">
                           <div className="media">
                             <span className="pull-left">
-                              <a href="#">
+                              <a href="#11">
                                 <span className="date">
                                   <span>22</span> <small>Nov</small>
                                 </span>
@@ -228,7 +228,7 @@ class NewsEvents extends React.Component {
                             </span>
                             <div className="media-body">
                               <h4 className="media-heading title-post">
-                                <a href="#">WebCorpCo Named To Inc. 5000</a>
+                                <a href="#12">WebCorpCo Named To Inc. 5000</a>
                               </h4>
                               <p className="post">
                                 Inc. magazine today ranked WebCorpCo as the
@@ -243,7 +243,7 @@ class NewsEvents extends React.Component {
                         <div className="blogPost--small">
                           <div className="media">
                             <span className="pull-left">
-                              <a href="#">
+                              <a href="#13">
                                 <span className="date">
                                   <span>12</span> <small>Nov</small>
                                 </span>
@@ -251,7 +251,7 @@ class NewsEvents extends React.Component {
                             </span>
                             <div className="media-body">
                               <h4 className="media-heading title-post">
-                                <a href="#">
+                                <a href="#14">
                                   7 Critical Factors When Choosing A CMS
                                 </a>
                               </h4>
@@ -266,7 +266,7 @@ class NewsEvents extends React.Component {
                         <div className="blogPost--small">
                           <div className="media">
                             <span className="pull-left">
-                              <a href="#">
+                              <a href="#15">
                                 <span className="date">
                                   <span>10</span> <small>Nov</small>
                                 </span>
@@ -274,7 +274,7 @@ class NewsEvents extends React.Component {
                             </span>
                             <div className="media-body">
                               <h4 className="media-heading title-post">
-                                <a href="#">
+                                <a href="#16">
                                   What Is A Content Management System
                                 </a>
                               </h4>

@@ -16,22 +16,12 @@
 
 */
 import React from "react";
-import { Link } from "react-router-dom";
 import Axios from "axios";
 import { DEFAULT_URL } from "../../config";
 import { withRouter } from "react-router-dom";
 
 // reactstrap components
-import {
-  UncontrolledCollapse,
-  Navbar,
-  NavItem,
-  Nav,
-  Row,
-  Col,
-  Modal,
-  Button
-} from "reactstrap";
+import { Row, Col, Modal, Button } from "reactstrap";
 
 class MenuPost extends React.Component {
   state = { token: localStorage.getItem("token") };

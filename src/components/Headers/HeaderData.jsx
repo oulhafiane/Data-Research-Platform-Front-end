@@ -18,8 +18,7 @@
 import React from "react";
 
 // reactstrap components
-import { Link } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row } from "reactstrap";
 
 class HeaderData extends React.Component {
   render() {
@@ -36,8 +35,7 @@ class HeaderData extends React.Component {
           {/* Mask */}
           {/* Header container */}
           <Container className="d-flex align-items-center" fluid>
-            <Row>
-            </Row>
+            <Row></Row>
           </Container>
         </div>
       </>

@@ -72,7 +72,12 @@ class Login extends React.Component {
         authService.successAuth(res, this.props);
       })
       .catch(error => {
-        this.setState({ showError: true });
+        this.setState({
+          showError: true,
+          error: error.response
+            ? "Unauthorized Access"
+            : "No Internet Conncetion!"
+        });
       });
   };
 

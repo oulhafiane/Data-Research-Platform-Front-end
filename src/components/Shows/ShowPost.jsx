@@ -33,10 +33,6 @@ import {
 import CarouselPost from "components/Carousels/CarouselPost";
 
 class ShowPost extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     token: localStorage.getItem("token"),
     photo_user: require("assets/img/theme/user-profile.png"),
@@ -222,7 +218,11 @@ class ShowPost extends React.Component {
                 {state.prob.type}
               </div>
               <div>
-                <a href={state.prob.link} target="_blank">
+                <a
+                  href={state.prob.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <i className="ni education_hat mr-2" />
                   {state.prob.link}
                 </a>

@@ -80,7 +80,7 @@ class NewPost extends React.Component {
   };
 
   handleKeyDown = event => {
-    const { inputValue, value } = this.state;
+    const { inputValue } = this.state;
     if (!inputValue) return;
     switch (event.key) {
       case "Enter":
@@ -93,6 +93,8 @@ class NewPost extends React.Component {
           ]
         });
         event.preventDefault();
+      default:
+        return;
     }
   };
 

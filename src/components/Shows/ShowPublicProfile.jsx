@@ -21,10 +21,6 @@ import React from "react";
 import { Card, CardHeader, Row, Col } from "reactstrap";
 
 class ShowPublicProfile extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   cardStats = { padding: ".275rem" };
 
   render() {

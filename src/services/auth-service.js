@@ -90,7 +90,7 @@ class AuthService {
   logout = props => {
     localStorage.removeItem("token");
     localStorage.removeItem("refresh_token");
-    if (props.history) props.history.push("/");
+    if (props !== undefined && props.history) props.history.push("/");
   };
 
   async isAuthenticated() {
@@ -108,7 +108,7 @@ class AuthService {
     if (await this.isAuthenticated()) {
       const roles = this.decode(this.getToken()).roles;
       roles.forEach(role => {
-        if (role == "ROLE_SEARCHER") {
+        if (role === "ROLE_SEARCHER") {
           found = true;
         }
       });
@@ -121,7 +121,7 @@ class AuthService {
     if (this.isAuthenticated()) {
       const roles = this.decode(this.getToken()).roles;
       roles.forEach(role => {
-        if (role == "ROLE_CUSTOMER") {
+        if (role === "ROLE_CUSTOMER") {
           found = true;
         }
       });
@@ -134,7 +134,7 @@ class AuthService {
     if (this.isAuthenticated()) {
       const roles = this.decode(this.getToken()).roles;
       roles.forEach(role => {
-        if (role == "ROLE_ADMIN") {
+        if (role === "ROLE_ADMIN") {
           found = true;
         }
       });

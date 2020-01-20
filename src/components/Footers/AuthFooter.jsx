@@ -31,7 +31,7 @@ import {
 
 class AuthFooter extends React.Component {
   render() {
-    const { style } = this.props
+    const { style } = this.props;
     return (
       <>
         <footer className=" footer" style={style}>
@@ -41,11 +41,11 @@ class AuthFooter extends React.Component {
                 <h3 className=" text-primary font-weight-light mb-2">
                   Share knowledge. Impact lives.
                 </h3>
-                <h4 className=" mb-0 font-weight-light">
+                {/* <h4 className=" mb-0 font-weight-light">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </h4>
+                </h4> */}
               </Col>
-              <Col className=" text-lg-center btn-wrapper" lg="6">
+              {/* <Col className=" text-lg-center btn-wrapper" lg="6">
                 <Button
                   className=" btn-neutral btn-icon-only btn-round"
                   color="twitter"
@@ -98,7 +98,7 @@ class AuthFooter extends React.Component {
                 <UncontrolledTooltip delay={0} target="tooltip626177562">
                   Star on Github
                 </UncontrolledTooltip>
-              </Col>
+              </Col> */}
             </Row>
             <hr />
             <Row className=" align-items-center justify-content-md-between">

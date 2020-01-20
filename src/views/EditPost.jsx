@@ -61,7 +61,6 @@ class EditPost extends React.Component {
     uploading: false,
     keywordsSelected: [],
     inputValue: "",
-    uploading: false,
     id_domain: 0,
     id_category: 0,
     images_available: 0,
@@ -83,7 +82,7 @@ class EditPost extends React.Component {
   };
 
   handleKeyDown = event => {
-    const { inputValue, value } = this.state;
+    const { inputValue } = this.state;
     if (!inputValue) return;
     switch (event.key) {
       case "Enter":
@@ -96,6 +95,8 @@ class EditPost extends React.Component {
           ]
         });
         event.preventDefault();
+      default:
+        return;
     }
   };
 

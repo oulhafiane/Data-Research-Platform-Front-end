@@ -47,7 +47,7 @@ class SharedNavbar extends React.Component {
               <Link to="/">
                 <img
                   alt="..."
-                  src={require("assets/img/brand/argon-react.png")}
+                  src={require("assets/img/brand/impactree.png")}
                 />
               </Link>
             </Col>
@@ -69,7 +69,7 @@ class SharedNavbar extends React.Component {
           <UncontrolledDropdown nav>
             <DropdownToggle nav>
               <i className="ni ni-single-copy-04" />
-              <span className="nav-link-inner--text">Impactree</span>
+              <span className="nav-link-inner--text">ImpacTree</span>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu-xl">
               <div className="dropdown-menu-inner">
@@ -78,90 +78,45 @@ class SharedNavbar extends React.Component {
                   href="/default/posts"
                 >
                   <div className="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                    <i className="ni ni-building" />
+                    <i className="ni ni-bulb-61" />
                   </div>
                   <Media body className="ml-3">
                     <h6 className="heading text-primary mb-md-1">
-                      Explore Problematics
+                      Research Fruit picking
                     </h6>
                     <p className="description d-none d-md-inline-block mb-0">
-                      Learn how to use Argon compiling Scss, change brand colors
-                      and more.
+                      Share and explore ideas on innovative services for
+                      smallholder farmers.
                     </p>
                   </Media>
                 </Media>
-                <Media
-                  className="d-flex align-items-center"
-                  href="/data/index"
-                >
+                <Media className="d-flex align-items-center" href="/data/index">
                   <div className="icon icon-shape bg-gradient-primary rounded-circle text-white">
                     <i className="ni ni-chart-bar-32" />
                   </div>
                   <Media body className="ml-3">
                     <h6 className="heading text-primary mb-md-1">
-                      Explore Data
+                      Data2Impact
                     </h6>
                     <p className="description d-none d-md-inline-block mb-0">
-                      Provides a listing of available datasets, including
-                      databases, pre-formatted tables, reports, and other
-                      resources.
-                    </p>
-                  </Media>
-                </Media>
-                <Media
-                  className="d-flex align-items-center"
-                  href="/landing/index#research"
-                >
-                  <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
-                    <i className="ni ni-briefcase-24" />
-                  </div>
-                  <Media body className="ml-3">
-                    <h6 className="heading text-primary mb-md-1">
-                      More about problematics
-                    </h6>
-                    <p className="description d-none d-md-inline-block mb-0">
-                      A research problem is a statement about an area of
-                      concern.
-                    </p>
-                  </Media>
-                </Media>
-                <Media
-                  className="d-flex align-items-center"
-                  href="/landing/index#data"
-                >
-                  <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
-                    <i className="ni ni-briefcase-24" />
-                  </div>
-                  <Media body className="ml-3">
-                    <h6 className="heading text-primary mb-md-1">
-                      More about Data
-                    </h6>
-                    <p className="description d-none d-md-inline-block mb-0">
-                      Learn more about colors, typography, icons and the grid
-                      system we used for Argon.
+                      Collect, clean, visualize and analyze data on smallholder
+                      farmers challenges.
                     </p>
                   </Media>
                 </Media>
               </div>
             </DropdownMenu>
           </UncontrolledDropdown>
-
           <NavItem>
-            <NavLink href="/landing/index#events">
-              <i className="ni ni-calendar-grid-58" />
-              <span className="nav-link-inner--text">News & Events</span>
+            <NavLink href="/landing/index#partners">
+              <i className="ni ni-satisfied" />
+              <span className="nav-link-inner--text">Our Partners</span>
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="/landing/index#contact-us">
               <i className="ni ni-email-83" />
               <span className="nav-link-inner--text">Contact Us</span>
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/landing/index#partners">
-              <i className="ni ni-satisfied" />
-              <span className="nav-link-inner--text">Our Partners</span>
             </NavLink>
           </NavItem>
         </Nav>

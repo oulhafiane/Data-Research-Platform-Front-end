@@ -16,12 +16,8 @@
 
 */
 import React from "react";
-import { Link } from "react-router-dom";
-// nodejs library that concatenates classes
-import classnames from "classnames";
 // reactstrap components
 import {
-  Badge,
   Card,
   CardHeader,
   CardFooter,
@@ -29,15 +25,10 @@ import {
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  Media,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
-  Table,
-  Container,
-  Row,
-  UncontrolledTooltip
+  Table
 } from "reactstrap";
 
 class Analytics extends React.Component {

@@ -20,7 +20,7 @@ import Axios from "axios";
 import { DEFAULT_URL } from "../config";
 
 // reactstrap components
-import { Button, Card, Container, Row, Col, CardHeader } from "reactstrap";
+import { Container } from "reactstrap";
 import ShowPublicProfile from "components/Shows/ShowPublicProfile";
 
 class PublicProfile extends React.Component {

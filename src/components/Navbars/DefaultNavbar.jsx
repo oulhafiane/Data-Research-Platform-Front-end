@@ -35,14 +35,9 @@ import {
   Navbar,
   Nav
 } from "reactstrap";
+import authService from "services/auth-service";
 
 class DefaultNavbar extends React.Component {
-  logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("refresh_token");
-    if (this.props.history) this.props.history.push("/");
-  };
-
   async componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));
     // initialise
@@ -65,10 +60,7 @@ class DefaultNavbar extends React.Component {
               tag={Link}
               style={styleBrand}
             >
-              <img
-                alt="..."
-                src={require("assets/img/brand/argon-react-white.png")}
-              />
+              <img alt="..." src={require("assets/img/brand/impactree.png")} />
             </NavbarBrand>
             <button className="navbar-toggler" id="navbar_global">
               <span className="navbar-toggler-icon" />
@@ -112,7 +104,10 @@ class DefaultNavbar extends React.Component {
                       <span>Settings</span>
                     </DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem onClick={this.logout}>
+                    <DropdownItem
+                      href="#"
+                      onClick={() => authService.logout(this.props)}
+                    >
                       <i className="ni ni-user-run" />
                       <span>Logout</span>
                     </DropdownItem>
