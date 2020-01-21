@@ -179,7 +179,7 @@ class Index extends React.Component {
                           ideas along the innovation and entrepreneurship
                           journeys. <br />
                           Don’t hesitate and take part of our research fruit
-                          picking community.
+                          picking community !
                         </p>
                       </div>
                     </div>
@@ -390,7 +390,7 @@ class Index extends React.Component {
               </Col>
             </Row>
             <Row>
-              <Col className="mb-5 mb-lg-0" lg="3" md="6">
+              <Col className="mb-5 mb-lg-0" lg="4" md="6">
                 <div className="px-4">
                   <img
                     alt="..."
@@ -400,7 +400,7 @@ class Index extends React.Component {
                   />
                 </div>
               </Col>
-              <Col className="mb-5 mb-lg-0" lg="3" md="6">
+              <Col className="mb-5 mb-lg-0" lg="4" md="6">
                 <div className="px-4">
                   <img
                     alt="..."
@@ -410,7 +410,7 @@ class Index extends React.Component {
                   />
                 </div>
               </Col>
-              <Col className="mb-5 mb-lg-0" lg="3" md="6">
+              <Col className="mb-5 mb-lg-0" lg="4" md="6">
                 <div className="px-4">
                   <img
                     alt="..."
@@ -420,7 +420,7 @@ class Index extends React.Component {
                   />
                 </div>
               </Col>
-              <Col className="mb-5 mb-lg-0" lg="3" md="6">
+              {/* <Col className="mb-5 mb-lg-0" lg="3" md="6">
                 <div className="px-4">
                   <img
                     alt="..."
@@ -429,7 +429,7 @@ class Index extends React.Component {
                     style={{ width: "200px" }}
                   />
                 </div>
-              </Col>
+              </Col> */}
             </Row>
           </Container>
         </section>

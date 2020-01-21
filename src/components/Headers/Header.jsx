@@ -51,10 +51,11 @@ class Header extends React.Component {
                   driven-innovation to solve smallholder farmers challenges
                   across Africa. Research Fruit Picking gives you exposure and
                   allows you to share, discuss and get feedback on your
-                  research-based ideas. As an innovation lab, we are committed
-                  to support best ideas along the innovation and
-                  entrepreneurship journeys. Don’t hesitate and take part of our
-                  research fruit picking community
+                  research-based ideas. <br />
+                  As an innovation lab, we are committed to support best ideas
+                  along the innovation and entrepreneurship journeys. <br />
+                  Don’t hesitate and take part of our research fruit picking
+                  community !
                 </p>
               </Col>
             </Row>
