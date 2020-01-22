@@ -65,7 +65,8 @@ class Tokens extends React.Component {
     showGlobalWarning: false,
     creating: false,
     defaultModal: false,
-    qrCodeReady: false
+    qrCodeReady: false,
+    toDelete: null
   };
   handleChange = (value, actionMeta) => {
     this.setState({ emailsSelected: value ? value : [] });
@@ -112,6 +113,61 @@ class Tokens extends React.Component {
     downloadLink.click();
     document.body.removeChild(downloadLink);
   };
+  getToken = uuidt => {
+    const config = {
+      headers: { Authorization: "bearer " + this.props.state.token }
+    };
+    Axios.get(
+      `${DEFAULT_URL}api/current/dataset/${this.props.state.uuid}/token/${uuidt}`,
+      config
+    )
+      .then(res => {
+        this.setState({
+          qrCode: res.data.token,
+          qrCodeReady: true
+        });
+      })
+      .catch(error => {
+        this.setState({
+          showGlobalWarning: true,
+          error: error.response
+            ? error.response.data
+              ? error.response.data.message
+                ? error.response.data.message
+                : "An error occured!"
+              : "An error occured!"
+            : "No Internet Connection!",
+          creating: false
+        });
+      });
+  };
+  deleteToken = uuidt => {
+    if (null === uuidt) return;
+    const config = {
+      headers: { Authorization: "bearer " + this.props.state.token }
+    };
+    Axios.delete(
+      `${DEFAULT_URL}api/current/dataset/${this.props.state.uuid}/token/${uuidt}`,
+      config
+    )
+      .then(res => {
+        this.props.refreshTokens();
+        this.setState({ toDelete: null, notificationModal: false });
+      })
+      .catch(error => {
+        this.setState({
+          showGlobalWarning: true,
+          error: error.response
+            ? error.response.data
+              ? error.response.data.message
+                ? error.response.data.message
+                : "An error occured!"
+              : "An error occured!"
+            : "No Internet Connection!",
+          creating: false
+        });
+      });
+  };
   createToken = () => {
     this.setState({
       creating: true,
@@ -132,16 +188,13 @@ class Tokens extends React.Component {
     )
       .then(res => {
         this.props.refreshTokens();
-        this.setState(
-          {
-            qrCode: res.data.token,
-            qrCodeReady: true,
-            creating: false,
-            showGlobalWarning: false,
-            error: undefined
-          },
-          () => console.log(this.state.qrCode)
-        );
+        this.setState({
+          qrCode: res.data.token,
+          qrCodeReady: true,
+          creating: false,
+          showGlobalWarning: false,
+          error: undefined
+        });
         this.toggleModal("defaultModal");
       })
       .catch(error => {
@@ -188,6 +241,58 @@ class Tokens extends React.Component {
     }
     return (
       <>
+        <Modal
+          className="modal-dialog-centered modal-danger"
+          contentClassName="bg-gradient-danger"
+          isOpen={this.state.notificationModal}
+          toggle={() => this.toggleModal("notificationModal")}
+        >
+          <div className="modal-header">
+            <h6 className="modal-title" id="modal-title-notification">
+              Your attention is required
+            </h6>
+            <button
+              aria-label="Close"
+              className="close"
+              data-dismiss="modal"
+              type="button"
+              onClick={() => this.toggleModal("notificationModal")}
+            >
+              <span aria-hidden={true}>×</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <div className="py-3 text-center">
+              <i className="ni ni-bell-55 ni-3x" />
+              <h4 className="heading mt-4">
+                Are you sure you want to permanently delete this token ?
+              </h4>
+            </div>
+          </div>
+          <div className="modal-footer">
+            <Button
+              className="btn-white"
+              color="default"
+              type="button"
+              onClick={() => this.deleteToken(this.state.toDelete)}
+            >
+              Yes
+            </Button>
+            <Button
+              className="text-white ml-auto"
+              color="link"
+              data-dismiss="modal"
+              type="button"
+              onClick={() =>
+                this.setState({ toDelete: null }, () =>
+                  this.toggleModal("notificationModal")
+                )
+              }
+            >
+              Close
+            </Button>
+          </div>
+        </Modal>
         <Modal
           className="modal-dialog-centered"
           isOpen={this.state.qrCodeReady && this.state.qrCode}
@@ -368,13 +473,17 @@ class Tokens extends React.Component {
                         <DropdownMenu className="dropdown-menu-arrow" right>
                           <DropdownItem
                             href="#pablo"
-                            onClick={e => e.preventDefault()}
+                            onClick={() => this.getToken(val.uuid)}
                           >
                             QR Code
                           </DropdownItem>
                           <DropdownItem
                             href="#pablo"
-                            onClick={e => e.preventDefault()}
+                            onClick={() =>
+                              this.setState({ toDelete: val.uuid }, () =>
+                                this.toggleModal("notificationModal")
+                              )
+                            }
                           >
                             Delete
                           </DropdownItem>
