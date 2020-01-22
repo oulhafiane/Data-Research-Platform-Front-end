@@ -10,23 +10,23 @@ const items = [
   {
     src: require("assets/img/banner/banner11.jpg"),
     opacity: 0
-  },
-  {
-    src: require("assets/img/banner/banner12.jpg"),
-    opacity: 2
-  },
-  {
-    src: require("assets/img/banner/banner15.jpg"),
-    opacity: 0
-  },
-  {
-    src: require("assets/img/banner/banner16.jpg"),
-    opacity: 2
-  },
-  {
-    src: require("assets/img/banner/banner10.jpg"),
-    opacity: 0
   }
+  // {
+  //   src: require("assets/img/banner/banner12.jpg"),
+  //   opacity: 2
+  // },
+  // {
+  //   src: require("assets/img/banner/banner15.jpg"),
+  //   opacity: 0
+  // },
+  // {
+  //   src: require("assets/img/banner/banner16.jpg"),
+  //   opacity: 2
+  // },
+  // {
+  //   src: require("assets/img/banner/banner10.jpg"),
+  //   opacity: 0
+  // }
 ];
 
 const Carousels = props => {
@@ -69,13 +69,15 @@ const Carousels = props => {
           />
         ) : null}{" "}
         <div className="carousel-caption">
-          <h3>Data &amp; Research Platform</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
+          <h2>ImpacTree</h2>
+          <h3>
+            Fostering research and data driven-innovation to solve smallholder
+            farmers challenges across Africa.
+          </h3>
+          {/* <p>
+            Foster research and data driven-innovation to solve smallholder
+            farmers challenges across Africa.
+          </p> */}
         </div>
       </CarouselItem>
     );

@@ -16,7 +16,6 @@
 
 */
 import React from "react";
-import { Link } from "react-router-dom";
 import Axios from "axios";
 import { DEFAULT_URL } from "../../config";
 
@@ -52,7 +51,7 @@ class Menu extends React.Component {
   };
 
   handleKeyDown = event => {
-    const { inputValue, value } = this.state;
+    const { inputValue } = this.state;
     if (!inputValue) return;
     switch (event.key) {
       case "Enter":
@@ -65,6 +64,8 @@ class Menu extends React.Component {
           ]
         });
         event.preventDefault();
+      default:
+        return;
     }
   };
 

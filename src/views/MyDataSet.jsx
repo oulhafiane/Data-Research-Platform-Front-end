@@ -38,16 +38,18 @@ import Analytics from "components/Tabs/Analytics";
 import Data from "components/Tabs/Data";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
+import Tokens from "components/Tabs/Tokens";
 
 class MyDataSet extends React.Component {
   state = {
     token: localStorage.getItem("token"),
     uuid: this.props.match.params.uuid,
     dataset: { parts: [{ variables: [] }] },
+    tokens: { tokens: [] },
     extras: {},
     showGlobalWarning: false,
     uploading: false,
-    iconTabs: 1,
+    iconTabs: 2,
     plainTabs: 1
   };
   saveTitle = (title, callBack, errCallBack) => {
@@ -275,13 +277,44 @@ class MyDataSet extends React.Component {
         else errCallBack("No Internet Connection!");
       });
   };
-  saveData = e => {
-    /* Need to save it in back-end */
-    e.preventDefault();
-    console.log(this.state.dataset);
+  publishSurvey = e => this.toggleNavs(e, "iconTabs", 2);
+  gotoTokenPage = page => {
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    Axios.get(
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/token?page=${page}`,
+      config
+    )
+      .then(res => {
+        this.setState({
+          tokens: res.data
+        });
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+  };
+  refreshTokens = () => {
+    const config = {
+      headers: { Authorization: "bearer " + this.state.token }
+    };
+    Axios.get(
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/token`,
+      config
+    )
+      .then(res => {
+        this.setState({
+          tokens: res.data
+        });
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
   };
   toggleNavs = (e, state, index) => {
     e.preventDefault();
+    if (index === 2) this.refreshTokens();
     this.setState({
       [state]: index
     });
@@ -297,6 +330,7 @@ class MyDataSet extends React.Component {
         });
       })
       .catch(error => {
+        /* Need to check the owner */
         console.log(error.response);
       });
   }
@@ -333,23 +367,6 @@ class MyDataSet extends React.Component {
     }
   }
   render() {
-    const groupStyles = {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between"
-    };
-    const groupBadgeStyles = {
-      backgroundColor: "#EBECF0",
-      borderRadius: "2em",
-      color: "#172B4D",
-      display: "inline-block",
-      fontSize: 12,
-      fontWeight: "normal",
-      lineHeight: "1",
-      minWidth: 1,
-      padding: "0.16666666666667em 0.5em",
-      textAlign: "center"
-    };
     return (
       <>
         {/* Page content */}
@@ -385,6 +402,20 @@ class MyDataSet extends React.Component {
                   </NavItem>
                   <NavItem>
                     <NavLink
+                      aria-selected={this.state.iconTabs === 2}
+                      className={classnames("mb-sm-3 mb-md-0", {
+                        active: this.state.iconTabs === 2
+                      })}
+                      onClick={e => this.toggleNavs(e, "iconTabs", 2)}
+                      href="#pablo"
+                      role="tab"
+                    >
+                      <i className="ni ni-chart-bar-32 mr-2" />
+                      Tokens
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
                       aria-selected={this.state.iconTabs === 3}
                       className={classnames("mb-sm-3 mb-md-0", {
                         active: this.state.iconTabs === 3
@@ -393,17 +424,17 @@ class MyDataSet extends React.Component {
                       href="#pablo"
                       role="tab"
                     >
-                      <i className="ni ni-chart-pie-35 mr-2" />
+                      <i className="ni ni-chart-bar-32 mr-2" />
                       Analytics
                     </NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink
-                      aria-selected={this.state.iconTabs === 2}
+                      aria-selected={this.state.iconTabs === 4}
                       className={classnames("mb-sm-3 mb-md-0", {
-                        active: this.state.iconTabs === 2
+                        active: this.state.iconTabs === 4
                       })}
-                      onClick={e => this.toggleNavs(e, "iconTabs", 2)}
+                      onClick={e => this.toggleNavs(e, "iconTabs", 4)}
                       href="#pablo"
                       role="tab"
                     >
@@ -429,17 +460,26 @@ class MyDataSet extends React.Component {
                           addQuestion={this.addQuestion}
                           editQuestion={this.editQuestion}
                           removeQuestion={this.removeQuestion}
-                          saveData={this.saveData}
+                          publishSurvey={this.publishSurvey}
                         />
                       </DndProvider>
                     </TabPane>
                     <TabPane tabId="iconTabs2">
                       <DndProvider backend={Backend}>
-                        <Data state={this.state} />
+                        <Tokens
+                          state={this.state}
+                          refreshTokens={this.refreshTokens}
+                          gotoTokenPage={this.gotoTokenPage}
+                        />
                       </DndProvider>
                     </TabPane>
                     <TabPane tabId="iconTabs3">
                       <Analytics state={this.state} />
+                    </TabPane>
+                    <TabPane tabId="iconTabs4">
+                      <DndProvider backend={Backend}>
+                        <Data state={this.state} />
+                      </DndProvider>
                     </TabPane>
                   </TabContent>
                 </CardBody>

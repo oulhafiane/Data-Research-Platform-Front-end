@@ -41,10 +41,6 @@ import ShowProfile from "components/Shows/ShowProfile";
 import SelectLabel from "components/Inputs/SelectLabel";
 
 class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     token: localStorage.getItem("token"),
     user: {},

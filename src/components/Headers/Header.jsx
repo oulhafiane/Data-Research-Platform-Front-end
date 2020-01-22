@@ -43,18 +43,19 @@ class Header extends React.Component {
               <Col lg="7" md="10">
                 <Link to="/">
                   <h1 className="display-2 text-white">
-                    Share knowledge. Impact lives.
+                    Research Fruit Picking
                   </h1>
                 </Link>{" "}
                 <p className="text-white mt-0 mb-5">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
+                  Research Fruit Picking aims to foster research
+                  driven-innovation to solve smallholder farmers challenges
+                  across Africa. Research Fruit Picking gives you exposure and
+                  allows you to share, discuss and get feedback on your
+                  research-based ideas. <br />
+                  As an innovation lab, we are committed to support best ideas
+                  along the innovation and entrepreneurship journeys. <br />
+                  Don’t hesitate and take part of our research fruit picking
+                  community !
                 </p>
               </Col>
             </Row>

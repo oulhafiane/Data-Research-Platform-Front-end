@@ -21,7 +21,6 @@ import { Link } from "react-router-dom";
 import classnames from "classnames";
 // reactstrap components
 import {
-  Badge,
   Card,
   CardHeader,
   CardFooter,
@@ -29,7 +28,6 @@ import {
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  Media,
   Pagination,
   PaginationItem,
   PaginationLink,
@@ -46,7 +44,7 @@ import {
   CardSubtitle,
   FormGroup,
   Label,
-  UncontrolledTooltip
+  UncontrolledTooltip,
 } from "reactstrap";
 import ShowCharts from './VisualizationTabSrcs/ShowCharts'
 import MCollapse from './VisualizationTabSrcs/MCollapse'

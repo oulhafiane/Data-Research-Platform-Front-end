@@ -16,9 +16,6 @@
 
 */
 import React from "react";
-import { Link } from "react-router-dom";
-// nodejs library that concatenates classes
-import classnames from "classnames";
 // reactstrap components
 import {
   Container
@@ -27,9 +24,10 @@ import Axios from 'axios';
 import MlResult from './DataTabSrcs/MlResult'
 import CardsAndModals from './DataTabSrcs/CardsAndModals/CardsAndModals'
 
+
 class Data extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       columns: null,
       rows: null,
@@ -55,7 +53,7 @@ class Data extends React.Component {
           showMl: true
         })
       )
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
   render() {
     const { columns, rows, data, showMl, modal, modaltype } = this.state
@@ -75,7 +73,7 @@ class Data extends React.Component {
           />
         }
       </Container>
-    )
+    );
   }
 }
 

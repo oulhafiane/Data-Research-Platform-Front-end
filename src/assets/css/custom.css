@@ -135,12 +135,37 @@
 }
 
 .carousel-caption {
+  top: 55%;
+  transform: translateY(-50%) !important;
+  -ms-transform: translateY(-50%) !important;
+  -moz-transform: translateY(-50%) !important;
+  -webkit-transform: translateY(-50%) !important;
+  -o-transform: translateY(-50%) !important;
   font-family: "Volkhov", serif;
 }
 
 .carousel-caption h3 {
-  font-size: 2.5rem;
-  color: #f5f5f5;
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.carousel-caption h2 {
+  font-size: 3.5rem;
+  margin-bottom: 28px;
+  color: #ffffff;
+}
+
+@media (max-width: 420px) {
+  .carousel-caption h3 {
+    font-size: 1.5rem;
+    color: #ffffff;
+  }
+
+  .carousel-caption h2 {
+    font-size: 2.5rem;
+    margin-bottom: 28px;
+    color: #ffffff;
+  }
 }
 
 .carousel-caption p {
@@ -321,4 +346,19 @@ html {
 
 .hr {
   border-top: 0.5rem solid #f4f5f7 !important;
+}
+
+/* DateTime Picker */
+.rdtTimeToggle {
+  visibility: visible !important;
+}
+
+.rdtTimeToggle::before {
+  content: "" !important;
+  width: 1px !important;
+}
+
+/* Logo */
+.navbar-brand img {
+  height: 50px !important;
 }

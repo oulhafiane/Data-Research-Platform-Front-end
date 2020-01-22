@@ -60,10 +60,7 @@ class DefaultNavbar extends React.Component {
               tag={Link}
               style={styleBrand}
             >
-              <img
-                alt="..."
-                src={require("assets/img/brand/argon-react-white.png")}
-              />
+              <img alt="..." src={require("assets/img/brand/impactree.png")} />
             </NavbarBrand>
             <button className="navbar-toggler" id="navbar_global">
               <span className="navbar-toggler-icon" />
@@ -108,6 +105,7 @@ class DefaultNavbar extends React.Component {
                     </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem
+                      href="#"
                       onClick={() => authService.logout(this.props)}
                     >
                       <i className="ni ni-user-run" />

@@ -24,7 +24,7 @@ class Index extends React.Component {
   render() {
     return (
       <>
-        <section className="section bg-secondary" id="events">
+        {/* <section className="section bg-secondary" id="events">
           <Container>
             <Row className="row-grid align-items-center">
               <Col md="12">
@@ -39,6 +39,79 @@ class Index extends React.Component {
                   </div>
                   <NewsEvents />
                 </div>
+              </Col>
+            </Row>
+          </Container>
+        </section> */}
+        <section className="section bg-secondary" id="about-us">
+          <Container>
+            <Row className="row-grid align-items-center">
+              <Col md="6">
+                <div className="pl-md-5">
+                  <div>
+                    <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
+                      <i className="ni ni-briefcase-24" />
+                    </div>
+                    <h2 style={{ marginLeft: "15px", display: "inline" }}>
+                      About Us
+                    </h2>
+                  </div>
+                  <p>
+                    ImpacTree (IT*) is a collaborative platform launched within
+                    P-Curiosity Lab (PCL) and one of its three driven engines.
+                  </p>
+                  <p>
+                    IT* feeds PCL’s purpose by actionable insights to create
+                    inclusive, sustainable and innovative services for
+                    smallholder farmers in Morocco and across Africa. <br />
+                    To serve this purpose, IT* offers an interactive platform
+                    for its community of researchers and experts to tackle the
+                    Smallholder farmers challenges by using two main concepts:
+                    “Research Fruit Picking” and “Data2Impact”.
+                  </p>
+                  <p>
+                    Therefore, IT* resembles communities by giving them the
+                    necessary tools and the opportunity to create and share
+                    their knowledge to allow a wider vision, and a greater
+                    impact on our targeted population.
+                  </p>
+                </div>
+              </Col>
+              <Col md="6">
+                <Card className="bg-default shadow border-0">
+                  <CardImg
+                    alt="..."
+                    src={require("assets/img/banner/banner14.jpg")}
+                    top
+                    style={{ height: "600px" }}
+                  />
+                  <blockquote className="card-blockquote">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="svg-bg"
+                      preserveAspectRatio="none"
+                      viewBox="0 0 583 95"
+                    >
+                      <polygon
+                        className="fill-default"
+                        points="0,52 583,95 0,95"
+                      />
+                      <polygon
+                        className="fill-default"
+                        opacity=".2"
+                        points="0,42 583,95 683,0 0,95"
+                      />
+                    </svg>
+                    <h4 className="display-4 font-weight-bold text-white">
+                      Vision
+                    </h4>
+                    <p className="text-italic text-white">
+                      Provide research breakthroughs and actionable insights on
+                      smallholder farmers' challenges in Morocco and Africa for
+                      a sustainable inclusive future.
+                    </p>
+                  </blockquote>
+                </Card>
               </Col>
             </Row>
           </Container>
@@ -59,16 +132,16 @@ class Index extends React.Component {
                 <div className="d-flex px-3">
                   <div>
                     <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
-                      <i className="ni ni-building text-primary" />
+                      <i className="ni ni-bulb-61 text-primary" />
                     </div>
                   </div>
                   <div className="pl-4">
-                    <h4 className="display-3 text-white">Research Platform</h4>
-                    <p className="text-white">
-                      The Arctic Ocean freezes every winter and much of the
-                      sea-ice then thaws every summer, and that process will
-                      continue whatever.
-                    </p>
+                    <h4 className="display-3 text-white">
+                      Research Fruit Picking
+                    </h4>
+                    {/* <p className="text-white">
+                      
+                    </p> */}
                   </div>
                 </div>
                 <Card className="shadow shadow-lg--hover mt-5">
@@ -76,23 +149,18 @@ class Index extends React.Component {
                     <div className="d-flex px-3">
                       <div>
                         <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
-                          <i className="ni ni-satisfied" />
+                          <i className="fas fa-spa" />
                         </div>
                       </div>
                       <div className="pl-4">
-                        <h5 className="title text-success">Awesome Support</h5>
                         <p>
-                          The Arctic Ocean freezes every winter and much of the
-                          sea-ice then thaws every summer, and that process will
-                          continue whatever.
+                          Research Fruit Picking aims to foster research
+                          driven-innovation to solve smallholder farmers'
+                          challenges across Africa. <br />
+                          Research Fruit Picking gives you exposure and allows
+                          you to share, discuss and get feedback on your
+                          research-based ideas.
                         </p>
-                        <a
-                          className="text-success"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          Learn more
-                        </a>
                       </div>
                     </div>
                   </CardBody>
@@ -106,21 +174,13 @@ class Index extends React.Component {
                         </div>
                       </div>
                       <div className="pl-4">
-                        <h5 className="title text-warning">
-                          Modular Components
-                        </h5>
                         <p>
-                          The Arctic Ocean freezes every winter and much of the
-                          sea-ice then thaws every summer, and that process will
-                          continue whatever.
+                          As an innovation lab, we are committed to support best
+                          ideas along the innovation and entrepreneurship
+                          journeys. <br />
+                          Don’t hesitate and take part of our research fruit
+                          picking community !
                         </p>
-                        <a
-                          className="text-warning"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          Learn more
-                        </a>
                       </div>
                     </div>
                   </CardBody>
@@ -157,22 +217,29 @@ class Index extends React.Component {
                   <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
                     <i className="ni ni-chart-bar-32" />
                   </div>
-                  <h3>Data Platform</h3>
+                  <h3>Data2Impact</h3>
                   <p>
-                    The kit comes with three pre-built pages to help you get
-                    started faster. You can change the text and images and
-                    you're good to go.
+                    Data2Impact is an open-data corpus that provides actionable
+                    insights on smallholder farmers challenges across Africa.{" "}
+                    <br />
+                    Data2Impact offers the necessary tools to collect, cleanse,
+                    visualize and analyze data in the following clusters: <br />
+                    Education, Health, Finance, Energy, Water and Sanitation,
+                    Transportation and Environment.
                   </p>
                   <ul className="list-unstyled mt-5">
                     <li className="py-2">
                       <div className="d-flex align-items-center">
                         <div>
                           <Badge className="badge-circle mr-3" color="success">
-                            <i className="ni ni-settings-gear-65" />
+                            <i className="fas fa-database" />
                           </Badge>
                         </div>
                         <div>
-                          <h6 className="mb-0">Carefully crafted components</h6>
+                          <h6 className="mb-0">
+                            Data collection and cleansing: Collect data by
+                            creating your own tailored survey
+                          </h6>
                         </div>
                       </div>
                     </li>
@@ -180,11 +247,11 @@ class Index extends React.Component {
                       <div className="d-flex align-items-center">
                         <div>
                           <Badge className="badge-circle mr-3" color="success">
-                            <i className="ni ni-html5" />
+                            <i className="fas fa-chart-pie" />
                           </Badge>
                         </div>
                         <div>
-                          <h6 className="mb-0">Amazing page examples</h6>
+                          <h6 className="mb-0">Data visualization</h6>
                         </div>
                       </div>
                     </li>
@@ -192,90 +259,16 @@ class Index extends React.Component {
                       <div className="d-flex align-items-center">
                         <div>
                           <Badge className="badge-circle mr-3" color="success">
-                            <i className="ni ni-satisfied" />
+                            <i className="fas fa-chart-line" />
                           </Badge>
                         </div>
                         <div>
-                          <h6 className="mb-0">Super friendly support team</h6>
+                          <h6 className="mb-0">Data Analysis</h6>
                         </div>
                       </div>
                     </li>
                   </ul>
                 </div>
-              </Col>
-            </Row>
-          </Container>
-        </section>
-        <section className="section bg-secondary" id="about-us">
-          <Container>
-            <Row className="row-grid align-items-center">
-              <Col md="6">
-                <div className="pl-md-5">
-                  <div>
-                    <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
-                      <i className="ni ni-briefcase-24" />
-                    </div>
-                    <h2 style={{ marginLeft: "15px", display: "inline" }}>
-                      About Us
-                    </h2>
-                  </div>
-                  <p>
-                    Impactree is a platform created within P-Curiosity Lab
-                    (PCL), an innovation lab based in the Moroccan University:
-                    Mohammed VI Polytechnic University.
-                  </p>
-                  <p>
-                    PCL aims to create inclusive, sustainable and innovative
-                    services for smallholder farmers in Morocco and Africa. To
-                    serve our purpose, a full understanding on smallholder
-                    farmers challenges is required. The necessary knowledge to
-                    tackle those challenges can only be provided by a community
-                    of researchers and experts.
-                  </p>
-                  <p>
-                    Impactree offers this community the necessary tools and the
-                    opportunity to create and share their knowledge, thus
-                    bringing all the pieces of the puzzle together to allow a
-                    wider vision of, and a greater impact on our targeted
-                    population.
-                  </p>
-                </div>
-              </Col>
-              <Col md="6">
-                <Card className="bg-default shadow border-0">
-                  <CardImg
-                    alt="..."
-                    src={require("assets/img/banner/banner14.jpg")}
-                    top
-                    style={{ height: "600px" }}
-                  />
-                  <blockquote className="card-blockquote">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="svg-bg"
-                      preserveAspectRatio="none"
-                      viewBox="0 0 583 95"
-                    >
-                      <polygon
-                        className="fill-default"
-                        points="0,52 583,95 0,95"
-                      />
-                      <polygon
-                        className="fill-default"
-                        opacity=".2"
-                        points="0,42 583,95 683,0 0,95"
-                      />
-                    </svg>
-                    <h4 className="display-4 font-weight-bold text-white">
-                      Vision
-                    </h4>
-                    <p className="text-italic text-white">
-                      Provide research breakthroughs and actionable insights on
-                      smallholder farmers challenges in Morocco and Africa for a
-                      sustainable inclusive future.
-                    </p>
-                  </blockquote>
-                </Card>
               </Col>
             </Row>
           </Container>
@@ -290,12 +283,12 @@ class Index extends React.Component {
                 <h2 className="display-3 text-white">
                   Share knowledge. Impact lives.
                 </h2>
-                <p className="lead text-white">
+                {/* <p className="lead text-white">
                   According to the National Oceanic and Atmospheric
                   Administration, Ted, Scambos, NSIDClead scentist, puts the
                   potentially record low maximum sea ice extent tihs year down
                   to low ice.
-                </p>
+                </p> */}
               </Col>
             </Row>
           </Container>
@@ -397,7 +390,7 @@ class Index extends React.Component {
               </Col>
             </Row>
             <Row>
-              <Col className="mb-5 mb-lg-0" lg="3" md="6">
+              <Col className="mb-5 mb-lg-0" lg="4" md="6">
                 <div className="px-4">
                   <img
                     alt="..."
@@ -407,7 +400,7 @@ class Index extends React.Component {
                   />
                 </div>
               </Col>
-              <Col className="mb-5 mb-lg-0" lg="3" md="6">
+              <Col className="mb-5 mb-lg-0" lg="4" md="6">
                 <div className="px-4">
                   <img
                     alt="..."
@@ -417,7 +410,7 @@ class Index extends React.Component {
                   />
                 </div>
               </Col>
-              <Col className="mb-5 mb-lg-0" lg="3" md="6">
+              <Col className="mb-5 mb-lg-0" lg="4" md="6">
                 <div className="px-4">
                   <img
                     alt="..."
@@ -427,7 +420,7 @@ class Index extends React.Component {
                   />
                 </div>
               </Col>
-              <Col className="mb-5 mb-lg-0" lg="3" md="6">
+              {/* <Col className="mb-5 mb-lg-0" lg="3" md="6">
                 <div className="px-4">
                   <img
                     alt="..."
@@ -436,7 +429,7 @@ class Index extends React.Component {
                     style={{ width: "200px" }}
                   />
                 </div>
-              </Col>
+              </Col> */}
             </Row>
           </Container>
         </section>

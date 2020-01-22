@@ -166,12 +166,6 @@ class MyDataSets extends React.Component {
       padding: "0.16666666666667em 0.5em",
       textAlign: "center"
     };
-    const formatGroupLabel = data => (
-      <div style={groupStyles}>
-        <span>{data.label}</span>
-        <span style={groupBadgeStyles}>{data.options.length}</span>
-      </div>
-    );
     return (
       <>
         {/* Page content */}

@@ -80,7 +80,7 @@ class NewPost extends React.Component {
   };
 
   handleKeyDown = event => {
-    const { inputValue, value } = this.state;
+    const { inputValue } = this.state;
     if (!inputValue) return;
     switch (event.key) {
       case "Enter":
@@ -93,6 +93,8 @@ class NewPost extends React.Component {
           ]
         });
         event.preventDefault();
+      default:
+        return;
     }
   };
 
@@ -225,7 +227,7 @@ class NewPost extends React.Component {
                 <CardHeader className="bg-white border-0">
                   <Row className="align-items-center">
                     <Col xs="8">
-                      <h3 className="mb-0">New Problematic</h3>
+                      <h3 className="mb-0">New Idea</h3>
                     </Col>
                   </Row>
                 </CardHeader>

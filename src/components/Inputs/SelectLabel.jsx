@@ -1,6 +1,6 @@
 import React from "react";
 // reactstrap components
-import { FormGroup, Input } from "reactstrap";
+import { FormGroup } from "reactstrap";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
