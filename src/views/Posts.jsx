@@ -49,11 +49,9 @@ class Profile extends React.Component {
   };
 
   loadProblematics = () => {
-    Axios({
-      method: 'get',
-      baseURL: DEFAULT_URL,
-      url: `api/problematic/all?limit=${this.state.limit}&page=${this.state.currentPage}`,
-    })
+    Axios.get(
+      `${DEFAULT_URL}api/problematic/all?limit=${this.state.limit}&page=${this.state.currentPage}`
+    )
       .then(res => {
         this.setState(prevState => ({
           data: [...prevState.data, ...res.data.problematics],

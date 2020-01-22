@@ -279,12 +279,13 @@ class MyDataSet extends React.Component {
   };
   publishSurvey = e => this.toggleNavs(e, "iconTabs", 2);
   gotoTokenPage = page => {
-    Axios({
-      method: 'get',
-      baseURL: DEFAULT_URL,
-      url: `api/current/dataset/${this.state.uuid}/token?page=${page}`,
+    const config = {
       headers: { Authorization: "bearer " + this.state.token }
-    })
+    };
+    Axios.get(
+      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/token?page=${page}`,
+      config
+    )
       .then(res => {
         this.setState({
           tokens: res.data

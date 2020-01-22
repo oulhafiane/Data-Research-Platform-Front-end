@@ -90,12 +90,10 @@ class DataSidebar extends React.Component {
       });
   };
   loadDatasets = () => {
-    Axios({
-      method: 'get',
-      baseURL: DEFAULT_URL,
-      url: 'api/current/dataset/?limit=50',
+    const config = {
       headers: { Authorization: "bearer " + this.state.token }
-    })
+    };
+    Axios.get(`${DEFAULT_URL}api/current/dataset/?limit=50`, config)
       .then(res => {
         this.setState(prevState => ({
           datasets: [...prevState.datasets, ...res.data.datasets]
