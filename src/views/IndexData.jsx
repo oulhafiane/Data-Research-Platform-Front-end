@@ -218,8 +218,8 @@ class IndexData extends React.Component {
                             Uploading...
                           </React.Fragment>
                         ) : (
-                          "Create"
-                        )}
+                            "Create"
+                          )}
                       </Button>
                       <Button
                         className="ml-auto"

@@ -25,7 +25,7 @@ import {
 } from "reactstrap";
 import Axios from 'axios';
 import MlResult from './DataTabSrcs/MlResult'
-import CardsAndModal from './DataTabSrcs/CardsAndModal'
+import CardsAndModals from './DataTabSrcs/CardsAndModals/CardsAndModals'
 
 class Data extends React.Component {
   constructor(props) {
@@ -35,30 +35,44 @@ class Data extends React.Component {
       rows: null,
       data: null,
       showMl: false,
-      modal: false
+      modal: false,
+      modaltype: 0
     }
   }
-  componentDidMount() {
+  // componentDidMount() {
+
+  // }
+  toggle = (modaltype) => {
+    this.setState({ modal: !this.state.modal, modaltype })
+  }
+  showMlResult = () => {
     const url = 'http://127.0.0.1:5000/training'
     Axios.get(url)
       .then(res =>
-        this.setState({ columns: res.data['columns'], rows: res.data['index'], data: res.data['data'] })
+        this.setState({
+          columns: res.data['columns'],
+          rows: res.data['index'], data: res.data['data'],
+          showMl: true
+        })
       )
       .catch(err => console.log(err))
   }
-  toggle = () => {
-    this.setState({ modal: !this.state.modal })
-  }
-  showMlResult = () => {
-    this.setState({ showMl: true })
-  }
   render() {
-    const { columns, rows, data, showMl, modal } = this.state
+    const { columns, rows, data, showMl, modal, modaltype } = this.state
     return (
       <Container>
         {!showMl
-          ? <CardsAndModal toggle={this.toggle} modal={modal} showMlResult={this.showMlResult} />
-          : <MlResult data={data} columns={columns} rows={rows} />
+          ? <CardsAndModals
+            toggle={this.toggle}
+            modal={modal}
+            showMlResult={this.showMlResult}
+            modaltype={modaltype}
+          />
+          : <MlResult
+            data={data}
+            columns={columns}
+            rows={rows}
+          />
         }
       </Container>
     )

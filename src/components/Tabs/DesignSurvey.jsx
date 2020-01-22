@@ -73,7 +73,7 @@ class DesignSurvey extends React.Component {
       <>
         <Row className="row-grid justify-content-between align-items-center">
           <Col lg="12">
-            <Card className="shadow">
+            <Card className="shadow" >
               <CardHeader className="border-0">
                 <SurveyHeader dataset={state.dataset} saveTitle={saveTitle} />
               </CardHeader>
