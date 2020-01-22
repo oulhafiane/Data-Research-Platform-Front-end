@@ -125,7 +125,7 @@ class MyDataSet extends React.Component {
     };
     Axios.patch(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }`,
       data,
       config
@@ -139,14 +139,14 @@ class MyDataSet extends React.Component {
                 this.state.dataset.parts.length === 0
                   ? [{ title: title, description: description, variables: [] }]
                   : this.state.dataset.parts.map((val, key) => {
-                      if (key + 1 === page) {
-                        return {
-                          ...val,
-                          title: title,
-                          description: description
-                        };
-                      } else return val;
-                    })
+                    if (key + 1 === page) {
+                      return {
+                        ...val,
+                        title: title,
+                        description: description
+                      };
+                    } else return val;
+                  })
             }
           },
           callBack
@@ -168,7 +168,7 @@ class MyDataSet extends React.Component {
     };
     Axios.post(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }`,
       data,
       config
@@ -182,16 +182,16 @@ class MyDataSet extends React.Component {
                 this.state.dataset.parts.length === 0
                   ? [{ variables: [question] }]
                   : this.state.dataset.parts.map((val, key) => {
-                      if (key + 1 === page) {
-                        return {
-                          ...val,
-                          variables: [
-                            ...val.variables,
-                            ...res.data.extras.variables
-                          ]
-                        };
-                      } else return val;
-                    })
+                    if (key + 1 === page) {
+                      return {
+                        ...val,
+                        variables: [
+                          ...val.variables,
+                          ...res.data.extras.variables
+                        ]
+                      };
+                    } else return val;
+                  })
             }
           },
           callBack
@@ -208,7 +208,7 @@ class MyDataSet extends React.Component {
     };
     Axios.patch(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
       question,
       config
@@ -248,7 +248,7 @@ class MyDataSet extends React.Component {
     };
     Axios.delete(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
       config
     )
@@ -425,7 +425,7 @@ class MyDataSet extends React.Component {
                       role="tab"
                     >
                       <i className="ni ni-chart-bar-32 mr-2" />
-                      Data
+                      Analytics
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -438,13 +438,13 @@ class MyDataSet extends React.Component {
                       href="#pablo"
                       role="tab"
                     >
-                      <i className="ni ni-chart-pie-35 mr-2" />
-                      Analytics
+                      <i className="ni ni-chart-bar-32 mr-2" />
+                      Data
                     </NavLink>
                   </NavItem>
                 </Nav>
               </div>
-              <Card className="shadow">
+              <Card className="shadow" style={{ background: "#f6f9fc" }}>
                 <CardBody>
                   <TabContent
                     activeTab={"iconTabs" + this.state.iconTabs}
@@ -474,12 +474,12 @@ class MyDataSet extends React.Component {
                       </DndProvider>
                     </TabPane>
                     <TabPane tabId="iconTabs3">
+                      <Analytics state={this.state} />
+                    </TabPane>
+                    <TabPane tabId="iconTabs4">
                       <DndProvider backend={Backend}>
                         <Data state={this.state} />
                       </DndProvider>
-                    </TabPane>
-                    <TabPane tabId="iconTabs4">
-                      <Analytics state={this.state} />
                     </TabPane>
                   </TabContent>
                 </CardBody>
