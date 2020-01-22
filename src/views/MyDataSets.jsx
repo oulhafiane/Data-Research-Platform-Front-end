@@ -109,10 +109,12 @@ class MyDataSets extends React.Component {
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
-    Axios.get(
-      `${DEFAULT_URL}api/current/dataset/?limit=${this.state.limit}&page=${this.state.currentPage}`,
+    Axios({
+      method: 'get',
+      baseURL: DEFAULT_URL,
+      url: `api/current/dataset/?limit=${this.state.limit}&page=${this.state.currentPage}`,
       config
-    )
+    })
       .then(res => {
         this.setState(prevState => ({
           datasets: [...prevState.datasets, ...res.data.datasets],

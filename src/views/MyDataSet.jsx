@@ -282,10 +282,12 @@ class MyDataSet extends React.Component {
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
-    Axios.get(
-      `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/token?page=${page}`,
+    Axios({
+      method: 'get',
+      baseURL: DEFAULT_URL,
+      url: `api/current/dataset/${this.state.uuid}/token?page=${page}`,
       config
-    )
+    })
       .then(res => {
         this.setState({
           tokens: res.data
