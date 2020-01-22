@@ -106,14 +106,11 @@ class MyDataSets extends React.Component {
       });
   };
   loadDatasets = () => {
-    const config = {
-      headers: { Authorization: "bearer " + this.state.token }
-    };
     Axios({
       method: 'get',
       baseURL: DEFAULT_URL,
       url: `api/current/dataset/?limit=${this.state.limit}&page=${this.state.currentPage}`,
-      config
+      headers: { Authorization: "bearer " + this.state.token }
     })
       .then(res => {
         this.setState(prevState => ({
