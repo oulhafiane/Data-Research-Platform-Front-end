@@ -244,6 +244,7 @@ class DesignSurvey extends React.Component {
                             });
                             return;
                           }
+                          this.setState({ uploading: true });
                           addQuestion(
                             {
                               question: this.state.newQuestion.question,
@@ -254,20 +255,19 @@ class DesignSurvey extends React.Component {
                             () => this.setState({ uploading: false }),
                             err => {
                               this.setState({
+                                uploading: false,
                                 showQuestionError: true,
                                 extras: {
                                   ...this.state.extras,
                                   questionError: err
-                                },
-                                uploading: false
+                                }
                               });
                             }
                           );
                           this.setState(
                             {
                               newQuestion: { name: "", question: "" },
-                              newQuestionTypeId: 0,
-                              uploading: true
+                              newQuestionTypeId: 0
                             },
                             () => {
                               this.state.nameTarget.value = "";

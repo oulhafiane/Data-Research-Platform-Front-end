@@ -49,7 +49,9 @@ class MyDataSet extends React.Component {
     extras: {},
     showGlobalWarning: false,
     uploading: false,
-    iconTabs: 2,
+    iconTabs: localStorage.getItem(this.props.match.params.uuid)
+      ? parseInt(localStorage.getItem(this.props.match.params.uuid))
+      : 1,
     plainTabs: 1
   };
   saveTitle = (title, callBack, errCallBack) => {
@@ -157,9 +159,7 @@ class MyDataSet extends React.Component {
         else errCallBack("No Internet Connection!");
       });
   };
-  addQuestion = (question, page, callBack, errCallBack) => {
-    /* Need to save it in back-end */
-    if (!question.question || !question.name) return;
+  addVariables = (question, page, callBack, errCallBack) => {
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
@@ -201,6 +201,52 @@ class MyDataSet extends React.Component {
         if (error.response) errCallBack(error.response.data.message);
         else errCallBack("No Internet Connection!");
       });
+  };
+  addQuestion = (question, page, callBack, errCallBack) => {
+    /* Need to save it in back-end */
+    if (!question.question || !question.name) {
+      errCallBack("Question and name must not be empty!");
+      return;
+    }
+    if (undefined === this.state.dataset.parts[page - 1]) {
+      const config = {
+        headers: { Authorization: "bearer " + this.state.token }
+      };
+      let data = {
+        title: "Page 1"
+      };
+      Axios.post(
+        `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part`,
+        data,
+        config
+      )
+        .then(res => {
+          this.setState(
+            {
+              dataset: {
+                ...this.state.dataset,
+                parts: [
+                  {
+                    id: res.data.extras.id,
+                    title: "Page 1",
+                    description: "",
+                    variables: []
+                  }
+                ]
+              }
+            },
+            () => {
+              this.addVariables(question, page, callBack, errCallBack);
+            }
+          );
+        })
+        .catch(error => {
+          if (error.response) errCallBack(error.response.data.message);
+          else errCallBack("Cannot create page!");
+        });
+      return;
+    }
+    this.addVariables(question, page, callBack, errCallBack);
   };
   editQuestion = (question, index, page, callBack, errCallBack) => {
     const config = {
@@ -314,6 +360,7 @@ class MyDataSet extends React.Component {
   };
   toggleNavs = (e, state, index) => {
     e.preventDefault();
+    localStorage.setItem(this.props.match.params.uuid, index);
     if (index === 2) this.refreshTokens();
     this.setState({
       [state]: index
@@ -337,33 +384,6 @@ class MyDataSet extends React.Component {
   componentDidUpdate() {
     if (this.state.uuid !== this.props.match.params.uuid) {
       window.location.reload();
-    }
-    if (
-      this.state.dataset.uuid !== undefined &&
-      this.state.dataset.parts.length === 0
-    ) {
-      const config = {
-        headers: { Authorization: "bearer " + this.state.token }
-      };
-      let data = {
-        title: "Page 1"
-      };
-      Axios.post(
-        `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part`,
-        data,
-        config
-      )
-        .then(res => {
-          this.setState({
-            dataset: {
-              ...this.state.dataset,
-              parts: [{ title: "Page 1", description: "", variables: [] }]
-            }
-          });
-        })
-        .catch(error => {
-          console.log(error);
-        });
     }
   }
   render() {
