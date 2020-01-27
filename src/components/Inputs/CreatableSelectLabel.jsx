@@ -17,7 +17,9 @@ class CreatableSelectLabel extends React.Component {
       placeholder,
       onChange,
       onInputChange,
-      onKeyDown
+      onKeyDown,
+      menuIsOpen,
+      options
     } = this.props;
     const animatedComponents = makeAnimated();
     return (
@@ -31,12 +33,13 @@ class CreatableSelectLabel extends React.Component {
             inputValue={val}
             isClearable
             isMulti
-            menuIsOpen={false}
+            menuIsOpen={menuIsOpen}
             onChange={onChange}
             onInputChange={onInputChange}
             onKeyDown={onKeyDown}
             placeholder="Type something and press enter..."
             value={selected}
+            options={options}
           />
           {/* <Select
             placeholder={placeholder}

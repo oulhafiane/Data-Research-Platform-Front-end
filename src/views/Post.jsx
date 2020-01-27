@@ -56,7 +56,9 @@ class Post extends React.Component {
   };
 
   updateCounts = () => {
-    this.setState({ countComments: this.state.countComments + 1 });
+    this.setState({
+      countComments: this.state.countComments + 1
+    });
   };
 
   getCounts = () => {
@@ -131,7 +133,11 @@ class Post extends React.Component {
                   width="8"
                   getCounts={this.getCounts}
                 />
-                <ShowComments state={this.state} user={this.props.user} />
+                <ShowComments
+                  state={this.state}
+                  user={this.props.user}
+                  updateCounts={this.updateCounts}
+                />
               </Row>
             </>
           ) : null}

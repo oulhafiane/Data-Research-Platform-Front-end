@@ -255,6 +255,7 @@ class Menu extends React.Component {
                   onChange={this.handleChange}
                   onInputChange={this.handleInputChange}
                   onKeyDown={this.handleKeyDown}
+                  menuIsOpen={false}
                 />
                 <FormGroup>
                   <label

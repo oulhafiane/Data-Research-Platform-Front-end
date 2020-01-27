@@ -22,6 +22,7 @@ class SelectLabel extends React.Component {
           <label className="form-control-label" htmlFor={id}>
             {placeholder}
           </label>
+          create
           <Select
             placeholder={placeholder}
             closeMenuOnSelect={false}
@@ -33,18 +34,6 @@ class SelectLabel extends React.Component {
             onChange={onChange}
             styles={styles ? styles : undefined}
           />
-          {/* <Input
-            className="form-control-alternative"
-            defaultValue={val}
-            id={id}
-            name={id}
-            placeholder={placeholder}
-            type={type}
-            onChange={onChange}
-            style={{ color: "#365d8a", fontSize: "1rem" }}
-            rows={rows}
-            disabled={disabled}
-          /> */}
         </FormGroup>
       </div>
     );

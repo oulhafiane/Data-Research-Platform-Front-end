@@ -388,6 +388,7 @@ class Tokens extends React.Component {
                 onChange={this.handleChange}
                 onInputChange={this.handleInputChange}
                 onKeyDown={this.handleKeyDown}
+                menuIsOpen={false}
               />
             ) : null}
             <small className="d-block text-uppercase font-weight-bold mb-3">
