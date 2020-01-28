@@ -4,41 +4,12 @@ import { Link } from "react-router-dom";
 import classnames from "classnames";
 // reactstrap components
 import {
-  Card,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
-  Container,
   Row,
-  CardBody,
-  Collapse,
-  Button,
-  Col,
-  CardImg,
-  CardTitle,
-  CardText,
-  CardSubtitle,
-  FormGroup,
-  Label,
-  UncontrolledTooltip,
+  Container
 } from "reactstrap";
-import ShowCharts from './VisualizationTabSrcs/ShowCharts'
-import MCollapse from './VisualizationTabSrcs/MCollapse'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import './index.css'
 import PivotTableUI from 'react-pivottable/PivotTableUI';
 import 'react-pivottable/pivottable.css';
@@ -90,34 +61,7 @@ const styles = theme => ({
 });
 
 class Analytics extends React.Component {
-  // state = {
-  //   isOpen: true,
-  //   showChart: false
-  // }
-  // CollapseHandler = () => {
-  //   this.setState({
-  //     isOpen: !this.state.isOpen,
-  //     // showChart: (this.state.isOpen == false) ? false : true
-  //   })
-  // }
-  // ShowChartsHandler = () => {
-  //   this.setState({
-  //     showChart: true,
-  //     isOpen: false
-  //   })
-  // }
-  // OnCancelHandler = () => {
-  //   this.setState({
-  //     isOpen: false
-  //   })
-  // }
-  constructor(props) {
-    super(props);
-    this.state = props;
-  }
   render() {
-    // const { classes } = this.props;
-    // const { isOpen, showChart } = this.state
     return (
       <Container>
         <Row style={{ marginBottom: '1rem', }}>

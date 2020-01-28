@@ -146,10 +146,10 @@ class ShowProfile extends React.Component {
                     <span className="heading">{state.user.countComments}</span>
                     <span className="description">Comments</span>
                   </div>
-                  <div style={this.cardStats}>
+                  {/* <div style={this.cardStats}>
                     <span className="heading">{state.user.countFollowers}</span>
                     <span className="description">Followers</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Row>

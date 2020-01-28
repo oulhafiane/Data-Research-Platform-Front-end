@@ -79,6 +79,7 @@ class ShowComments extends React.Component {
       config
     )
       .then(res => {
+        this.props.updateCounts();
         const newComments = this.state.comments
           .reverse()
           .concat({
@@ -103,7 +104,6 @@ class ShowComments extends React.Component {
           uploading: false,
           comments: newComments
         });
-        this.props.updateCounts();
       })
       .catch(error => {
         console.log(error.response);
@@ -159,7 +159,19 @@ class ShowComments extends React.Component {
       <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
         <Card className="card-profile shadow">
           <div className="text-center border-0 pt-md-4 pb-md-4 card-header">
-            <div className="d-flex justify-content-between">Comments</div>
+            <Row>
+              <Col lg="6">
+                <div className="d-flex justify-content-between">Comments</div>
+              </Col>
+              <Col lg="6">
+                <div
+                  className="d-flex justify-content-between"
+                  style={{ float: "right" }}
+                >
+                  Total : {state.countComments}
+                </div>
+              </Col>
+            </Row>
           </div>
           <CardBody className="pt-0 pt-md-4">
             <Row>

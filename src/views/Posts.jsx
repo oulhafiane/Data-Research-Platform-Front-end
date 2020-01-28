@@ -153,8 +153,12 @@ class Profile extends React.Component {
                       style={{
                         cursor: "pointer",
                         backgroundImage: `url(${
-                          post[0].photos[0].img
-                            ? post[0].photos[0].img
+                          post[0]
+                            ? post[0].photos[0]
+                              ? post[0].photos[0].img
+                                ? post[0].photos[0].img
+                                : this.state.photo_default
+                              : this.state.photo_default
                             : this.state.photo_default
                         })`
                       }}

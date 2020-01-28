@@ -168,7 +168,7 @@ class DesignSurvey extends React.Component {
       <>
         <Row className="row-grid justify-content-between align-items-center">
           <Col lg="12">
-            <Card className="shadow" >
+            <Card className="shadow">
               <CardHeader className="border-0">
                 <SurveyHeader dataset={state.dataset} saveTitle={saveTitle} />
               </CardHeader>
@@ -355,11 +355,7 @@ class DesignSurvey extends React.Component {
                             });
                             return;
                           }
-                          // if (this.state.newQuestionTypeId == 4) {
-                          //   const { multipleChoiceArray } = this.state
-                          //   this.setState({ newQuestion: { ...this.state.newQuestion, multipleChoiceArray } })
-                          // }
-
+                          this.setState({ uploading: true });
                           addQuestion(this.state.multipleChoiceArray,
                             {
                               question: this.state.newQuestion.question,
@@ -370,12 +366,12 @@ class DesignSurvey extends React.Component {
                             () => this.setState({ uploading: false }),
                             err => {
                               this.setState({
+                                uploading: false,
                                 showQuestionError: true,
                                 extras: {
                                   ...this.state.extras,
                                   questionError: err
-                                },
-                                uploading: false
+                                }
                               });
                             }
                           );

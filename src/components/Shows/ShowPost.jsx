@@ -66,7 +66,9 @@ class ShowPost extends React.Component {
         config
       )
         .then(res => {
-          if (res.data.extras.vote === true)
+          if (!res.data.extras)
+            this.setState({ up_voted: false, down_voted: false });
+          else if (res.data.extras.vote === true)
             this.setState({ up_voted: true, down_voted: false });
           else this.setState({ up_voted: false, down_voted: true });
         })
@@ -150,41 +152,85 @@ class ShowPost extends React.Component {
             </Col>
           </Row>
           <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-            <div className="d-flex justify-content-between">
+            <div
+              className="d-flex justify-content-between"
+              style={{ height: "50px" }}
+            >
               {this.props.request ? (
                 <div className="my-auto ml-auto">
-                  <Button
-                    id="up_vote"
-                    size="sm"
-                    theme="white"
-                    style={{
-                      ...this.btnStyle,
-                      color: this.state.up_voted ? "red" : "inherit"
-                    }}
-                    onClick={this.submitData}
-                    disabled={!state.isSearcher}
-                  >
-                    <i id="up_vote_icon" className="ni ni-bold-up" />
-                  </Button>
-                  <Button
-                    id="down_vote"
-                    size="sm"
-                    theme="white"
-                    style={{
-                      ...this.btnStyle,
-                      color: this.state.down_voted ? "red" : "inherit"
-                    }}
-                    onClick={this.submitData}
-                    disabled={!state.isSearcher}
-                  >
-                    <i id="down_vote_icon" className="ni ni-bold-down" />
-                  </Button>
+                  <Row>
+                    <span
+                      className="description"
+                      style={{ marginLeft: "14px" }}
+                    >
+                      Votes : {state.countVotes}
+                    </span>
+                  </Row>
+                  <Row>
+                    <Button
+                      id="up_vote"
+                      size="sm"
+                      theme="white"
+                      style={{
+                        ...this.btnStyle,
+                        color: this.state.up_voted ? "red" : "inherit"
+                      }}
+                      onClick={this.submitData}
+                      disabled={!state.isSearcher}
+                    >
+                      <i id="up_vote_icon" className="ni ni-bold-up" />
+                    </Button>
+                    <Button
+                      id="down_vote"
+                      size="sm"
+                      theme="white"
+                      style={{
+                        ...this.btnStyle,
+                        color: this.state.down_voted ? "red" : "inherit"
+                      }}
+                      onClick={this.submitData}
+                      disabled={!state.isSearcher}
+                    >
+                      <i id="down_vote_icon" className="ni ni-bold-down" />
+                    </Button>
+                  </Row>
                 </div>
               ) : null}
             </div>
           </CardHeader>
           <CardBody className="pt-0 pt-md-4">
-            <Row>
+            {state.prob.owner ? (
+              <h3>
+                <div
+                  className="text-center"
+                  style={{ marginTop: "20px", marginBottom: "60px" }}
+                >
+                  <Link to={`/default/profile/${state.prob.owner.uuid}`}>
+                    {state.prob.owner.firstName +
+                      " " +
+                      state.prob.owner.lastName}
+                  </Link>
+                  {state.prob.researchers
+                    ? state.prob.researchers.map((val, key) => (
+                        <span key={key}>
+                          ,{" "}
+                          {val.__isNew__ ? (
+                            val.label
+                          ) : (
+                            <Link
+                              key={key}
+                              to={`/default/profile/${val.value}`}
+                            >
+                              {val.label}
+                            </Link>
+                          )}
+                        </span>
+                      ))
+                    : null}
+                </div>
+              </h3>
+            ) : null}
+            {/* <Row>
               <div className="col">
                 <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                   {this.props.request ? (
@@ -201,7 +247,7 @@ class ShowPost extends React.Component {
                   ) : null}
                 </div>
               </div>
-            </Row>
+            </Row> */}
             <div className="text-center">
               <h3>{state.prob.title}</h3>
               <div className="h5 mt-4">

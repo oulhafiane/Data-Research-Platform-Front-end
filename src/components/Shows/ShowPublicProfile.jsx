@@ -64,10 +64,10 @@ class ShowPublicProfile extends React.Component {
                 <span className="heading">{state.profile.countComments}</span>
                 <span className="description">Comments</span>
               </div>
-              <div style={this.cardStats}>
+              {/* <div style={this.cardStats}>
                 <span className="heading">{state.profile.countFollowers}</span>
                 <span className="description">Followers</span>
-              </div>
+              </div> */}
             </div>
             <div className="text-center mt--2">
               <h3>{`${state.profile.firstName} ${state.profile.lastName}`}</h3>

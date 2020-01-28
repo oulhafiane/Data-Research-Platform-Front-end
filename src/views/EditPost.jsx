@@ -59,8 +59,11 @@ class EditPost extends React.Component {
       }
     },
     uploading: false,
+    searchers: {},
+    researchersSelected: [],
     keywordsSelected: [],
     inputValue: "",
+    inputValueResearchers: "",
     id_domain: 0,
     id_category: 0,
     images_available: 0,
@@ -114,6 +117,17 @@ class EditPost extends React.Component {
   onChangeCategory = e => {
     e.preventDefault();
     this.setState({ id_category: e.target.id });
+  };
+
+  onChangeSearchers = e => {
+    this.setState({
+      researchersSelected: e ? e : [],
+      disabled: false
+    });
+  };
+
+  handleInputChangeResearchers = inputValueResearchers => {
+    this.setState({ inputValueResearchers });
   };
 
   showSolution = () =>
@@ -189,7 +203,8 @@ class EditPost extends React.Component {
           };
         })
       ),
-      keywords: this.state.keywordsSelected.map((val, key) => val.value)
+      keywords: this.state.keywordsSelected.map((val, key) => val.value),
+      researchers: this.state.researchersSelected
     };
     if (this.state.images_available === -1) delete data.photos;
     delete data.id;
@@ -208,8 +223,17 @@ class EditPost extends React.Component {
       });
   };
 
+  getSearchers = () => {
+    Axios.get(`${DEFAULT_URL}api/profile/all`)
+      .then(res => {
+        this.setState({ searchers: res ? res.data : [] });
+      })
+      .catch(e => console.log(e.response.data));
+  };
+
   async componentDidMount() {
     this.getCategories();
+    this.getSearchers();
     await this.props.getUser();
     Axios.get(`${DEFAULT_URL}api/problematic/${this.state.id}`)
       .then(res => {
@@ -241,6 +265,11 @@ class EditPost extends React.Component {
               label: val,
               value: val
             }))
+          });
+        }
+        if (res.data.researchers) {
+          this.setState({
+            researchersSelected: res.data.researchers
           });
         }
         this.setState({ done: true });
@@ -350,6 +379,25 @@ class EditPost extends React.Component {
                             onChange={this.handleChange}
                             onInputChange={this.handleInputChange}
                             onKeyDown={this.handleKeyDown}
+                            menuIsOpen={false}
+                          />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md="12">
+                          <CreatableSelectLabel
+                            id="members"
+                            placeholder="Team Members"
+                            selected={this.state.researchersSelected}
+                            val={this.state.inputValueResearchers}
+                            onChange={this.onChangeSearchers}
+                            onInputChange={this.handleInputChangeResearchers}
+                            options={Object.keys(this.state.searchers).map(
+                              key => ({
+                                value: this.state.searchers[key].uuid,
+                                label: `${this.state.searchers[key].firstName} ${this.state.searchers[key].lastName}`
+                              })
+                            )}
                           />
                         </Col>
                       </Row>

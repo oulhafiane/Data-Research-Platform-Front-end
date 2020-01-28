@@ -96,8 +96,7 @@ class MenuPost extends React.Component {
                 <div className="py-3 text-center">
                   <i className="ni ni-bell-55 ni-3x" />
                   <h4 className="heading mt-4">
-                    Are you sure you want to permanently delete this problematic
-                    ?
+                    Are you sure you want to permanently delete this idea ?
                   </h4>
                 </div>
               </div>

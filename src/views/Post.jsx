@@ -56,7 +56,9 @@ class Post extends React.Component {
   };
 
   updateCounts = () => {
-    this.setState({ countComments: this.state.countComments + 1 });
+    this.setState({
+      countComments: this.state.countComments + 1
+    });
   };
 
   getCounts = () => {
@@ -83,7 +85,7 @@ class Post extends React.Component {
     Axios.get(`${DEFAULT_URL}api/problematic/${this.state.id}`)
       .then(res => {
         this.setState({ prob: res.data });
-        if (res.data.photos[0].img)
+        if (res.data.photos[0] && res.data.photos[0].img)
           this.setState({ images_available: 1, imgs: res.data.photos });
         if (res.data.solution) this.setState({ showSolution: true });
         if (res.data.advantage) this.setState({ showAdvantage: true });
@@ -131,7 +133,11 @@ class Post extends React.Component {
                   width="8"
                   getCounts={this.getCounts}
                 />
-                <ShowComments state={this.state} user={this.props.user} />
+                <ShowComments
+                  state={this.state}
+                  user={this.props.user}
+                  updateCounts={this.updateCounts}
+                />
               </Row>
             </>
           ) : null}

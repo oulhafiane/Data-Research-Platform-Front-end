@@ -49,7 +49,9 @@ class MyDataSet extends React.Component {
     extras: {},
     showGlobalWarning: false,
     uploading: false,
-    iconTabs: 1,
+    iconTabs: localStorage.getItem(this.props.match.params.uuid)
+      ? parseInt(localStorage.getItem(this.props.match.params.uuid))
+      : 1,
     plainTabs: 1
   };
   saveTitle = (title, callBack, errCallBack) => {
@@ -157,24 +159,7 @@ class MyDataSet extends React.Component {
         else errCallBack("No Internet Connection!");
       });
   };
-  addQuestion = (options, question, page, callBack, errCallBack) => {
-    // Add options of mutiple choice to Question Object
-    if (options !== undefined &&
-      options !== null &&
-      options.length > 0) {
-      options = options.filter((elem, index) => {
-        if (elem.value.length > 0) return true
-        else return false;
-      })
-      options = options.map((elem, index) => {
-        return elem.value
-      })
-      if (options && options.length > 0) {
-        question = { ...question, options }
-      }
-    }
-    /* Need to save it in back-end */
-    if (!question.question || !question.name) return;
+  addVariables = (question, page, callBack, errCallBack) => {
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
@@ -218,6 +203,68 @@ class MyDataSet extends React.Component {
       });
   };
 
+  addQuestion = (options, question, page, callBack, errCallBack) => {
+    // Add options of mutiple choice to Question Object
+    if (options !== undefined &&
+      options !== null &&
+      options.length > 0) {
+      options = options.filter((elem, index) => {
+        if (elem.value.length > 0) return true
+        else return false;
+      })
+      options = options.map((elem, index) => {
+        return elem.value
+      })
+      if (options && options.length > 0) {
+        question = { ...question, options }
+      }
+    }
+    /* Need to save it in back-end */
+    if (!question.question || !question.name) {
+      errCallBack("Question and name must not be empty!");
+      return;
+    }
+    if (undefined === this.state.dataset.parts[page - 1]) {
+      const config = {
+        headers: { Authorization: "bearer " + this.state.token }
+      };
+      let data = {
+        title: "Page 1"
+      };
+      Axios.post(
+        `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part`,
+        data,
+        config
+      )
+        .then(res => {
+          this.setState(
+            {
+              dataset: {
+                ...this.state.dataset,
+                parts: [
+                  {
+                    id: res.data.extras.id,
+                    title: "Page 1",
+                    description: "",
+                    variables: []
+                  }
+                ]
+              }
+            },
+            () => {
+              this.addVariables(question, page, callBack, errCallBack);
+            }
+          );
+        })
+        .catch(error => {
+          if (error.response) errCallBack(error.response.data.message);
+          else errCallBack("Cannot create page!");
+        });
+      return;
+    }
+    this.addVariables(question, page, callBack, errCallBack);
+  };
+
   editQuestion = (options, question, index, page, callBack, errCallBack) => {
 
     if (options !== undefined &&
@@ -236,6 +283,7 @@ class MyDataSet extends React.Component {
     }
     // debug message for mutiple choice
     console.log("Answers", question)
+
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
@@ -347,6 +395,7 @@ class MyDataSet extends React.Component {
   };
   toggleNavs = (e, state, index) => {
     e.preventDefault();
+    localStorage.setItem(this.props.match.params.uuid, index);
     if (index === 2) this.refreshTokens();
     this.setState({
       [state]: index
@@ -371,33 +420,6 @@ class MyDataSet extends React.Component {
     console.log(this.state)
     if (this.state.uuid !== this.props.match.params.uuid) {
       window.location.reload();
-    }
-    if (
-      this.state.dataset.uuid !== undefined &&
-      this.state.dataset.parts.length === 0
-    ) {
-      const config = {
-        headers: { Authorization: "bearer " + this.state.token }
-      };
-      let data = {
-        title: "Page 1"
-      };
-      Axios.post(
-        `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part`,
-        data,
-        config
-      )
-        .then(res => {
-          this.setState({
-            dataset: {
-              ...this.state.dataset,
-              parts: [{ title: "Page 1", description: "", variables: [] }]
-            }
-          });
-        })
-        .catch(error => {
-          console.log(error);
-        });
     }
   }
   render() {
@@ -459,7 +481,7 @@ class MyDataSet extends React.Component {
                       role="tab"
                     >
                       <i className="ni ni-chart-bar-32 mr-2" />
-                      Analytics
+                      Data
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -472,13 +494,13 @@ class MyDataSet extends React.Component {
                       href="#pablo"
                       role="tab"
                     >
-                      <i className="ni ni-chart-bar-32 mr-2" />
-                      Data
+                      <i className="ni ni-chart-pie-35 mr-2" />
+                      Analytics
                     </NavLink>
                   </NavItem>
                 </Nav>
               </div>
-              <Card className="shadow" style={{ background: "#f6f9fc" }}>
+              <Card className="shadow">
                 <CardBody>
                   <TabContent
                     activeTab={"iconTabs" + this.state.iconTabs}
@@ -508,12 +530,12 @@ class MyDataSet extends React.Component {
                       </DndProvider>
                     </TabPane>
                     <TabPane tabId="iconTabs3">
-                      <Analytics state={this.state} />
-                    </TabPane>
-                    <TabPane tabId="iconTabs4">
                       <DndProvider backend={Backend}>
                         <Data state={this.state} />
                       </DndProvider>
+                    </TabPane>
+                    <TabPane tabId="iconTabs4">
+                      <Analytics state={this.state} />
                     </TabPane>
                   </TabContent>
                 </CardBody>
