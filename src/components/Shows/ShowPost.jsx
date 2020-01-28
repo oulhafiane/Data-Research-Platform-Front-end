@@ -66,7 +66,9 @@ class ShowPost extends React.Component {
         config
       )
         .then(res => {
-          if (res.data.extras.vote === true)
+          if (!res.data.extras)
+            this.setState({ up_voted: false, down_voted: false });
+          else if (res.data.extras.vote === true)
             this.setState({ up_voted: true, down_voted: false });
           else this.setState({ up_voted: false, down_voted: true });
         })
@@ -210,7 +212,7 @@ class ShowPost extends React.Component {
                   </Link>
                   {state.prob.researchers
                     ? state.prob.researchers.map((val, key) => (
-                        <>
+                        <span key={key}>
                           ,{" "}
                           {val.__isNew__ ? (
                             val.label
@@ -222,7 +224,7 @@ class ShowPost extends React.Component {
                               {val.label}
                             </Link>
                           )}
-                        </>
+                        </span>
                       ))
                     : null}
                 </div>
