@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Argon Design System React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-design-system-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 // nodejs library that concatenates classes
@@ -62,6 +45,7 @@ import 'react-pivottable/pivottable.css';
 import TableRenderers from 'react-pivottable/TableRenderers';
 import createPlotlyComponent from 'react-plotly.js/factory';
 import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
+import CustomPaginationActionsTable from './VisualizationTabSrcs/Table';
 
 // create Plotly React component via dependency injection
 const Plot = createPlotlyComponent(window.Plotly);
@@ -135,18 +119,23 @@ class Analytics extends React.Component {
     // const { classes } = this.props;
     // const { isOpen, showChart } = this.state
     return (
-      <Row>
-        <PivotTableUI
-          data={data}
-          onChange={s => {
-            console.log(s)
-            this.setState(s)
-          }
-          }
-          renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
-          {...this.state}
-        />
-      </Row>
+      <Container>
+        <Row style={{ marginBottom: '1rem', }}>
+          <PivotTableUI
+            data={data}
+            onChange={s => {
+              console.log(s)
+              this.setState(s)
+            }
+            }
+            renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
+            {...this.state}
+          />
+        </Row>
+        <Row style={{ marginBottom: '1rem', }}>
+          <CustomPaginationActionsTable />
+        </Row>
+      </Container>
     )
   }
 }

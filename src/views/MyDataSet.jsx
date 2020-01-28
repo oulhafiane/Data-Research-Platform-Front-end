@@ -49,7 +49,7 @@ class MyDataSet extends React.Component {
     extras: {},
     showGlobalWarning: false,
     uploading: false,
-    iconTabs: 2,
+    iconTabs: 1,
     plainTabs: 1
   };
   saveTitle = (title, callBack, errCallBack) => {
@@ -157,7 +157,22 @@ class MyDataSet extends React.Component {
         else errCallBack("No Internet Connection!");
       });
   };
-  addQuestion = (question, page, callBack, errCallBack) => {
+  addQuestion = (options, question, page, callBack, errCallBack) => {
+    // Add options of mutiple choice to Question Object
+    if (options !== undefined &&
+      options !== null &&
+      options.length > 0) {
+      options = options.filter((elem, index) => {
+        if (elem.value.length > 0) return true
+        else return false;
+      })
+      options = options.map((elem, index) => {
+        return elem.value
+      })
+      if (options && options.length > 0) {
+        question = { ...question, options }
+      }
+    }
     /* Need to save it in back-end */
     if (!question.question || !question.name) return;
     const config = {
@@ -202,7 +217,25 @@ class MyDataSet extends React.Component {
         else errCallBack("No Internet Connection!");
       });
   };
-  editQuestion = (question, index, page, callBack, errCallBack) => {
+
+  editQuestion = (options, question, index, page, callBack, errCallBack) => {
+
+    if (options !== undefined &&
+      options !== null &&
+      options.length > 0) {
+      options = options.filter((elem, index) => {
+        if (elem.value.length > 0) return true
+        else return false;
+      })
+      options = options.map((elem, index) => {
+        return elem.value
+      })
+      if (options && options.length > 0) {
+        question = { ...question, options }
+      }
+    }
+    // debug message for mutiple choice
+    console.log("Answers", question)
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
@@ -335,6 +368,7 @@ class MyDataSet extends React.Component {
       });
   }
   componentDidUpdate() {
+    console.log(this.state)
     if (this.state.uuid !== this.props.match.params.uuid) {
       window.location.reload();
     }

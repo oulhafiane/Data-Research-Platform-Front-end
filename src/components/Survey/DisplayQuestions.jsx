@@ -1,8 +1,26 @@
 import React from "react";
 import InputTextLabel from "components/Inputs/InputLabel";
+import IconButton from '@material-ui/core/IconButton';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import MultipleChoice from './MultipleChoice'
 // reactstrap components
-import { Input, Button, Alert, Modal, Row, Col } from "reactstrap";
-class TextBox extends React.Component {
+import {
+  CustomInput,
+  Input,
+  Button,
+  Alert,
+  Modal,
+  Row,
+  Col,
+  Container,
+  ListGroup,
+  ListGroupItem
+} from "reactstrap";
+
+class DisplayQuestions extends React.Component {
   state = {
     extras: {},
     hoverIndex: -1,
@@ -12,8 +30,26 @@ class TextBox extends React.Component {
       type: this.props.val.type
     },
     editing: false,
-    deleting: false
+    deleting: false,
+    // this bellow for multiple choice 
+    multipleChoiceArray: [],
   };
+
+
+  fillmultipleChoiceArray = (arrayOfChoices) => {
+    // console.log("fillmultipleChoiceArray ==> ", arrayOfChoices)
+    this.setState({
+      multipleChoiceArray: arrayOfChoices
+    })
+  }
+
+  updatemultipleChoiceArray = (arrayOfChoices) => {
+    // console.log("updatemultipleChoiceArray ==> ", arrayOfChoices)
+    this.setState({
+      multipleChoiceArray: arrayOfChoices
+    })
+  }
+
   onChange = e => {
     e.preventDefault();
     this.setState({
@@ -25,6 +61,134 @@ class TextBox extends React.Component {
       [state]: !this.state[state]
     });
   };
+
+  inputTypeRender = (indexOfInputType, name, type, options) => {
+    if (indexOfInputType === 0 ||
+      indexOfInputType === 1 ||
+      indexOfInputType === 2 ||
+      indexOfInputType === 3) {
+      return (
+        <Input
+          type={type}
+          style={{ cursor: "pointer" }}
+          name={name}
+          disabled
+        />
+      )
+    }
+    else if (indexOfInputType === 4) {
+      return (
+        <ListGroup>
+          {options !== undefined && options.map((elem, index) => {
+            return (
+              <ListGroupItem
+                style={{
+                  backgroundColor: '#e9ecef',
+                  padding: 0,
+                }}
+                key={index}>
+                <IconButton>
+                  <RadioButtonUncheckedIcon />
+                </IconButton>
+                {elem}
+              </ListGroupItem>
+            )
+          })}
+        </ListGroup>
+      )
+    }
+    else if (indexOfInputType === 5) {
+      return (
+        <Row>
+          <Col fg="4">
+            <div style={{
+              border: '1px solid #cad1d7',
+              borderRadius: '0.25rem',
+              backgroundColor: '#e9ecef'
+            }}>
+              <FormControlLabel style={{ marginLeft: '1%' }} disabled control={<Switch value="checkedD" />} label="Yes/No" />
+            </div>
+          </Col>
+          <Col fg="4">
+          </Col>
+          <Col fg="4">
+          </Col>
+        </Row >
+      )
+    }
+    else if (indexOfInputType === 6) {
+      return (
+        <div style={{ marginTop: 10 }}>
+          <h4 style={{ fontSize: '1vw' }}>Date / Time</h4>
+          <Row>
+            <Col fg="4">
+              <Input
+                placeholder="MM/DD/YYYY"
+                style={{ cursor: "pointer" }}
+                disabled
+              />
+            </Col>
+            <Col fg="4">
+              <Input
+                placeholder="HH : MM"
+                style={{ cursor: "pointer" }}
+                disabled
+              />
+            </Col>
+            <Col fg="4">
+            </Col>
+            <Col fg="4">
+            </Col>
+          </Row>
+        </div>
+      )
+    }
+    else if (indexOfInputType === 7) {
+      return (
+        <div style={{ marginTop: 10 }}>
+          <h4 style={{ fontSize: '1vw' }}>Date</h4>
+          <Row>
+            <Col fg="4">
+              <Input
+                placeholder="MM/DD/YYYY"
+                style={{ cursor: "pointer" }}
+                disabled
+              />
+            </Col>
+            <Col fg="4">
+            </Col>
+            <Col fg="4">
+            </Col>
+            <Col fg="4">
+            </Col>
+          </Row>
+        </div>
+      )
+    }
+    else if (indexOfInputType === 8) {
+      return (
+        <div style={{ marginTop: 10 }}>
+          <h4 style={{ fontSize: '1vw' }}>Time</h4>
+          <Row >
+            <Col fg="4">
+              <Input
+                placeholder="HH : MM"
+                style={{ cursor: "pointer" }}
+                disabled
+              />
+            </Col>
+            <Col fg="4">
+            </Col>
+            <Col fg="4">
+            </Col>
+            <Col fg="4">
+            </Col>
+          </Row>
+        </div>
+      )
+    }
+  }
+
   render() {
     const {
       val,
@@ -32,8 +196,11 @@ class TextBox extends React.Component {
       editQuestion,
       removeQuestion,
       showEditIndex,
-      changeShowEditIndex
+      changeShowEditIndex,
+      // type of input textbox or textarea
+      type
     } = this.props;
+
     return (
       <div>
         {showEditIndex !== index ? (
@@ -47,7 +214,7 @@ class TextBox extends React.Component {
                 this.state.hoverIndex === index
                   ? "rgba(0, 0, 0, 0.10)"
                   : "rgba(0, 0, 0, 0)"
-              }`
+                }`
             }}
             onMouseOver={() =>
               this.setState({
@@ -83,8 +250,8 @@ class TextBox extends React.Component {
                         <i className="fas fa-spin fa-spinner"></i> Deleting...
                       </React.Fragment>
                     ) : (
-                      "Delete"
-                    )}
+                        "Delete"
+                      )}
                   </Button>
                   <Modal
                     className="modal-dialog-centered modal-danger"
@@ -167,15 +334,7 @@ class TextBox extends React.Component {
                 </>
               ) : null}
             </h3>
-            {val.type === 0 ? (
-              <Input
-                /*placeholder="Blabla"*/
-
-                style={{ cursor: "pointer" }}
-                name={val.name}
-                disabled
-              />
-            ) : null}
+            {this.inputTypeRender(val.type, val.name, type, val.options)}
           </div>
         ) : null}
 
@@ -210,6 +369,15 @@ class TextBox extends React.Component {
                 />
               </Col>
             </Row>
+            {/* mutiple choice  */}
+            {val.type === 4
+              ?
+              <MultipleChoice
+                val={val}
+                fillmultipleChoiceArray={this.fillmultipleChoiceArray}
+                updatemultipleChoiceArray={this.updatemultipleChoiceArray}
+              />
+              : null}
             {/* To check what to do with this globalWarning */}
             {this.state.showGlobalWarning ? (
               <Alert color="danger">
@@ -235,6 +403,7 @@ class TextBox extends React.Component {
                 }
                 this.setState({ editing: true });
                 editQuestion(
+                  this.state.multipleChoiceArray,
                   this.state.question,
                   index,
                   () => {
@@ -253,6 +422,7 @@ class TextBox extends React.Component {
                     });
                   }
                 );
+                this.setState({ multipleChoiceArray: [] })
               }}
             >
               {/* When data will be saved in the server you must add this option Uploading */}
@@ -261,8 +431,8 @@ class TextBox extends React.Component {
                   <i className="fas fa-spin fa-spinner"></i> Editing...
                 </React.Fragment>
               ) : (
-                "Save"
-              )}
+                  "Save"
+                )}
             </Button>
             <Button
               color="link"
@@ -279,4 +449,4 @@ class TextBox extends React.Component {
   }
 }
 
-export default TextBox;
+export default DisplayQuestions;

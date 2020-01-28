@@ -4,6 +4,7 @@ export const TYPES_DATA = [
   { id: "TEXT", title: "TextArea" },
   { id: "INTEGER", title: "Number" },
   { id: "FLOAT", title: "Decimal Number" },
+  { id: "MULTIPLECHOICE", title: 'Multiple Choice' },
   { id: "BOOLEAN", title: "Yes/No" },
   { id: "DATETIME", title: "Date & Time" },
   { id: "DATE", title: "Date" },
