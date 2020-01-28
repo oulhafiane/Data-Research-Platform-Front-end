@@ -71,7 +71,8 @@ class NewPost extends React.Component {
     showSolution: false,
     showAdvantage: false,
     showApplications: false,
-    showGlobalWarning: false
+    showGlobalWarning: false,
+    extras: {}
   };
 
   handleChange = (value, actionMeta) => {
@@ -178,7 +179,11 @@ class NewPost extends React.Component {
 
   submitData = e => {
     e.preventDefault();
-    this.setState({ uploading: true });
+    this.setState({
+      uploading: true,
+      showGlobalWarning: false,
+      extras: {}
+    });
     while (Object.keys(this.state.imgs).length !== this.state.images_available);
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
@@ -200,17 +205,24 @@ class NewPost extends React.Component {
       keywords: this.state.keywordsSelected.map((val, key) => val.value),
       researchers: this.state.researchersSelected
     };
-    this.setState({ showWarning: false });
-    if (this.state.accepted === false) {
-      this.setState({ showWarning: true });
-      return;
-    }
     Axios.post(`${DEFAULT_URL}api/problematic/new`, data, config)
       .then(res => {
         this.props.history.push(`/default/posts/${res.data.extras.id}`);
       })
       .catch(error => {
-        this.setState({ showGlobalWarning: true, uploading: false });
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.extras
+        ) {
+          this.setState({
+            extras: error.response.data.extras,
+            showGlobalWarning: true,
+            uploading: false
+          });
+        } else {
+          this.setState({ showGlobalWarning: true, uploading: false });
+        }
       });
   };
 
@@ -262,22 +274,15 @@ class NewPost extends React.Component {
                     </h6>
                     <div className="pl-lg-4">
                       <Row>
-                        <Col lg="6">
+                        <Col lg="12">
                           <InputTextLabel
                             id="title"
                             placeholder="Title"
                             type="text"
                             val={this.state.prob.title}
                             onChange={this.onChange}
-                          />
-                        </Col>
-                        <Col lg="6">
-                          <InputTextLabel
-                            id="type"
-                            placeholder="Type Document"
-                            type="text"
-                            val={this.state.prob.type}
-                            onChange={this.onChange}
+                            stateError={this.state.extras.title !== undefined}
+                            errorMessage={this.state.extras.title}
                           />
                         </Col>
                       </Row>
@@ -319,6 +324,8 @@ class NewPost extends React.Component {
                             type="text"
                             val={this.state.prob.link}
                             onChange={this.onChange}
+                            stateError={this.state.extras.link !== undefined}
+                            errorMessage={this.state.extras.link}
                           />
                         </Col>
                         <Col md="6">
@@ -374,6 +381,8 @@ class NewPost extends React.Component {
                         val={this.state.prob.description}
                         onChange={this.onChange}
                         rows="5"
+                        stateError={this.state.extras.description !== undefined}
+                        errorMessage={this.state.extras.description}
                       />
                     </div>
                     <InputToogleHidden
