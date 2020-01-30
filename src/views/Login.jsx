@@ -16,13 +16,14 @@
 
 */
 
-import React from "react";
-import axios from "axios";
-import InputText from "../components/Inputs/Input";
-import GoogleLogin from "react-google-login";
-import Axios from "axios";
-import { DEFAULT_URL } from "../config";
-import authService from "../services/auth-service";
+import React from 'react'
+import axios from 'axios'
+import InputText from '../components/Inputs/Input'
+import InputTextLabel from 'components/Inputs/InputLabel'
+import GoogleLogin from 'react-google-login'
+import Axios from 'axios'
+import { DEFAULT_URL } from '../config'
+import authService from '../services/auth-service'
 
 import {
   Button,
@@ -32,54 +33,175 @@ import {
   Form,
   Row,
   Col,
-  Alert
-} from "reactstrap";
+  Alert,
+  Modal,
+} from 'reactstrap'
 
 class Login extends React.Component {
   state = {
     credentials: {
-      username: "",
-      password: ""
+      username: '',
+      password: '',
     },
     showError: false,
-    errors: {}
-  };
-  googleAuth = res => {
+    errors: {},
+    username: '',
+    errorModalMessage: undefined,
+    showErrorModal: false,
+    showSuccess: false,
+    successMessage: null,
+    uploading: false,
+    disableSendButton: false,
+    token: null,
+    errorModalMessage2: undefined,
+    showErrorModal2: false,
+    showSuccess2: false,
+    successMessage2: null,
+    uploading2: false,
+    disableSendButton2: false,
+    password: '',
+    password2: '',
+  }
+  onChangeInputModal = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    })
+  }
+  toggleModal = state => {
+    this.setState({
+      [state]: !this.state[state],
+    })
+  }
+  forgotPassword = e => {
+    e.preventDefault()
+    if ('' === this.state.username) {
+      this.setState({ showErrorModal: true, errorModalMessage: undefined })
+      return
+    }
+    this.setState({
+      errorModalMessage: undefined,
+      showErrorModal: false,
+      showSuccess: false,
+      successMessage: null,
+      uploading: true,
+    })
     const data = {
-      provider: "google",
-      token: res.tokenId
-    };
-    Axios.post(`${DEFAULT_URL}api/oauth`, data)
+      username: this.state.username,
+    }
+    Axios.post(`${DEFAULT_URL}api/forgotPassword`, data)
       .then(res => {
-        authService.successAuth(res, this.props);
+        this.setState({
+          showSuccess: true,
+          successMessage: res.data.message,
+          uploading: false,
+          disableSendButton: true,
+        })
       })
       .catch(error => {
-        this.setState({ showError: true });
-      });
-  };
+        this.setState({
+          showErrorModal: true,
+          errorModalMessage: error.response
+            ? error.response.message
+              ? error.response.message
+              : 'An error occured!'
+            : 'An error occured!',
+          uploading: false,
+        })
+      })
+  }
+  changePassword = e => {
+    e.preventDefault()
+    console.log(this.state.password)
+    if ('' === this.state.password || '' === this.state.password2) {
+      this.setState({
+        showErrorModal2: true,
+        errorModalMessage2:
+          'The password and confirmation password must not be empty!',
+      })
+      return
+    }
+    if (this.state.password !== this.state.password2) {
+      this.setState({ showErrorModal2: true, errorModalMessage2: undefined })
+      return
+    }
+    this.setState({
+      errorModalMessage2: undefined,
+      showErrorModal2: false,
+      showSuccess2: false,
+      successMessage2: null,
+      uploading2: true,
+    })
+    const data = {
+      token: this.state.token,
+      password: this.state.password,
+    }
+    Axios.post(`${DEFAULT_URL}api/changePassword`, data)
+      .then(res => {
+        this.setState({
+          showSuccess2: true,
+          successMessage2: res.data.message,
+          uploading2: false,
+          disableSendButton2: true,
+        })
+      })
+      .catch(error => {
+        this.setState({
+          showErrorModal2: true,
+          errorModalMessage2: error.response
+            ? error.response.data
+              ? error.response.data.message
+                ? error.response.data.message
+                : 'An error occured!'
+              : 'An error occured!'
+            : 'An error occured!',
+          uploading2: false,
+        })
+      })
+  }
+  googleAuth = res => {
+    const data = {
+      provider: 'google',
+      token: res.tokenId,
+    }
+    Axios.post(`${DEFAULT_URL}api/oauth`, data)
+      .then(res => {
+        authService.successAuth(res, this.props)
+      })
+      .catch(error => {
+        this.setState({ showError: true })
+      })
+  }
   onChange = e =>
     this.setState({
       credentials: {
         ...this.state.credentials,
-        [e.target.name]: e.target.value
-      }
-    });
+        [e.target.name]: e.target.value,
+      },
+    })
   submitData = () => {
-    this.setState({ showError: false, error: undefined });
+    this.setState({ showError: false, error: undefined })
     axios
       .post(`${DEFAULT_URL}api/auth`, this.state.credentials)
       .then(res => {
-        authService.successAuth(res, this.props);
+        authService.successAuth(res, this.props)
       })
       .catch(error => {
         this.setState({
           showError: true,
           error: error.response
-            ? "Unauthorized Access"
-            : "No Internet Conncetion!"
-        });
-      });
-  };
+            ? 'Unauthorized Access'
+            : 'No Internet Conncetion!',
+        })
+      })
+  }
+
+  componentDidMount() {
+    const search = this.props.location.search.split('?recover=')
+    if (2 === search.length) {
+      this.toggleModal('defaultModal2')
+      this.setState({ token: search[1] })
+    }
+  }
 
   render() {
     return (
@@ -103,7 +225,7 @@ class Login extends React.Component {
                       <span className="btn-inner--icon">
                         <img
                           alt="..."
-                          src={require("assets/img/icons/common/google.svg")}
+                          src={require('assets/img/icons/common/google.svg')}
                         />
                       </span>
                       <span className="btn-inner--text">Google</span>
@@ -114,10 +236,10 @@ class Login extends React.Component {
                   onFailure={response =>
                     this.setState({
                       showError: true,
-                      error: "Unauthorized Access"
+                      error: 'Unauthorized Access',
                     })
                   }
-                  cookiePolicy={"single_host_origin"}
+                  cookiePolicy={'single_host_origin'}
                 />
               </div>
             </CardHeader>
@@ -146,14 +268,12 @@ class Login extends React.Component {
                   stateError={this.state.showPasswordError !== undefined}
                   errorMessage={this.state.errors.password}
                 />
-
                 {this.state.showError ? (
                   <Alert color="danger">
-                    <strong>Error!</strong>{" "}
-                    {this.state.error ? this.state.error : "Bad credentials!"}
+                    <strong>Error!</strong>{' '}
+                    {this.state.error ? this.state.error : 'Bad credentials!'}
                   </Alert>
                 ) : null}
-
                 <div className="text-center">
                   <Button
                     className="my-4"
@@ -172,7 +292,7 @@ class Login extends React.Component {
               <a
                 className="text-light"
                 href="#pablo"
-                onClick={e => e.preventDefault()}
+                onClick={() => this.toggleModal('defaultModal')}
               >
                 <small>Forgot password?</small>
               </a>
@@ -184,9 +304,150 @@ class Login extends React.Component {
             </Col>
           </Row>
         </Col>
+        <Modal
+          className="modal-dialog-centered"
+          isOpen={this.state.defaultModal}
+          toggle={() => this.toggleModal('defaultModal')}
+        >
+          <div className="modal-header">
+            <h6 className="modal-title" id="modal-title-default">
+              Forgot Password
+            </h6>
+            <button
+              aria-label="Close"
+              className="close"
+              data-dismiss="modal"
+              type="button"
+              onClick={() => this.toggleModal('defaultModal')}
+            >
+              <span aria-hidden={true}>×</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <InputTextLabel
+              id="username"
+              placeholder="Email"
+              type="text"
+              val={this.state.username}
+              onChange={this.onChangeInputModal}
+            />
+            {this.state.showErrorModal ? (
+              <Alert color="danger">
+                <strong>Error!</strong>{' '}
+                {this.state.errorModalMessage
+                  ? this.state.errorModalMessage
+                  : 'Email field should not be blank!'}
+              </Alert>
+            ) : null}
+            {this.state.showSuccess ? (
+              <Alert color="success">
+                <strong>Success!</strong> {this.state.successMessage}
+              </Alert>
+            ) : null}
+          </div>
+          <div className="modal-footer">
+            <Button
+              color="primary"
+              type="button"
+              onClick={this.forgotPassword}
+              disabled={this.state.disableSendButton}
+            >
+              {this.state.uploading ? (
+                <React.Fragment>
+                  <i className="fas fa-spin fa-spinner"></i> Sending...
+                </React.Fragment>
+              ) : (
+                'Send'
+              )}
+            </Button>
+            <Button
+              className="ml-auto"
+              color="link"
+              data-dismiss="modal"
+              type="button"
+              onClick={() => this.toggleModal('defaultModal')}
+            >
+              Close
+            </Button>
+          </div>
+        </Modal>
+        <Modal
+          className="modal-dialog-centered"
+          isOpen={this.state.defaultModal2}
+          toggle={() => this.toggleModal('defaultModal2')}
+        >
+          <div className="modal-header">
+            <h6 className="modal-title" id="modal-title-default">
+              Change Password
+            </h6>
+            <button
+              aria-label="Close"
+              className="close"
+              data-dismiss="modal"
+              type="button"
+              onClick={() => this.toggleModal('defaultModal2')}
+            >
+              <span aria-hidden={true}>×</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <InputTextLabel
+              id="password"
+              placeholder="Password"
+              type="password"
+              val={this.state.password}
+              onChange={this.onChangeInputModal}
+            />
+            <InputTextLabel
+              id="password2"
+              placeholder="Confirmation Password"
+              type="password"
+              val={this.state.password2}
+              onChange={this.onChangeInputModal}
+            />
+            {this.state.showErrorModal2 ? (
+              <Alert color="danger">
+                <strong>Error!</strong>{' '}
+                {this.state.errorModalMessage2
+                  ? this.state.errorModalMessage2
+                  : 'Your password and confirmation password do not match!'}
+              </Alert>
+            ) : null}
+            {this.state.showSuccess2 ? (
+              <Alert color="success">
+                <strong>Success!</strong> {this.state.successMessage2}
+              </Alert>
+            ) : null}
+          </div>
+          <div className="modal-footer">
+            <Button
+              color="primary"
+              type="button"
+              onClick={this.changePassword}
+              disabled={this.state.disableSendButton2}
+            >
+              {this.state.uploading2 ? (
+                <React.Fragment>
+                  <i className="fas fa-spin fa-spinner"></i> Changing...
+                </React.Fragment>
+              ) : (
+                'Change'
+              )}
+            </Button>
+            <Button
+              className="ml-auto"
+              color="link"
+              data-dismiss="modal"
+              type="button"
+              onClick={() => this.toggleModal('defaultModal2')}
+            >
+              Close
+            </Button>
+          </div>
+        </Modal>
       </>
-    );
+    )
   }
 }
 
-export default Login;
+export default Login
