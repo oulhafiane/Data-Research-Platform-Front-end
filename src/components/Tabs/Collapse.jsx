@@ -40,7 +40,7 @@ class MCollapse extends Component {
 
         // console.log('indexOfNewFieldAdded', indexOfNewFieldAdded)
         // console.log('multipleChoiceArray', multipleChoiceArray)
-        // console.log('')
+        // console.log('')]
         return (
             <div>
                 <Collapse isOpen={isOpen}>

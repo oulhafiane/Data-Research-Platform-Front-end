@@ -17,9 +17,9 @@ class SurveyBody extends React.Component {
     });
   };
   typeRender = (val, key, editQuestion, removeQuestion) => {
-    const type = (val.type === 0 ||
-      val.type === 2 ||
-      val.type === 3) ? '' : 'textarea';
+    const type = (val.type === 5 ||
+      val.type === 7 ||
+      val.type === 8) ? '' : 'textarea';
     return (
       <DisplayQuestions
         type={type}
