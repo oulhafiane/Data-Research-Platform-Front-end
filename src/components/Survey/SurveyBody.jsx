@@ -1,5 +1,6 @@
 import React from "react";
-import TextBox from "./TextBox";
+import DisplayQuestions from "./DisplayQuestions";
+
 class SurveyBody extends React.Component {
   state = {
     title: { hover: false, showEdit: false, title: "" },
@@ -15,22 +16,30 @@ class SurveyBody extends React.Component {
       [state]: !this.state[state]
     });
   };
+  typeRender = (val, key, editQuestion, removeQuestion) => {
+    const type = (val.type === 0 ||
+      val.type === 2 ||
+      val.type === 3) ? '' : 'textarea';
+    return (
+      <DisplayQuestions
+        type={type}
+        key={key}
+        val={val}
+        index={key}
+        editQuestion={editQuestion}
+        removeQuestion={removeQuestion}
+        showEditIndex={this.state.showEditIndex}
+        changeShowEditIndex={this.changeShowEditIndex}
+      />
+    );
+  }
   render() {
     const { dataset, editQuestion, removeQuestion } = this.props;
     return (
       <>
         {dataset.variables.map((val, key) => {
-          return (
-            <TextBox
-              key={key}
-              val={val}
-              index={key}
-              editQuestion={editQuestion}
-              removeQuestion={removeQuestion}
-              showEditIndex={this.state.showEditIndex}
-              changeShowEditIndex={this.changeShowEditIndex}
-            />
-          );
+          // console.log('val ==> , key ==> \n', val, key)
+          return this.typeRender(val, key, editQuestion, removeQuestion)
         })}
       </>
     );

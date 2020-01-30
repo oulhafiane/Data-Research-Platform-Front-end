@@ -34,6 +34,7 @@ import {
   CardBody
 } from "reactstrap";
 import PageHeader from "components/Survey/PageHeader";
+import MCollapse from "./Collapse"
 
 class DesignSurvey extends React.Component {
   state = {
@@ -42,8 +43,68 @@ class DesignSurvey extends React.Component {
     showQuestionError: false,
     newQuestion: { name: "", question: "" },
     newQuestionTypeId: 0,
-    uploading: false
+    uploading: false,
+    multipleChoiceCollapse: false,
+    multipleChoiceArray: [],
+    indexOfNewFieldAdded: null
   };
+
+  // multiple choice
+  addField = (id, flag) => {
+    const { multipleChoiceArray } = this.state
+    try {
+      if (multipleChoiceArray && multipleChoiceArray.length != 0) {
+        let newArray = multipleChoiceArray
+        newArray.splice(id + 1, 0, { id: id + 1, value: '' })
+        this.setState({
+          multipleChoiceArray: newArray,
+          indexOfNewFieldAdded: (flag) ? id + 1 : null
+        }, () => this.setState({
+          multipleChoiceArray: this.state.multipleChoiceArray.map((elem, index) => {
+            return {
+              id: index,
+              value: elem.value
+            }
+          })
+        }))
+      }
+    }
+    catch { }
+  }
+  // multiple choice
+  inputOnChange = (e, id) => {
+    e.preventDefault()
+    this.setState({
+      multipleChoiceArray: this.state.multipleChoiceArray.map((elem) => {
+        if (id === elem.id) {
+          return {
+            id: id,
+            value: e.target.value
+          }
+        }
+        return elem
+      })
+    })
+
+  }
+  // multiple choice del existed input field
+  delField = (id) => {
+    this.setState({
+      multipleChoiceArray: this.state.multipleChoiceArray.filter((elem) => {
+        return id !== elem.id
+      })
+    }, () => {
+      this.setState({
+        multipleChoiceArray: this.state.multipleChoiceArray.map((elem, index) => {
+          return {
+            id: index,
+            value: elem.value
+          }
+        })
+      })
+    })
+
+  }
   onChange = e =>
     this.setState({
       newQuestion: {
@@ -54,6 +115,40 @@ class DesignSurvey extends React.Component {
       extras: { ...this.state.extras, questionError: "An error occured!" },
       showQuestionError: false
     });
+  resetIndexOfNewFieldAdded = () => {
+    this.setState({ indexOfNewFieldAdded: null })
+  }
+  onChangeType = e => {
+    const id = e.target.id
+
+    this.setState(
+      {
+        newQuestionTypeId: id,
+        multipleChoiceCollapse: id === '4' ? true : false
+      }
+      , () => {
+        if (id === '4') {
+          return (
+            this.setState({
+              multipleChoiceArray: [
+                {
+                  id: 0,
+                  value: ''
+                },
+                {
+                  id: 1,
+                  value: ''
+                },
+                {
+                  id: 2,
+                  value: ''
+                },
+              ]
+            })
+          )
+        }
+      })
+  }
   render() {
     const {
       state,
@@ -84,8 +179,8 @@ class DesignSurvey extends React.Component {
                       ? { title: "", description: "" }
                       : state.dataset.parts[this.state.currentPage - 1] ===
                         undefined
-                      ? { title: "", description: "" }
-                      : state.dataset.parts[this.state.currentPage - 1]
+                        ? { title: "", description: "" }
+                        : state.dataset.parts[this.state.currentPage - 1]
                   }
                   currentPage={this.state.currentPage}
                   saveTitle={(title, description, callBack, errCallBack) => {
@@ -104,21 +199,25 @@ class DesignSurvey extends React.Component {
                       ? { variables: [] }
                       : state.dataset.parts[this.state.currentPage - 1] ===
                         undefined
-                      ? { variables: [] }
-                      : state.dataset.parts[this.state.currentPage - 1]
+                        ? { variables: [] }
+                        : state.dataset.parts[this.state.currentPage - 1]
                   }
-                  editQuestion={(question, index, callBack, errCallBack) => {
-                    let ok = true;
-                    state.dataset.parts.forEach(part => {
-                      part.variables.forEach(variable => {
-                        if (variable.name === question.name) ok = false;
-                      });
-                    });
-                    if (!ok) {
-                      errCallBack("Variable name already taken.");
-                      return;
-                    }
+                  // adding options for multiple choice
+                  editQuestion={(options, question, index, callBack, errCallBack) => {
+                    // let ok = true;
+                    // state.dataset.parts.forEach(part => {
+                    //   part.variables.forEach(variable => {
+                    //     if (variable.name === question.name) ok = false;
+                    //   });
+                    // });
+                    // if (!ok) {
+                    //   errCallBack("Variable name already taken.");
+                    //   return;
+                    // }
+
+                    // adding options for multiple choice
                     editQuestion(
+                      options,
                       question,
                       index,
                       this.state.currentPage,
@@ -172,10 +271,22 @@ class DesignSurvey extends React.Component {
                       }
                       type="text"
                       val={TYPES_DATA}
-                      onChange={this.onChangeType}
+                      onChange={(e) => {
+                        e.preventDefault()
+                        this.onChangeType(e)
+                      }}
                     />
                   </Col>
                 </Row>
+                <MCollapse
+                  isOpen={this.state.multipleChoiceCollapse}
+                  multipleChoiceArray={this.state.multipleChoiceArray}
+                  addField={this.addField}
+                  delField={this.delField}
+                  inputOnChange={this.inputOnChange}
+                  indexOfNewFieldAdded={this.state.indexOfNewFieldAdded}
+                  resetIndexOfNewFieldAdded={this.resetIndexOfNewFieldAdded}
+                />
                 {this.state.showQuestionError ? (
                   <Alert color="danger">
                     <strong>Error!</strong>{" "}
@@ -193,10 +304,10 @@ class DesignSurvey extends React.Component {
                         style={
                           this.state.currentPage <= 1
                             ? {
-                                pointerEvents: "none",
-                                backgroundColor: "#cccccc",
-                                color: "#666666"
-                              }
+                              pointerEvents: "none",
+                              backgroundColor: "#cccccc",
+                              color: "#666666"
+                            }
                             : null
                         }
                         onClick={e => {
@@ -245,7 +356,7 @@ class DesignSurvey extends React.Component {
                             return;
                           }
                           this.setState({ uploading: true });
-                          addQuestion(
+                          addQuestion(this.state.multipleChoiceArray,
                             {
                               question: this.state.newQuestion.question,
                               name: this.state.newQuestion.name,
@@ -267,7 +378,9 @@ class DesignSurvey extends React.Component {
                           this.setState(
                             {
                               newQuestion: { name: "", question: "" },
-                              newQuestionTypeId: 0
+                              newQuestionTypeId: 0,
+                              multipleChoiceCollapse: false,
+                              uploading: true
                             },
                             () => {
                               this.state.nameTarget.value = "";
@@ -283,10 +396,10 @@ class DesignSurvey extends React.Component {
                             Uploading...
                           </React.Fragment>
                         ) : (
-                          <>
-                            <i className="fas fa-plus"></i> ADD Question
+                            <>
+                              <i className="fas fa-plus"></i> ADD Question
                           </>
-                        )}
+                          )}
                       </Link>
                       <Link
                         to="#"
@@ -294,10 +407,10 @@ class DesignSurvey extends React.Component {
                         style={
                           this.state.currentPage >= nbrPages
                             ? {
-                                pointerEvents: "none",
-                                backgroundColor: "#cccccc",
-                                color: "#666666"
-                              }
+                              pointerEvents: "none",
+                              backgroundColor: "#cccccc",
+                              color: "#666666"
+                            }
                             : null
                         }
                         onClick={e => {
