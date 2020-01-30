@@ -291,7 +291,7 @@ class Login extends React.Component {
             <Col xs="6">
               <a
                 className="text-light"
-                href="#pablo"
+                href="#forgot"
                 onClick={() => this.toggleModal('defaultModal')}
               >
                 <small>Forgot password?</small>
