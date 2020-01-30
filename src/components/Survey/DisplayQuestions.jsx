@@ -8,14 +8,12 @@ import Switch from '@material-ui/core/Switch';
 import MultipleChoice from './MultipleChoice'
 // reactstrap components
 import {
-  CustomInput,
   Input,
   Button,
   Alert,
   Modal,
   Row,
   Col,
-  Container,
   ListGroup,
   ListGroupItem
 } from "reactstrap";
@@ -63,20 +61,11 @@ class DisplayQuestions extends React.Component {
   };
 
   inputTypeRender = (indexOfInputType, name, type, options) => {
+
     if (indexOfInputType === 0 ||
       indexOfInputType === 1 ||
       indexOfInputType === 2 ||
       indexOfInputType === 3) {
-      return (
-        <Input
-          type={type}
-          style={{ cursor: "pointer" }}
-          name={name}
-          disabled
-        />
-      )
-    }
-    else if (indexOfInputType === 4) {
       return (
         <ListGroup>
           {options !== undefined && options.map((elem, index) => {
@@ -97,7 +86,7 @@ class DisplayQuestions extends React.Component {
         </ListGroup>
       )
     }
-    else if (indexOfInputType === 5) {
+    else if (indexOfInputType === 4) {
       return (
         <Row>
           <Col fg="4">
@@ -116,7 +105,20 @@ class DisplayQuestions extends React.Component {
         </Row >
       )
     }
-    else if (indexOfInputType === 6) {
+    else if (indexOfInputType === 5 ||
+      indexOfInputType === 6 ||
+      indexOfInputType === 7 ||
+      indexOfInputType === 8) {
+      return (
+        <Input
+          type={type}
+          style={{ cursor: "pointer" }}
+          name={name}
+          disabled
+        />
+      )
+    }
+    else if (indexOfInputType === 9) {
       return (
         <div style={{ marginTop: 10 }}>
           <h4 style={{ fontSize: '1vw' }}>Date / Time</h4>
@@ -143,7 +145,7 @@ class DisplayQuestions extends React.Component {
         </div>
       )
     }
-    else if (indexOfInputType === 7) {
+    else if (indexOfInputType === 10) {
       return (
         <div style={{ marginTop: 10 }}>
           <h4 style={{ fontSize: '1vw' }}>Date</h4>
@@ -165,7 +167,7 @@ class DisplayQuestions extends React.Component {
         </div>
       )
     }
-    else if (indexOfInputType === 8) {
+    else if (indexOfInputType === 11) {
       return (
         <div style={{ marginTop: 10 }}>
           <h4 style={{ fontSize: '1vw' }}>Time</h4>
@@ -370,7 +372,10 @@ class DisplayQuestions extends React.Component {
               </Col>
             </Row>
             {/* mutiple choice  */}
-            {val.type === 4
+            {val.type === 0 ||
+              val.type === 1 ||
+              val.type === 2 ||
+              val.type === 3
               ?
               <MultipleChoice
                 val={val}
