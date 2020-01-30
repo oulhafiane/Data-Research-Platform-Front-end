@@ -219,6 +219,7 @@ class MyDataSet extends React.Component {
         question = { ...question, options }
       }
     }
+    console.log("added question ==> ", question)
     /* Need to save it in back-end */
     if (!question.question || !question.name) {
       errCallBack("Question and name must not be empty!");

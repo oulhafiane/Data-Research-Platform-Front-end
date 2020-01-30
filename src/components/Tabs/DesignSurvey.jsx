@@ -44,8 +44,21 @@ class DesignSurvey extends React.Component {
     newQuestion: { name: "", question: "" },
     newQuestionTypeId: 0,
     uploading: false,
-    multipleChoiceCollapse: false,
-    multipleChoiceArray: [],
+    multipleChoiceCollapse: true,
+    multipleChoiceArray: [
+      {
+        id: 0,
+        value: ''
+      },
+      {
+        id: 1,
+        value: ''
+      },
+      {
+        id: 2,
+        value: ''
+      },
+    ],
     indexOfNewFieldAdded: null
   };
 
@@ -71,6 +84,7 @@ class DesignSurvey extends React.Component {
     }
     catch { }
   }
+
   // multiple choice
   inputOnChange = (e, id) => {
     e.preventDefault()
@@ -87,6 +101,7 @@ class DesignSurvey extends React.Component {
     })
 
   }
+
   // multiple choice del existed input field
   delField = (id) => {
     this.setState({
@@ -105,6 +120,7 @@ class DesignSurvey extends React.Component {
     })
 
   }
+
   onChange = e =>
     this.setState({
       newQuestion: {
@@ -115,19 +131,27 @@ class DesignSurvey extends React.Component {
       extras: { ...this.state.extras, questionError: "An error occured!" },
       showQuestionError: false
     });
+
   resetIndexOfNewFieldAdded = () => {
     this.setState({ indexOfNewFieldAdded: null })
   }
+
   onChangeType = e => {
     const id = e.target.id
 
     this.setState(
       {
         newQuestionTypeId: id,
-        multipleChoiceCollapse: id === '4' ? true : false
+        multipleChoiceCollapse: (id === '0' ||
+          id === '1' ||
+          id === '2' ||
+          id === '3') ? true : false
       }
       , () => {
-        if (id === '4') {
+        if (id === '0' ||
+          id === '1' ||
+          id === '2' ||
+          id === '3') {
           return (
             this.setState({
               multipleChoiceArray: [
@@ -149,6 +173,7 @@ class DesignSurvey extends React.Component {
         }
       })
   }
+
   render() {
     const {
       state,
