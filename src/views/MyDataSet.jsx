@@ -34,11 +34,10 @@ import {
 // nodejs library that concatenates classes
 import classnames from "classnames";
 import DesignSurvey from "components/Tabs/DesignSurvey";
-import Analytics from "components/Tabs/Analytics";
-import Data from "components/Tabs/Data";
-import { DndProvider } from "react-dnd";
-import Backend from "react-dnd-html5-backend";
 import Tokens from "components/Tabs/Tokens";
+import Data from "components/Tabs/Data";
+import Analytics from "components/Tabs/Analytics";
+import Prediction from "components/Tabs/Prediction";
 
 class MyDataSet extends React.Component {
   state = {
@@ -127,7 +126,7 @@ class MyDataSet extends React.Component {
     };
     Axios.patch(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-      this.state.dataset.parts[page - 1].id
+        this.state.dataset.parts[page - 1].id
       }`,
       data,
       config
@@ -141,14 +140,14 @@ class MyDataSet extends React.Component {
                 this.state.dataset.parts.length === 0
                   ? [{ title: title, description: description, variables: [] }]
                   : this.state.dataset.parts.map((val, key) => {
-                    if (key + 1 === page) {
-                      return {
-                        ...val,
-                        title: title,
-                        description: description
-                      };
-                    } else return val;
-                  })
+                      if (key + 1 === page) {
+                        return {
+                          ...val,
+                          title: title,
+                          description: description
+                        };
+                      } else return val;
+                    })
             }
           },
           callBack
@@ -168,7 +167,7 @@ class MyDataSet extends React.Component {
     };
     Axios.post(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-      this.state.dataset.parts[page - 1].id
+        this.state.dataset.parts[page - 1].id
       }`,
       data,
       config
@@ -182,16 +181,16 @@ class MyDataSet extends React.Component {
                 this.state.dataset.parts.length === 0
                   ? [{ variables: [question] }]
                   : this.state.dataset.parts.map((val, key) => {
-                    if (key + 1 === page) {
-                      return {
-                        ...val,
-                        variables: [
-                          ...val.variables,
-                          ...res.data.extras.variables
-                        ]
-                      };
-                    } else return val;
-                  })
+                      if (key + 1 === page) {
+                        return {
+                          ...val,
+                          variables: [
+                            ...val.variables,
+                            ...res.data.extras.variables
+                          ]
+                        };
+                      } else return val;
+                    })
             }
           },
           callBack
@@ -205,21 +204,18 @@ class MyDataSet extends React.Component {
 
   addQuestion = (options, question, page, callBack, errCallBack) => {
     // Add options of mutiple choice to Question Object
-    if (options !== undefined &&
-      options !== null &&
-      options.length > 0) {
+    if (options !== undefined && options !== null && options.length > 0) {
       options = options.filter((elem, index) => {
-        if (elem.value.length > 0) return true
+        if (elem.value.length > 0) return true;
         else return false;
-      })
+      });
       options = options.map((elem, index) => {
-        return elem.value
-      })
+        return elem.value;
+      });
       if (options && options.length > 0) {
-        question = { ...question, options }
+        question = { ...question, options };
       }
     }
-    console.log("added question ==> ", question)
     /* Need to save it in back-end */
     if (!question.question || !question.name) {
       errCallBack("Question and name must not be empty!");
@@ -267,30 +263,25 @@ class MyDataSet extends React.Component {
   };
 
   editQuestion = (options, question, index, page, callBack, errCallBack) => {
-
-    if (options !== undefined &&
-      options !== null &&
-      options.length > 0) {
+    if (options !== undefined && options !== null && options.length > 0) {
       options = options.filter((elem, index) => {
-        if (elem.value.length > 0) return true
+        if (elem.value.length > 0) return true;
         else return false;
-      })
+      });
       options = options.map((elem, index) => {
-        return elem.value
-      })
+        return elem.value;
+      });
       if (options && options.length > 0) {
-        question = { ...question, options }
+        question = { ...question, options };
       }
     }
-    // debug message for mutiple choice
-    console.log("Answers", question)
 
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
     Axios.patch(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-      this.state.dataset.parts[page - 1].id
+        this.state.dataset.parts[page - 1].id
       }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
       question,
       config
@@ -330,7 +321,7 @@ class MyDataSet extends React.Component {
     };
     Axios.delete(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-      this.state.dataset.parts[page - 1].id
+        this.state.dataset.parts[page - 1].id
       }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
       config
     )
@@ -418,7 +409,6 @@ class MyDataSet extends React.Component {
       });
   }
   componentDidUpdate() {
-    console.log(this.state)
     if (this.state.uuid !== this.props.match.params.uuid) {
       window.location.reload();
     }
@@ -450,7 +440,7 @@ class MyDataSet extends React.Component {
                         active: this.state.iconTabs === 1
                       })}
                       onClick={e => this.toggleNavs(e, "iconTabs", 1)}
-                      href="#pablo"
+                      href="#design"
                       role="tab"
                     >
                       <i className="ni ni-app mr-2" />
@@ -464,7 +454,7 @@ class MyDataSet extends React.Component {
                         active: this.state.iconTabs === 2
                       })}
                       onClick={e => this.toggleNavs(e, "iconTabs", 2)}
-                      href="#pablo"
+                      href="#tokens"
                       role="tab"
                     >
                       <i className="ni ni-chart-bar-32 mr-2" />
@@ -478,7 +468,7 @@ class MyDataSet extends React.Component {
                         active: this.state.iconTabs === 3
                       })}
                       onClick={e => this.toggleNavs(e, "iconTabs", 3)}
-                      href="#pablo"
+                      href="#data"
                       role="tab"
                     >
                       <i className="ni ni-chart-bar-32 mr-2" />
@@ -492,11 +482,25 @@ class MyDataSet extends React.Component {
                         active: this.state.iconTabs === 4
                       })}
                       onClick={e => this.toggleNavs(e, "iconTabs", 4)}
-                      href="#pablo"
+                      href="#analytics"
                       role="tab"
                     >
                       <i className="ni ni-chart-pie-35 mr-2" />
                       Analytics
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      aria-selected={this.state.iconTabs === 4}
+                      className={classnames("mb-sm-3 mb-md-0", {
+                        active: this.state.iconTabs === 4
+                      })}
+                      onClick={e => this.toggleNavs(e, "iconTabs", 4)}
+                      href="#prediction"
+                      role="tab"
+                    >
+                      <i className="ni ni-chart-bar-32 mr-2" />
+                      Prediction
                     </NavLink>
                   </NavItem>
                 </Nav>
@@ -508,35 +512,32 @@ class MyDataSet extends React.Component {
                     style={{ margin: "0" }}
                   >
                     <TabPane tabId="iconTabs1">
-                      <DndProvider backend={Backend}>
-                        <DesignSurvey
-                          state={this.state}
-                          saveTitle={this.saveTitle}
-                          addPage={this.addPage}
-                          savePageTitle={this.savePageTitle}
-                          addQuestion={this.addQuestion}
-                          editQuestion={this.editQuestion}
-                          removeQuestion={this.removeQuestion}
-                          publishSurvey={this.publishSurvey}
-                        />
-                      </DndProvider>
+                      <DesignSurvey
+                        state={this.state}
+                        saveTitle={this.saveTitle}
+                        addPage={this.addPage}
+                        savePageTitle={this.savePageTitle}
+                        addQuestion={this.addQuestion}
+                        editQuestion={this.editQuestion}
+                        removeQuestion={this.removeQuestion}
+                        publishSurvey={this.publishSurvey}
+                      />
                     </TabPane>
                     <TabPane tabId="iconTabs2">
-                      <DndProvider backend={Backend}>
-                        <Tokens
-                          state={this.state}
-                          refreshTokens={this.refreshTokens}
-                          gotoTokenPage={this.gotoTokenPage}
-                        />
-                      </DndProvider>
+                      <Tokens
+                        state={this.state}
+                        refreshTokens={this.refreshTokens}
+                        gotoTokenPage={this.gotoTokenPage}
+                      />
                     </TabPane>
                     <TabPane tabId="iconTabs3">
-                      <DndProvider backend={Backend}>
-                        <Data state={this.state} />
-                      </DndProvider>
+                      <Data state={this.state} />
                     </TabPane>
                     <TabPane tabId="iconTabs4">
                       <Analytics state={this.state} />
+                    </TabPane>
+                    <TabPane tabId="iconTabs5">
+                      <Prediction state={this.state} />
                     </TabPane>
                   </TabContent>
                 </CardBody>
