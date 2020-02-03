@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react'
 // reactstrap components
 import {
   FormGroup,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  UncontrolledDropdown
-} from "reactstrap";
+  UncontrolledDropdown,
+} from 'reactstrap'
 
 const DropDownLabel = props => {
-  const { id, val, placeholder, onChange, name } = props;
+  const { id, val, placeholder, onChange, name, disabled } = props
   return (
     <div>
       <FormGroup>
@@ -18,20 +18,21 @@ const DropDownLabel = props => {
             {name}
           </label>
         )}
-        <UncontrolledDropdown style={{ display: "block" }} group>
+        <UncontrolledDropdown style={{ display: 'block' }} group>
           <DropdownToggle
             caret
             color="primary"
             style={{
-              width: "100%",
-              textOverflow: "ellipsis",
-              overflow: "hidden"
+              width: '100%',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
             }}
+            disabled={disabled}
           >
             {placeholder}
           </DropdownToggle>
           <DropdownMenu
-            style={{ width: "100%", maxHeight: "300px", overflow: "auto" }}
+            style={{ width: '100%', maxHeight: '300px', overflow: 'auto' }}
           >
             {Object.keys(val).map(key => {
               return (
@@ -43,13 +44,13 @@ const DropDownLabel = props => {
                 >
                   {val[key].title}
                 </DropdownItem>
-              );
+              )
             })}
           </DropdownMenu>
         </UncontrolledDropdown>
       </FormGroup>
     </div>
-  );
-};
+  )
+}
 
-export default DropDownLabel;
+export default DropDownLabel
