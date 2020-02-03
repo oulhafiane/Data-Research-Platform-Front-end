@@ -15,13 +15,13 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import { Link } from "react-router-dom";
-import InputTextLabel from "components/Inputs/InputLabel";
-import DropDownLabel from "components/Inputs/DropDownLabel";
-import SurveyHeader from "components/Survey/SurveyHeader";
-import SurveyBody from "components/Survey/SurveyBody";
-import { TYPES_DATA } from "config";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import InputTextLabel from 'components/Inputs/InputLabel'
+import DropDownLabel from 'components/Inputs/DropDownLabel'
+import SurveyHeader from 'components/Survey/SurveyHeader'
+import SurveyBody from 'components/Survey/SurveyBody'
+import { TYPES_DATA } from 'config'
 // reactstrap components
 import {
   Card,
@@ -31,36 +31,36 @@ import {
   Col,
   Button,
   Alert,
-  CardBody
-} from "reactstrap";
-import PageHeader from "components/Survey/PageHeader";
-import MCollapse from "./Collapse"
+  CardBody,
+} from 'reactstrap'
+import PageHeader from 'components/Survey/PageHeader'
+import MCollapse from './Collapse'
 
 class DesignSurvey extends React.Component {
   state = {
     currentPage: 1,
     extras: {},
     showQuestionError: false,
-    newQuestion: { name: "", question: "" },
+    newQuestion: { name: '', question: '' },
     newQuestionTypeId: 0,
     uploading: false,
     multipleChoiceCollapse: true,
     multipleChoiceArray: [
       {
         id: 0,
-        value: ''
+        value: '',
       },
       {
         id: 1,
-        value: ''
+        value: '',
       },
       {
         id: 2,
-        value: ''
+        value: '',
       },
     ],
-    indexOfNewFieldAdded: null
-  };
+    indexOfNewFieldAdded: null,
+  }
 
   // multiple choice
   addField = (id, flag) => {
@@ -69,68 +69,76 @@ class DesignSurvey extends React.Component {
       if (multipleChoiceArray && multipleChoiceArray.length != 0) {
         let newArray = multipleChoiceArray
         newArray.splice(id + 1, 0, { id: id + 1, value: '' })
-        this.setState({
-          multipleChoiceArray: newArray,
-          indexOfNewFieldAdded: (flag) ? id + 1 : null
-        }, () => this.setState({
-          multipleChoiceArray: this.state.multipleChoiceArray.map((elem, index) => {
-            return {
-              id: index,
-              value: elem.value
-            }
-          })
-        }))
+        this.setState(
+          {
+            multipleChoiceArray: newArray,
+            indexOfNewFieldAdded: flag ? id + 1 : null,
+          },
+          () =>
+            this.setState({
+              multipleChoiceArray: this.state.multipleChoiceArray.map(
+                (elem, index) => {
+                  return {
+                    id: index,
+                    value: elem.value,
+                  }
+                },
+              ),
+            }),
+        )
       }
-    }
-    catch { }
+    } catch {}
   }
 
   // multiple choice
   inputOnChange = (e, id) => {
     e.preventDefault()
     this.setState({
-      multipleChoiceArray: this.state.multipleChoiceArray.map((elem) => {
+      multipleChoiceArray: this.state.multipleChoiceArray.map(elem => {
         if (id === elem.id) {
           return {
             id: id,
-            value: e.target.value
+            value: e.target.value,
           }
         }
         return elem
-      })
+      }),
     })
-
   }
 
   // multiple choice del existed input field
-  delField = (id) => {
-    this.setState({
-      multipleChoiceArray: this.state.multipleChoiceArray.filter((elem) => {
-        return id !== elem.id
-      })
-    }, () => {
-      this.setState({
-        multipleChoiceArray: this.state.multipleChoiceArray.map((elem, index) => {
-          return {
-            id: index,
-            value: elem.value
-          }
+  delField = id => {
+    this.setState(
+      {
+        multipleChoiceArray: this.state.multipleChoiceArray.filter(elem => {
+          return id !== elem.id
+        }),
+      },
+      () => {
+        this.setState({
+          multipleChoiceArray: this.state.multipleChoiceArray.map(
+            (elem, index) => {
+              return {
+                id: index,
+                value: elem.value,
+              }
+            },
+          ),
         })
-      })
-    })
-
+      },
+    )
   }
 
   onChange = e =>
     this.setState({
       newQuestion: {
         ...this.state.newQuestion,
-        [e.target.name]: e.target.value
+        [e.target.name]: e.target.value,
       },
       [`${e.target.name}Target`]: e.target,
-      extras: { ...this.state.extras, questionError: "An error occured!" },
-      showQuestionError: false
-    });
+      extras: { ...this.state.extras, questionError: 'An error occured!' },
+      showQuestionError: false,
+    })
 
   resetIndexOfNewFieldAdded = () => {
     this.setState({ indexOfNewFieldAdded: null })
@@ -142,36 +150,30 @@ class DesignSurvey extends React.Component {
     this.setState(
       {
         newQuestionTypeId: id,
-        multipleChoiceCollapse: (id === '0' ||
-          id === '1' ||
-          id === '2' ||
-          id === '3') ? true : false
-      }
-      , () => {
-        if (id === '0' ||
-          id === '1' ||
-          id === '2' ||
-          id === '3') {
-          return (
-            this.setState({
-              multipleChoiceArray: [
-                {
-                  id: 0,
-                  value: ''
-                },
-                {
-                  id: 1,
-                  value: ''
-                },
-                {
-                  id: 2,
-                  value: ''
-                },
-              ]
-            })
-          )
+        multipleChoiceCollapse:
+          id === '0' || id === '1' || id === '2' || id === '3' ? true : false,
+      },
+      () => {
+        if (id === '0' || id === '1' || id === '2' || id === '3') {
+          return this.setState({
+            multipleChoiceArray: [
+              {
+                id: 0,
+                value: '',
+              },
+              {
+                id: 1,
+                value: '',
+              },
+              {
+                id: 2,
+                value: '',
+              },
+            ],
+          })
         }
-      })
+      },
+    )
   }
 
   render() {
@@ -183,12 +185,12 @@ class DesignSurvey extends React.Component {
       addQuestion,
       editQuestion,
       removeQuestion,
-      publishSurvey
-    } = this.props;
+      publishSurvey,
+    } = this.props
     let nbrPages =
       this.props.state.dataset.parts.length === 0
         ? 1
-        : this.props.state.dataset.parts.length;
+        : this.props.state.dataset.parts.length
     return (
       <>
         <Row className="row-grid justify-content-between align-items-center">
@@ -201,11 +203,11 @@ class DesignSurvey extends React.Component {
                 <PageHeader
                   dataset={
                     state.dataset.parts.length === 0
-                      ? { title: "", description: "" }
+                      ? { title: '', description: '' }
                       : state.dataset.parts[this.state.currentPage - 1] ===
                         undefined
-                        ? { title: "", description: "" }
-                        : state.dataset.parts[this.state.currentPage - 1]
+                      ? { title: '', description: '' }
+                      : state.dataset.parts[this.state.currentPage - 1]
                   }
                   currentPage={this.state.currentPage}
                   saveTitle={(title, description, callBack, errCallBack) => {
@@ -214,8 +216,8 @@ class DesignSurvey extends React.Component {
                       description,
                       this.state.currentPage,
                       callBack,
-                      errCallBack
-                    );
+                      errCallBack,
+                    )
                   }}
                 />
                 <SurveyBody
@@ -224,11 +226,17 @@ class DesignSurvey extends React.Component {
                       ? { variables: [] }
                       : state.dataset.parts[this.state.currentPage - 1] ===
                         undefined
-                        ? { variables: [] }
-                        : state.dataset.parts[this.state.currentPage - 1]
+                      ? { variables: [] }
+                      : state.dataset.parts[this.state.currentPage - 1]
                   }
                   // adding options for multiple choice
-                  editQuestion={(options, question, index, callBack, errCallBack) => {
+                  editQuestion={(
+                    options,
+                    question,
+                    index,
+                    callBack,
+                    errCallBack,
+                  ) => {
                     // let ok = true;
                     // state.dataset.parts.forEach(part => {
                     //   part.variables.forEach(variable => {
@@ -247,19 +255,19 @@ class DesignSurvey extends React.Component {
                       index,
                       this.state.currentPage,
                       callBack,
-                      errCallBack
-                    );
+                      errCallBack,
+                    )
                   }}
                   removeQuestion={(index, callBack, errCallBack) =>
                     removeQuestion(
                       index,
                       this.state.currentPage,
                       callBack,
-                      errCallBack
+                      errCallBack,
                     )
                   }
                 />
-                <Row style={{ marginTop: "30px" }}>
+                <Row style={{ marginTop: '30px' }}>
                   <Col>
                     <div className="text-center">
                       Page {this.state.currentPage} / {nbrPages}
@@ -296,7 +304,7 @@ class DesignSurvey extends React.Component {
                       }
                       type="text"
                       val={TYPES_DATA}
-                      onChange={(e) => {
+                      onChange={e => {
                         e.preventDefault()
                         this.onChangeType(e)
                       }}
@@ -314,10 +322,10 @@ class DesignSurvey extends React.Component {
                 />
                 {this.state.showQuestionError ? (
                   <Alert color="danger">
-                    <strong>Error!</strong>{" "}
+                    <strong>Error!</strong>{' '}
                     {this.state.extras.questionError
                       ? this.state.extras.questionError
-                      : "An error occured!"}
+                      : 'An error occured!'}
                   </Alert>
                 ) : null}
                 <Row>
@@ -329,20 +337,20 @@ class DesignSurvey extends React.Component {
                         style={
                           this.state.currentPage <= 1
                             ? {
-                              pointerEvents: "none",
-                              backgroundColor: "#cccccc",
-                              color: "#666666"
-                            }
+                                pointerEvents: 'none',
+                                backgroundColor: '#cccccc',
+                                color: '#666666',
+                              }
                             : null
                         }
                         onClick={e => {
-                          e.preventDefault();
+                          e.preventDefault()
                           this.setState({
                             currentPage:
                               this.state.currentPage > 1
                                 ? this.state.currentPage - 1
-                                : 1
-                          });
+                                : 1,
+                          })
                         }}
                       >
                         <i className="fas fa-angle-left" /> PREVIOUS
@@ -350,7 +358,7 @@ class DesignSurvey extends React.Component {
                       <Link
                         to="#add"
                         onClick={e => {
-                          e.preventDefault();
+                          e.preventDefault()
                           if (
                             !this.state.newQuestion.question ||
                             !this.state.newQuestion.name
@@ -359,33 +367,34 @@ class DesignSurvey extends React.Component {
                               showQuestionError: true,
                               extras: {
                                 questionError:
-                                  "The variable name or question is empty!"
-                              }
-                            });
-                            return;
+                                  'The variable name or question is empty!',
+                              },
+                            })
+                            return
                           }
-                          let ok = true;
+                          let ok = true
                           state.dataset.parts.forEach(part => {
                             part.variables.forEach(variable => {
                               if (variable.name === this.state.newQuestion.name)
-                                ok = false;
-                            });
-                          });
+                                ok = false
+                            })
+                          })
                           if (!ok) {
                             this.setState({
                               showQuestionError: true,
                               extras: {
-                                questionError: "Variable name already taken."
-                              }
-                            });
-                            return;
+                                questionError: 'Variable name already taken.',
+                              },
+                            })
+                            return
                           }
-                          this.setState({ uploading: true });
-                          addQuestion(this.state.multipleChoiceArray,
+                          this.setState({ uploading: true })
+                          addQuestion(
+                            this.state.multipleChoiceArray,
                             {
                               question: this.state.newQuestion.question,
                               name: this.state.newQuestion.name,
-                              type: this.state.newQuestionTypeId
+                              type: this.state.newQuestionTypeId,
                             },
                             this.state.currentPage,
                             () => this.setState({ uploading: false }),
@@ -395,36 +404,34 @@ class DesignSurvey extends React.Component {
                                 showQuestionError: true,
                                 extras: {
                                   ...this.state.extras,
-                                  questionError: err
-                                }
-                              });
-                            }
-                          );
+                                  questionError: err,
+                                },
+                              })
+                            },
+                          )
                           this.setState(
                             {
-                              newQuestion: { name: "", question: "" },
-                              newQuestionTypeId: 0,
-                              multipleChoiceCollapse: false,
-                              uploading: true
+                              newQuestion: { name: '', question: '' },
+                              uploading: true,
                             },
                             () => {
-                              this.state.nameTarget.value = "";
-                              this.state.questionTarget.value = "";
-                            }
-                          );
+                              this.state.nameTarget.value = ''
+                              this.state.questionTarget.value = ''
+                            },
+                          )
                         }}
                         className="btn btn-event"
                       >
                         {this.state.uploading ? (
                           <React.Fragment>
-                            <i className="fas fa-spin fa-spinner"></i>{" "}
+                            <i className="fas fa-spin fa-spinner"></i>{' '}
                             Uploading...
                           </React.Fragment>
                         ) : (
-                            <>
-                              <i className="fas fa-plus"></i> ADD Question
+                          <>
+                            <i className="fas fa-plus"></i> ADD Question
                           </>
-                          )}
+                        )}
                       </Link>
                       <Link
                         to="#"
@@ -432,20 +439,20 @@ class DesignSurvey extends React.Component {
                         style={
                           this.state.currentPage >= nbrPages
                             ? {
-                              pointerEvents: "none",
-                              backgroundColor: "#cccccc",
-                              color: "#666666"
-                            }
+                                pointerEvents: 'none',
+                                backgroundColor: '#cccccc',
+                                color: '#666666',
+                              }
                             : null
                         }
                         onClick={e => {
-                          e.preventDefault();
+                          e.preventDefault()
                           this.setState({
                             currentPage:
                               this.state.currentPage < nbrPages
                                 ? this.state.currentPage + 1
-                                : nbrPages
-                          });
+                                : nbrPages,
+                          })
                         }}
                       >
                         NEXT <i className="fas fa-angle-right" />
@@ -455,12 +462,12 @@ class DesignSurvey extends React.Component {
                 </Row>
               </CardFooter>
             </Card>
-            <div className="btn-wrapper" style={{ marginTop: "20px" }}>
+            <div className="btn-wrapper" style={{ marginTop: '20px' }}>
               <Button
                 color="success"
                 to="/login-page"
                 tag={Link}
-                style={{ float: "right" }}
+                style={{ float: 'right' }}
                 onClick={publishSurvey}
               >
                 Publish Survey
@@ -469,18 +476,18 @@ class DesignSurvey extends React.Component {
                 color="primary"
                 to="#"
                 onClick={e => {
-                  e.preventDefault();
+                  e.preventDefault()
                   addPage(this.state.currentPage + 1, () => {
                     this.setState(
                       {
-                        nbrPages: nbrPages + 1
+                        nbrPages: nbrPages + 1,
                       },
-                      () => this.setState({ currentPage: this.state.nbrPages })
-                    );
-                  });
+                      () => this.setState({ currentPage: this.state.nbrPages }),
+                    )
+                  })
                 }}
                 tag={Link}
-                style={{ float: "right", marginRight: "20px" }}
+                style={{ float: 'right', marginRight: '20px' }}
               >
                 Add Page
               </Button>
@@ -488,8 +495,8 @@ class DesignSurvey extends React.Component {
           </Col>
         </Row>
       </>
-    );
+    )
   }
 }
 
-export default DesignSurvey;
+export default DesignSurvey
