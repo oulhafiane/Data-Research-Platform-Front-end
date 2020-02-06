@@ -18,12 +18,12 @@ export default ;
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import Axios from "axios";
-import InputTextLabel from "../components/Inputs/InputLabel";
-import { DEFAULT_URL } from "../config";
-import { connect } from "react-redux";
-import { getUser } from "actions/userAction";
+import React from 'react'
+import Axios from 'axios'
+import InputTextLabel from '../components/Inputs/InputLabel'
+import { DEFAULT_URL } from '../config'
+import { connect } from 'react-redux'
+import { getUser } from 'actions/userAction'
 
 // reactstrap components
 import {
@@ -35,100 +35,98 @@ import {
   Container,
   Row,
   Col,
-  Alert
-} from "reactstrap";
-import ShowProfile from "components/Shows/ShowProfile";
-import SelectLabel from "components/Inputs/SelectLabel";
+  Alert,
+} from 'reactstrap'
+import ShowProfile from 'components/Shows/ShowProfile'
+import SelectLabel from 'components/Inputs/SelectLabel'
 
 class Profile extends React.Component {
   state = {
-    token: localStorage.getItem("token"),
+    token: localStorage.getItem('token'),
     user: {},
     categories: {
       0: {
         id: 1,
-        title: "Domain",
-        sub_categories: { 0: { id: 1, title: "Category" } }
-      }
+        title: 'Domain',
+        sub_categories: { 0: { id: 1, title: 'Category' } },
+      },
     },
     selected: [],
     disabled: true,
     file: null,
     showGlobalWarning: false,
     showSuccess: false,
-    uploading: false
-  };
+    uploading: false,
+  }
 
   onChange = e => {
     this.setState({
       user: { ...this.state.user, [e.target.name]: e.target.value },
-      disabled: false
-    });
-  };
+      disabled: false,
+    })
+  }
 
   onChangeDomains = e => {
-    console.log(e);
     this.setState({
       selected: e,
-      disabled: false
-    });
-  };
+      disabled: false,
+    })
+  }
 
   updateProfile = e => {
-    e.preventDefault();
+    e.preventDefault()
     let domains = this.state.selected.map(domain => ({
-      id: domain.value
-    }));
+      id: domain.value,
+    }))
     this.setState({
       showSuccess: false,
       showGlobalWarning: false,
-      uploading: true
-    });
+      uploading: true,
+    })
     const config = {
-      headers: { Authorization: "bearer " + this.state.token }
-    };
+      headers: { Authorization: 'bearer ' + this.state.token },
+    }
     Axios.post(
       `${DEFAULT_URL}api/current/update`,
       { ...this.state.user, domains: domains },
-      config
+      config,
     )
       .then(res => {
-        this.setState({ showSuccess: true, uploading: false });
-        console.log(res);
+        this.setState({ showSuccess: true, uploading: false })
       })
       .catch(error => {
         if (
           error.response &&
           error.response.data &&
-          error.response.data.message === "Expired JWT Token"
+          error.response.data.message === 'Expired JWT Token'
         ) {
-          localStorage.removeItem("token");
-          this.props.history.push("/auth/login");
+          localStorage.removeItem('token')
+          this.props.history.push('/auth/login')
         } else {
           this.setState({
             message: error.response.data.message,
-            showGlobalWarning: true
-          });
+            showGlobalWarning: true,
+          })
         }
-      });
-  };
+      })
+  }
 
   getCategories = () => {
     Axios.get(`${DEFAULT_URL}api/categories`)
       .then(res => {
-        this.setState({ categories: res.data });
+        this.setState({ categories: res.data })
       })
-      .catch(e => console.log(e.response.data));
-  };
+      .catch(e => console.log(e.response.data))
+  }
 
   async componentDidMount() {
-    this.getCategories();
-    await this.props.getUser();
+    this.getCategories()
+    await this.props.getUser()
     const domains = this.props.user.domains.map(domain => ({
       value: domain.id,
-      label: domain.title
-    }));
-    this.setState({ user: this.props.user, selected: domains });
+      label: domain.title,
+    }))
+    this.setState({ user: this.props.user, selected: domains })
   }
 
   render() {
@@ -195,8 +193,8 @@ class Profile extends React.Component {
                             val={Object.keys(this.state.categories).map(
                               key => ({
                                 value: this.state.categories[key].id,
-                                label: this.state.categories[key].title
-                              })
+                                label: this.state.categories[key].title,
+                              }),
                             )}
                             onChange={this.onChangeDomains}
                           />
@@ -279,15 +277,15 @@ class Profile extends React.Component {
                       onClick={this.updateProfile}
                       size="sm"
                       disabled={this.state.disabled}
-                      style={{ padding: "9px 34px 9px 34px", float: "right" }}
+                      style={{ padding: '9px 34px 9px 34px', float: 'right' }}
                     >
                       {this.state.uploading ? (
                         <React.Fragment>
-                          <i className="fas fa-spin fa-spinner"></i>{" "}
+                          <i className="fas fa-spin fa-spinner"></i>{' '}
                           Uploading...
                         </React.Fragment>
                       ) : (
-                        "Update profile"
+                        'Update profile'
                       )}
                     </Button>
                   </Form>
@@ -297,13 +295,13 @@ class Profile extends React.Component {
           </Row>
         </Container>
       </>
-    );
+    )
   }
 }
 
 const mapStateProps = state => ({
   photo_user: state.user.photo_user,
-  user: state.user.user
-});
+  user: state.user.user,
+})
 
-export default connect(mapStateProps, { getUser })(Profile);
+export default connect(mapStateProps, { getUser })(Profile)
