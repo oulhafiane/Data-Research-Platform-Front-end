@@ -15,13 +15,13 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 // JavaScript plugin that hides or shows a component based on your scroll
-import Headroom from "headroom.js";
-import SharedNavbar from "./SharedNavbar";
-import { connect } from "react-redux";
-import { getUser } from "actions/userAction";
+import Headroom from 'headroom.js'
+import SharedNavbar from './SharedNavbar'
+import { connect } from 'react-redux'
+import { getUser } from 'actions/userAction'
 
 // reactstrap components
 import {
@@ -33,19 +33,20 @@ import {
   Media,
   NavbarBrand,
   Navbar,
-  Nav
-} from "reactstrap";
-import authService from "services/auth-service";
+  Nav,
+} from 'reactstrap'
+import authService from 'services/auth-service'
+import MyProfile from './MyProfile'
 
 class DefaultNavbar extends React.Component {
   async componentDidMount() {
-    let headroom = new Headroom(document.getElementById("navbar-main"));
+    let headroom = new Headroom(document.getElementById('navbar-main'))
     // initialise
-    headroom.init();
-    await this.props.getUser();
+    headroom.init()
+    await this.props.getUser()
   }
   render() {
-    const { styleBrand } = this.props;
+    const { styleBrand } = this.props
     return (
       <>
         <header className="header-global">
@@ -60,7 +61,7 @@ class DefaultNavbar extends React.Component {
               tag={Link}
               style={styleBrand}
             >
-              <img alt="..." src={require("assets/img/brand/impactree.png")} />
+              <img alt="..." src={require('assets/img/brand/impactree.png')} />
             </NavbarBrand>
             <button className="navbar-toggler" id="navbar_global">
               <span className="navbar-toggler-icon" />
@@ -68,63 +69,22 @@ class DefaultNavbar extends React.Component {
             <UncontrolledCollapse navbar toggler="#navbar_global">
               <SharedNavbar />
               <Nav className="align-items-lg-center ml-lg-auto" navbar>
-                <UncontrolledDropdown nav>
-                  <DropdownToggle className="pr-0" nav>
-                    <Media className="align-items-center">
-                      <span className="avatar avatar-sm rounded-circle">
-                        <img
-                          alt="..."
-                          src={
-                            this.props.user
-                              ? this.props.user._photo
-                                ? this.props.user._photo.img
-                                : this.props.photo_user
-                              : this.props.photo_user
-                          }
-                        />
-                      </span>
-                      <Media className="ml-2 d-lg-block">
-                        <span className="mb-0 text-sm font-weight-bold">
-                          {this.props.user ? this.props.user.firstName : null}{" "}
-                          {this.props.user ? this.props.user.lastName : null}
-                        </span>
-                      </Media>
-                    </Media>
-                  </DropdownToggle>
-                  <DropdownMenu className="dropdown-menu-arrow" right>
-                    <DropdownItem className="noti-title" header tag="div">
-                      <h6 className="text-overflow m-0">Welcome!</h6>
-                    </DropdownItem>
-                    <DropdownItem to="/default/user-profile" tag={Link}>
-                      <i className="ni ni-single-02" />
-                      <span>My profile</span>
-                    </DropdownItem>
-                    <DropdownItem to="/default/user-profile" tag={Link}>
-                      <i className="ni ni-settings-gear-65" />
-                      <span>Settings</span>
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem
-                      href="#"
-                      onClick={() => authService.logout(this.props)}
-                    >
-                      <i className="ni ni-user-run" />
-                      <span>Logout</span>
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                <MyProfile
+                  user={this.props.user}
+                  photo_user={this.props.photo_user}
+                />
               </Nav>
             </UncontrolledCollapse>
           </Navbar>
         </header>
       </>
-    );
+    )
   }
 }
 
 const mapStateProps = state => ({
   photo_user: state.user.photo_user,
-  user: state.user.user
-});
+  user: state.user.user,
+})
 
-export default connect(mapStateProps, { getUser })(DefaultNavbar);
+export default connect(mapStateProps, { getUser })(DefaultNavbar)

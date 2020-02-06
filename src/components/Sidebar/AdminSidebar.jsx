@@ -16,10 +16,10 @@
 
 */
 /*eslint-disable*/
-import React from "react";
-import { NavLink as NavLinkRRD, Link } from "react-router-dom";
+import React from 'react'
+import { NavLink as NavLinkRRD, Link } from 'react-router-dom'
 // nodejs library to set properties for components
-import { PropTypes } from "prop-types";
+import { PropTypes } from 'prop-types'
 
 // reactstrap components
 import {
@@ -41,77 +41,94 @@ import {
   Nav,
   Container,
   Row,
-  Col
-} from "reactstrap";
+  Col,
+} from 'reactstrap'
+import MyProfile from 'components/Navbars/MyProfile'
 
-var ps;
+var ps
 
 class AdminSidebar extends React.Component {
   state = {
-    collapseOpen: false
-  };
+    collapseOpen: false,
+  }
   constructor(props) {
-    super(props);
-    this.activeRoute.bind(this);
+    super(props)
+    this.activeRoute.bind(this)
   }
   // verifies if routeName is the one active (in browser input)
   activeRoute(routeName) {
-    return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+    return this.props.location.pathname.indexOf(routeName) > -1 ? 'active' : ''
   }
   // toggles collapse between opened and closed (true/false)
   toggleCollapse = () => {
     this.setState({
-      collapseOpen: !this.state.collapseOpen
-    });
-  };
+      collapseOpen: !this.state.collapseOpen,
+    })
+  }
   // closes the collapse
   closeCollapse = () => {
     this.setState({
-      collapseOpen: false
-    });
-  };
+      collapseOpen: false,
+    })
+  }
   // creates the links that appear in the left menu / Sidebar
   createLinks = routes => {
-    return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <NavItem key={key}>
-            <NavLink
-              to={prop.layout + prop.path}
-              tag={NavLinkRRD}
-              onClick={this.closeCollapse}
-              activeClassName="active"
-            >
-              <i
-                className={prop.icon}
-                style={{ top: "0px", marginRight: "0rem" }}
-              />
-              {prop.name}
-            </NavLink>
-          </NavItem>
-        );
-      } else {
-        return null;
-      }
-    });
-  };
+    return [
+      <NavItem key="-1">
+        <NavLink
+          to="/home/index"
+          tag={NavLinkRRD}
+          onClick={this.closeCollapse}
+          activeClassName="active"
+        >
+          <i
+            className="ni ni-world-2 text-pink"
+            style={{ top: '0px', marginRight: '0rem' }}
+          />
+          Landing Page
+        </NavLink>
+      </NavItem>,
+      ...routes.map((prop, key) => {
+        if (prop.layout === '/admin') {
+          return (
+            <NavItem key={key}>
+              <NavLink
+                to={prop.layout + prop.path}
+                tag={NavLinkRRD}
+                onClick={this.closeCollapse}
+                activeClassName="active"
+              >
+                <i
+                  className={prop.icon}
+                  style={{ top: '0px', marginRight: '0rem' }}
+                />
+                {prop.name}
+              </NavLink>
+            </NavItem>
+          )
+        } else {
+          return null
+        }
+      }),
+    ]
+  }
   render() {
-    const { bgColor, routes, logo } = this.props;
-    let navbarBrandProps;
+    const { bgColor, routes, logo } = this.props
+    let navbarBrandProps
     if (logo && logo.innerLink) {
       navbarBrandProps = {
         to: logo.innerLink,
-        tag: Link
-      };
+        tag: Link,
+      }
     } else if (logo && logo.outterLink) {
       navbarBrandProps = {
         href: logo.outterLink,
-        target: "_blank"
-      };
+        target: '_blank',
+      }
     }
     return (
       <Navbar
-        className="navbar-vertical fixed-left navbar-light bg-white"
+        className="navbar-vertical fixed-left navbar-dark bg-default"
         expand="md"
         id="sidenav-main"
       >
@@ -136,7 +153,7 @@ class AdminSidebar extends React.Component {
           ) : null}
           {/* User */}
           <Nav className="align-items-center d-md-none">
-            <UncontrolledDropdown nav>
+            {/* <UncontrolledDropdown nav>
               <DropdownToggle nav className="nav-link-icon">
                 <i className="ni ni-bell-55" />
               </DropdownToggle>
@@ -150,45 +167,11 @@ class AdminSidebar extends React.Component {
                 <DropdownItem divider />
                 <DropdownItem>Something else here</DropdownItem>
               </DropdownMenu>
-            </UncontrolledDropdown>
-            <UncontrolledDropdown nav>
-              <DropdownToggle nav>
-                <Media className="align-items-center">
-                  <span className="avatar avatar-sm rounded-circle">
-                    <img
-                      alt="..."
-                      src={require("assets/img/theme/team-1-800x800.jpg")}
-                    />
-                  </span>
-                </Media>
-              </DropdownToggle>
-              <DropdownMenu className="dropdown-menu-arrow" right>
-                <DropdownItem className="noti-title" header tag="div">
-                  <h6 className="text-overflow m-0">Welcome!</h6>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-single-02" />
-                  <span>My profile</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-settings-gear-65" />
-                  <span>Settings</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-calendar-grid-58" />
-                  <span>Activity</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-support-16" />
-                  <span>Support</span>
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                  <i className="ni ni-user-run" />
-                  <span>Logout</span>
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            </UncontrolledDropdown> */}
+            <MyProfile
+              user={this.props.user}
+              photo_user={this.props.photo_user}
+            />
           </Nav>
           {/* Collapse */}
           <Collapse navbar isOpen={this.state.collapseOpen}>
@@ -202,10 +185,10 @@ class AdminSidebar extends React.Component {
                         <img alt={logo.imgAlt} src={logo.imgSrc} />
                       </Link>
                     ) : (
-                        <a href={logo.outterLink}>
-                          <img alt={logo.imgAlt} src={logo.imgSrc} />
-                        </a>
-                      )}
+                      <a href={logo.outterLink}>
+                        <img alt={logo.imgAlt} src={logo.imgSrc} />
+                      </a>
+                    )}
                   </Col>
                 ) : null}
                 <Col className="collapse-close" xs="6">
@@ -221,7 +204,7 @@ class AdminSidebar extends React.Component {
               </Row>
             </div>
             {/* Form */}
-            <Form className="mt-4 mb-3 d-md-none">
+            {/* <Form className="mt-4 mb-3 d-md-none">
               <InputGroup className="input-group-rounded input-group-merge">
                 <Input
                   aria-label="Search"
@@ -235,7 +218,7 @@ class AdminSidebar extends React.Component {
                   </InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
-            </Form>
+            </Form> */}
             {/* Navigation */}
             <Nav navbar>{this.createLinks(routes)}</Nav>
             {/* Divider */}
@@ -245,34 +228,22 @@ class AdminSidebar extends React.Component {
             {/* Navigation */}
             <Nav className="mb-md-3" navbar>
               <NavItem>
-                <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/documentation/overview?ref=adr-admin-sidebar">
+                <NavLink href="https://oulhafiane.me">
                   <i className="ni ni-spaceship" />
                   Getting started
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/documentation/colors?ref=adr-admin-sidebar">
-                  <i className="ni ni-palette" />
-                  Foundation
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/documentation/alerts?ref=adr-admin-sidebar">
-                  <i className="ni ni-ui-04" />
-                  Components
                 </NavLink>
               </NavItem>
             </Nav>
           </Collapse>
         </Container>
       </Navbar>
-    );
+    )
   }
 }
 
 AdminSidebar.defaultProps = {
-  routes: [{}]
-};
+  routes: [{}],
+}
 
 AdminSidebar.propTypes = {
   // links that will be displayed inside the component
@@ -287,8 +258,8 @@ AdminSidebar.propTypes = {
     // the image src of the logo
     imgSrc: PropTypes.string.isRequired,
     // the alt for the img
-    imgAlt: PropTypes.string.isRequired
-  })
-};
+    imgAlt: PropTypes.string.isRequired,
+  }),
+}
 
-export default AdminSidebar;
+export default AdminSidebar

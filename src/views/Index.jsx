@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Badge,
   Card,
@@ -12,15 +12,50 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
-  Button
-} from "reactstrap";
-
+  Button,
+  Alert,
+} from 'reactstrap'
+import Axios from 'axios'
+import { DEFAULT_URL } from '../config'
 // nodejs library that concatenates classes
-import classnames from "classnames";
-import NewsEvents from "components/Tabs/NewsEvents";
+import classnames from 'classnames'
+import NewsEvents from 'components/Tabs/NewsEvents'
 
 class Index extends React.Component {
-  state = {};
+  state = {
+    showSuccess: false,
+    showGlobalError: false,
+    msg: {},
+    sending: false,
+    extras: {},
+  }
+  onChange = e => {
+    e.preventDefault()
+    this.setState({ msg: { ...this.state.msg, [e.target.id]: e.target.value } })
+  }
+  contactUs = e => {
+    e.preventDefault()
+    this.setState({ sending: true, showSuccess: false, showGlobalError: false })
+    Axios.post(`${DEFAULT_URL}api/public/contact-us`, this.state.msg)
+      .then(res => {
+        this.setState({
+          sending: false,
+          showSuccess: true,
+          extras: {},
+        })
+      })
+      .catch(error => {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.extras
+        ) {
+          this.setState({ sending: false, extras: error.response.data.extras })
+        } else {
+          this.setState({ sending: false, showGlobalError: true })
+        }
+      })
+  }
   render() {
     return (
       <>
@@ -52,7 +87,7 @@ class Index extends React.Component {
                     <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
                       <i className="ni ni-briefcase-24" />
                     </div>
-                    <h2 style={{ marginLeft: "15px", display: "inline" }}>
+                    <h2 style={{ marginLeft: '15px', display: 'inline' }}>
                       About Us
                     </h2>
                   </div>
@@ -81,9 +116,9 @@ class Index extends React.Component {
                 <Card className="bg-default shadow border-0">
                   <CardImg
                     alt="..."
-                    src={require("assets/img/banner/banner14.jpg")}
+                    src={require('assets/img/banner/banner14.jpg')}
                     top
-                    style={{ height: "600px" }}
+                    style={{ height: '600px' }}
                   />
                   <blockquote className="card-blockquote">
                     <svg
@@ -124,7 +159,7 @@ class Index extends React.Component {
                   <img
                     alt="..."
                     className="img-center img-fluid"
-                    src={require("assets/img/ill/ill-2.svg")}
+                    src={require('assets/img/ill/ill-2.svg')}
                   />
                 </div>
               </Col>
@@ -209,7 +244,7 @@ class Index extends React.Component {
                 <img
                   alt="..."
                   className="img-fluid floating"
-                  src={require("assets/img/theme/promo-1.png")}
+                  src={require('assets/img/theme/promo-1.png')}
                 />
               </Col>
               <Col className="order-md-1" md="6">
@@ -220,7 +255,7 @@ class Index extends React.Component {
                   <h3>Data2Impact</h3>
                   <p>
                     Data2Impact is an open-data corpus that provides actionable
-                    insights on smallholder farmers challenges across Africa.{" "}
+                    insights on smallholder farmers challenges across Africa.{' '}
                     <br />
                     Data2Impact offers the necessary tools to collect, cleanse,
                     visualize and analyze data in the following clusters: <br />
@@ -318,8 +353,8 @@ class Index extends React.Component {
                       we'd love to hear from you.
                     </p>
                     <FormGroup
-                      className={classnames("mt-5", {
-                        focused: this.state.nameFocused
+                      className={classnames('mt-5', {
+                        focused: this.state.nameFocused,
                       })}
                     >
                       <InputGroup className="input-group-alternative">
@@ -329,16 +364,24 @@ class Index extends React.Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
+                          id="fullName"
+                          name="fullName"
                           placeholder="Your name"
                           type="text"
                           onFocus={e => this.setState({ nameFocused: true })}
                           onBlur={e => this.setState({ nameFocused: false })}
+                          onChange={this.onChange}
                         />
                       </InputGroup>
+                      {this.state.extras.fullName ? (
+                        <Alert color="danger" style={{ marginTop: '10px' }}>
+                          <strong>Error!</strong> {this.state.extras.fullName}
+                        </Alert>
+                      ) : null}
                     </FormGroup>
                     <FormGroup
                       className={classnames({
-                        focused: this.state.emailFocused
+                        focused: this.state.emailFocused,
                       })}
                     >
                       <InputGroup className="input-group-alternative">
@@ -348,23 +391,49 @@ class Index extends React.Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
+                          id="email"
+                          name="email"
                           placeholder="Email address"
                           type="email"
                           onFocus={e => this.setState({ emailFocused: true })}
                           onBlur={e => this.setState({ emailFocused: false })}
+                          onChange={this.onChange}
                         />
                       </InputGroup>
+                      {this.state.extras.email ? (
+                        <Alert color="danger" style={{ marginTop: '10px' }}>
+                          <strong>Error!</strong> {this.state.extras.email}
+                        </Alert>
+                      ) : null}
                     </FormGroup>
                     <FormGroup className="mb-4">
                       <Input
                         className="form-control-alternative"
                         cols="80"
-                        name="name"
+                        id="message"
+                        name="message"
                         placeholder="Type a message..."
                         rows="4"
                         type="textarea"
+                        onChange={this.onChange}
                       />
+                      {this.state.extras.message ? (
+                        <Alert color="danger" style={{ marginTop: '10px' }}>
+                          <strong>Error!</strong> {this.state.extras.message}
+                        </Alert>
+                      ) : null}
                     </FormGroup>
+                    {this.state.showSuccess ? (
+                      <Alert color="success">
+                        <strong>Success!</strong> Your message has been
+                        successfully sent to our team.
+                      </Alert>
+                    ) : null}
+                    {this.state.showGlobalError ? (
+                      <Alert color="danger" style={{ marginTop: '10px' }}>
+                        <strong>Error!</strong> An error occured!
+                      </Alert>
+                    ) : null}
                     <div>
                       <Button
                         block
@@ -372,8 +441,16 @@ class Index extends React.Component {
                         color="default"
                         size="lg"
                         type="button"
+                        onClick={this.contactUs}
                       >
-                        Send Message
+                        {this.state.sending ? (
+                          <React.Fragment>
+                            <i className="fas fa-spin fa-spinner"></i>{' '}
+                            Sending...
+                          </React.Fragment>
+                        ) : (
+                          'Send Message'
+                        )}
                       </Button>
                     </div>
                   </CardBody>
@@ -395,8 +472,8 @@ class Index extends React.Component {
                   <img
                     alt="..."
                     className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                    src={require("assets/img/partners/ocp.jpg")}
-                    style={{ width: "200px" }}
+                    src={require('assets/img/partners/ocp.jpg')}
+                    style={{ width: '200px' }}
                   />
                 </div>
               </Col>
@@ -405,8 +482,8 @@ class Index extends React.Component {
                   <img
                     alt="..."
                     className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                    src={require("assets/img/partners/um6p.jpg")}
-                    style={{ width: "200px" }}
+                    src={require('assets/img/partners/um6p.jpg')}
+                    style={{ width: '200px' }}
                   />
                 </div>
               </Col>
@@ -415,8 +492,8 @@ class Index extends React.Component {
                   <img
                     alt="..."
                     className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                    src={require("assets/img/partners/inra.jpg")}
-                    style={{ width: "200px" }}
+                    src={require('assets/img/partners/inra.jpg')}
+                    style={{ width: '200px' }}
                   />
                 </div>
               </Col>
@@ -434,8 +511,8 @@ class Index extends React.Component {
           </Container>
         </section>
       </>
-    );
+    )
   }
 }
 
-export default Index;
+export default Index

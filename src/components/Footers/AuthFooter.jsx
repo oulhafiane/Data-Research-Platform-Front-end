@@ -16,7 +16,7 @@
 
 */
 /*eslint-disable*/
-import React from "react";
+import React from 'react'
 // reactstrap components
 import {
   Button,
@@ -26,12 +26,12 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledTooltip
-} from "reactstrap";
+  UncontrolledTooltip,
+} from 'reactstrap'
 
 class AuthFooter extends React.Component {
   render() {
-    const { style } = this.props;
+    const { style } = this.props
     return (
       <>
         <footer className=" footer" style={style}>
@@ -104,7 +104,7 @@ class AuthFooter extends React.Component {
             <Row className=" align-items-center justify-content-md-between">
               <Col md="6">
                 <div className=" copyright">
-                  © {new Date().getFullYear()}{" "}
+                  © {new Date().getFullYear()}{' '}
                   <a href="https://pcuriosity.site123.me/" target="_blank">
                     P-Curiosity Lab
                   </a>
@@ -124,22 +124,22 @@ class AuthFooter extends React.Component {
                   <NavItem>
                     <NavLink href="/landing/index#about-us">About Us</NavLink>
                   </NavItem>
-                  <NavItem>
+                  {/* <NavItem>
                     <NavLink
                       href="https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md"
                       target="_blank"
                     >
                       MIT License
                     </NavLink>
-                  </NavItem>
+                  </NavItem> */}
                 </Nav>
               </Col>
             </Row>
           </Container>
         </footer>
       </>
-    );
+    )
   }
 }
 
-export default AuthFooter;
+export default AuthFooter

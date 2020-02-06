@@ -16,10 +16,10 @@
 
 */
 /*eslint-disable*/
-import React from "react";
+import React from 'react'
 
 // reactstrap components
-import { Container, Row, Col, Nav, NavItem, NavLink } from "reactstrap";
+import { Container, Row, Col, Nav, NavItem, NavLink } from 'reactstrap'
 
 class Footer extends React.Component {
   render() {
@@ -28,7 +28,7 @@ class Footer extends React.Component {
         <Row className="align-items-center justify-content-xl-between">
           <Col xl="6">
             <div className="copyright text-center text-xl-left text-muted">
-              © 2018{" "}
+              © {new Date().getFullYear()}{' '}
               <a
                 className="font-weight-bold ml-1"
                 href="https://pcuriosity.site123.me/"
@@ -62,7 +62,7 @@ class Footer extends React.Component {
                 </NavLink>
               </NavItem>
 
-              <NavItem>
+              {/* <NavItem>
                 <NavLink
                   href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md?ref=adr-admin-footer"
                   rel="noopener noreferrer"
@@ -70,13 +70,13 @@ class Footer extends React.Component {
                 >
                   MIT License
                 </NavLink>
-              </NavItem>
+              </NavItem> */}
             </Nav>
           </Col>
         </Row>
       </footer>
-    );
+    )
   }
 }
 
-export default Footer;
+export default Footer

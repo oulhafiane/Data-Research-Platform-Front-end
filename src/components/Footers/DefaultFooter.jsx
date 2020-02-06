@@ -16,8 +16,8 @@
 
 */
 /*eslint-disable*/
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 // reactstrap components
 import {
   Button,
@@ -29,8 +29,8 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledTooltip
-} from "reactstrap";
+  UncontrolledTooltip,
+} from 'reactstrap'
 
 class CardsFooter extends React.Component {
   render() {
@@ -106,7 +106,7 @@ class CardsFooter extends React.Component {
             <Row className="align-items-center justify-content-md-between">
               <Col md="6">
                 <div className="copyright">
-                  © {new Date().getFullYear()}{" "}
+                  © {new Date().getFullYear()}{' '}
                   <a href="https://pcuriosity.site123.me/" target="_blank">
                     P-Curiosity Lab
                   </a>
@@ -139,22 +139,22 @@ class CardsFooter extends React.Component {
                       Blog
                     </NavLink>
                   </NavItem>
-                  <NavItem>
+                  {/* <NavItem>
                     <NavLink
                       href="https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md"
                       target="_blank"
                     >
                       MIT License
                     </NavLink>
-                  </NavItem>
+                  </NavItem> */}
                 </Nav>
               </Col>
             </Row>
           </Container>
         </footer>
       </>
-    );
+    )
   }
 }
 
-export default CardsFooter;
+export default CardsFooter
