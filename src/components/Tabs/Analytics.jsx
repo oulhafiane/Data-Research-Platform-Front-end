@@ -1,30 +1,27 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 // nodejs library that concatenates classes
-import classnames from "classnames";
+import classnames from 'classnames'
 // reactstrap components
-import {
-  Row,
-  Container
-} from "reactstrap";
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { Row, Container } from 'reactstrap'
+import TableCell from '@material-ui/core/TableCell'
+import TableRow from '@material-ui/core/TableRow'
+import { withStyles, makeStyles } from '@material-ui/core/styles'
 import './index.css'
-import PivotTableUI from 'react-pivottable/PivotTableUI';
-import 'react-pivottable/pivottable.css';
-import TableRenderers from 'react-pivottable/TableRenderers';
-import createPlotlyComponent from 'react-plotly.js/factory';
-import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
-import CustomPaginationActionsTable from './VisualizationTabSrcs/Table';
+import PivotTableUI from 'react-pivottable/PivotTableUI'
+import 'react-pivottable/pivottable.css'
+import TableRenderers from 'react-pivottable/TableRenderers'
+import createPlotlyComponent from 'react-plotly.js/factory'
+import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers'
+import CustomPaginationActionsTable from './VisualizationTabSrcs/Table'
 import Axios from 'axios'
 import { DEFAULT_URL } from '../../config'
 
 // create Plotly React component via dependency injection
-const Plot = createPlotlyComponent(window.Plotly);
+const Plot = createPlotlyComponent(window.Plotly)
 
 // create Plotly renderers via dependency injection
-const PlotlyRenderers = createPlotlyRenderers(Plot);
+const PlotlyRenderers = createPlotlyRenderers(Plot)
 
 // see documentation for supported input formats
 // const data = [
@@ -63,7 +60,6 @@ const PlotlyRenderers = createPlotlyRenderers(Plot);
 // });
 
 class Analytics extends React.Component {
-
   state = {
     token: localStorage.getItem('token'),
     data: [],
@@ -78,7 +74,7 @@ class Analytics extends React.Component {
       config,
     )
       .then(res => {
-        console.log("data ===> ", res.data.data)
+        console.log('data ===> ', res.data.data)
         this.setState({
           data: res.data ? (res.data.data ? res.data.data : []) : [],
         })
@@ -93,21 +89,19 @@ class Analytics extends React.Component {
   render() {
     const { data } = this.state
     return (
-      <Container style={{ height: 500, overflow: 'scroll' }
-      }>
+      <div style={{ height: '60vh', overflow: 'scroll' }}>
         <PivotTableUI
           data={data}
           onChange={s => {
             console.log(s)
             this.setState(s)
-          }
-          }
+          }}
           renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
           {...this.state}
         />
-      </Container >
+      </div>
     )
   }
 }
 
-export default Analytics;
+export default Analytics
