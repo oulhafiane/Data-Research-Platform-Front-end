@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Dropzone extends Component {
+class DropzoneExcel extends Component {
   state = { hightlight: false }
 
   constructor(props) {
@@ -45,8 +45,8 @@ class Dropzone extends Component {
   onFilesAdded = e => {
     const files = e.target.files
     if (this.props.onFilesAdded) {
-      const imgs = this.fileListToArray(files)
-      this.props.onFilesAdded(imgs)
+      const file = this.fileListToArray(files)
+      this.props.onFilesAdded(file)
     }
   }
 
@@ -63,19 +63,20 @@ class Dropzone extends Component {
           <section>
             <div tabIndex="0" className="text-center text-muted py-4">
               <input
-                name="photos"
-                accept="image/*"
+                name="fileExcel"
+                accept=".xlsx, .xls, .csv"
                 ref={this.fileInputRef}
                 onChange={this.onFilesAdded}
                 className="FileInput"
                 type="file"
-                multiple
                 autoComplete="off"
                 tabIndex="-1"
                 style={{ display: 'none' }}
               />
               <p style={{ marginBottom: '-1rem' }}>
-                Drag & drop some photos here, or click to select photos
+                Drag & drop Excel file here,
+                <br />
+                Or click to select Excel file
               </p>
             </div>
             <aside
@@ -133,4 +134,4 @@ class Dropzone extends Component {
   }
 }
 
-export default Dropzone
+export default DropzoneExcel
