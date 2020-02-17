@@ -1,4 +1,5 @@
 export const DEFAULT_URL = "http://wtr.oulhafiane.me/";
+// export const DEFAULT_URL = "http://Wastetoresources-env.5aqp9mu79y.eu-west-3.elasticbeanstalk.com/";
 export const TYPES_DATA = [
   { id: "MULTIPLECHOICE", title: 'Multiple Choice' },
   { id: "SINGLECHOICE", title: 'Single Choice' },
