@@ -376,7 +376,7 @@ class NewPost extends React.Component {
                     <div className="pl-lg-4">
                       <InputTextLabel
                         id="description"
-                        placeholder="Description"
+                        placeholder="Problematic"
                         type="textarea"
                         val={this.state.prob.description}
                         onChange={this.onChange}
