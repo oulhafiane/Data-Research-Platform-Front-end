@@ -19,13 +19,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import ClickOutside from "../Other/ClickOutSide";
-import SideNav, {
-  Toggle,
-  Nav,
-  NavItem,
-  NavIcon,
-  NavText
-} from "@trendmicro/react-sidenav";
+import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import Axios from "axios";
 import { DEFAULT_URL } from "../../config";
 // reactstrap components

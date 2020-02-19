@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from 'react'
+import React from "react";
 // reactstrap components
 import {
   Button,
@@ -32,133 +32,146 @@ import {
   NavItem,
   NavLink,
   TabContent,
-  TabPane,
-} from 'reactstrap'
+  TabPane
+} from "reactstrap";
 // nodejs library that concatenates classes
-import classnames from 'classnames'
-import InputTextLabel from 'components/Inputs/InputLabel'
-import DropDownLabel from 'components/Inputs/DropDownLabel'
-import DropzoneExcel from 'components/Dropzone/DropzoneExcel'
-import Axios from 'axios'
-import { DEFAULT_URL } from '../config'
+import classnames from "classnames";
+import InputTextLabel from "components/Inputs/InputLabel";
+import DropDownLabel from "components/Inputs/DropDownLabel";
+import DropzoneExcel from "components/Dropzone/DropzoneExcel";
+import Axios from "axios";
+import { DEFAULT_URL } from "../config";
 
 class IndexData extends React.Component {
   state = {
-    token: localStorage.getItem('token'),
+    token: localStorage.getItem("token"),
     dataset: {},
     fileExcel: {},
     types: [
-      { id: 0, title: 'Public' },
-      { id: 1, title: 'Private' },
+      { id: 0, title: "Public" },
+      { id: 1, title: "Private" }
     ],
     id_type: 0,
     extras: {},
     showGlobalWarning: false,
     uploading: false,
     iconTabs: 1,
-    plainTabs: 1,
-  }
+    plainTabs: 1
+  };
   toBase64 = file => {
-    // Object.keys(imgs).forEach(key => {
-    //   let fileReader = new FileReader();
-    //   fileReader.onload = e => {
-    //     this.setState({
-    //       imgs: {
-    //         ...this.state.imgs,
-    //         [key]: {
-    //           file: imgs[key].file,
-    //           img: imgs[key].img,
-    //           b64: fileReader.result
-    //         }
-    //       },
-    //       images_available: this.state.images_available + 1
-    //     });
-    //   };
-    //   fileReader.readAsDataURL(imgs[key].file);
-    // });
-  }
+    let fileReader = new FileReader();
+    fileReader.onload = e => {
+      this.setState({
+        fileExcel: {
+          file: file,
+          b64: fileReader.result
+        }
+      });
+    };
+    fileReader.readAsDataURL(file);
+  };
   onFilesAdded = file => {
-    this.setState({ fileExcel: {} })
-    this.toBase64(file)
-  }
+    this.setState({ fileExcel: {} });
+    this.toBase64(file);
+  };
   toggleNavs = (e, state, index) => {
-    e.preventDefault()
+    e.preventDefault();
     this.setState({
-      [state]: index,
-    })
-  }
+      [state]: index
+    });
+  };
   onChange = e =>
     this.setState({
       dataset: { ...this.state.dataset, [e.target.name]: e.target.value },
-      disabled: false,
-    })
+      disabled: false
+    });
   onChangeType = e => {
-    e.preventDefault()
-    this.setState({ id_type: e.target.id })
-  }
+    e.preventDefault();
+    this.setState({ id_type: e.target.id });
+  };
   toggleModal = state => {
     this.setState({
-      [state]: !this.state[state],
-    })
-  }
+      [state]: !this.state[state]
+    });
+  };
   createProject = e => {
-    e.preventDefault()
+    e.preventDefault();
     if (!this.state.dataset.title) {
       this.setState({
         extras: {
           ...this.state.extras,
-          title: 'The title should not be blank!',
-        },
-      })
-      return
+          title: "The title should not be blank!"
+        }
+      });
+      return;
     }
-    this.setState({ uploading: true })
+    this.setState({ uploading: true, extras: {}, errorMessage: undefined });
     const config = {
-      headers: { Authorization: 'bearer ' + this.state.token },
-    }
+      headers: { Authorization: "bearer " + this.state.token }
+    };
     let data = {
       name: this.state.dataset.title,
       description: this.state.dataset.description,
-      privacy: this.state.id_type,
+      privacy: this.state.id_type
+    };
+    if (this.state.iconTabs === 2 && this.state.fileExcel.file) {
+      data.fileExcel = { file: this.state.fileExcel.b64 };
     }
     Axios.post(`${DEFAULT_URL}api/current/dataset`, data, config)
       .then(res => {
-        this.props.history.push(`/data/mydataset/${res.data.extras.uuid}`)
+        this.props.history.push(`/data/mydataset/${res.data.extras.uuid}`);
       })
       .catch(error => {
-        this.setState({ showGlobalWarning: true, uploading: false })
-      })
-  }
+        this.setState({
+          showGlobalWarning: true,
+          uploading: false,
+          errorMessage: error.response
+            ? error.response.data
+              ? error.response.data.message
+                ? error.response.data.message
+                : undefined
+              : undefined
+            : undefined,
+          extras: error.response
+            ? error.response.data
+              ? error.response.data.extras
+                ? error.response.data.extras
+                : {}
+              : {}
+            : {}
+        });
+      });
+  };
   render() {
     const groupStyles = {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-    }
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between"
+    };
     const groupBadgeStyles = {
-      backgroundColor: '#EBECF0',
-      borderRadius: '2em',
-      color: '#172B4D',
-      display: 'inline-block',
+      backgroundColor: "#EBECF0",
+      borderRadius: "2em",
+      color: "#172B4D",
+      display: "inline-block",
       fontSize: 12,
-      fontWeight: 'normal',
-      lineHeight: '1',
+      fontWeight: "normal",
+      lineHeight: "1",
       minWidth: 1,
-      padding: '0.16666666666667em 0.5em',
-      textAlign: 'center',
-    }
+      padding: "0.16666666666667em 0.5em",
+      textAlign: "center"
+    };
     return (
       <>
         {/* Page content */}
-        <Container fluid style={{ marginLeft: '50px' }}>
+        <Container fluid style={{ marginLeft: "50px" }}>
           <Row className="row-grid">
             <Col lg="4">
               <Card className="card-lift--hover shadow border-0">
                 <CardImg
                   alt="..."
-                  src={require('assets/img/banner/newsurvey.jpg')}
+                  src={require("assets/img/banner/newsurvey.jpg")}
                   top
-                  style={{ height: '30vh' }}
+                  style={{ height: "30vh" }}
                 />
                 <CardBody className="py-5">
                   <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
@@ -167,10 +180,10 @@ class IndexData extends React.Component {
                   <h6 className="text-primary text-uppercase">
                     Create Dataset
                   </h6>
-                  <p className="description mt-3" style={{ height: '12vh' }}>
-                    Create Dataset, import data or create survey, clean up data,
-                    get data summary, analyze the data, create machine learning
-                    model
+                  <p className="description mt-3" style={{ height: "12vh" }}>
+                    Create survey or import data, clean the data, get the data
+                    summary, analyze the data, and, create machine learning
+                    model.
                   </p>
                   <div>
                     <Badge color="primary" pill className="mr-1">
@@ -186,14 +199,14 @@ class IndexData extends React.Component {
                   <Button
                     className="mt-4"
                     color="primary"
-                    onClick={() => this.toggleModal('defaultModal')}
+                    onClick={() => this.toggleModal("defaultModal")}
                   >
                     Create Dataset
                   </Button>
                   <Modal
                     className="modal-dialog-centered"
                     isOpen={this.state.defaultModal}
-                    toggle={() => this.toggleModal('defaultModal')}
+                    toggle={() => this.toggleModal("defaultModal")}
                   >
                     <div className="modal-header">
                       <h6 className="modal-title" id="modal-title-default">
@@ -204,7 +217,7 @@ class IndexData extends React.Component {
                         className="close"
                         data-dismiss="modal"
                         type="button"
-                        onClick={() => this.toggleModal('defaultModal')}
+                        onClick={() => this.toggleModal("defaultModal")}
                       >
                         <span aria-hidden={true}>×</span>
                       </button>
@@ -217,8 +230,8 @@ class IndexData extends React.Component {
                           type="text"
                           val={this.state.dataset.title}
                           onChange={this.onChange}
-                          stateError={this.state.extras.title !== undefined}
-                          errorMessage={this.state.extras.title}
+                          stateError={this.state.extras.name !== undefined}
+                          errorMessage={this.state.extras.name}
                         />
                         <DropDownLabel
                           id="privacy"
@@ -234,16 +247,11 @@ class IndexData extends React.Component {
                           id="description"
                           placeholder="Description"
                           type="textarea"
-                          rows="5"
+                          rows={this.state.iconTabs === 2 ? "2" : "5"}
                           val={this.state.dataset.description}
                           onChange={this.onChange}
                           value
                         />
-                        {this.state.showGlobalWarning ? (
-                          <Alert color="danger">
-                            <strong>Error!</strong> An error occured!
-                          </Alert>
-                        ) : null}
                         <Nav
                           className="nav-fill flex-column flex-md-row"
                           id="tabs-icons-text"
@@ -253,10 +261,10 @@ class IndexData extends React.Component {
                           <NavItem>
                             <NavLink
                               aria-selected={this.state.iconTabs === 1}
-                              className={classnames('mb-sm-3 mb-md-0', {
-                                active: this.state.iconTabs === 1,
+                              className={classnames("mb-sm-3 mb-md-0", {
+                                active: this.state.iconTabs === 1
                               })}
-                              onClick={e => this.toggleNavs(e, 'iconTabs', 1)}
+                              onClick={e => this.toggleNavs(e, "iconTabs", 1)}
                               href="#design"
                               role="tab"
                             >
@@ -267,10 +275,10 @@ class IndexData extends React.Component {
                           <NavItem>
                             <NavLink
                               aria-selected={this.state.iconTabs === 2}
-                              className={classnames('mb-sm-3 mb-md-0', {
-                                active: this.state.iconTabs === 2,
+                              className={classnames("mb-sm-3 mb-md-0", {
+                                active: this.state.iconTabs === 2
                               })}
-                              onClick={e => this.toggleNavs(e, 'iconTabs', 2)}
+                              onClick={e => this.toggleNavs(e, "iconTabs", 2)}
                               href="#tokens"
                               role="tab"
                             >
@@ -284,8 +292,8 @@ class IndexData extends React.Component {
                         <Card className="shadow">
                           <CardBody>
                             <TabContent
-                              activeTab={'iconTabs' + this.state.iconTabs}
-                              style={{ margin: '0' }}
+                              activeTab={"iconTabs" + this.state.iconTabs}
+                              style={{ margin: "0" }}
                             >
                               <TabPane tabId="iconTabs1"></TabPane>
                               <TabPane tabId="iconTabs2">
@@ -298,6 +306,16 @@ class IndexData extends React.Component {
                           </CardBody>
                         </Card>
                       ) : null}
+                      {this.state.showGlobalWarning ? (
+                        <Alert color="danger" style={{ marginTop: "5px" }}>
+                          <strong>Error!</strong>{" "}
+                          {this.state.iconTabs === 2
+                            ? this.state.errorMessage !== undefined
+                              ? this.state.errorMessage
+                              : "An error occured!"
+                            : "An error occured!"}
+                        </Alert>
+                      ) : null}
                     </div>
                     <div className="modal-footer">
                       <Button
@@ -307,11 +325,11 @@ class IndexData extends React.Component {
                       >
                         {this.state.uploading ? (
                           <React.Fragment>
-                            <i className="fas fa-spin fa-spinner"></i>{' '}
+                            <i className="fas fa-spin fa-spinner"></i>{" "}
                             Uploading...
                           </React.Fragment>
                         ) : (
-                          'Create'
+                          "Create"
                         )}
                       </Button>
                       <Button
@@ -319,7 +337,7 @@ class IndexData extends React.Component {
                         color="link"
                         data-dismiss="modal"
                         type="button"
-                        onClick={() => this.toggleModal('defaultModal')}
+                        onClick={() => this.toggleModal("defaultModal")}
                       >
                         Close
                       </Button>
@@ -332,16 +350,16 @@ class IndexData extends React.Component {
               <Card className="card-lift--hover shadow border-0">
                 <CardImg
                   alt="..."
-                  src={require('assets/img/banner/mysurveys.jpg')}
+                  src={require("assets/img/banner/mysurveys.jpg")}
                   top
-                  style={{ height: '30vh' }}
+                  style={{ height: "30vh" }}
                 />
                 <CardBody className="py-5">
                   <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
                     <i className="ni ni-istanbul" />
                   </div>
                   <h6 className="text-success text-uppercase">My Datasets</h6>
-                  <p className="description mt-3" style={{ height: '12vh' }}>
+                  <p className="description mt-3" style={{ height: "12vh" }}>
                     Consult and edit all your datasets.
                   </p>
                   <div>
@@ -369,9 +387,9 @@ class IndexData extends React.Component {
               <Card className="card-lift--hover shadow border-0">
                 <CardImg
                   alt="..."
-                  src={require('assets/img/banner/publicdatasets.jpg')}
+                  src={require("assets/img/banner/publicdatasets.jpg")}
                   top
-                  style={{ height: '30vh' }}
+                  style={{ height: "30vh" }}
                 />
                 <CardBody className="py-5">
                   <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
@@ -380,9 +398,8 @@ class IndexData extends React.Component {
                   <h6 className="text-warning text-uppercase">
                     Public Datasets
                   </h6>
-                  <p className="description mt-3" style={{ height: '12vh' }}>
-                    Argon is a great free UI package based on Bootstrap 4 that
-                    includes the most important components and features.
+                  <p className="description mt-3" style={{ height: "12vh" }}>
+                    Consult datasets shared by members of our community
                   </p>
                   <div>
                     <Badge color="warning" pill className="mr-1">
@@ -409,8 +426,8 @@ class IndexData extends React.Component {
           </Row>
         </Container>
       </>
-    )
+    );
   }
 }
 
-export default IndexData
+export default IndexData;
