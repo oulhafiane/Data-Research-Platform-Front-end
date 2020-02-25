@@ -20,11 +20,28 @@ import {
     Col,
     Card
 } from "reactstrap"
+import Select from 'react-select';
 import PropTypes from 'prop-types';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class CardsAndModal extends Component {
+
     render() {
-        const { toggle, modal, showMlResult } = this.props
+        const {
+            toggle,
+            modal,
+            showMlResult,
+            handleFeatureChange,
+            handleTargetChange,
+            CheckBoxOnChange,
+            modelNameOnChange,
+            variables,
+            selectedFeature,
+            selectedTarget,
+            checkbox,
+            modelname,
+        } = this.props
+
         return (
             <Container>
                 <Row>
@@ -69,35 +86,50 @@ class CardsAndModal extends Component {
                         <Form>
                             <FormGroup>
                                 <Label for="name">Model Name</Label>
-                                <Input type="text" name="name" id="modelname" placeholder="model name" />
+                                <Input type="text" name="name" id="modelname" placeholder="model name" onChange={(e) => modelNameOnChange(e.target.value)} value={modelname} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleSelectMulti">Select Feature</Label>
-                                <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </Input>
+                                <Select
+                                    // styles={btnPressed && !selectedSeries ?
+                                    //     emptyfieldColor : ""
+                                    // }
+                                    isMulti
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                    value={selectedFeature}
+                                    onChange={handleFeatureChange}
+                                    options={variables}
+                                />
+                                < Checkbox
+                                    checked={checkbox}
+                                    onChange={() => CheckBoxOnChange(variables)}
+                                    value="checkedB"
+                                    color="primary"
+                                />
+                                <Label>{!checkbox ? "Select All" : "Unselect All"}</Label>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="exampleFile">File</Label>
-                                <Input type="file" name="file" id="exampleFile" />
-                                <FormText color="muted">
-                                    This is some placeholder block-level help text for the above input.
-                                    It's a bit lighter and easily wraps to a new line.
-                                </FormText>
+                                <Label for="exampleSelectMulti">Select Target</Label>
+                                <Select
+                                    value={selectedTarget}
+                                    onChange={(value) => {
+                                        handleTargetChange(value)
+                                    }}
+                                    options={variables}
+                                />
                             </FormGroup>
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={() => {
-                            window.scrollTo(0, 0)
-                            showMlResult()
-                        }}
+                        <Button
+                            color="primary"
+                            onClick={() => {
+                                window.scrollTo(0, 0)
+                                showMlResult()
+                            }}
                         >
-                            Submit
+                            Done
                         </Button>
                         <Button color="secondary"
                             onClick={() => {

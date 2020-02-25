@@ -37,13 +37,14 @@ import DesignSurvey from 'components/Tabs/DesignSurvey'
 import Tokens from 'components/Tabs/Tokens'
 import Data from 'components/Tabs/Data'
 import Analytics from 'components/Tabs/Analytics'
-import Prediction from 'components/Tabs/Prediction'
+import MachineLearinng from 'components/Tabs/MachineLearinng'
 
 class MyDataSet extends React.Component {
   state = {
     token: localStorage.getItem('token'),
     uuid: this.props.match.params.uuid,
     dataset: { parts: [{ variables: [] }] },
+    variables: null,
     tokens: { tokens: [] },
     extras: {},
     showGlobalWarning: false,
@@ -126,7 +127,7 @@ class MyDataSet extends React.Component {
     }
     Axios.patch(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }`,
       data,
       config,
@@ -140,14 +141,14 @@ class MyDataSet extends React.Component {
                 this.state.dataset.parts.length === 0
                   ? [{ title: title, description: description, variables: [] }]
                   : this.state.dataset.parts.map((val, key) => {
-                      if (key + 1 === page) {
-                        return {
-                          ...val,
-                          title: title,
-                          description: description,
-                        }
-                      } else return val
-                    }),
+                    if (key + 1 === page) {
+                      return {
+                        ...val,
+                        title: title,
+                        description: description,
+                      }
+                    } else return val
+                  }),
             },
           },
           callBack,
@@ -167,7 +168,7 @@ class MyDataSet extends React.Component {
     }
     Axios.post(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }`,
       data,
       config,
@@ -181,16 +182,16 @@ class MyDataSet extends React.Component {
                 this.state.dataset.parts.length === 0
                   ? [{ variables: [question] }]
                   : this.state.dataset.parts.map((val, key) => {
-                      if (key + 1 === page) {
-                        return {
-                          ...val,
-                          variables: [
-                            ...val.variables,
-                            ...res.data.extras.variables,
-                          ],
-                        }
-                      } else return val
-                    }),
+                    if (key + 1 === page) {
+                      return {
+                        ...val,
+                        variables: [
+                          ...val.variables,
+                          ...res.data.extras.variables,
+                        ],
+                      }
+                    } else return val
+                  }),
             },
           },
           callBack,
@@ -281,7 +282,7 @@ class MyDataSet extends React.Component {
     }
     Axios.patch(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
       question,
       config,
@@ -321,7 +322,7 @@ class MyDataSet extends React.Component {
     }
     Axios.delete(
       `${DEFAULT_URL}api/current/dataset/${this.state.uuid}/part/${
-        this.state.dataset.parts[page - 1].id
+      this.state.dataset.parts[page - 1].id
       }/variable/${this.state.dataset.parts[page - 1].variables[index].id}`,
       config,
     )
@@ -399,8 +400,16 @@ class MyDataSet extends React.Component {
     }
     Axios.get(`${DEFAULT_URL}api/current/dataset/${this.state.uuid}`, config)
       .then(res => {
+        // for machine learning section
+        let variables = []
+        res.data.parts.map(elem => {
+          elem.variables.map(elem => {
+            variables = [...variables, { value: elem.name, label: elem.name }]
+          })
+        })
         this.setState({
           dataset: res.data,
+          variables: variables
         })
       })
       .catch(error => {
@@ -500,7 +509,7 @@ class MyDataSet extends React.Component {
                       role="tab"
                     >
                       <i className="ni ni-chart-bar-32 mr-2" />
-                      Prediction
+                      Machine Learning
                     </NavLink>
                   </NavItem>
                 </Nav>
@@ -537,7 +546,10 @@ class MyDataSet extends React.Component {
                       <Analytics state={this.state} />
                     </TabPane>
                     <TabPane tabId="iconTabs5">
-                      <Prediction state={this.state} />
+                      <MachineLearinng
+                        variables={this.state.variables}
+                        uuid={this.state.uuid}
+                      />
                     </TabPane>
                   </TabContent>
                 </CardBody>

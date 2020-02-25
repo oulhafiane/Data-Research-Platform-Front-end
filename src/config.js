@@ -1,4 +1,5 @@
-export const DEFAULT_URL = "http://wtr.oulhafiane.me/";
+export const DEFAULT_URL = "http://127.0.0.1:8000/";
+export const ML_URL = "http://127.0.0.1:5000/";
 // export const DEFAULT_URL = "http://Wastetoresources-env.5aqp9mu79y.eu-west-3.elasticbeanstalk.com/";
 export const TYPES_DATA = [
   { id: "MULTIPLECHOICE", title: 'Multiple Choice' },

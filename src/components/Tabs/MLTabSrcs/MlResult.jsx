@@ -71,6 +71,9 @@ class MlResult extends Component {
     __render = (classes, data, columns, rows) => {
         const { activeTab } = this.state
 
+        console.log("data ==> ", data)
+        console.log("columns ==> ", columns)
+        console.log("row ==> ", rows)
         if (activeTab === '1' && data && columns && rows) {
             return (
                 <TableContainer component={Paper} >
@@ -159,58 +162,6 @@ class MlResult extends Component {
                     </TabPane>
                 </TabContent>
             </div>
-            // <Container>
-            //     <Row>
-            //         <Col lg="4">
-            //             <Button
-            //                 onClick={() => this._onShow('show2')}
-            //             >
-            //                 Show Summarize
-            //             </Button>
-            //         </Col>
-            //         <Col lg="4">
-            //             <Button
-            //                 onClick={() => this._onShow('show1')}
-            //             >
-            //                 Show Descriptive Table
-            //             </Button>
-            //         </Col>
-            //         <Col lg="4">
-            //             <Button
-            //                 onClick={() => this._onShow('show3')}
-            //             >
-            //                 Download Model
-            //              </Button>
-            //         </Col>
-            //     </Row>
-            //     {this.__render(classes, data, columns, rows)}
-            // </Container>
-            // <div>
-            //     <TableContainer component={Paper} >
-            //         <Table className={classes.table} aria-label="customized table">
-            //             <TableHead>
-            //                 <TableRow>
-            //                     <StyledTableCell></StyledTableCell>
-            //                     {columns ? columns.map((el, index) => <StyledTableCell key={index}>{el}</StyledTableCell>) : null}
-            //                 </TableRow>
-            //             </TableHead>
-            //             <TableBody>
-            //                 {rows ? rows.map((el, index) => {
-            //                     return (
-            //                         <StyledTableRow key={index}>
-            //                             <StyledTableCell component="th" scope="row">{el}</StyledTableCell>
-            //                             {data ? data[index].map((el, index) => {
-            //                                 return (
-            //                                     <StyledTableCell key={index} align="right">{el}</StyledTableCell>
-            //                                 )
-            //                             }) : null}
-            //                         </StyledTableRow>
-            //                     )
-            //                 }) : null}
-            //             </TableBody>
-            //         </Table>
-            //     </TableContainer >
-            // </div>
         );
     }
 }

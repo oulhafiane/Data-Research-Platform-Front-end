@@ -57,7 +57,7 @@ class Data extends React.Component {
       config
     )
       .then(res => {
-        console.log("data ===> ", res);
+        console.log("data ===> ", res.data.data);
         this.setState({
           data: res.data ? (res.data.data ? res.data.data : []) : []
         });
