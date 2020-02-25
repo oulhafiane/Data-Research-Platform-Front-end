@@ -16,16 +16,16 @@
 
 */
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 // reactstrap components
 import { Container } from 'reactstrap'
 // core components
 import AdminNavbar from 'components/Navbars/AdminNavbar.jsx'
 import AdminFooter from 'components/Footers/AdminFooter.jsx'
 import AdminSidebar from 'components/Sidebar/AdminSidebar.jsx'
-import AdminRoute from 'services/AdminRoute'
 import { connect } from 'react-redux'
 import { getUser } from 'actions/userAction'
+import authService from '../services/auth-service'
 
 import routes from 'routes.js'
 
@@ -42,7 +42,7 @@ class Admin extends React.Component {
     return routes.map((prop, key) => {
       if (prop.layout === '/admin') {
         return (
-          <AdminRoute
+          <Route
             path={prop.layout + prop.path}
             component={prop.component}
             key={key}
@@ -68,29 +68,44 @@ class Admin extends React.Component {
   render() {
     return (
       <>
-        <AdminSidebar
-          {...this.props}
-          routes={routes}
-          logo={{
-            innerLink: '/admin/index',
-            imgSrc: require('assets/img/brand/impactree.png'),
-            imgAlt: '...',
-          }}
-        />
-        <div
-          className="main-content"
-          ref="mainContent"
-          style={{ backgroundColor: '#f4f5f7' }}
-        >
-          <AdminNavbar
-            {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
+        {authService.isAuthenticatedSync() ? (
+          authService.isAdmin() ? (
+            <>
+              <AdminSidebar
+                {...this.props}
+                routes={routes}
+                logo={{
+                  innerLink: '/admin/index',
+                  imgSrc: require('assets/img/brand/impactree.png'),
+                  imgAlt: '...',
+                }}
+              />
+              <div
+                className="main-content"
+                ref="mainContent"
+                style={{ backgroundColor: '#f4f5f7' }}
+              >
+                <AdminNavbar
+                  {...this.props}
+                  brandText={this.getBrandText(this.props.location.pathname)}
+                />
+                <Switch>{this.getRoutes(routes)}</Switch>
+                <Container fluid style={{ backgroundColor: '#f4f5f7' }}>
+                  <AdminFooter />
+                </Container>
+              </div>
+            </>
+          ) : (
+            <Redirect to={{ pathname: '/default/posts' }} />
+          )
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/auth/login',
+              state: { from: this.props.location },
+            }}
           />
-          <Switch>{this.getRoutes(routes)}</Switch>
-          <Container fluid style={{ backgroundColor: '#f4f5f7' }}>
-            <AdminFooter />
-          </Container>
-        </div>
+        )}
       </>
     )
   }

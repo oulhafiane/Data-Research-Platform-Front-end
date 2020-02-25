@@ -276,7 +276,7 @@ class ShowPost extends React.Component {
             </div>
             <hr className="my-4" />
 
-            <CardTitle className="form-control-label">Description</CardTitle>
+            <CardTitle className="form-control-label">Problematic</CardTitle>
             <p style={{ whiteSpace: "pre-line", marginLeft: "10px" }}>
               {state.prob.description}
             </p>

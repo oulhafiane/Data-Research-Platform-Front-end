@@ -18,6 +18,7 @@
 
 import React from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import InputText from '../components/Inputs/Input'
 import InputTextLabel from 'components/Inputs/InputLabel'
 import GoogleLogin from 'react-google-login'
@@ -298,9 +299,9 @@ class Login extends React.Component {
               </a>
             </Col>
             <Col className="text-right" xs="6">
-              <a className="text-light" href="/auth/register">
+              <Link className="text-light" to="/auth/register">
                 <small>Create new account</small>
-              </a>
+              </Link>
             </Col>
           </Row>
         </Col>

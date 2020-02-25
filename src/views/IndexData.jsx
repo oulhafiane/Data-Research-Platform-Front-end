@@ -27,10 +27,18 @@ import {
   Col,
   Badge,
   Modal,
-  Alert
+  Alert,
+  Nav,
+  NavItem,
+  NavLink,
+  TabContent,
+  TabPane
 } from "reactstrap";
+// nodejs library that concatenates classes
+import classnames from "classnames";
 import InputTextLabel from "components/Inputs/InputLabel";
 import DropDownLabel from "components/Inputs/DropDownLabel";
+import DropzoneExcel from "components/Dropzone/DropzoneExcel";
 import Axios from "axios";
 import { DEFAULT_URL } from "../config";
 
@@ -38,6 +46,7 @@ class IndexData extends React.Component {
   state = {
     token: localStorage.getItem("token"),
     dataset: {},
+    fileExcel: {},
     types: [
       { id: 0, title: "Public" },
       { id: 1, title: "Private" }
@@ -45,7 +54,31 @@ class IndexData extends React.Component {
     id_type: 0,
     extras: {},
     showGlobalWarning: false,
-    uploading: false
+    uploading: false,
+    iconTabs: 1,
+    plainTabs: 1
+  };
+  toBase64 = file => {
+    let fileReader = new FileReader();
+    fileReader.onload = e => {
+      this.setState({
+        fileExcel: {
+          file: file,
+          b64: fileReader.result
+        }
+      });
+    };
+    fileReader.readAsDataURL(file);
+  };
+  onFilesAdded = file => {
+    this.setState({ fileExcel: {} });
+    this.toBase64(file);
+  };
+  toggleNavs = (e, state, index) => {
+    e.preventDefault();
+    this.setState({
+      [state]: index
+    });
   };
   onChange = e =>
     this.setState({
@@ -72,7 +105,7 @@ class IndexData extends React.Component {
       });
       return;
     }
-    this.setState({ uploading: true });
+    this.setState({ uploading: true, extras: {}, errorMessage: undefined });
     const config = {
       headers: { Authorization: "bearer " + this.state.token }
     };
@@ -81,12 +114,32 @@ class IndexData extends React.Component {
       description: this.state.dataset.description,
       privacy: this.state.id_type
     };
+    if (this.state.iconTabs === 2 && this.state.fileExcel.file) {
+      data.fileExcel = { file: this.state.fileExcel.b64 };
+    }
     Axios.post(`${DEFAULT_URL}api/current/dataset`, data, config)
       .then(res => {
         this.props.history.push(`/data/mydataset/${res.data.extras.uuid}`);
       })
       .catch(error => {
-        this.setState({ showGlobalWarning: true, uploading: false });
+        this.setState({
+          showGlobalWarning: true,
+          uploading: false,
+          errorMessage: error.response
+            ? error.response.data
+              ? error.response.data.message
+                ? error.response.data.message
+                : undefined
+              : undefined
+            : undefined,
+          extras: error.response
+            ? error.response.data
+              ? error.response.data.extras
+                ? error.response.data.extras
+                : {}
+              : {}
+            : {}
+        });
       });
   };
   render() {
@@ -116,7 +169,7 @@ class IndexData extends React.Component {
               <Card className="card-lift--hover shadow border-0">
                 <CardImg
                   alt="..."
-                  src={require("assets/img/banner/place.jpg")}
+                  src={require("assets/img/banner/newsurvey.jpg")}
                   top
                   style={{ height: "30vh" }}
                 />
@@ -124,11 +177,13 @@ class IndexData extends React.Component {
                   <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
                     <i className="ni ni-check-bold" />
                   </div>
-                  <h6 className="text-primary text-uppercase">Create Survey</h6>
+                  <h6 className="text-primary text-uppercase">
+                    Create Dataset
+                  </h6>
                   <p className="description mt-3" style={{ height: "12vh" }}>
-                    Create Dataset, import data or create survey, clean up data,
-                    get data summary, analyze the data, create machine learning
-                    model
+                    Create survey or import data, clean the data, get the data
+                    summary, analyze the data, and, create machine learning
+                    model.
                   </p>
                   <div>
                     <Badge color="primary" pill className="mr-1">
@@ -146,7 +201,7 @@ class IndexData extends React.Component {
                     color="primary"
                     onClick={() => this.toggleModal("defaultModal")}
                   >
-                    Create Survey
+                    Create Dataset
                   </Button>
                   <Modal
                     className="modal-dialog-centered"
@@ -155,7 +210,7 @@ class IndexData extends React.Component {
                   >
                     <div className="modal-header">
                       <h6 className="modal-title" id="modal-title-default">
-                        Create Survey
+                        Create Dataset
                       </h6>
                       <button
                         aria-label="Close"
@@ -168,35 +223,97 @@ class IndexData extends React.Component {
                       </button>
                     </div>
                     <div className="modal-body">
-                      <InputTextLabel
-                        id="title"
-                        placeholder="Title"
-                        type="text"
-                        val={this.state.dataset.title}
-                        onChange={this.onChange}
-                        stateError={this.state.extras.title !== undefined}
-                        errorMessage={this.state.extras.title}
-                      />
-                      <DropDownLabel
-                        id="privacy"
-                        name="Privacy"
-                        placeholder={this.state.types[this.state.id_type].title}
-                        type="text"
-                        val={this.state.types}
-                        onChange={this.onChangeType}
-                      />
-                      <InputTextLabel
-                        id="description"
-                        placeholder="Description"
-                        type="textarea"
-                        rows="5"
-                        val={this.state.dataset.description}
-                        onChange={this.onChange}
-                        value
-                      />
+                      <div className="nav-wrapper">
+                        <InputTextLabel
+                          id="title"
+                          placeholder="Title"
+                          type="text"
+                          val={this.state.dataset.title}
+                          onChange={this.onChange}
+                          stateError={this.state.extras.name !== undefined}
+                          errorMessage={this.state.extras.name}
+                        />
+                        <DropDownLabel
+                          id="privacy"
+                          name="Privacy"
+                          placeholder={
+                            this.state.types[this.state.id_type].title
+                          }
+                          type="text"
+                          val={this.state.types}
+                          onChange={this.onChangeType}
+                        />
+                        <InputTextLabel
+                          id="description"
+                          placeholder="Description"
+                          type="textarea"
+                          rows={this.state.iconTabs === 2 ? "2" : "5"}
+                          val={this.state.dataset.description}
+                          onChange={this.onChange}
+                          value
+                        />
+                        <Nav
+                          className="nav-fill flex-column flex-md-row"
+                          id="tabs-icons-text"
+                          pills
+                          role="tablist"
+                        >
+                          <NavItem>
+                            <NavLink
+                              aria-selected={this.state.iconTabs === 1}
+                              className={classnames("mb-sm-3 mb-md-0", {
+                                active: this.state.iconTabs === 1
+                              })}
+                              onClick={e => this.toggleNavs(e, "iconTabs", 1)}
+                              href="#design"
+                              role="tab"
+                            >
+                              <i className="ni ni-app mr-2" />
+                              Create Survey
+                            </NavLink>
+                          </NavItem>
+                          <NavItem>
+                            <NavLink
+                              aria-selected={this.state.iconTabs === 2}
+                              className={classnames("mb-sm-3 mb-md-0", {
+                                active: this.state.iconTabs === 2
+                              })}
+                              onClick={e => this.toggleNavs(e, "iconTabs", 2)}
+                              href="#tokens"
+                              role="tab"
+                            >
+                              <i className="ni ni-chart-bar-32 mr-2" />
+                              Import Data
+                            </NavLink>
+                          </NavItem>
+                        </Nav>
+                      </div>
+                      {this.state.iconTabs == 2 ? (
+                        <Card className="shadow">
+                          <CardBody>
+                            <TabContent
+                              activeTab={"iconTabs" + this.state.iconTabs}
+                              style={{ margin: "0" }}
+                            >
+                              <TabPane tabId="iconTabs1"></TabPane>
+                              <TabPane tabId="iconTabs2">
+                                <DropzoneExcel
+                                  onFilesAdded={this.onFilesAdded}
+                                  fileExcel={this.state.fileExcel}
+                                />
+                              </TabPane>
+                            </TabContent>
+                          </CardBody>
+                        </Card>
+                      ) : null}
                       {this.state.showGlobalWarning ? (
-                        <Alert color="danger">
-                          <strong>Error!</strong> An error occured!
+                        <Alert color="danger" style={{ marginTop: "5px" }}>
+                          <strong>Error!</strong>{" "}
+                          {this.state.iconTabs === 2
+                            ? this.state.errorMessage !== undefined
+                              ? this.state.errorMessage
+                              : "An error occured!"
+                            : "An error occured!"}
                         </Alert>
                       ) : null}
                     </div>
@@ -233,7 +350,7 @@ class IndexData extends React.Component {
               <Card className="card-lift--hover shadow border-0">
                 <CardImg
                   alt="..."
-                  src={require("assets/img/banner/place.jpg")}
+                  src={require("assets/img/banner/mysurveys.jpg")}
                   top
                   style={{ height: "30vh" }}
                 />
@@ -241,7 +358,7 @@ class IndexData extends React.Component {
                   <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
                     <i className="ni ni-istanbul" />
                   </div>
-                  <h6 className="text-success text-uppercase">My Surveys</h6>
+                  <h6 className="text-success text-uppercase">My Datasets</h6>
                   <p className="description mt-3" style={{ height: "12vh" }}>
                     Consult and edit all your datasets.
                   </p>
@@ -261,7 +378,7 @@ class IndexData extends React.Component {
                     color="success"
                     href="/data/mydatasets"
                   >
-                    My Surveys
+                    My Datasets
                   </Button>
                 </CardBody>
               </Card>
@@ -270,7 +387,7 @@ class IndexData extends React.Component {
               <Card className="card-lift--hover shadow border-0">
                 <CardImg
                   alt="..."
-                  src={require("assets/img/banner/place.jpg")}
+                  src={require("assets/img/banner/publicdatasets.jpg")}
                   top
                   style={{ height: "30vh" }}
                 />
@@ -282,8 +399,7 @@ class IndexData extends React.Component {
                     Public Datasets
                   </h6>
                   <p className="description mt-3" style={{ height: "12vh" }}>
-                    Argon is a great free UI package based on Bootstrap 4 that
-                    includes the most important components and features.
+                    Consult datasets shared by members of our community
                   </p>
                   <div>
                     <Badge color="warning" pill className="mr-1">

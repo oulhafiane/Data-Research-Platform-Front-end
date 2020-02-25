@@ -371,12 +371,12 @@ class NewPost extends React.Component {
                     <hr className="my-4" />
                     {/* Description */}
                     <h6 className="heading-small text-muted mb-4">
-                      Description
+                      Problematic
                     </h6>
                     <div className="pl-lg-4">
                       <InputTextLabel
                         id="description"
-                        placeholder="Description"
+                        placeholder="Problematic"
                         type="textarea"
                         val={this.state.prob.description}
                         onChange={this.onChange}
