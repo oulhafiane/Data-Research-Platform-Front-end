@@ -575,6 +575,9 @@ class MyDataSet extends React.Component {
                     </TabPane>
                     <TabPane tabId="iconTabs5">
                       <MachineLearinng
+                        state={this.state}
+                        refreshTokens={this.refreshTokens}
+                        gotoTokenPage={this.gotoTokenPage}
                         variables={this.state.variables}
                         uuid={this.state.uuid}
                       />
