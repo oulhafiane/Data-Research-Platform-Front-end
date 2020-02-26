@@ -23,42 +23,6 @@ const Plot = createPlotlyComponent(window.Plotly)
 // create Plotly renderers via dependency injection
 const PlotlyRenderers = createPlotlyRenderers(Plot)
 
-// see documentation for supported input formats
-// const data = [
-//   ['countries', 'population'],
-//   ['morocco', '30000000'],
-//   ['algeria', '50000000'],
-//   ['tunsie', '30000000'],
-//   ['eygpt', '80000000']
-// ];
-
-// const StyledTableCell = withStyles(theme => ({
-//   head: {
-//     backgroundColor: theme.palette.common.white,
-//     color: theme.palette.common.black,
-//   },
-//   body: {
-//     fontSize: 14,
-//   },
-// }))(TableCell);
-
-// const StyledTableRow = withStyles(theme => ({
-//   root: {
-//     '&:nth-of-type(odd)': {
-//       backgroundColor: theme.palette.background.default,
-//     },
-//   },
-// }))(TableRow);
-
-// const styles = theme => ({
-//   root: {
-//     width: '100%',
-//   },
-//   container: {
-//     maxHeight: 450,
-//   },
-// });
-
 class Analytics extends React.Component {
   state = {
     token: localStorage.getItem('token'),
@@ -74,7 +38,6 @@ class Analytics extends React.Component {
       config,
     )
       .then(res => {
-        console.log('data ===> ', res.data.data)
         this.setState({
           data: res.data ? (res.data.data ? res.data.data : []) : [],
         })
