@@ -1,5 +1,5 @@
 //export const DEFAULT_URL = "http://wtr.oulhafiane.me/";
-export const DEFAULT_URL = 'https://127.0.0.1:8000/'
+export const DEFAULT_URL = 'http://127.0.0.1:8000/'
 export const TYPES_DATA = [
   { id: 'MULTIPLECHOICE', title: 'Multiple Choice' },
   { id: 'SINGLECHOICE', title: 'Single Choice' },

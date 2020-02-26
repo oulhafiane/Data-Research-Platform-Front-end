@@ -67,6 +67,8 @@ class DropzoneExcel extends Component {
                 Drag & drop Excel file here,
                 <br />
                 Or click to select Excel file
+                <br />
+                .xlsx, .xls
               </p>
             </div>
             <aside
