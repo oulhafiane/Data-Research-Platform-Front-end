@@ -54,11 +54,10 @@ class MyDataSet extends React.Component {
       ? parseInt(localStorage.getItem(this.props.match.params.uuid))
       : 1,
     plainTabs: 1,
-    canvasGrid: undefined,
-  }
-  sendGridToParent = grid => {
-    console.log(grid)
-    this.setState({ canvasGrid: grid })
+    showData:
+      parseInt(localStorage.getItem(this.props.match.params.uuid)) === 3
+        ? true
+        : false,
   }
   saveTitle = (title, callBack, errCallBack) => {
     /* Need to save it in back-end */
@@ -396,13 +395,9 @@ class MyDataSet extends React.Component {
     e.preventDefault()
     localStorage.setItem(this.props.match.params.uuid, index)
     if (index === 2) this.refreshTokens()
-    if (index === 3) {
-      const canvas = this.state.canvasGrid.canvas
-      canvas.style.width = 'auto'
-      canvas.style.height = 'auto'
-    }
     this.setState({
       [state]: index,
+      showData: index === 3 ? true : false,
     })
   }
   componentDidMount() {
@@ -433,7 +428,6 @@ class MyDataSet extends React.Component {
       config,
     )
       .then(res => {
-        console.log(res.data)
         this.setState({
           data: res.data ? (res.data.data ? res.data.data : []) : [],
         })
@@ -448,7 +442,6 @@ class MyDataSet extends React.Component {
     }
   }
   render() {
-    console.log(this.state.dataset)
     return (
       <>
         {/* Page content */}
@@ -570,6 +563,7 @@ class MyDataSet extends React.Component {
                     <TabPane tabId="iconTabs3">
                       <Data
                         state={this.state}
+                        showData={this.state.showData}
                         sendGridToParent={this.sendGridToParent}
                       />
                     </TabPane>

@@ -90,6 +90,7 @@ class ModalCreateDataset extends React.Component {
     }
     Axios.post(`${DEFAULT_URL}api/current/dataset`, data, config)
       .then(res => {
+        this.props.toggleModal('defaultModal')
         this.props.history.push(`/data/mydataset/${res.data.extras.uuid}`)
       })
       .catch(error => {

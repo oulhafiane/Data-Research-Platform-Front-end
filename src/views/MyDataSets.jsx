@@ -139,7 +139,7 @@ class MyDataSets extends React.Component {
                         </Link>
                       </td>
                       <td>{value.description}</td>
-                      <td>{value.privacy === 0 ? 'PRIVATE' : 'PUBLIC'}</td>
+                      <td>{value.privacy === 1 ? 'PRIVATE' : 'PUBLIC'}</td>
                       <td>{value.creationDate}</td>
                       <td>{value.parts.length}</td>
                       <td>{value.fileExcel ? 'NO' : 'YES'}</td>

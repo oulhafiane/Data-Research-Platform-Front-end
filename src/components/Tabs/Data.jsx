@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react'
 // reactstrap components
-import { Row, Container } from "reactstrap";
-import ReactDOM from "react-dom";
+import { Row, Container } from 'reactstrap'
+import ReactDOM from 'react-dom'
 
 /*jslint browser: true, es6: true*/
 class CanvasDatagrid extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
   updateAttributes(nextProps) {
     Object.keys(this.props).forEach(key => {
@@ -14,46 +14,44 @@ class CanvasDatagrid extends React.Component {
         if (this.grid.attributes[key] !== undefined) {
           this.grid.attributes[key] = nextProps
             ? nextProps[key]
-            : this.props[key];
+            : this.props[key]
         } else {
-          this.grid[key] = nextProps ? nextProps[key] : this.props[key];
+          this.grid[key] = nextProps ? nextProps[key] : this.props[key]
         }
       }
-    });
+    })
   }
   componentWillReceiveProps(nextProps) {
-    this.updateAttributes(nextProps);
+    this.updateAttributes(nextProps)
   }
   shouldComponentUpdate() {
-    return false;
+    return false
   }
   componentWillUnmount() {
-    this.grid.dispose();
+    this.grid.dispose()
   }
   componentDidMount() {
-    var args = {};
-    this.grid = ReactDOM.findDOMNode(this);
-    this.props.sendGridToParent(this.grid);
-    this.updateAttributes();
+    var args = {}
+    this.grid = ReactDOM.findDOMNode(this)
+    this.updateAttributes()
   }
   render() {
-    return React.createElement("canvas-datagrid", {});
+    return React.createElement('canvas-datagrid', {})
   }
 }
 
 class Data extends React.Component {
   render() {
     return (
-      <Row style={{ marginBottom: "1rem" }}>
+      <Row style={{ marginBottom: '1rem' }}>
         <div className="scrollbar scrollbar-custom">
-          <CanvasDatagrid
-            data={this.props.state.data}
-            sendGridToParent={this.props.sendGridToParent}
-          />
+          {this.props.showData === true ? (
+            <CanvasDatagrid data={this.props.state.data} />
+          ) : null}
         </div>
       </Row>
-    );
+    )
   }
 }
 
-export default Data;
+export default Data
