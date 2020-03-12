@@ -1,50 +1,50 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 // reactstrap components
-import { Alert } from "reactstrap";
+import { Alert } from 'reactstrap'
 
 class DropzoneExcel extends Component {
-  state = { hightlight: false };
+  state = { hightlight: false }
 
   constructor(props) {
-    super(props);
-    this.fileInputRef = React.createRef();
+    super(props)
+    this.fileInputRef = React.createRef()
   }
 
   openFileDialog = () => {
-    this.fileInputRef.current.click();
-  };
+    this.fileInputRef.current.click()
+  }
 
   onDragOver = e => {
-    e.preventDefault();
-    this.setState({ hightlight: true });
-  };
+    e.preventDefault()
+    this.setState({ hightlight: true })
+  }
 
   onDragLeave = () => {
-    this.setState({ hightlight: false });
-  };
+    this.setState({ hightlight: false })
+  }
 
   onDrop = e => {
-    e.preventDefault();
-    const files = e.dataTransfer.files;
+    e.preventDefault()
+    const files = e.dataTransfer.files
     if (this.props.onFilesAdded) {
-      const array = this.fileListToArray(files);
-      this.props.onFilesAdded(array);
+      const array = this.fileListToArray(files)
+      this.props.onFilesAdded(array)
     }
-    this.setState({ hightlight: false });
-  };
+    this.setState({ hightlight: false })
+  }
 
   onFilesAdded = e => {
-    const files = e.target.files;
+    const files = e.target.files
     if (this.props.onFilesAdded) {
-      this.props.onFilesAdded(files[0]);
+      this.props.onFilesAdded(files[0])
     }
-  };
+  }
 
   render() {
     return (
       <>
         <div
-          className={`Dropzone ${this.state.hightlight ? "Highlight" : ""}`}
+          className={`Dropzone ${this.state.hightlight ? 'Highlight' : ''}`}
           onDragOver={this.onDragOver}
           onDragLeave={this.onDragLeave}
           onDrop={this.onDrop}
@@ -61,9 +61,9 @@ class DropzoneExcel extends Component {
                 type="file"
                 autoComplete="off"
                 tabIndex="-1"
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
               />
-              <p style={{ marginBottom: "-1rem" }}>
+              <p style={{ marginBottom: '-1rem' }}>
                 Drag & drop Excel file here,
                 <br />
                 Or click to select Excel file
@@ -73,14 +73,14 @@ class DropzoneExcel extends Component {
             </div>
             <aside
               style={{
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "15px",
-                marginBottom: "15px",
-                backgroundColor: "rgba(0,0,0,0.25)"
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginLeft: '15px',
+                marginBottom: '15px',
+                backgroundColor: 'rgba(0,0,0,0.25)',
               }}
             >
               {this.props.fileExcel.file
@@ -89,9 +89,9 @@ class DropzoneExcel extends Component {
             </aside>
           </section>
         </div>
-        <Alert color="warning" style={{ marginTop: "20px" }}>
-          <span class="alert-inner--icon">
-            <i class="ni ni-bell-55"></i>
+        <Alert color="warning" style={{ marginTop: '20px' }}>
+          <span className="alert-inner--icon">
+            <i className="ni ni-bell-55"></i>
           </span>
           <strong>Important Notice!</strong> <br /> Make sure all columns are
           defined, without collapsing or grouping (the file must have a table
@@ -100,8 +100,8 @@ class DropzoneExcel extends Component {
           spreadsheets.
         </Alert>
       </>
-    );
+    )
   }
 }
 
-export default DropzoneExcel;
+export default DropzoneExcel
