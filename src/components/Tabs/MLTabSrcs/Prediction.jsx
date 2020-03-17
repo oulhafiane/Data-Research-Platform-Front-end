@@ -1,5 +1,7 @@
 import React, { forwardRef } from 'react';
 import MaterialTable from 'material-table';
+import Axios from "axios";
+import { DEFAULT_URL } from "../../../config";
 import { Button } from 'reactstrap';
 import Grid from '@material-ui/core/Grid';
 import AddBox from '@material-ui/icons/AddBox';
@@ -17,6 +19,8 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import MlResult from './MlResult';
+
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -45,96 +49,107 @@ class EditableTable extends React.Component {
             { title: 'Birth Year', field: 'birthYear' },
         ],
         data: [],
+        MlBoolean: false,
     };
     send_data = () => {
         const { data } = this.state;
         let array = []
-        let tmp = null
-
         data.forEach((elem) => {
-            delete elem['tableData'];
-            console.log("tmp ==> ", elem)
             if (array.length == 0) {
                 array = [elem]
             } else if (array.length > 0) {
                 array = [...array, elem]
             }
-            console.log("array ==> ", array)
         })
+        console.log("array ==> ", array)
+        const config = {
+            headers: { Authorization: "bearer " + this.state.token }
+        };
+        Axios.post(
+            `${DEFAULT_URL}api/current/update_photo`,
+            {
+                modelname: 'model',
+                selectedFeature: { array },
+                selectedTarget: { "name": "I" }
+            },
+            config
+        )
+            .then(res => {
+                this.setState({ MlBoolean: true })
+            })
+            .catch(error => {
+                this.setState({ MlBoolean: true })
+            });
     }
-    // componentDidUpdate() {
-    //     console.log("data =====> ", this.state.data)
-    //     this.state.data.map((elem) => {
-    //         console.log("elem ==> ", elem);
-    //     })
-    // }
     render() {
-        const { data, columns } = this.state;
+        const { data, columns, MlBoolean } = this.state;
         return (
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <MaterialTable
-                        icons={tableIcons}
-                        title="table"
-                        columns={columns}
-                        data={data}
-                        editable={{
-                            onRowAdd: newData =>
-                                new Promise(resolve => {
-                                    setTimeout(() => {
-                                        resolve();
-                                        this.setState(prevState => {
-                                            const data = [...prevState.data];
-                                            data.push(newData);
-                                            return { ...prevState, data };
-                                        });
-                                    }, 600);
-                                }),
-                            onRowUpdate: (newData, oldData) =>
-                                new Promise(resolve => {
-                                    setTimeout(() => {
-                                        resolve();
-                                        if (oldData) {
+            <>
+                {!MlBoolean ? (<Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <MaterialTable
+                            icons={tableIcons}
+                            title="table"
+                            columns={columns}
+                            data={data}
+                            editable={{
+                                onRowAdd: newData =>
+                                    new Promise(resolve => {
+                                        setTimeout(() => {
+                                            resolve();
                                             this.setState(prevState => {
                                                 const data = [...prevState.data];
-                                                data[data.indexOf(oldData)] = newData;
+                                                data.push(newData);
                                                 return { ...prevState, data };
                                             });
-                                        }
-                                    }, 600);
-                                }),
-                            onRowDelete: oldData =>
-                                new Promise(resolve => {
-                                    setTimeout(() => {
-                                        resolve();
-                                        this.setState(prevState => {
-                                            const data = [...prevState.data];
-                                            data.splice(data.indexOf(oldData), 1);
-                                            return { ...prevState, data };
-                                        });
-                                    }, 600);
-                                }),
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <Button
-                        color="primary"
-                        style={{ float: 'right', marginLeft: 30 }}
-                        onClick={
-                            this.send_data
-                        }
-                    >
-                        Predict
+                                        }, 600);
+                                    }),
+                                onRowUpdate: (newData, oldData) =>
+                                    new Promise(resolve => {
+                                        setTimeout(() => {
+                                            resolve();
+                                            if (oldData) {
+                                                this.setState(prevState => {
+                                                    const data = [...prevState.data];
+                                                    data[data.indexOf(oldData)] = newData;
+                                                    return { ...prevState, data };
+                                                });
+                                            }
+                                        }, 600);
+                                    }),
+                                onRowDelete: oldData =>
+                                    new Promise(resolve => {
+                                        setTimeout(() => {
+                                            resolve();
+                                            this.setState(prevState => {
+                                                const data = [...prevState.data];
+                                                data.splice(data.indexOf(oldData), 1);
+                                                return { ...prevState, data };
+                                            });
+                                        }, 600);
+                                    }),
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            color="primary"
+                            style={{ float: 'right', marginLeft: 30 }}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                this.send_data()
+                            }
+                            }
+                        >
+                            Predict
                     </Button>
-                    <Button
-                        color="success"
-                        style={{ float: 'right' }}
-                    >
-                        Export
-                    </Button>
-                </Grid>
-            </Grid>
+                    </Grid>
+                </Grid>) :
+                    <>
+                        <MlResult />
+                    </>
+                }
+            </>
         )
     }
 }

@@ -505,35 +505,18 @@ class MachineLearning extends React.Component {
                           <DropdownMenu className="dropdown-menu-arrow" right>
                             <DropdownItem
                               href="#pablo"
-                              onClick={() => {
-                                const url = `${ML_URL}tmp/4deb0c2e-cd53-4d77-a612-a0d23893e423`
-                                console.log({ url: url })
-                                Axios.get(url, {
-                                  method: 'GET',
-                                  headers: {
-                                    'Content-Type': 'application/json',
-                                    'Access-Control-Allow-Origin': '*'
-                                  },
-                                  data: { data: 'data' }
-                                })
-                                  .then(res => {
-                                    console.log({ res: res })
-                                  })
-                                  .catch(err => {
-                                    console.log({ err: err })
-                                  })
-                              }
-                              }
-                            >
-                              Download
-                        </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
                               onClick={() => this.setState({
                                 showTb: true
                               })}
                             >
                               Prediction
+                        </DropdownItem>
+                            <DropdownItem
+                              href="#pablo"
+                              onClick={() => {
+                              }}
+                            >
+                              Download
                         </DropdownItem>
                             <DropdownItem
                               href="#pablo"
