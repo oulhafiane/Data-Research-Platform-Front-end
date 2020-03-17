@@ -1,4 +1,4 @@
-export const DEFAULT_URL = "http://127.0.0.1:8000/";
+export const DEFAULT_URL = "https://impactree.um6p.ma/";
 export const ML_URL = "http://127.0.0.1:5000/api/v1/";
 // export const DEFAULT_URL = "http://Wastetoresources-env.5aqp9mu79y.eu-west-3.elasticbeanstalk.com/";
 export const TYPES_DATA = [
