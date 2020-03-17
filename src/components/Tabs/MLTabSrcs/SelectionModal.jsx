@@ -87,13 +87,14 @@ class SelectionModal extends Component {
                             color="primary"
                             onClick={() => {
                                 createModel()
-                                    .then(res => {
-                                        window.scrollTo(0, 0)
-                                        toggle(1)
-                                    })
-                                    .catch(err => {
-                                        window.scrollTo(0, 0)
-                                    })
+                                // toggle(1)
+                                // .then(res => {
+                                //     window.scrollTo(0, 0)
+                                //     toggle(1)
+                                // })
+                                // .catch(err => {
+                                //     window.scrollTo(0, 0)
+                                // })
                             }}
                         >
                             Done

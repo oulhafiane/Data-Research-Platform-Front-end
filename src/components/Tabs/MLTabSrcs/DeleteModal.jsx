@@ -14,7 +14,7 @@ class DeleteModal extends Component {
             boolean,
             toggle
         } = this.props
-        console.log("toggle ==> ", boolean)
+        // console.log("toggle ==> ", boolean)
         return (
             <Container>
                 <Modal
