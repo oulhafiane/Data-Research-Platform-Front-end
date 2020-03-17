@@ -4,11 +4,8 @@ import {
     Modal,
     Button,
 } from "reactstrap"
-import Select from 'react-select';
-import Checkbox from '@material-ui/core/Checkbox';
 
 class DeleteModal extends Component {
-
     render() {
         const {
             boolean,
