@@ -122,7 +122,7 @@ class AuthFooter extends React.Component {
                     </NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="https://impactree.um6p.ma/privacy_policy.pdf">Mobile App Privacy Policy</NavLink>
+                    <NavLink href="https://impactree.um6p.ma/privacy_policy.html">Mobile App Privacy Policy</NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink href="/landing/index#about-us">About Us</NavLink>
