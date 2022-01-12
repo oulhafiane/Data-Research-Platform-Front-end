@@ -12,9 +12,9 @@ and also it helps them in their research by giving them necessary tools to colle
 
 ## Technologies Used
 
-This is the frontend part of the project using the framework: ReactNative(Javascript)
+This is the Frontend part of the project using the framework: ReactJS(Javascript)
 
-For the front-end check [this link](https://github.com/oulhafiane/Data-Research-Platform/)
+For the Backend check [this link](https://github.com/oulhafiane/Data-Research-Platform/)
 
 
 ## Available Scripts
