@@ -16,6 +16,9 @@ This is the Frontend part of the project using the framework: ReactJS(Javascript
 
 For the Backend check [this link](https://github.com/oulhafiane/Data-Research-Platform/)
 
+## Video about the project
+
+[![1337-42-Fillit](https://raw.githubusercontent.com/oulhafiane/Data-Research-Platform-Front-end/master/src/assets/img/Screen%20Shot%202022-01-16%20at%203.27.46%20PM.png)](https://www.youtube.com/watch?v=MoI36nmzWmo&feature=youtu.be)
 
 ## Available Scripts
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
